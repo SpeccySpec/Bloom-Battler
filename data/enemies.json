@@ -1,0 +1,1613 @@
+{
+    "Batkan": {
+        "level": 999,
+        "boss": true,
+        "hp": 10000,
+        "mp": 99999,
+        "atk": 50,
+        "mag": 50,
+        "prc": 50,
+        "end": 10,
+        "chr": 10,
+        "int": 10,
+        "agl": 10,
+        "luk": 10,
+        "melee": [ "Strike Attack", "strike" ],
+        "skills": [ "Megidolaon", "God'sHand", "BlackViper", "ElusionCounterattack" ],
+
+        "weak": [],
+        "resist": [],
+        "block": [],
+        "repel": [],
+        "drain": [],
+
+        "journal": "The strongest being there is. Defeat them and take their place.",
+        "dreams": [
+            "Hmhmhm. Children.",
+            "I'm unbeatable.",
+            "Fear me.",
+            "Opposing me is idiotic."
+        ],
+
+        "awardxp": 6823943
+    },
+    "god": {
+        "level": 999,
+        "boss": true,
+        "diety": true,
+        "hp": 9999,
+        "mp": 9999,
+        "atk": 10,
+        "mag": 10,
+        "prc": 10,
+        "end": 99,
+        "chr": 10,
+        "int": 10,
+        "agl": 10,
+        "luk": 10,
+        "melee": [ "Trident", "pierce" ],
+        "skills": ["Maragi", "Mabufu", "Malaqua", "Mazio", "Magaru", "Matera", "Mahana", "Mapsi", "Madoku", "Majino", "Mafrei", "Maeiha", "Makouha"],
+
+        "weak": [],
+        "resist": [],
+        "block": [],
+        "repel": [],
+        "drain": [],
+
+        "journal": "He's definitely holding back.",
+        "dreams": [],
+
+        "awardxp": 1
+    },
+    "EggmanNega": {
+        "level": 20,
+        "boss": true,
+        "hp": 1500,
+        "mp": 786,
+        "atk": 15,
+        "mag": 29,
+        "prc": 10,
+        "end": 13,
+        "chr": 16,
+        "int": 15,
+        "agl": 13,
+        "luk": 19,
+        "melee": [ "Strike Attack", "strike" ],
+        "skills": [ "AssaultDive", "MissileBlows", "ArrowRaid", "Dokusei" ],
+
+        "weak": [ "strike", "nuclear" ],
+        "resist": [ "fire", "slash" ],
+        "block": [ "pierce" ],
+        "repel": [ "curse" ],
+        "drain": [],
+
+        "journal": "Eggman Nega. Just Eggman Nega.",
+        "dreams": [
+            "..."
+        ],
+
+        "awardxp": 900
+    },
+    "Miniscle": {
+        "level": 5,
+        "hp": 100,
+        "mp": 30,
+        "atk": 5,
+        "mag": 4,
+        "prc": 10,
+        "end": 5,
+        "chr": 3,
+        "int": 2,
+        "agl": 3,
+        "luk": 7,
+        "melee": [ "Strike Attack", "strike" ],
+        "skills": [ "Garu", "Bufu", "FreezingAir" ],
+
+        "weak": [ "fire", "slash", "earth" ],
+        "resist": [ "water" ],
+        "block": [ "ice" ],
+        "repel": [],
+        "drain": [],
+
+        "image": "miniscle.png",
+        "journal": "Attacks in groups, persuing those they feel are dangerous to them.",
+        "dreams": [
+            "...Danger...",
+            "...Fear ... Fear...",
+            "...Stand... ground...",
+            "...Can't... run..."
+        ],
+
+        "awardxp": 30
+    },
+    "Moltescle": {
+        "level": 5,
+        "hp": 100,
+        "mp": 30,
+        "atk": 2,
+        "mag": 7,
+        "prc": 4,
+        "end": 4,
+        "chr": 1,
+        "int": 4,
+        "agl": 6,
+        "luk": 4,
+        "melee": [ "Strike Attack", "strike" ],
+        "skills": [ "Agilao", "Maragi", "MoltenBody" ],
+
+        "weak": [ "water" ],
+        "resist": [ "ice" ],
+        "block": [],
+        "repel": [],
+        "drain": [ "fire" ],
+
+        "image": "moltescle.png",
+        "journal": "Attacks in groups, fleeing if they are wounded.",
+        "dreams": [
+            "...Scary... Scary...",
+            "...Fear... Fear...",
+            "...Stand... ground...",
+            "...Can't... run..."
+        ],
+
+        "awardxp": 30
+    },
+    "Murk": {
+        "level": 15,
+        "hp": 650,
+        "mp": 250,
+        "atk": 9,
+        "mag": 10,
+        "prc": 7,
+        "end": 12,
+        "chr": 6,
+        "int": 10,
+        "agl": 6,
+        "luk": 5,
+        "melee": [ "Slash Attack", "slash" ],
+        "skills": [ "ImpalingArm", "CursedBlast", "VoraciousLeech" ],
+
+        "weak": [ "fire", "slash" ],
+        "resist": [ "water" ],
+        "block": [ "ice" ],
+        "repel": [],
+        "drain": [ "curse" ],
+
+        "image": "murk.png",
+        "journal": "Past lives are imprinted on this world in one way or another. Methods of fighting are often those of lives past, and the number they attack in are affected by that aswell. These are often extremely strong, so fighting these is for those who are willing to take on the challenge.",
+        "dreams": [
+            "..."
+        ],
+
+        "awardxp": 360
+    },
+    "Shimite": {
+        "level": 8,
+        "hp": 60,
+        "mp": 30,
+        "atk": 7,
+        "mag": 14,
+        "prc": 7,
+        "end": 10,
+        "chr": 3,
+        "int": 5,
+        "agl": 5,
+        "luk": 8,
+        "melee": [ "Pierce Attack", "pierce" ],
+        "skills": [ "ThornGem", "CrystalLazer" ],
+
+        "weak": [ "fire", "curse" ],
+        "resist": [ "ice", "bless" ],
+        "block": [ "pierce" ],
+        "repel": [ "strike" ],
+        "drain": [ "psychic" ],
+
+        "image": "shimite.png",
+        "journal": "Attacks in large groups. They always have backup if they're in danger. It feeds on crystals to get stronger.",
+        "dreams": [
+            "...Food... Food...",
+            "...Crystals...",
+            "...Shiny...",
+            "...Scary... Scary..."
+        ],
+
+        "awardxp": 50
+    },
+    "Glimbat": {
+        "level": 9,
+        "hp": 120,
+        "mp": 75,
+        "atk": 9,
+        "mag": 11,
+        "prc": 9,
+        "end": 8,
+        "chr": 5,
+        "int": 3,
+        "agl": 7,
+        "luk": 9,
+        "melee": [ "Pierce Attack", "pierce" ],
+        "skills": [ "Lunge", "GemJab", "CrystalLazer" ],
+
+        "weak": [ "electric" ],
+        "resist": [ "wind", "psychic" ],
+        "block": [],
+        "repel": [ "bless" ],
+        "drain": [],
+
+        "journal": "Attacks alone, but will freely accept help from it's allies.",
+        "dreams": [
+            "...Food... Food...",
+            "...Crystals...",
+            "...Shiny...",
+            "...Scary... Scary..."
+        ],
+
+        "awardxp": 70
+    },
+    "Sacriful": {
+        "level": 10,
+        "hp": 100,
+        "mp": 80,
+        "atk": 16,
+        "mag": 16,
+        "prc": 16,
+        "end": 20,
+        "chr": 16,
+        "int": 16,
+        "agl": 16,
+        "luk": 16,
+        "melee": [ "Strike Attack", "strike" ],
+        "skills": [ "SoulSacrifice" ],
+
+        "weak": [],
+        "resist": [],
+        "block": [],
+        "repel": [],
+        "drain": [],
+
+        "journal": "A sacrificial monster that will happilly give it's life to protect others, friend or foe.",
+        "dreams": [
+            "...Die... Die...",
+            "...End... it..."
+        ],
+
+        "awardxp": 20
+    },
+    "GlowingCrystal": {
+        "level": 15,
+        "boss": true,
+        "hp": 584,
+        "mp": 183,
+        "atk": 17,
+        "mag": 12,
+        "prc": 10,
+        "end": 9,
+        "chr": 6,
+        "int": 6,
+        "agl": 7,
+        "luk": 10,
+        "melee": [ "Pierce Attack", "pierce" ],
+        "skills": [ "Psiodyne", "ThornGem", "Impulse" ],
+
+        "weak": [ "fire" ],
+        "resist": [ "bless", "curse" ],
+        "block": [],
+        "repel": [ "strike" ],
+        "drain": [],
+
+        "journal": "Often in solutude, this monster creeps around the Crystal Mountain, hunting for prey. Usually this is Shimite but not always.",
+        "dreams": [
+            "...Away... Away...",
+            "...Please... Leave...",
+            "...Too... Powerful...",
+            "...Can't... Run...",
+            "...Pain... Pain..."
+        ],
+
+        "awardxp": 600
+    },
+    "Mosstone": {
+        "level": 11,
+        "hp": 160,
+        "mp": 100,
+        "atk": 16,
+        "mag": 13,
+        "prc": 10,
+        "end": 20,
+        "chr": 13,
+        "int": 16,
+        "agl": 12,
+        "luk": 10,
+        "melee": [ "Strike Attack", "strike" ],
+        "skills": [ "SonicPunch", "RockThrow", "VineLash" ],
+
+        "weak": [ "water", "wind" ],
+        "resist": [ "grass", "psychic" ],
+        "block": [],
+        "repel": [],
+        "drain": [ "earth" ],
+
+        "journal": "A mossy creature, reanimated by the force of something within the forest. It has no wills, no goals, it just hunts prey.",
+        "dreams": [
+            "...Food... Food..."
+        ],
+        "awardxp": 89
+    },
+    "Grassimp": {
+        "level": 14,
+        "hp": 200,
+        "mp": 100,
+        "atk": 18,
+        "mag": 18,
+        "prc": 16,
+        "end": 19,
+        "chr": 11,
+        "int": 12,
+        "agl": 12,
+        "luk": 17,
+        "melee": [ "Strike Attack", "strike" ],
+        "skills": [ "Hanama", "Mahana", "Magna", "Lunge", "Media" ],
+
+        "weak": [ "fire" ],
+        "resist": [],
+        "block": [],
+        "repel": [],
+        "drain": [],
+
+        "image": "grassimp.png",
+        "journal": "Defenseless bug that hides under bushes. They warm up to other people very quickly, and never intend to hurt others. They love being held & pet, and nuzzle others to show their trust.",
+        "dreams": [
+            "...Food... Food...",
+            "...Scary... Scary...",
+            "...Run... Run...",
+            "...Find... Shelter..."
+        ],
+
+        "awardxp": 1252
+    },
+    "Mossimp": {
+        "level": 26,
+        "hp": 320,
+        "mp": 100,
+        "atk": 23,
+        "mag": 21,
+        "prc": 19,
+        "end": 23,
+        "chr": 13,
+        "int": 18,
+        "agl": 21,
+        "luk": 23,
+        "melee": [ "Strike Attack", "strike" ],
+        "skills": [ "Hanama", "Mahana", "LeafStorm", "Charge" ],
+
+        "weak": [ "fire", "slash" ],
+        "resist": [ "grass" ],
+        "block": [ "pierce" ],
+        "repel": [],
+        "drain": [ "water" ],
+
+        "journal": "A bunch of Grassimps piled together. They're found primarily in swamps, they huddle together for warmth and safety.",
+        "dreams": [
+            "...Teamwork..."
+        ],
+
+        "awardxp": 5314
+    },
+    "GreatMossimp": {
+        "level": 33,
+		"boss": true,
+        "hp": 1200,
+        "mp": 540,
+        "atk": 25,
+        "mag": 23,
+        "prc": 20,
+        "end": 27,
+        "chr": 18,
+        "int": 20,
+        "agl": 23,
+        "luk": 25,
+        "melee": [ "Strike Attack", "strike" ],
+        "skills": [ "Hanamadyne", "Mahanama", "LeafStorm", "Chase", "Charge", "AssaultDive" ],
+
+        "weak": [ "fire" ],
+        "resist": [ "grass", "ice" ],
+        "block": [ "pierce" ],
+        "repel": [],
+        "drain": [ "water" ],
+
+        "journal": "A bunch of Grassimps piled together. They're found primarily in swamps, they huddle together for warmth and safety.",
+        "dreams": [
+            "...Teamwork..."
+        ],
+
+        "awardxp": 12251
+    },
+    "Mosscreep": {
+        "level": 23,
+        "hp": 210,
+        "mp": 90,
+        "atk": 23,
+        "mag": 21,
+        "prc": 19,
+        "end": 23,
+        "chr": 13,
+        "int": 18,
+        "agl": 21,
+        "luk": 23,
+        "melee": [ "Strike Attack", "strike" ],
+        "skills": [ "Hanama", "LeafStorm", "SonicPunch", "Snap", "BodySlam", "RockThrow" ],
+
+        "weak": [ "fire", "poison" ],
+        "resist": [ "water" ],
+        "block": [],
+        "repel": [],
+        "drain": [],
+
+        "journal": "A Mossstone that tries to disguise itself as a Grassimp to get away from trouble. It even teaches itself basic Grassimp Moves to fare in the wild.",
+        "dreams": [
+            "...Teamwork..."
+        ],
+
+        "awardxp": 1242
+    },
+    "Mosstone": {
+        "level": 11,
+        "hp": 200,
+        "mp": 100,
+        "atk": 16,
+        "mag": 13,
+        "prc": 10,
+        "end": 20,
+        "chr": 13,
+        "int": 16,
+        "agl": 12,
+        "luk": 10,
+        "melee": [ "Strike Attack", "strike" ],
+        "skills": [ "SonicPunch", "RockThrow", "VineLash" ],
+
+        "weak": [ "water", "wind" ],
+        "resist": [ "grass", "psychic" ],
+        "block": [],
+        "repel": [],
+        "drain": [ "earth" ],
+
+        "journal": "A mossy rock creature, reanimated by force. It has no wills, no goals, it just hunts prey.",
+        "dreams": [
+            "...Food... Food..."
+        ],
+        "awardxp": 2532
+    },
+    "Reactite": {
+        "level": 10,
+        "hp": 100,
+        "mp": 50,
+        "atk": 10,
+        "mag": 15,
+        "prc": 15,
+        "end": 13,
+        "chr": 12,
+        "int": 17,
+        "agl": 13,
+        "luk": 15,
+        "melee": [ "Strike Attack", "strike" ],
+        "skills": [ "Lunge" ],
+
+        "weak": [ "strike" ],
+        "resist": [],
+        "block": [],
+        "repel": [],
+        "drain": [],
+
+        "journal": "Small bug-like creature reanimated by the force of something within the forest. It runs away from anything that harms it.",
+        "dreams": [
+            "...Light..."
+        ],
+        "awardxp": 1192
+    },
+    "Mossknight": {
+        "level": 15,
+        "hp": 765,
+        "mp": 536,
+        "atk": 24,
+        "mag": 16,
+        "prc": 20,
+        "end": 17,
+        "chr": 18,
+        "int": 14,
+        "agl": 8,
+        "luk": 10,
+        "melee": [ "Slash Attack", "slash" ],
+        "skills": [ "SonicPunch", "GiantSlice", "RockThrow", "Engarde" ],
+
+        "weak": [ "psychic" ],
+        "resist": [ "grass", "wind" ],
+        "block": [ "slash", "pierce" ],
+        "repel": [ "strike" ],
+        "drain": [],
+
+        "journal": "A mossy creature, reanimated by the force of something within the forest. A skilled knight with the ability to pierce through anything it sees fit. Supposedly guarding that 'something'.",
+        "dreams": [
+            "...Light..."
+        ],
+
+        "awardxp": 1201
+    },
+    "VolatileMiniscle": {
+        "level": 12,
+        "hp": 150,
+        "mp": 193,
+        "atk": 10,
+        "mag": 18,
+        "prc": 15,
+        "end": 10,
+        "chr": 12,
+        "int": 14,
+        "agl": 13,
+        "luk": 18,
+        "melee": [ "Infectious Strike", "strike" ],
+        "skills": [ "Garula", "Bufula", "InfectiousOutbreak" ],
+
+        "weak": [ "fire", "slash", "earth" ],
+        "resist": [ "water" ],
+        "block": [ "ice" ],
+        "repel": [],
+        "drain": [],
+
+        "journal": "A poor Miniscle overcome by infection. In this form, it strikes without the ability to control itself.",
+        "dreams": [
+            "...Light..."
+        ],
+
+        "awardxp": 3536
+    },
+    "FuriousMoltescle": {
+        "level": 15,
+        "hp": 160,
+        "mp": 30,
+        "atk": 12,
+        "mag": 19,
+        "prc": 14,
+        "end": 9,
+        "chr": 10,
+        "int": 12,
+        "agl": 15,
+        "luk": 12,
+        "melee": [ "Strike Attack", "strike" ],
+        "skills": [ "Agilao", "ExplosiveCharge" ],
+
+        "weak": [ "water" ],
+        "resist": [ "ice" ],
+        "block": [],
+        "repel": [],
+        "drain": [ "fire" ],
+
+        "journal": "A poor Moltescle, overcome by infection. It charges at it's foes and explodes.",
+        "dreams": [
+            "...Light..."
+        ],
+
+        "awardxp": 3253
+    },
+    "MeltingShimite": {
+        "level": 14,
+        "hp": 200,
+        "mp": 87,
+        "atk": 10,
+        "mag": 17,
+        "prc": 15,
+        "end": 15,
+        "chr": 14,
+        "int": 12,
+        "agl": 17,
+        "luk": 10,
+        "melee": [ "Pierce Attack", "pierce" ],
+        "skills": [ "CrystalPierce", "CrystalLightshow" ],
+
+        "weak": [ "curse", "water" ],
+        "resist": [ "ice", "fire" ],
+        "block": [ "pierce" ],
+        "repel": [ "strike", "psychic" ],
+        "drain": [ "bless" ],
+
+        "journal": "A poor Shimite, overcome by infection. It's crystals are melting as it attacks, it won't live for much longer, so better to put it out of it's suffering now.",
+        "dreams": [
+            "...Light..."
+        ],
+
+        "awardxp": 4000
+    },
+    "DestructiveGrassimp": {
+        "level": 15,
+        "hp": 180,
+        "mp": 86,
+        "atk": 17,
+        "mag": 15,
+        "prc": 12,
+        "end": 20,
+        "chr": 16,
+        "int": 14,
+        "agl": 10,
+        "luk": 18,
+        "melee": [ "Strike Attack", "strike" ],
+        "skills": [ "VineLash", "SpikyThorns", "Confusion" ],
+
+        "weak": [ "fire" ],
+        "resist": [],
+        "block": [],
+        "repel": [],
+        "drain": [],
+
+        "journal": "A poor Grassimp, overcome by infection. It impressively went from weak and frail to strong and tanky. Be careful when dealing with it's skills..",
+        "dreams": [
+            "...Light..."
+        ],
+
+        "awardxp": 4664
+    },
+    "VolatileMosstone": {
+        "level": 16,
+        "hp": 210,
+        "mp": 210,
+        "atk": 20,
+        "mag": 21,
+        "prc": 18,
+        "end": 26,
+        "chr": 20,
+        "int": 19,
+        "agl": 16,
+        "luk": 18,
+        "melee": [ "Strike Attack", "strike" ],
+        "skills": [ "SonicPunch", "RockThrow", "VineLash", "InfectiousOutbreak", "GooDrench" ],
+
+        "weak": [ "water", "wind" ],
+        "resist": [ "grass", "psychic" ],
+        "block": [],
+        "repel": [],
+        "drain": [ "earth" ],
+
+        "journal": "A mossy creature, reanimated by the force of something within the forest. It has no wills, no goals, it just hunts prey.",
+        "dreams": [
+            "...Food... Food..."
+        ],
+        "awardxp": 3632
+    },
+    "Folly": {
+        "level": 12,
+        "hp": 140,
+        "mp": 70,
+        "atk": 7,
+        "mag": 10,
+        "prc": 7,
+        "end": 7,
+        "chr": 7,
+        "int": 7,
+        "agl": 7,
+        "luk": 7,
+        "melee": [ "Strike Attack", "strike" ],
+        "skills": [ "SonicPunch" ],
+
+        "weak": [ "water" ],
+        "resist": [ "curse", "psy" ],
+        "block": [],
+        "repel": [],
+        "drain": [],
+
+        "journal": "A foolish ghost manifested by infection. \nIt flies towards it's prey, and attacks with hard hitting strikes.",
+        "dreams": [
+            "...Light..."
+        ],
+
+        "awardxp": 2000
+    },
+    "Enigstone": {
+        "level": 13,
+        "hp": 164,
+        "mp": 99,
+        "atk": 18,
+        "mag": 18,
+        "prc": 13,
+        "end": 22,
+        "chr": 9,
+        "int": 10,
+        "agl": 10,
+        "luk": 19,
+        "melee": [ "Strike Attack", "strike" ],
+        "skills": [ "RockThrow", "AssaultDive" ],
+
+        "weak": [ "water", "wind" ],
+        "resist": [ "earth" ],
+        "block": [ "fire" ],
+        "repel": [],
+        "drain": [],
+
+        "journal": "An animate stone, usually mild in nature. Usually found on mountains.",
+        "dreams": [
+            "...Calm... ...Calm...",
+            "...Sleep... ...Sleep...",
+            "...Tired... ...Tired...",
+            "...Stones... ...Stones...",
+            "...Heights... ...Heights...",
+            "...Danger... ...Danger..."
+        ],
+
+        "awardxp": 2124
+    },
+    "ViolentEnigstone": {
+        "level": 15,
+        "hp": 312,
+        "mp": 145,
+        "atk": 17,
+        "mag": 10,
+        "prc": 17,
+        "end": 19,
+        "chr": 10,
+        "int": 10,
+        "agl": 10,
+        "luk": 11,
+        "melee": [ "Strike Attack", "strike" ],
+        "skills": [ "RockDrive", "AssaultDive", "Avalanche", "RollingRock" ],
+
+        "weak": [ "water", "wind" ],
+        "resist": [ "earth" ],
+        "block": [ "fire" ],
+        "repel": [],
+        "drain": [],
+
+        "journal": "A poor Enigstone, overcome with infection. They have been made really agressive, and charge at their foes with no control.",
+        "dreams": [
+            "...Light..."
+        ],
+
+        "awardxp": 3234
+    },
+    "Mystone": {
+        "level": 15,
+        "hp": 250,
+        "mp": 153,
+        "atk": 12,
+        "mag": 19,
+        "prc": 19,
+        "end": 20,
+        "chr": 13,
+        "int": 15,
+        "agl": 12,
+        "luk": 20,
+        "melee": [ "Strike Attack", "strike" ],
+        "skills": [ "DrainingMist", "ConfusingMist", "ExplosiveMist" ],
+
+        "weak": [ "water", "wind", "slash" ],
+        "resist": [ "psychic" ],
+        "block": [ "fire" ],
+        "repel": [],
+        "drain": [],
+
+        "journal": "An animate stone, usually mild in nature. Usually found on mountains.",
+        "dreams": [
+            "...Calm... ...Calm...",
+            "...Sleep... ...Sleep...",
+            "...Tired... ...Tired...",
+            "...Stones... ...Stones...",
+            "...Heights... ...Heights...",
+            "...Danger... ...Danger..."
+        ],
+
+        "awardxp": 4533
+    },
+    "Nymbulous": {
+        "level": 17,
+        "boss": true,
+        "hp": 1000,
+        "mp": 697,
+        "atk": 15,
+        "mag": 23,
+        "prc": 23,
+        "end": 16,
+        "chr": 18,
+        "int": 19,
+        "agl": 23,
+        "luk": 21,
+        "melee": [ "Slash Attack", "slash" ],
+        "skills": [ "DrainingMist", "ConfusingMist", "ExplosiveMist", "Thunder", "Thunderstorm", "Rainfall" ],
+
+        "weak": [ "fire", "psychic", "poison", "slash" ],
+        "resist": [ "water", "wind" ],
+        "block": [],
+        "repel": [],
+        "drain": [ "electric" ],
+
+        "journal": "An animate cloud, very agressive in nature. They like to mimic clouds, and strike their foes with lightning from the sky.",
+        "dreams": [
+            "...Anger... ...Anger...",
+            "...Sleep... ...Sleep...",
+            "...Tired... ...Tired...",
+            "...Stones... ...Stones...",
+            "...Heights... ...Heights...",
+            "...Danger... ...Danger..."
+        ],
+
+        "awardxp": 14532
+    },
+    "Sandmound": {
+        "level": 16,
+        "hp": 260,
+        "mp": 160,
+        "atk": 12,
+        "mag": 15,
+        "prc": 10,
+        "end": 23,
+        "chr": 10,
+        "int": 4,
+        "agl": 10,
+        "luk": 20,
+        "melee": [ "Pierce Attack", "pierce" ],
+        "skills": [ "ToastedSands", "Sandstorm", "Sun-beam" ],
+
+        "weak": [ "water", "wind", "psychic" ],
+        "resist": [ "fire" ],
+        "block": [ "electric" ],
+        "repel": [],
+        "drain": [ "earth", "geokinesis" ],
+
+        "journal": "Small living specks of sand come together to create this small monster. It roams the Avocado Desert, seeking safety.",
+        "dreams": [
+            "...Calm... ...Calm...",
+            "...Sleep... ...Sleep...",
+            "...Tired... ...Tired...",
+            "...Stones... ...Stones...",
+            "...Scary... ...Scary...",
+            "...Danger... ...Danger..."
+        ],
+
+        "awardxp": 210
+    },
+    "Sandifly": {
+        "level": 16,
+        "hp": 210,
+        "mp": 160,
+        "atk": 12,
+        "mag": 15,
+        "prc": 20,
+        "end": 10,
+        "chr": 10,
+        "int": 4,
+        "agl": 14,
+        "luk": 20,
+        "melee": [ "Pierce Attack", "pierce" ],
+        "skills": [ "WindySands", "Sandstorm", "Sun-beam" ],
+
+        "weak": [ "water", "fire" ],
+        "resist": [ "wind" ],
+        "block": [ "electric" ],
+        "repel": [ "psychic" ],
+        "drain": [ "earth", "geokinesis" ],
+
+        "journal": "Small living specks of sand come together to create this small monster. It flies around the Avocado Desert, seeking safety.",
+        "dreams": [
+            "...Calm... ...Calm...",
+            "...Sleep... ...Sleep...",
+            "...Tired... ...Tired...",
+            "...Stones... ...Stones...",
+            "...Danger... ...Danger..."
+        ],
+
+        "awardxp": 190
+    },
+    "MasterMiniscle": {
+        "level": 21,
+        "boss": true,
+        "hp": 1430,
+        "mp": 196,
+        "atk": 21,
+        "mag": 20,
+        "prc": 19,
+        "end": 16,
+        "chr": 13,
+        "int": 13,
+        "agl": 20,
+        "luk": 20,
+        "melee": [ "Pierce Attack", "pierce" ],
+        "skills": [ "Psio", "Garula", "FrozenShards", "HarmingHaze" ],
+
+        "weak": [ "fire" ],
+        "resist": [ "bless", "curse" ],
+        "block": [],
+        "repel": [ "strike" ],
+        "drain": [],
+
+        "journal": "???",
+        "dreams": [
+            "...Away... Away...",
+            "...Please... Leave...",
+            "...Too... Powerful...",
+            "...Can't... Run...",
+            "...Pain... Pain..."
+        ],
+
+        "awardxp": 600
+    },
+    "Memoiru": {
+        "level": 18,
+        "boss": true,
+        "hp": 1000,
+        "mp": 860,
+        "atk": 19,
+        "mag": 10,
+        "prc": 17,
+        "end": 10,
+        "chr": 4,
+        "int": 8,
+        "agl": 20,
+        "luk": 22,
+        "melee": [ "Bite", "pierce" ],
+        "skills": [ "Astonish", "Flail", "BrainTrick", "PoisonFang" ],
+
+        "weak": [ "ice", "wind", "strike" ],
+        "resist": [ "curse", "psychic", "bless" ],
+        "block": [],
+        "repel": [],
+        "drain": [],
+
+        "image": "memoiru.png",
+        "journal": "An infected creature that goes around, mimicking people that it's targets know, and luring them to their lair, to be killed and sometimes consumed.",
+        "dreams": [
+            "..."
+        ],
+
+        "awardxp": 6576
+    },
+    "Monia": {
+        "level": 16,
+        "hp": 210,
+        "mp": 50,
+        "atk": 15,
+        "mag": 12,
+        "prc": 10,
+        "end": 12,
+        "chr": 19,
+        "int": 18,
+        "agl": 16,
+        "luk": 14,
+        "melee": [ "Strike Attack", "strike" ],
+        "skills": [ "InkySplat", "AquaBeam" ],
+
+        "weak": [ "ice", "wind", "pierce" ],
+        "resist": [ "psychic" ],
+        "block": [],
+        "repel": [],
+        "drain": [ "water" ],
+
+        "journal": "Thought to be closely related to the diety Monum.",
+        "dreams": [
+            "...Break... ...seals...",
+            "...Leave... ...be...",
+            "...Seal... ...darkness..."
+        ],
+
+        "awardxp": 1923
+    },
+    "Monum": {
+        "level": 20,
+        "diety": true,
+        "boss": true,
+        "hp": 1400,
+        "mp": 1000,
+        "atk": 24,
+        "mag": 24,
+        "prc": 18,
+        "end": 23,
+        "chr": 18,
+        "int": 18,
+        "agl": 16,
+        "luk": 20,
+        "melee": [ "Tentacle Attack", "strike" ],
+        "skills": [ "Secrete", "TentacleSwipe", "InkySplat", "AquaBeam", "TidalWave", "SapSnip", "BrainTrick" ],
+
+        "weak": [ "ice", "wind", "strike" ],
+        "resist": [ "curse", "psychic", "bless" ],
+        "block": [],
+        "repel": [],
+        "drain": [ "water" ],
+
+        "journal": "An unknown diety. One of the four that were tasked with the task of guarding the being chosen to protect this world from infection.",
+        "dreams": [
+            "...Don't... ...Break... ...seals...",
+            "...Leave... ...be...",
+            "...Seal... ...darkness..."
+        ],
+
+        "awardxp": 7653
+    },
+    "Agilitop": {
+        "level": 18,
+        "hp": 300,
+        "mp": 210,
+        "atk": 35,
+        "mag": 28,
+        "prc": 18,
+        "end": 20,
+        "chr": 20,
+        "int": 12,
+        "agl": 37,
+        "luk": 26,
+        "melee": [ "Slash Attack", "slash" ],
+        "skills": [ "RapidKicks", "Garu", "MegaKick" ],
+
+        "weak": [ "psychic", "electric" ],
+        "resist": [ "strike", "fire" ],
+        "block": ["wind"],
+        "repel": [],
+        "drain": [],
+
+        "journal": "It spins on it's head to gain speed, and then kicks it's foes with the strongest of kicks.",
+        "dreams": [
+            "...Hungry... ...Food...?",
+            "...Scared...",
+            "...Lonely..."
+        ],
+
+        "awardxp": 2121
+    },
+    "Topium": {
+        "level": 30,
+		"boss": true,
+        "hp": 2000,
+        "mp": 464,
+        "atk": 36,
+        "mag": 31,
+        "prc": 21,
+        "end": 20,
+        "chr": 18,
+        "int": 19,
+        "agl": 33,
+        "luk": 26,
+        "melee": ["Strike Attack", "strike"],
+        "skills": ["RapidKicks", "MegaKick", "DizzyPunch", "Garula", "Magaru"],
+
+        "weak": [ "psychic" ],
+        "resist": [ "strike", "fire" ],
+        "block": [],
+        "repel": [],
+        "drain": [],
+
+        "journal": "A larger, more furry Agilitop. It roams the plains, making sure the Agilitops that inhabit them are safe, and will only come out if in danger.",
+        "dreams": [
+            "...You... hurt... Agilitops...??",
+			"...You... pay..."
+        ],
+
+        "awardxp": 24000
+    },
+    "Flarebubble": {
+        "level": 17,
+        "hp": 250,
+        "mp": 76,
+        "atk": 16,
+        "mag": 20,
+        "prc": 13,
+        "end": 10,
+        "chr": 13,
+        "int": 17,
+        "agl": 24,
+        "luk": 15,
+        "melee": [ "Strike Attack", "strike" ],
+        "skills": [ "Fireball", "Lavawave", "Embers", "MoltenBody" ],
+
+        "weak": [ "water" ],
+        "resist": [ "ice" ],
+        "block": [],
+        "repel": [],
+        "drain": [ "fire" ],
+
+        "journal": "Attacks in groups, fleeing if they are wounded.",
+        "dreams": [
+            "...Scary... Scary...",
+            "...Fear... Fear...",
+            "...Stand... ground...",
+            "...Can't... run..."
+        ],
+
+        "awardxp": 1999
+    },
+    "Nyamo": {
+        "level": 20,
+        "hp": 350,
+        "mp": 50,
+        "atk": 22,
+        "mag": 20,
+        "prc": 22,
+        "end": 19,
+        "chr": 26,
+        "int": 20,
+        "agl": 26,
+        "luk": 29,
+        "melee": [ "Pierce Attack", "pierce" ],
+        "skills": [ "DoubleCrunch", "Current", "Embers", "Clawshread" ],
+
+        "weak": [ "ice", "electric" ],
+        "resist": [ "strike", "fire" ],
+        "block": [ "pierce", "wind" ],
+        "repel": [],
+        "drain": [],
+
+        "journal": "Thought to be closely related to the diety Nyamem.",
+        "dreams": [
+            "...Hungry... ...Food...?",
+            "...Scared...",
+            "...Lonely..."
+        ],
+
+        "awardxp": 2103
+    },
+    "Nyamush": {
+        "level": 23,
+        "hp": 320,
+        "mp": 50,
+        "atk": 20,
+        "mag": 24,
+        "prc": 20,
+        "end": 15,
+        "chr": 20,
+        "int": 26,
+        "agl": 24,
+        "luk": 23,
+        "melee": [ "Pierce Attack", "pierce" ],
+        "skills": [ "DoubleCrunch", "Aques", "TidalWave", "Clawshread" ],
+
+        "weak": [ "grass", "earth" ],
+        "resist": [ "strike", "fire"],
+        "block": [],
+        "repel": [ "water" ],
+        "drain": [],
+
+        "journal": "Thought to be closely related to the diety Nyamem.",
+        "dreams": [
+            "...Hungry... ...Food...?",
+            "...Scared...",
+            "...Lonely..."
+        ],
+
+        "awardxp": 2129
+    },
+    "ViolentNyamo": {
+        "level": 24,
+        "hp": 400,
+        "mp": 80,
+        "atk": 25,
+        "mag": 22,
+        "prc": 22,
+        "end": 19,
+        "chr": 26,
+        "int": 20,
+        "agl": 26,
+        "luk": 29,
+        "melee": [ "Pierce Attack", "pierce" ],
+        "skills": [ "DoubleCrunch", "GooWave", "Embers", "Clawshread" ],
+
+        "weak": [ "water", "electric" ],
+        "resist": [ "strike", "fire" ],
+        "block": [ "pierce", "wind" ],
+        "repel": [],
+        "drain": [ "poison" ],
+
+        "journal": "Thought to be closely related to the diety Nyamem, though now infected.",
+        "dreams": [
+            "...Hungry... ...Food...?",
+            "...Scared...",
+            "...Lonely..."
+        ],
+
+        "awardxp": 2433
+    },
+    "ViolentNyamush": {
+        "level": 23,
+        "hp": 350,
+        "mp": 50,
+        "atk": 22,
+        "mag": 29,
+        "prc": 21,
+        "end": 15,
+        "chr": 12,
+        "int": 20,
+        "agl": 27,
+        "luk": 23,
+        "melee": [ "Pierce Attack", "pierce" ],
+        "skills": [ "DoubleCrunch", "InfectiousOutbreak", "TidalWave", "Clawshread" ],
+
+        "weak": [ "earth", "water" ],
+        "resist": [ "strike", "fire"],
+        "block": [],
+        "repel": [ "water" ],
+        "drain": [ "poison" ],
+
+        "journal": "Thought to be closely related to the diety Nyamem, though now infected.",
+        "dreams": [
+            "...Hungry... ...Food...?",
+            "...Scared...",
+            "...Lonely..."
+        ],
+
+        "awardxp": 2532
+    },
+    "NyamoWarrior": {
+        "level": 20,
+        "hp": 460,
+        "mp": 200,
+        "atk": 29,
+        "mag": 29,
+        "prc": 12,
+        "end": 13,
+        "chr": 19,
+        "int": 23,
+        "agl": 26,
+        "luk": 17,
+        "melee": [ "Pierce Attack", "pierce" ],
+        "skills": [ "TripleCrunch", "WingRush", "DragonClaw", "RapidSlashes", "Roar", "Glare" ],
+
+        "weak": [ "psychic", "fire" ],
+        "resist": [ "ice" ],
+        "block": [ "pierce", "wind", "slash" ],
+        "repel": [ "strike" ],
+        "drain": [],
+
+        "journal": "Thought to be closely related to the diety Nyamem. They fight together to guard their mother, said to be Nyamem themselves.",
+        "dreams": [
+            "...Hungry... ...Food...?",
+            "...Scared...",
+            "...Lonely..."
+        ],
+
+        "awardxp": 6462
+    },
+    "VolatileWarrior": {
+        "level": 20,
+        "hp": 560,
+        "mp": 250,
+		"boss": true,
+        "atk": 29,
+        "mag": 29,
+        "prc": 18,
+        "end": 15,
+        "chr": 19,
+        "int": 20,
+        "agl": 22,
+        "luk": 20,
+        "melee": [ "Pierce Attack", "pierce" ],
+        "skills": [ "TripleCrunch", "WingRush", "DragonClaw", "RapidSlashes", "Glare", "InfectiousOutbreak", "GooDrench" ],
+
+        "weak": [ "fire", "water" ],
+        "resist": [ "ice", "psychic" ],
+        "block": [ "pierce", "wind" ],
+        "repel": [ "strike" ],
+        "drain": [ "poison" ],
+
+        "journal": "Thought to be closely related to the diety Nyamem. They fight together to guard their mother, said to be Nyamem themselves. As it is infected, it cannot do it's job as well.",
+        "dreams": [
+            "...Hungry... ...Food...?",
+            "...Scared...",
+            "...Lonely..."
+        ],
+
+        "awardxp": 12342
+    },
+    "Hydruu": {
+        "level": 30,
+		"boss": true,
+        "hp": 2000,
+        "mp": 653,
+        "atk": 27,
+        "mag": 37,
+        "prc": 30,
+        "end": 23,
+        "chr": 24,
+        "int": 27,
+        "agl": 29,
+        "luk": 29,
+        "melee": [ "Pierce Attack", "pierce" ],
+        "skills": [ "DoubleCrunch", "TripleCrunch", "Clawshread", "CycloneSlash", "Garula", "Aques", "Malaqua", "ThunderWings" ],
+
+        "weak": [ "ice", "electric" ],
+        "resist": [ "water", "grass" ],
+        "block": [],
+        "repel": [],
+        "drain": [],
+
+        "journal": "Thought to be closely related to the diety Nyamem. This larger Nyamush has 3 heads, and roams the lands ensuring all Nyamo, Nyamush, Nyamo Warrior and even Nyamem herself are living peacefully.",
+        "dreams": [
+            "...You... hurt them..."
+        ],
+
+        "awardxp": 23523
+    },
+    "Nyamem": {
+        "level": 30,
+        "boss": true,
+        "diety": true,
+        "hp": 3000,
+        "mp": 1754,
+        "atk": 32,
+        "mag": 31,
+        "prc": 34,
+        "end": 20,
+        "chr": 20,
+        "int": 20,
+        "agl": 20,
+        "luk": 30,
+        "melee": [ "Pierce Attack", "pierce" ],
+        "skills": [ "TripleCrunch", "DragonClaw", "RapidSlashes", "Current", "Psio", "Roar", "ThunderWings", "TidalWave", "Diarama" ],
+		
+		"lb": {
+			"name": "Dragon Breath",
+			"pow": 500,
+			"cost": 100,
+			"status": "burn",
+			"statuschance": 40
+		},
+
+        "weak": [ "ice" ],
+        "resist": [ "strike", "grass" ],
+        "block": [ "pierce", "wind" ],
+        "repel": [],
+        "drain": [],
+
+        "journal": "A live creature, hiding the true diety within it. If it were to be defeated, it would calm the diety inside.",
+        "dreams": [
+            "...Hungry... ...Food...?",
+            "...Scared...",
+            "...Lonely..."
+        ],
+
+        "awardxp": 34302
+    },
+    "InfectedNyamem": {
+        "level": 32,
+        "boss": true,
+        "diety": true,
+        "hp": 4000,
+        "mp": 2000,
+        "atk": 30,
+        "mag": 28,
+        "prc": 36,
+        "end": 26,
+        "chr": 24,
+        "int": 26,
+        "agl": 39,
+        "luk": 35,
+        "melee": [ "Pierce Attack", "pierce" ],
+        "skills": [ "TripleCrunch", "DragonClaw", "RapidSlashes", "Current", "Psio", "ThunderWings", "TidalWave", "InfectiousOutbreak", "PoisonFang", "GooDrench", "Diarama" ],
+		
+		"lb": {
+			"name": "Draco Combo",
+			"pow": 560,
+			"cost": 100,
+			"status": "bleed",
+			"statuschance": 50
+		},
+
+        "weak": [ "water" ],
+        "resist": [ "strike", "grass", "psychic" ],
+        "block": [ "pierce", "wind" ],
+        "repel": [],
+        "drain": [ "poison" ],
+
+        "journal": "A live creature, hiding the true diety within it. It was infected, and now strikes at full power.",
+        "dreams": [
+            "...Hungry... ...Food...?",
+            "...Scared...",
+            "...Lonely..."
+        ],
+
+        "awardxp": 43566
+    },
+    "tree": {
+        "level": 1,
+        "hp": 20,
+        "mp": 20,
+        "atk": 1,
+        "mag": 1,
+        "prc": 1,
+        "end": 1,
+        "chr": 1,
+        "int": 1,
+        "agl": 1,
+        "luk": 1,
+        "melee": [],
+        "skills": [ "StrikeAttack" ],
+
+        "weak": [ "fire", "slash" ],
+        "resist": [],
+        "block": [],
+        "repel": [],
+        "drain": [],
+
+        "journal": "Just a tree.",
+        "dreams": [],
+
+        "awardxp": 1
+    },
+    "Evergreen": {
+        "level": 35,
+        "boss": true,
+        "diety": true,
+        "hp": 3025,
+        "mp": 3210,
+        "atk": 20,
+        "mag": 35,
+        "prc": 29,
+        "end": 20,
+        "chr": 10,
+        "int": 10,
+        "agl": 12,
+        "luk": 32,
+        "melee": [ "Pierce Attack", "pierce" ],
+        "skills": [ "Magnadyne", "Materazi", "Hanamadyne", "Mahanama", "Eigaon", "GiantSlice", "RootStab", "Megido", "Debilitate", "ForestCurse" ],
+		
+		"lb": {
+			"name": "Forest Aura",
+			"pow": 650,
+			"cost": 100,
+			"status": "dizzy",
+			"statuschance": 100
+		},
+
+        "weak": [ "ice", "fire", "slash" ],
+        "resist": [ "electric", "earth", "poison", "nuclear", "curse" ],
+        "block": [],
+        "repel": [ "grass" ],
+        "drain": [ "water" ],
+
+        "journal": "A tree, hiding the true diety within it. Defeating this strong foe would calm the entity inside for a long period of time without using the Fantasy Wielder.",
+        "dreams": [
+            "...Light..."
+        ],
+
+        "awardxp": 9594
+    },
+    "InfectedVessel": {
+        "level": 26,
+        "boss": true,
+        "hp": 2000,
+        "mp": 896,
+        "atk": 31,
+        "mag": 27,
+        "prc": 20,
+        "end": 20,
+        "chr": 15,
+        "int": 20,
+        "agl": 17,
+        "luk": 16,
+        "melee": [ "Slash Attack", "slash" ],
+        "skills": [ "Sting", "DrainingStrike", "ExplosiveBlob", "DesolateDive", "GreatSlash", "InfectiousOutbreak", "RapidSlashes", "CycloneSlash" ],
+
+		"lb": {
+			"name": "Infectious End",
+			"pow": 700,
+			"cost": 110,
+			"status": "poison",
+			"statuschance": 75
+		},
+
+        "weak": [ "psychic" ],
+        "resist": [ "grass", "wind", "slash" ],
+        "block": [],
+        "repel": [ "slash" ],
+        "drain": [],
+
+        "journal": "An infectious vessel, rumoured to be the guardian of the source of the Infection. Now infected, it roams the lands, leaving behind piles of orange goo.",
+        "dreams": [
+            "...Light..."
+        ],
+
+        "awardxp": 19422
+    },
+    "TheLuminosity": {
+        "level": 40,
+        "boss": true,
+        "diety": true,
+        "hp": 4000,
+        "mp": 3500,
+        "atk": 42,
+        "mag": 43,
+        "prc": 42,
+        "end": 32,
+        "chr": 24,
+        "int": 20,
+        "agl": 39,
+        "luk": 33,
+        "melee": [ "Strike Attack", "strike" ],
+        "skills": [ "Illuminate" ],
+		
+		"lb": {
+			"name": "Blinding Light",
+			"target": "allopposing",
+			"cost": 150,
+			"pow": 1000,
+			"status": "dizzy",
+			"statuschance": 75
+		},
+
+        "weak": [],
+        "resist": [],
+        "block": [],
+        "repel": [],
+        "drain": [],
+
+        "journal": "A live creature, hiding the true diety within it. If it were to be defeated, it would calm the diety inside.",
+        "dreams": [
+            "...Hungry... ...Food...?",
+            "...Scared...",
+            "...Lonely..."
+        ],
+
+        "awardxp": 34795
+    },
+	"SpeedyMan": {
+        "name": "SpeedyMan",
+        "owner": "532291526634635285",
+        "level": 999,
+        "hp": 1007,
+        "mp": 1007,
+        "maxhp": 1007,
+        "maxmp": 1007,
+        "basehp": 9,
+        "basemp": 9,
+        "status": "none",
+        "statusturns": 0,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "atk": 333,
+        "mag": 333,
+        "prc": 1097,
+        "end": 500,
+        "chr": 500,
+        "int": 500,
+        "agl": 1097,
+        "luk": 1097,
+        "baseatk": 1,
+        "basemag": 1,
+        "baseprc": 99,
+        "baseend": 1,
+        "basechr": 1,
+        "baseint": 1,
+        "baseagl": 99,
+        "baseluk": 99,
+        "lb": 0,
+        "xp": -4.9072295466605485e+81,
+        "maxxp": 9.814459093321096e+80,
+        "weak": [],
+        "resist": [],
+        "block": [],
+        "repel": [],
+        "drain": [],
+        "skills": [
+			"Diarahan",
+			"Tetrakarn",
+			"Makarakarn"
+        ],
+        "meleequote": [],
+        "physquote": [],
+        "magquote": [],
+        "missquote": [],
+        "blockquote": [],
+        "repelquote": [],
+        "drainquote": [],
+        "resistquote": [],
+        "hurtquote": [],
+        "lbquote": [],
+        "healquote": [],
+        "helpedquote": [],
+        "killquote": [],
+        "deathquote": [],
+        "dodgequote": [
+            "Denied!"
+        ],
+        "lvlquote": [],
+        "bio": {
+            "info": "",
+            "backstory": "",
+            "voice": "",
+            "theme": ""
+        }
+    }
+}

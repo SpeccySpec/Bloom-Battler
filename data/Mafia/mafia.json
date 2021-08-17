@@ -1,0 +1,35 @@
+{
+    "808462313262415893": {
+        "state": "waiting",
+        "players": [],
+        "killers": [],
+        "protector": 0
+    },
+    "838896812873744415": {
+        "state": "waiting",
+        "players": [],
+        "killers": [],
+        "protector": 0
+    },
+    "819616171086577667": {
+        "state": "waiting",
+        "players": [
+            {
+                "id": "516359709779820544",
+                "username": "Spectra",
+                "bot": false,
+                "discriminator": "4576",
+                "avatar": "9c208435488a794c907de145bad2a3e3",
+                "flags": 128,
+                "lastMessageChannelID": "820036937791438859",
+                "createdTimestamp": 1543180148311,
+                "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+                "tag": "Spectra#4576",
+                "avatarURL": "https://cdn.discordapp.com/avatars/516359709779820544/9c208435488a794c907de145bad2a3e3.webp",
+                "displayAvatarURL": "https://cdn.discordapp.com/avatars/516359709779820544/9c208435488a794c907de145bad2a3e3.webp"
+            }
+        ],
+        "killers": [],
+        "protector": 0
+    }
+}

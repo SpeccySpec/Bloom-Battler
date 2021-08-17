@@ -1,0 +1,83 @@
+{
+    "none": {
+        "type": "weapon"
+    },
+    "WornOutSword": {
+		"name": "Worn-out Sword",
+        "type": "weapon",
+        "atk": 5
+    },
+    "WornOutWand": {
+		"name": "Worn-out Wand",
+        "type": "weapon",
+        "mag": 5
+    },
+    "WornOutShield": {
+		"name": "Worn-out Shield",
+        "type": "weapon",
+        "def": 5
+    },
+    "WoodenSword": {
+		"name": "Wooden Sword",
+        "type": "weapon",
+        "atk": 10
+    },
+    "WoodenWand": {
+		"name": "Wooden Wand",
+        "type": "weapon",
+        "mag": 10
+    },
+    "WoodenShield": {
+		"name": "Wooden Shield",
+        "type": "weapon",
+        "def": 10
+    },
+
+    "God'sBlessing": {
+		"name": "God's Blessing",
+        "type": "weapon",
+        "atk": 99999999999999999,
+        "mag": 99999999999999999,
+        "def": 99999999999999999
+    },
+
+    "SliceOfPizza": {
+		"emoji": "🍕",
+		"name": "Slice of Pizza",
+        "type": "heal",
+        "heal": 50
+    },
+    "ChickenNugget": {
+		"name": "Chicken Nugget",
+        "type": "heal",
+        "heal": 20
+    },
+    "SparkleBerry": {
+		"name": "Sparkle Berry",
+        "type": "heal",
+        "heal": 65
+    },
+    "Potion": {
+		"name": "Potion",
+        "type": "heal",
+        "heal": 80
+    },
+
+    "ShineBerry": {
+		"name": "Shine Berry",
+        "type": "healmp",
+        "heal": 50
+    },
+    "MPPotion": {
+		"name": "MP Potion",
+        "type": "healmp",
+        "heal": 50
+    },
+
+    "BottleOfWater": {
+		"name": "Bottle of Water",
+        "type": "healhpmp",
+        "healhp": 50,
+        "healmp": 50
+    }
+}

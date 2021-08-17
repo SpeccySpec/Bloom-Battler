@@ -1,0 +1,2888 @@
+{
+    "Spectra": {
+        "name": "Spectra",
+        "owner": "516359709779820544",
+        "level": 40,
+        "hp": 269,
+        "mp": 269,
+        "maxhp": 269,
+        "maxmp": 269,
+        "basehp": 35,
+        "basemp": 35,
+        "melee": [
+            "Psychic Bash",
+            "strike"
+        ],
+        "atk": 15,
+        "mag": 49,
+        "prc": 22,
+        "end": 24,
+        "chr": 49,
+        "int": 24,
+        "agl": 15,
+        "luk": 47,
+        "baseatk": 2,
+        "basemag": 10,
+        "baseprc": 3,
+        "baseend": 5,
+        "basechr": 10,
+        "baseint": 5,
+        "baseagl": 2,
+        "baseluk": 8,
+        "xp": 0,
+        "maxxp": 23532,
+        "weak": [
+            "curse"
+        ],
+        "resist": [
+            "ice"
+        ],
+        "block": [],
+        "repel": [
+            "psychic"
+        ],
+        "drain": [],
+        "skills": [
+            "HealMelody",
+            "CopySkill",
+            "CuringAura",
+            "Recarm",
+            "Makarakarn"
+        ],
+        "lb1": {
+            "name": "Psystorm",
+            "pow": 300,
+            "cost": 100,
+            "status": "brainwash",
+            "statuschance": 50
+        },
+        "lb2": {
+            "name": "Cosmic Shower",
+            "pow": 560,
+            "cost": 200,
+            "status": "brainwash",
+            "statuschance": 50
+        },
+        "meleequote": [
+            "Sorry, but I must do this.",
+            "Let's do this."
+        ],
+        "physquote": [
+            "Here I come...!"
+        ],
+        "magquote": [],
+        "lbquote": [],
+        "healquote": [
+            "Tough Spot?",
+            "Allow me to help!",
+            "No dying now.",
+            "We've come too far to lose.",
+            "I won't let you get hurt like this.",
+            "Those... monsters! We must prevail!"
+        ],
+        "helpedquote": [
+            "You're the best!",
+            "That was close...",
+            "Much obliged."
+        ],
+        "killquote": [
+            "Teamwork!"
+        ],
+        "deathquote": [],
+        "lvlquote": [
+            "This rush of power..."
+        ],
+        "dodgequote": [
+            "Uhm... I think you missed...",
+            "I guess I'll pass on death.",
+            "I'm so slow... You're just terrible at aiming...",
+            "I was expecting to get hit as I always do... maybe you're blind...?",
+            "B-But I didn't move... I'm concerned.",
+            "As one of the slowest here... Shame on you.",
+            "Almost... almost.",
+            "Your target is a grey Tanuki...",
+            "Dodging!",
+            "Predictable!"
+        ],
+        "weapon": "none",
+        "missquote": [],
+        "resistquote": [
+            "Almost cold.",
+            "How n**ice** of you! {I'm going to hate myself for this...}",
+            "Uhm... ''Brrrr''...?"
+        ],
+        "blockquote": [],
+        "repelquote": [
+            "Sending this right back at you!"
+        ],
+        "drainquote": [],
+        "hurtquote": [],
+        "bio": {
+            "info": "An innocent Tanuki, who is probably socially awkward and usually quiet. She prefers to take support roles in... basically anything. She has fluffy grey & purple fur and wears a violet jumper, purple skirt & blue shoes. As she comes from an entirely different planet, she's somewhat clueless about the world around her. She warms up to certain people really quickly if treated correctly.",
+            "backstory": "",
+            "voice": "Noir (Persona 5)",
+            "theme": ""
+        },
+        "critquote": [
+            "Did... I do that...??"
+        ],
+        "weakquote": [
+            "Look away, LOOK AWAY!",
+            "H-Hey, I h-have friends to protect!",
+            "aaaaAAAAAAAAAAA!!",
+            "T-This isn't the end..."
+        ],
+        "strongquote": [
+            "Did I do that...?"
+        ]
+    },
+    "Lanagu": {
+        "name": "Lanagu",
+        "owner": "532291526634635285",
+        "level": 40,
+        "hp": 308,
+        "mp": 215,
+        "maxhp": 308,
+        "maxmp": 215,
+        "basehp": 35,
+        "basemp": 20,
+        "melee": [
+            "DivePress",
+            "strike"
+        ],
+        "atk": 26,
+        "mag": 26,
+        "prc": 17,
+        "end": 47,
+        "chr": 16,
+        "int": 46,
+        "agl": 46,
+        "luk": 24,
+        "baseatk": 7,
+        "basemag": 7,
+        "baseprc": 4,
+        "baseend": 8,
+        "basechr": 3,
+        "baseint": 7,
+        "baseagl": 7,
+        "baseluk": 5,
+        "xp": 0,
+        "maxxp": 16970,
+        "weak": [
+            "earth",
+            "fire"
+        ],
+        "resist": [
+            "grass",
+            "water",
+            "curse"
+        ],
+        "block": [
+            "metal"
+        ],
+        "repel": [],
+        "drain": [
+            "electric"
+        ],
+        "skills": [
+            "Eiha",
+            "Cleave",
+            "DarkSlash",
+            "Eiga",
+            "Maeiha",
+            "ShadowyBlast",
+            "CurseBoost"
+        ],
+        "meleequote": [
+            "Time to break your neck!",
+            "Get a load of this!",
+            "This is a moment of pressing concern"
+        ],
+        "physquote": [
+            "You won't like what's coming!",
+            "Time to give out a slashing sale",
+            "Time for a knuckle sandwich"
+        ],
+        "magquote": [
+            "Delve into Darkness!",
+            "Dread will overcome your courage!",
+            "Time to make you fear us",
+            "Time for your greatest fear to come to life!!!"
+        ],
+        "lbquote": [
+            "Cocky Bastard, take this!",
+            "You're gonna be history!"
+        ],
+        "healquote": [
+            "Thank the shadows for this",
+            "Take it, now!"
+        ],
+        "helpedquote": [
+            "Thanks, just what I need now",
+            "The shadows are thankful for your generosity"
+        ],
+        "killquote": [
+            "May the mother of horrors kill you...",
+            "Look at that, it's a enemy slaying bargain sale",
+            "Looks like I'm the Master Chief!"
+        ],
+        "deathquote": [
+            "May I die and rejoin the Lady in the Dark....",
+            "Was this worth strengthening yourself....?"
+        ],
+        "lb1": {
+            "name": "Darkened Slash",
+            "pow": 300,
+            "cost": 100,
+            "status": "Fear",
+            "statuschance": 20
+        },
+        "lb2": {
+            "name": "EnragedShadows",
+            "pow": 455,
+            "cost": 255,
+            "status": "Rage",
+            "statuschance": 80
+        },
+        "dodgequote": [
+            "Are you stupid?",
+            "The shadows predicted that",
+            "Are you scared?",
+            "Woah, you almost got me in the balls",
+            "https://www.youtube.com/watch?v=lhckuhUxcgA"
+        ],
+        "lvlquote": [
+            "Just getting stronger as the days go.",
+            "This isn't it bois. Those were the eeeeasy onesss!"
+        ],
+        "missquote": [
+            "Damn, got distracted",
+            "Oh fuckles, I'm screwed",
+            "Gotta check my eyes"
+        ],
+        "resistquote": [
+            "hehe that tickles",
+            "You gotta add some more **omph** if you wanna do something"
+        ],
+        "blockquote": [
+            "What was that? Trying to tickle me?"
+        ],
+        "repelquote": [],
+        "drainquote": [
+            "Trying to shock me? How pathetic",
+            "Aren't you shocked? Because I'm not",
+            "Thinking that will do something is beyond me"
+        ],
+        "hurtquote": [
+            "Ow, that hurt a little",
+            "Tch, what a pain"
+        ],
+        "bio": {
+            "info": "",
+            "backstory": "",
+            "voice": "Goro Akechi",
+            "theme": ""
+        },
+        "weapon": "none",
+        "strongquote": [
+            "**LET'S KILL THEM ALLL!!**",
+            "**TIME TO BATHE IN YOUR BLOOD!!**"
+        ],
+        "critquote": [],
+        "weakquote": [
+            "God damn iiiiit!!!"
+        ]
+    },
+    "Permic": {
+        "name": "Permic",
+        "owner": "544290248734015488",
+        "level": 40,
+        "hp": 142,
+        "mp": 323,
+        "maxhp": 142,
+        "maxmp": 323,
+        "basehp": 25,
+        "basemp": 50,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "atk": 49,
+        "mag": 48,
+        "prc": 46,
+        "end": 14,
+        "chr": 14,
+        "int": 24,
+        "agl": 23,
+        "luk": 24,
+        "baseatk": 10,
+        "basemag": 9,
+        "baseprc": 7,
+        "baseend": 1,
+        "basechr": 1,
+        "baseint": 5,
+        "baseagl": 4,
+        "baseluk": 5,
+        "xp": 0,
+        "maxxp": 23532,
+        "weak": [
+            "ice"
+        ],
+        "resist": [
+            "grass",
+            "fire"
+        ],
+        "block": [],
+        "repel": [],
+        "drain": [],
+        "skills": [
+            "SonicPunch",
+            "Agilao",
+            "FlareCharge",
+            "Tarukaja",
+            "FlarePunch"
+        ],
+        "meleequote": [
+            "Here I go."
+        ],
+        "physquote": [
+            "Take this!",
+            "Outta the way!"
+        ],
+        "magquote": [
+            "Time to spice things up!",
+            "Outta the way!"
+        ],
+        "lbquote": [
+            "You're finished!"
+        ],
+        "healquote": [
+            "This should help.",
+            "You gotta be more cautious..."
+        ],
+        "helpedquote": [
+            "Thanks, I needed that.",
+            "Feelin' better!"
+        ],
+        "killquote": [
+            "You never stood a chance.",
+            "Hmph. Foolish."
+        ],
+        "deathquote": [
+            "No...",
+            "I wasn't strong enough..."
+        ],
+        "dodgequote": [
+            "Expected something else?",
+            "How predictable."
+        ],
+        "lvlquote": [
+            "Heh. Not bad.",
+            "Level up!"
+        ],
+        "missquote": [
+            "...I need to pull it together...",
+            "Darn it."
+        ],
+        "resistquote": [],
+        "blockquote": [
+            "Denied.",
+            "Try someone else."
+        ],
+        "repelquote": [
+            "Nope.",
+            "Try again."
+        ],
+        "drainquote": [
+            "What are you doing?",
+            "...Please tell me that's not all you have."
+        ],
+        "hurtquote": [],
+        "lb1": {
+            "name": "OverHeat",
+            "pow": 300,
+            "cost": 100,
+            "status": "Burn",
+            "statuschance": 30
+        },
+        "bio": {
+            "info": "",
+            "backstory": "",
+            "voice": "",
+            "theme": ""
+        },
+        "strikequote": [
+            "Found a weak spot."
+        ],
+        "critquote": [
+            "Got a weak spot.",
+            "Heh."
+        ],
+        "weakquote": [
+            "Not bad...",
+            "Gh...!"
+        ],
+        "strongquote": [
+            "Heh. You are a fool.",
+            "Not the smartest of monsters, are you?"
+        ]
+    },
+    "Dusk": {
+        "name": "Dusk",
+        "owner": "516359709779820544",
+        "level": 40,
+        "hp": 401,
+        "mp": 90,
+        "maxhp": 401,
+        "maxmp": 90,
+        "basehp": 50,
+        "basemp": 12,
+        "melee": [
+            "Lacerate",
+            "pierce"
+        ],
+        "atk": 49,
+        "mag": 15,
+        "prc": 25,
+        "end": 48,
+        "chr": 15,
+        "int": 21,
+        "agl": 26,
+        "luk": 46,
+        "baseatk": 10,
+        "basemag": 2,
+        "baseprc": 6,
+        "baseend": 9,
+        "basechr": 2,
+        "baseint": 2,
+        "baseagl": 7,
+        "baseluk": 7,
+        "xp": 0,
+        "maxxp": 33663,
+        "weak": [
+            "strike",
+            "psychic",
+            "bless"
+        ],
+        "resist": [
+            "curse"
+        ],
+        "block": [
+            "pierce"
+        ],
+        "repel": [
+            "slash"
+        ],
+        "drain": [],
+        "skills": [
+            "CycloneSlash",
+            "UnseenSlashes",
+            "BurningSpirit",
+            "YowlingSpirits",
+            "ShadowCounter"
+        ],
+        "weapon": "none",
+        "bio": {
+            "info": "",
+            "backstory": "",
+            "voice": "",
+            "theme": ""
+        },
+        "lb1": {
+            "name": "RapierArts",
+            "class": "atk",
+            "pow": 400,
+            "cost": 100,
+            "status": "bleed",
+            "statuschance": 20
+        }
+    },
+    "Euphorica": {
+        "owner": "516359709779820544",
+        "level": 40,
+        "hp": 315,
+        "mp": 230,
+        "maxhp": 315,
+        "maxmp": 230,
+        "basehp": 42,
+        "basemp": 35,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "atk": 15,
+        "mag": 49,
+        "prc": 24,
+        "end": 25,
+        "chr": 24,
+        "int": 17,
+        "agl": 46,
+        "luk": 45,
+        "baseatk": 2,
+        "basemag": 10,
+        "baseprc": 5,
+        "baseend": 6,
+        "basechr": 5,
+        "baseint": 4,
+        "baseagl": 7,
+        "baseluk": 6,
+        "xp": 0,
+        "maxxp": 26889,
+        "weak": [
+            "curse",
+            "water"
+        ],
+        "resist": [
+            "strike"
+        ],
+        "block": [],
+        "repel": [
+            "psychic"
+        ],
+        "drain": [],
+        "skills": [
+            "Psio",
+            "Mapsio",
+            "Makakaja",
+            "PsyBoost",
+            "GooeyExplosion",
+            "Bufula"
+        ],
+        "lb1": {
+            "name": "Psy-Struction",
+            "pow": 465,
+            "cost": 125,
+            "status": "brainwash",
+            "statuschance": 5
+        },
+        "lb2": {
+            "name": "Psychic Explosion",
+            "pow": 680,
+            "cost": 250,
+            "status": "brainwash",
+            "statuschance": 5
+        },
+        "weapon": "none",
+        "bio": {
+            "info": "",
+            "backstory": "",
+            "voice": "",
+            "theme": ""
+        },
+        "name": "Euphorica",
+        "meleequote": [],
+        "physquote": [],
+        "magquote": [],
+        "strongquote": [
+            "[Agressive Splishing]"
+        ],
+        "critquote": [],
+        "missquote": [],
+        "dodgequote": [],
+        "weakquote": [],
+        "resistquote": [],
+        "blockquote": [],
+        "repelquote": [],
+        "drainquote": [],
+        "hurtquote": [],
+        "killquote": [],
+        "deathquote": [],
+        "lbquote": [],
+        "healquote": [],
+        "helpedquote": [],
+        "lvlquote": []
+    },
+    "Ramia": {
+        "name": "Ramia",
+        "owner": "516359709779820544",
+        "level": 40,
+        "hp": 313,
+        "mp": 186,
+        "maxhp": 313,
+        "maxmp": 186,
+        "basehp": 40,
+        "basemp": 30,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "atk": 25,
+        "mag": 25,
+        "prc": 45,
+        "end": 46,
+        "chr": 46,
+        "int": 16,
+        "agl": 18,
+        "luk": 24,
+        "baseatk": 6,
+        "basemag": 6,
+        "baseprc": 6,
+        "baseend": 7,
+        "basechr": 7,
+        "baseint": 3,
+        "baseagl": 5,
+        "baseluk": 5,
+        "xp": 0,
+        "maxxp": 30013,
+        "weak": [
+            "earth",
+            "fire"
+        ],
+        "resist": [
+            "psychic",
+            "grass"
+        ],
+        "block": [],
+        "repel": [],
+        "drain": [
+            "poison"
+        ],
+        "skills": [
+            "Dokusei",
+            "Madoku",
+            "Trickery",
+            "SpiderFang",
+            "Sting"
+        ],
+        "meleequote": [],
+        "physquote": [
+            "Check this out!"
+        ],
+        "magquote": [
+            "Haah! Take this!"
+        ],
+        "lbquote": [],
+        "healquote": [],
+        "helpedquote": [],
+        "killquote": [
+            "I guess I was just too strong for you!"
+        ],
+        "deathquote": [
+            "Guh... I... tried my best..."
+        ],
+        "lb1": {
+            "name": "TangledWebs",
+            "class": "atk",
+            "pow": 450,
+            "cost": 100,
+            "status": "paralysis",
+            "statuschance": 20
+        },
+        "lb2": {
+            "name": "IntertwinedLacework",
+            "class": "atk",
+            "pow": 700,
+            "cost": 220,
+            "status": "paralysis",
+            "statuschance": 20
+        },
+        "dodgequote": [
+            "Missed me!",
+            "Are you blind?",
+            "Denied!",
+            "Try aiming!",
+            "Aim!!!",
+            "I know some of these things don't have eyes, but come on, this is a bit much!",
+            "Darn, your skill was just an inch away.",
+            "No Perception or what?",
+            "I exist, yknow...",
+            "Better than most, actually.",
+            "Come on now, use that high perception of yours!",
+            "And I'm not even the fastest on the team."
+        ],
+        "lvlquote": [],
+        "missquote": [
+            "Maybe I'm the one who needs glasses."
+        ],
+        "resistquote": [],
+        "blockquote": [],
+        "repelquote": [],
+        "drainquote": [],
+        "hurtquote": [],
+        "bio": {
+            "info": "",
+            "backstory": "",
+            "voice": "",
+            "theme": ""
+        },
+        "lb3": {
+            "name": "ConvoluteGossamer",
+            "class": "atk",
+            "pow": 1200,
+            "cost": 220,
+            "status": "paralysis",
+            "statuschance": 20
+        },
+        "strongquote": [
+            "And stay down!!",
+            "Don't try us!",
+            "We won't go donw without a fight!"
+        ],
+        "critquote": [],
+        "weakquote": []
+    },
+    "Nate": {
+        "name": "Nate",
+        "owner": "544290248734015488",
+        "level": 40,
+        "hp": 401,
+        "mp": 259,
+        "maxhp": 401,
+        "maxmp": 259,
+        "basehp": 50,
+        "basemp": 25,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "atk": 22,
+        "mag": 26,
+        "prc": 49,
+        "end": 48,
+        "chr": 14,
+        "int": 46,
+        "agl": 14,
+        "luk": 25,
+        "baseatk": 3,
+        "basemag": 7,
+        "baseprc": 10,
+        "baseend": 9,
+        "basechr": 1,
+        "baseint": 7,
+        "baseagl": 1,
+        "baseluk": 6,
+        "xp": 0,
+        "maxxp": 16970,
+        "weak": [
+            "poison",
+            "electric",
+            "grass"
+        ],
+        "resist": [
+            "fire"
+        ],
+        "block": [],
+        "repel": [],
+        "drain": [
+            "water"
+        ],
+        "skills": [
+            "Aques",
+            "Malaqua",
+            "Garula",
+            "Rakukaja",
+            "Malaques"
+        ],
+        "meleequote": [],
+        "physquote": [],
+        "magquote": [],
+        "dodgequote": [
+            "How the fuck did you miss someone with base 1 agility?"
+        ],
+        "killquote": [],
+        "deathquote": [],
+        "lbquote": [],
+        "healquote": [],
+        "helpedquote": [],
+        "lvlquote": [],
+        "lb1": {
+            "name": "TideOfFury",
+            "pow": 300,
+            "cost": 100,
+            "status": "Dizzy",
+            "statuschance": 50
+        },
+        "bio": {
+            "info": "",
+            "backstory": "",
+            "voice": "Klug (Puyo Puyo)",
+            "theme": ""
+        }
+    },
+    "Flara": {
+        "name": "Flara",
+        "owner": "532291526634635285",
+        "level": 40,
+        "hp": 396,
+        "mp": 171,
+        "maxhp": 396,
+        "maxmp": 171,
+        "basehp": 45,
+        "basemp": 15,
+        "melee": [
+            "GrandSlash",
+            "slash"
+        ],
+        "atk": 26,
+        "mag": 48,
+        "prc": 23,
+        "end": 48,
+        "chr": 14,
+        "int": 25,
+        "agl": 46,
+        "luk": 15,
+        "baseatk": 7,
+        "basemag": 9,
+        "baseprc": 4,
+        "baseend": 9,
+        "basechr": 1,
+        "baseint": 6,
+        "baseagl": 7,
+        "baseluk": 2,
+        "xp": 0,
+        "maxxp": 20184,
+        "weak": [
+            "metal",
+            "grass",
+            "strike"
+        ],
+        "resist": [
+            "curse",
+            "bless"
+        ],
+        "block": [
+            "ice"
+        ],
+        "repel": [
+            "earth"
+        ],
+        "drain": [],
+        "skills": [
+            "Snap",
+            "Bufu",
+            "Bufula",
+            "Mabufu",
+            "Magna",
+            "Dia",
+            "IceBoost",
+            "CruelAttack"
+        ],
+        "meleequote": [
+            "Here's something special!",
+            "You might not survive this one"
+        ],
+        "physquote": [
+            "I gotta get to the point of this.",
+            "Looks like I have to do some close combat!",
+            "Got you now!",
+            "Charge!!"
+        ],
+        "magquote": [
+            "It's time for you to chill the hell out!",
+            "Feeling undermined yet!",
+            "Feel the power of a dragon!",
+            "Chill out and have a cold one!"
+        ],
+        "lbquote": [
+            "Time to put you on ice",
+            "Time to end this in case of ice!",
+            "FULL POWER!"
+        ],
+        "healquote": [
+            "Here's some more energy, use it wisely.",
+            "Have some dragon aid!"
+        ],
+        "helpedquote": [
+            "More fuel into the fire",
+            "My ancestors will be thankful I survive thanks to you"
+        ],
+        "killquote": [
+            "♫ Another one bites the dust~ ♫",
+            "You're just now being froze up now?"
+        ],
+        "deathquote": [
+            "No....not like this....",
+            "Damn....my line ends here...."
+        ],
+        "lb1": {
+            "name": "Frozen Blastation",
+            "pow": 320,
+            "cost": 110,
+            "status": "Freeze",
+            "statuschance": 50,
+            "class": "atk"
+        },
+        "dodgequote": [
+            "Just look at me, no one can beat my speed!",
+            "You're predictable",
+            "What this?",
+            "Watch the face, fucker!",
+            "How in the world do you miss someone my size?"
+        ],
+        "lvlquote": [
+            "Just to add fuel into my icy forge!"
+        ],
+        "lb2": {
+            "name": "FrozenPast",
+            "pow": 450,
+            "cost": 255,
+            "status": "Freeze",
+            "statuschance": 60,
+            "class": "atk"
+        },
+        "missquote": [
+            "Damn, I missed",
+            "Shit, how did I miss?",
+            "How are you this fast?!"
+        ],
+        "resistquote": [
+            "You think that's gonna pierce my hide?",
+            "You think that's enough?"
+        ],
+        "blockquote": [
+            "Really? A tickle would have done more.",
+            "I have a chilling personality to prevent this"
+        ],
+        "repelquote": [
+            "Excuse me? I'm not a stoner",
+            "Hahahahaha, no",
+            "Rocking out is **my** thing, okay?"
+        ],
+        "drainquote": [],
+        "hurtquote": [
+            "I have to be more careful",
+            "One more hit, and I'm done for",
+            "Damn it, pick on someone your own size"
+        ],
+        "bio": {
+            "info": "A gray and white dragon taller than most of the cast by at least 3 inches. Despite her somewhat cold attitude *pun not intended*, she really does care about those whom she makes bonds with.",
+            "backstory": "The last dragon from a distant region where winters are brutal.She can only hope she lives long enough to pass down her line becore her untimely death.",
+            "voice": "Makoto Nijima",
+            "theme": "",
+            "background": "The last dragon from a distant region where winters are brutal.She can only hope she lives long enough to pass down her line becore her untimely death."
+        },
+        "weapon": "none",
+        "lb3": {
+            "name": "CryogenicFlare",
+            "class": "atk",
+            "pow": 670,
+            "cost": 450,
+            "status": "freeze",
+            "statuschance": 60
+        },
+        "strongquote": [
+            "Just accept your fate!",
+            "Time for you to die!"
+        ],
+        "critquote": [],
+        "weakquote": []
+    },
+    "Bomo": {
+        "owner": "539885676653576222",
+        "level": 30,
+        "hp": 272,
+        "mp": 204,
+        "maxhp": 272,
+        "maxmp": 204,
+        "basehp": 40,
+        "basemp": 30,
+        "status": "none",
+        "statusturns": 0,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "atk": 19,
+        "mag": 11,
+        "prc": 20,
+        "end": 37,
+        "chr": 19,
+        "int": 36,
+        "agl": 37,
+        "luk": 13,
+        "baseatk": 5,
+        "basemag": 2,
+        "baseprc": 6,
+        "baseend": 8,
+        "basechr": 5,
+        "baseint": 7,
+        "baseagl": 8,
+        "baseluk": 4,
+        "lb": 0,
+        "xp": 0,
+        "maxxp": 3679,
+        "weak": [
+            "pierce",
+            "bless"
+        ],
+        "resist": [
+            "grass",
+            "metal"
+        ],
+        "block": [
+            "curse"
+        ],
+        "repel": [],
+        "drain": [],
+        "skills": [
+            "PhantomShip",
+            "SpiritHorns"
+        ],
+        "meleequote": [],
+        "physquote": [],
+        "magquote": [],
+        "lbquote": [],
+        "healquote": [],
+        "helpedquote": [],
+        "killquote": [],
+        "deathquote": [],
+        "dodgequote": [
+            "C'mon mate at least hit me next time!"
+        ],
+        "lvlquote": [],
+        "missquote": [],
+        "resistquote": [],
+        "blockquote": [],
+        "repelquote": [],
+        "drainquote": [],
+        "hurtquote": [
+            "Ye fucking bitch"
+        ],
+        "bio": {
+            "info": "",
+            "backstory": "",
+            "voice": "",
+            "theme": "https://youtu.be/1-emQo-7O3Y"
+        }
+    },
+    "Sparky": {
+        "name": "Sparky",
+        "owner": "544290248734015488",
+        "level": 40,
+        "hp": 274,
+        "mp": 147,
+        "maxhp": 274,
+        "maxmp": 147,
+        "basehp": 40,
+        "basemp": 30,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "atk": 46,
+        "mag": 46,
+        "prc": 25,
+        "end": 24,
+        "chr": 24,
+        "int": 14,
+        "agl": 48,
+        "luk": 15,
+        "baseatk": 7,
+        "basemag": 7,
+        "baseprc": 6,
+        "baseend": 5,
+        "basechr": 5,
+        "baseint": 1,
+        "baseagl": 9,
+        "baseluk": 2,
+        "xp": 0,
+        "maxxp": 36563,
+        "weak": [
+            "earth"
+        ],
+        "resist": [
+            "metal"
+        ],
+        "block": [],
+        "repel": [],
+        "drain": [],
+        "skills": [
+            "Zionga",
+            "Mazio",
+            "ElectroBash",
+            "VoltLunge",
+            "Sukukaja",
+            "ElectroBoost"
+        ],
+        "meleequote": [
+            "Wa-pow!"
+        ],
+        "physquote": [
+            "Hiyah!",
+            "Here I go!"
+        ],
+        "magquote": [
+            "Alakablam!",
+            "Here I go!"
+        ],
+        "missquote": [
+            "I'll simply hit next time!",
+            "Oopsies!"
+        ],
+        "blockquote": [
+            "Are you even trying?",
+            "Not happening!"
+        ],
+        "repelquote": [
+            "Take that back!",
+            "Right back at ya!"
+        ],
+        "drainquote": [
+            "Tasty!",
+            "Thanks for the free lunch!"
+        ],
+        "resistquote": [],
+        "hurtquote": [],
+        "lbquote": [
+            "It's over for you!"
+        ],
+        "healquote": [
+            "Ya-ho!",
+            "Here ya go!"
+        ],
+        "helpedquote": [
+            "Thank you very much!",
+            "Lucky me!"
+        ],
+        "killquote": [
+            "Too cool!",
+            "Piece of cake!"
+        ],
+        "deathquote": [
+            "Oh, phooey.",
+            "Just not my day..."
+        ],
+        "dodgequote": [
+            "Not even close!",
+            "Simply aim for the yellow chihuahua."
+        ],
+        "lvlquote": [
+            "Wow! I feel stronger!",
+            "Level up~"
+        ],
+        "bio": {
+            "info": "A tamoan chihuahua who is usually very nice and active, but can be overconfident and cocky at times. He has yellow-orange fur, green shoes, and a blue collar. He is mostly clueless about the world around him, but he would really like to explore it more and make friends along the way.",
+            "backstory": "Sparky's from Planet Tamoa. He has been living in his hometown for 11 years. It has been very peaceful and happy in that hometown, until it was attacked and war broke out. The president of the town instructed the youth to evacuate the planet to a partner planet via an emergency space ship. Sparky's trip was going fine, until the space ship started going out of his control and went crazy, and ended up crashing on the only place in the rp atm L. He was seriously injured from the crash but was able to recover. The events still come in his mind at times, but he stays calm and acts like it never happened most of the time.",
+            "voice": "",
+            "theme": ""
+        },
+        "lb1": {
+            "name": "ChaoticLightning",
+            "pow": 300,
+            "cost": 100,
+            "status": "paralyze",
+            "statuschance": 50
+        },
+        "strikequote": [
+            "Found the weak spot!"
+        ],
+        "critquote": [
+            "I did it!",
+            "Yes!"
+        ],
+        "weakquote": [
+            "YIP! YIP!",
+            "UWAAAAAAAAAAAAAA!"
+        ],
+        "strongquote": [
+            "You shouldn't have challenged us!",
+            "Stay down and don't get back up!"
+        ]
+    },
+    "Brainfreeze": {
+        "name": "Brainfreeze",
+        "owner": "461050360832720904",
+        "level": 30,
+        "hp": 233,
+        "mp": 267,
+        "maxhp": 233,
+        "maxmp": 267,
+        "basehp": 30,
+        "basemp": 35,
+        "status": "none",
+        "statusturns": 0,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "atk": 12,
+        "mag": 20,
+        "prc": 38,
+        "end": 37,
+        "chr": 12,
+        "int": 39,
+        "agl": 17,
+        "luk": 17,
+        "baseatk": 3,
+        "basemag": 6,
+        "baseprc": 9,
+        "baseend": 8,
+        "basechr": 3,
+        "baseint": 10,
+        "baseagl": 3,
+        "baseluk": 3,
+        "lb": 0,
+        "xp": 0,
+        "maxxp": 1560,
+        "weak": [
+            "fire"
+        ],
+        "resist": [
+            "water"
+        ],
+        "block": [],
+        "repel": [
+            "ice"
+        ],
+        "drain": [],
+        "skills": [
+            "IcyShield",
+            "FreezingTemps",
+            "ChillyWinds"
+        ],
+        "meleequote": [
+            "Eagle Kick!",
+            "This kick is strong enough to break a skull!",
+            "Ka Caw Mother Buzzard.",
+            "They should call me Lightning Legs with these strong kick, then again I hope they don’t."
+        ],
+        "physquote": [],
+        "magquote": [],
+        "dodgequote": [
+            "Seems like your aim was off.",
+            "This is embarrassing to watch…",
+            "A rock has better aim than you!",
+            "Are you even trying?",
+            "Ehehehehe. It’s funny to watch you fail."
+        ],
+        "killquote": [
+            "A win for science!",
+            "Experiment Great Success.",
+            "Hypothesis Confirmed.",
+            "Hope you like your icy grave.",
+            "Your failure brings me great joy."
+        ],
+        "deathquote": [
+            "Experiment Total Failure…",
+            "WHAT AM I FIGHTING FORRRrrrrr….",
+            "What a poor result…",
+            "I’ve been finished…",
+            "That was unexpected…",
+            "I’ll do better next time…",
+            "I won’t lose next time…",
+            "I’ll be back! And next time, you will die by my hands!",
+            "This wasn’t part of my calculations at all…",
+            "I haven’t lost yet…I’m just….tired…"
+        ],
+        "lbquote": [
+            "**I will be the last face you see.**",
+            "Hope you made peace with your gods.",
+            "No Mercy for you! **And no redos.**"
+        ],
+        "healquote": [
+            "I’ll lend you some strength.",
+            "Let me help!",
+            "Here. You need it…",
+            "Take this!",
+            "This doesn’t mean I’m your friend."
+        ],
+        "helpedquote": [
+            "Thanks, Partner.",
+            "Ehehe, Thanks, I was getting careless.",
+            "I needed this.",
+            "Thank you."
+        ],
+        "lvlquote": [
+            "I have reached another rank of strength.",
+            "Looks like I’m getting smarter.",
+            "Got some newly fresh data.",
+            "Gaining this data was an exciting experiment.",
+            "Not bad…"
+        ],
+        "lb1": {
+            "name": "UltCelestialWinter",
+            "pow": 250,
+            "cost": 150,
+            "status": "Freeze",
+            "statuschance": 50
+        },
+        "bio": {
+            "info": "",
+            "backstory": "",
+            "voice": "",
+            "theme": ""
+        }
+    },
+    "Sutela": {
+        "name": "Sutela",
+        "owner": "441198920668938260",
+        "level": 30,
+        "hp": 143,
+        "mp": 208,
+        "maxhp": 143,
+        "maxmp": 208,
+        "basehp": 27,
+        "basemp": 34,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "atk": 13,
+        "mag": 36,
+        "prc": 20,
+        "end": 18,
+        "chr": 37,
+        "int": 36,
+        "agl": 20,
+        "luk": 12,
+        "baseatk": 4,
+        "basemag": 7,
+        "baseprc": 6,
+        "baseend": 4,
+        "basechr": 8,
+        "baseint": 7,
+        "baseagl": 6,
+        "baseluk": 3,
+        "xp": 0,
+        "maxxp": 3679,
+        "weak": [
+            "poison",
+            "pierce"
+        ],
+        "resist": [
+            "water",
+            "curse"
+        ],
+        "block": [],
+        "repel": [
+            "wind"
+        ],
+        "drain": [],
+        "skills": [
+            "AwayWithTheWave",
+            "FeedingOnYourDespair"
+        ],
+        "meleequote": [],
+        "physquote": [],
+        "magquote": [],
+        "lbquote": [],
+        "healquote": [],
+        "helpedquote": [
+            "Thanks... Really appreciating it.",
+            "You didn't have to, but thank you.",
+            "Iii think I should try harder next time.",
+            "https://www.youtube.com/watch?v=ub82Xb1C8os",
+            "Thank you very much.",
+            "I'll repay you later.",
+            "I'll make sure not to disappoint now.",
+            "I hope this is the last time for now.",
+            "How many times is this gonna happen? This is embarrassing.",
+            "I feel embarrassed from this.",
+            "Hey, make sure to keep me secure, okay?",
+            "Thanks, you're a real one.",
+            "You're the best.",
+            "Remember to stay positive, Sutela.",
+            "Time to change the strategy.",
+            "You think I should invest in more defense?"
+        ],
+        "killquote": [
+            "Who said a three spirit doesn't know how to beat up somebody.",
+            "...Nailed that one.",
+            "Sƚαყ ƚԋҽ ϝυƈƙ ԃσɯɳ.",
+            "Goodness gracious this is getting so cheesy.",
+            "How do you like that, huh?",
+            "Well that's one thing done.",
+            "Hey would you look at that?",
+            "So what are you gonna do now?",
+            "Sucks to be you.",
+            "I would've given you an L, but you have given it to yourself already.",
+            "Sucks to suck."
+        ],
+        "deathquote": [
+            "𝓐𝓐𝓐𝓐𝓐𝓖𝓖𝓗.. Tԋιʂ ʂԋσυʅԃɳ'ƚ ҽɳԃ ʅιƙҽ ƚԋιʂ. Not... Like this..",
+            "Well it was a good run.",
+            "Ugh...",
+            "𝓢𝓱𝓸𝓾𝓵𝓭'𝓿𝓮 𝓰𝓸𝓷𝓮 𝓫𝓪𝓬𝓴 𝓽𝓸 𝓲𝓼𝓸𝓵𝓪𝓽𝓲𝓸𝓷.",
+            "Next time for sure..",
+            "Was that worth it?",
+            "[cough] God...",
+            "Guess this is it for me, huh?",
+            "Avenge me, guys..",
+            "I knew I wasn't good enough..."
+        ],
+        "lvlquote": [
+            "Alllright! We're getting somewhere!",
+            "𝓞𝓱 𝓫𝓸𝔂 𝓘 𝓬𝓪𝓷'𝓽 𝔀𝓪𝓲𝓽 𝓽𝓸 𝓼𝓮𝓮 𝓽𝓱𝓮 𝓷𝓮𝔀 𝓼𝓽𝓻𝓮𝓷𝓰𝓽𝓱! Ok I am being too optimistic.",
+            "Sԋιƚ ყҽʂ. Tιɱҽ ƚσ ƙιƈƙ ʂσɱҽ αʂʂҽʂ!",
+            "Aw yeah. We're getting closer.",
+            "Wooo!!",
+            "Oh hey. Neat.",
+            "I wonder how much this affects me for now.",
+            "This is what I like to see.",
+            "Awesome.",
+            "Fantastic!"
+        ],
+        "dodgequote": [
+            "Lame.",
+            "Well that happened.",
+            "Nice try, but not today!",
+            "Iiiii think you need some glasses or something.",
+            "Uhhhhhhhhhh...",
+            "Okay then, I'll accept that.",
+            "This is just sad, you know?",
+            "An eye exam is necessary for you.",
+            "Please try next time.",
+            "Maybe practice your aim after we beat the shit out of you.",
+            "God this is making me feel weird.",
+            "Okay watch where you're aiming first.",
+            "Phew. That was close.",
+            "Not even close, my guy.",
+            "Eαƚ ყσυɾ ʂԋιƚ αιɱ!",
+            "Cσɱҽ σɳ! Hιƚ ɱҽ ɳҽxƚ ƚιɱҽ!",
+            "NGAAAAAAH, JUST BE BETTER!",
+            "Man this is getting boring.",
+            "Man...",
+            "Seriously??",
+            "Come on. You're better than that.",
+            "Just give up already.",
+            "Sigh...",
+            "Okay what time is it? I feel bored.",
+            "𝓝𝓸𝓽 𝓽𝓱𝓲𝓼 𝓽𝓲𝓶𝓮.",
+            "...",
+            "No comment.",
+            "Were you seriously aiming for my crotch? Why???",
+            "Maybe go a little to the left this time.",
+            "You missed me by a few inches.",
+            "Well thanks for trying to get some wind on my fur.",
+            "Please just use your eyes.",
+            "How do you even???",
+            "I'll just take a nap.",
+            "I feel like your ancestors were better than this.",
+            "Dude, my head is big.",
+            "Am I too far away for you?",
+            "Am I not big enough of a target",
+            "You'll just tire yourself out.",
+            "Hooo boy.",
+            "Appreciated.",
+            "We like that happening, you know?",
+            "Aim for something else.",
+            "Are you blind?",
+            "You have no excuse to be this bad.",
+            "Give up.",
+            "Close, but no cigar.",
+            "To put it bluntly, you suck.",
+            "Stop trying.",
+            "undefined",
+            "https://www.youtube.com/watch?v=ub82Xb1C8os"
+        ],
+        "missquote": [
+            "Aw man...",
+            "God, seriously?",
+            "Man I feel embarrassed.",
+            "Aɯ ƈσɱҽ σɳ!"
+        ],
+        "blockquote": [],
+        "repelquote": [
+            "Not this time, YOU get the treatment!",
+            "And it bounces back.",
+            "Denied!"
+        ],
+        "drainquote": [
+            "Neat.",
+            "Well I needed a little health anyways.",
+            "𝓜𝓶𝓶. 𝓣𝓪𝓼𝓽𝔂!",
+            "https://cdn.discordapp.com/attachments/820036937791438859/873538603375013928/KyogreDelicious.jpg"
+        ],
+        "hurtquote": [
+            "AIIIII!",
+            "I'll get back at you soon.",
+            "Karma will get you for that.",
+            "Ugh.....",
+            "Come on...",
+            "Are you serious right now?",
+            "Well this is gonna be a mistake for you, I'm sure of it.",
+            "Oh I hate what's going on.",
+            "Just don't finish me off yet, okay?",
+            "Really?",
+            "AAAGH, that hurt."
+        ],
+        "resistquote": [
+            "Well this did a little bit of a scratch.",
+            "Try something else.",
+            "Glad to have some thick skin for that."
+        ],
+        "weapon": "none",
+        "bio": {
+            "info": "",
+            "backstory": "",
+            "voice": "",
+            "theme": ""
+        },
+        "strikequote": [],
+        "critquote": [],
+        "weakquote": []
+    },
+    "Sky": {
+        "name": "Sky",
+        "owner": "412328234198237189",
+        "level": 40,
+        "hp": 274,
+        "mp": 220,
+        "maxhp": 274,
+        "maxmp": 220,
+        "basehp": 40,
+        "basemp": 25,
+        "melee": [
+            "ShortstopSlice",
+            "slash"
+        ],
+        "atk": 47,
+        "mag": 46,
+        "prc": 25,
+        "end": 18,
+        "chr": 14,
+        "int": 24,
+        "agl": 46,
+        "luk": 25,
+        "baseatk": 8,
+        "basemag": 7,
+        "baseprc": 6,
+        "baseend": 5,
+        "basechr": 1,
+        "baseint": 5,
+        "baseagl": 7,
+        "baseluk": 6,
+        "xp": 0,
+        "maxxp": 23532,
+        "weak": [
+            "fire",
+            "bless"
+        ],
+        "resist": [
+            "ice",
+            "slash"
+        ],
+        "block": [
+            "curse"
+        ],
+        "repel": [],
+        "drain": [],
+        "skills": [
+            "Tanukimation",
+            "Navinity",
+            "ThunderGodDance",
+            "ElusionCounterattack",
+            "TanukiFist"
+        ],
+        "meleequote": [
+            "Teyaat!",
+            "It's not over yet!"
+        ],
+        "physquote": [
+            "Take this!",
+            "How about this?",
+            "Totsugeki!",
+            "On a scale of one to ten, I'll give you a three.",
+            "Spectra trusted you."
+        ],
+        "magquote": [
+            "Dodge this!",
+            "There!",
+            "Underestimating me will be your last mistake!"
+        ],
+        "lbquote": [
+            "Are you brave enough to take this one?!",
+            "I'll show you what a REAL attack looks like!",
+            "You won't get away that easily.",
+            "I got something special for ya!",
+            "You're HISTORY!",
+            "You picked the wrong warrior to mess with!",
+            "You're as good as DEAD!"
+        ],
+        "healquote": [
+            "Be careful ya'll.",
+            "Show a bit more caution will ya?",
+            "You're not out of this yet."
+        ],
+        "helpedquote": [
+            "Thanks I needed that.",
+            "Thanks for the help.",
+            "Hooh, that was a close one."
+        ],
+        "killquote": [
+            "Not even close!",
+            "Chew on THAT!",
+            "HAHAHAAAAA, ohhh I need a breather after that one.",
+            "I alone am more than enough!",
+            "I thought I could too."
+        ],
+        "deathquote": [
+            "Not... Here....",
+            "Damn you...!",
+            "I can feel... The irony.... Already.....",
+            "https://www.youtube.com/watch?v=lMKFdEBrsss",
+            "This... isn't it.... chief.....",
+            "Sorry everyone....",
+            "I've... failed....",
+            "Is this my limit...?",
+            "Why... now...?",
+            "I can't... Fall here....",
+            "Not like this....",
+            "This is no way to go out...",
+            "I wasn't strong enough....",
+            "Can't... Continue....",
+            "Couldn't it have been more... Climactic...?"
+        ],
+        "lb1": {
+            "name": "EtherealBlade",
+            "pow": 300,
+            "cost": 100,
+            "status": "none",
+            "statuschance": 0,
+            "affinitypow": 5,
+            "class": "atk"
+        },
+        "lb2": {
+            "name": "EtherealExcalibur",
+            "pow": 500,
+            "cost": 220,
+            "status": "none",
+            "statuschance": 0,
+            "affinitypow": 7,
+            "class": "atk"
+        },
+        "lb3": {
+            "name": "OmegaFinishingBlow",
+            "pow": 750,
+            "cost": 400,
+            "status": "dizzy",
+            "statuschance": 999,
+            "affinitypow": 9,
+            "class": "atk"
+        },
+        "lvlquote": [
+            "Not bad."
+        ],
+        "dodgequote": [
+            "Denied!",
+            "Try harder next time!",
+            "Woah! Watch where you're aiming that thing!",
+            "You chose wrong!",
+            "Surely you *meant* to miss?",
+            "Fuck off.",
+            "Close, but no cigar!",
+            "Hoh?",
+            "Eyes, use them",
+            "Aim a *little* more to the left next time.",
+            "Would ya quit screwing around?",
+            "You can't be serious.",
+            "You can't keep up with me, JUST LOOK AT MY SPEED!",
+            "C'mon you weren't even trying that time.",
+            "There's... There's no way you're *that* bad at aiming?",
+            "PFFFFFHAHAHAAAAAAAAAAHAHAAA! Ohh I need a vacation.",
+            "I'm not fighting to watch you target practice man.",
+            "You were *this* close!",
+            "Come ON! You have eyes don't you???",
+            "Quit messing around and HIT ME!",
+            "I'm no genius, but I *think* you need glasses.",
+            "Y-You can't be serious...",
+            "Please tell me you're joking.",
+            "Didn't know I'd be at a rookie shooting range today.",
+            "Not bad. You almost made me use 0.00001% of my agility.",
+            "I can throw a fly's excrement and hit more accurately than this.",
+            "I swear you're doing this on purpose.",
+            "I'm honestly speechless.",
+            "No words.",
+            "This is truly... A sight to behold.",
+            "I'm genuinely getting worried for your eyesight.",
+            "I really thought you'd hit me that time.",
+            "Come on, it's not that hard. Just *aim* for the Tanuki.",
+            "*Sighhhh...*",
+            "This is NO time to be playing around ya know?",
+            "Oi watch it! You almost charred my fur!",
+            "NOOO NOT THE DAFFODILS!!! I just bought those. :(",
+            "Mein gott! I think I've just encountered a blind person!",
+            "I'll be blunt, I think you need an eye exam.",
+            "You're gonna have to try a *little* harder than that.",
+            "Where are you looking? Dumbass!",
+            "Oops my bad, totally meant to dodge that.",
+            "Ohhhh and you were *so close!*",
+            "Wh- Where did you learn to aim, grade school?",
+            "I'll give you an 🇦 for effort.",
+            "It's about time I saw some effort.",
+            "Can't touch this.",
+            "I hope this is part of your plan.",
+            "Bruh.",
+            "F.",
+            "🅱️oi.",
+            "This... **Is where the fight truly begins...**",
+            "Woah! Too close.",
+            "PFFFFHAHAHAHAAAAAA!! Ohhh my lungs...",
+            "I see you left your glasses at home today.",
+            "Leave me BE!",
+            "I only ask this once for your own benefit. **Leave.. me... ALONE!**",
+            "Try try again as they say.",
+            "You're telling me that this... Is your best?",
+            "C'mon, make me break a sweat at least.",
+            "You just made the last mistake that you'll ever make.",
+            "Your first mistake was attacking me. **Your second was sticking around.**",
+            "Bruh, look at this dude. Wait till you see the f- oh no no no no oh ho ho OoOoOoO- HA HA HA!",
+            "BAHAHAHAHAAA!",
+            "Ah.",
+            "I see.",
+            "https://www.youtube.com/watch?v=zhKepn1ssSM",
+            "I'm not dodging, **I'm drifting out of the way.**"
+        ],
+        "blockquote": [
+            "Did you really think that move would work on me?",
+            "That wasn't the only thing up your sleeve... *Right?*",
+            "You *almost* made me flinch.",
+            "IYAAAAAAAAAAAAAAAAAAAAA- Oh I'm fine. I mean uh, psh that was nothing.",
+            "You tried, and you failed.",
+            "I hope this isn't the second time this happened, not that I'd know or anything.",
+            "You're trying my patience, aren't you?",
+            "You're doing this on purpose right?",
+            "You *almost* got me that time. I swear! Pinky promise!",
+            "At least aim at someone else man."
+        ],
+        "missquote": [
+            "Ohhhh the irony....",
+            "Ah shi-",
+            "I do not see.",
+            "Seems I forgot my glasses somewhere.",
+            "Come on he wAS RIGHT THERE!",
+            "You've gotta be kidding me.",
+            "Goddammit.",
+            "You-",
+            "**I won't miss next time.**"
+        ],
+        "resistquote": [
+            "Ooh, what a nice breeze.",
+            "I actually felt a slight chill that time.",
+            "At least try harder to freeze me?",
+            "Oops, almost slipped that time.",
+            "No.",
+            "Try again.",
+            "Are you gonna try something else now?",
+            "Nice to know I get free air conditioning.",
+            "Gotta love a n**ice** cold breeze.",
+            "...You done yet?"
+        ],
+        "repelquote": [
+            "Did you really believe that *wouldn't* backfire?",
+            "https://pbs.twimg.com/media/ErAh1BOWMAE69EA?format=jpg&name=medium"
+        ],
+        "drainquote": [
+            "https://cdn.discordapp.com/attachments/820036937791438859/873538603375013928/KyogreDelicious.jpg"
+        ],
+        "hurtquote": [
+            "Ow! Come on man dial it back a bit.",
+            "Come on I *just* combed my fur today...",
+            "Why don't *you,* go bother someone *ELSE?*"
+        ],
+        "weapon": "none",
+        "bio": {
+            "info": "A cheerful Tanuki and somewhat egotistical, and has perfectionist tendencies. He wears a slightly loose, blue short-sleeved turtleneck to match his Brown fur with dark tan cargo shorts. And a utility belt where he keeps his shortsword around his waist. He may resemble Spectra in many ways, both being Tanukis, but Sky's tail is slightly larger, as well as being a bit fluffier.",
+            "backstory": "As a traveling warrior, he's seen many places and people. Through these travels, he has gained battle experience by simply mimicking what others do. Sometimes you can spot him with a leaf on his head. Being a Tanuki, he gets rather lonely, as there is almost no fellow Tanuki in the world. Spectra is the only exception to this, but as she came from a different planet, it's a bit awkward for him to approach her.",
+            "voice": "Vegeta (Dragon Ball Super)",
+            "theme": "https://www.youtube.com/watch?v=8AYlJNELxIw, https://www.youtube.com/watch?v=I8RJXWr8j5k"
+        },
+        "strikequote": [],
+        "critquote": [
+            "**Your run ends here.**",
+            "Aw that's too bad.",
+            "I've only just BEGUN!",
+            "You're finished!",
+            "**I hope you were prepared for a beatdown.**",
+            "It ends NOW!"
+        ],
+        "weakquote": [
+            "Watch the fur WATCH THE FUR!",
+            "AIEE! C'mon man we can talk about this...!",
+            "UWAAAAA",
+            "IYAAAAAAA",
+            "We can be CIVILIZED ABOUT THIS!",
+            "I can't fall here...",
+            "Vision getting... Hazy...."
+        ],
+        "lb4": {
+            "name": "RaijinEnbu",
+            "class": "atk",
+            "pow": 20,
+            "hits": 11,
+            "cost": 600,
+            "affinitypow": 1,
+            "status": "none",
+            "statuschance": 0
+        },
+        "strongquote": [
+            "Is that all you can do?",
+            "C'mon, make me get serious here!",
+            "**We won't lose to you.**",
+            "This is for my ally!",
+            "You won't get away from this unscathed.",
+            "YEAHH SIDDOWN, DON'T TRY IT! >:D"
+        ]
+    },
+    "Grassimp": {
+        "name": "Grassimp",
+        "npcchar": true,
+        "level": 23,
+        "hp": 113,
+        "mp": 108,
+        "maxhp": 113,
+        "maxmp": 108,
+        "basehp": 25,
+        "basemp": 20,
+        "status": "none",
+        "statusturns": 0,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "atk": 17,
+        "mag": 30,
+        "prc": 32,
+        "end": 11,
+        "chr": 16,
+        "int": 16,
+        "agl": 11,
+        "luk": 29,
+        "baseatk": 6,
+        "basemag": 8,
+        "baseprc": 10,
+        "baseend": 4,
+        "basechr": 5,
+        "baseint": 5,
+        "baseagl": 4,
+        "baseluk": 7,
+        "lb": 0,
+        "xp": 0,
+        "maxxp": 1751,
+        "weak": [
+            "fire"
+        ],
+        "resist": [
+            "earth"
+        ],
+        "block": [],
+        "repel": [],
+        "drain": [
+            "water"
+        ],
+        "skills": [
+            "Mahana",
+            "Hanama",
+            "Magna",
+            "Lunge",
+            "Media"
+        ],
+        "lb1": {
+            "name": "Leafstorm",
+            "pow": 400,
+            "cost": 100,
+            "status": "bleed",
+            "statuschance": 5
+        },
+        "meleequote": [],
+        "physquote": [],
+        "magquote": [],
+        "missquote": [],
+        "dodgequote": [],
+        "resistquote": [],
+        "blockquote": [],
+        "repelquote": [],
+        "drainquote": [],
+        "hurtquote": [],
+        "killquote": [],
+        "deathquote": [],
+        "lbquote": [],
+        "healquote": [],
+        "helpedquote": [],
+        "lvlquote": [],
+        "guard": false,
+        "weapon": "none",
+        "lb2": {
+            "name": "GrassCannon",
+            "pow": 700,
+            "cost": 205,
+            "status": "dizzy",
+            "statuschance": 20
+        },
+        "bio": {
+            "info": "Just a regular Grassimp, though, this one seems to be more powerful than the rest, probably because it got outside training from some of the group.",
+            "backstory": "",
+            "voice": "",
+            "theme": ""
+        }
+    },
+    "Firestorm": {
+        "name": "Firestorm",
+        "owner": "461050360832720904",
+        "level": 30,
+        "hp": 253,
+        "mp": 136,
+        "maxhp": 253,
+        "maxmp": 136,
+        "basehp": 50,
+        "basemp": 20,
+        "status": "none",
+        "statusturns": 0,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "atk": 38,
+        "mag": 14,
+        "prc": 35,
+        "end": 19,
+        "chr": 10,
+        "int": 19,
+        "agl": 39,
+        "luk": 19,
+        "baseatk": 9,
+        "basemag": 5,
+        "baseprc": 6,
+        "baseend": 5,
+        "basechr": 1,
+        "baseint": 5,
+        "baseagl": 10,
+        "baseluk": 5,
+        "lb": 0,
+        "xp": 0,
+        "maxxp": 5070,
+        "weak": [
+            "water"
+        ],
+        "resist": [],
+        "block": [],
+        "repel": [],
+        "drain": [
+            "fire"
+        ],
+        "skills": [
+            "FlamingCyclone",
+            "Fireball",
+            "Flamethrower"
+        ],
+        "meleequote": [
+            "Take This! Stone Fist!",
+            "It’s no use! Take this!",
+            "MUDA MUDA MUDA MUDA"
+        ],
+        "physquote": [],
+        "magquote": [
+            "Take This!",
+            "Take That!",
+            "Take This!",
+            "Hydrangea!",
+            "Lets spice this up a bit!",
+            "HIYAA!",
+            "BURN!",
+            "Fire!",
+            "Dragon Breath!",
+            "Tetrahedron!",
+            "Harmonic Box!",
+            "Adamantine Cube!",
+            "Dark Rhombus!",
+            "Cosmic Rectangle!",
+            "Acid Wash!",
+            "Sapphire!",
+            "Cyan!",
+            "Cerulean!",
+            "Lapis Lazuli!",
+            "Celadon!"
+        ],
+        "dodgequote": [
+            "You’re too slow!",
+            "How did you miss? I wasn’t even moving!",
+            "Truly you have bad aim.",
+            "I’m the coolest!"
+        ],
+        "killquote": [
+            "You never stood a chance!",
+            "Didn’t your parents ever tell you not to play with fire?",
+            "When you mess around with fire, you will get burned.",
+            "Big Victory!",
+            "You didn’t have a chance in hell.",
+            "You we’re no match for me!",
+            "*To make a world of order.*",
+            "Hardly Surprising."
+        ],
+        "deathquote": [
+            "This flame's... been extinguished...",
+            "I’m losing my edge…",
+            "That wasn’t sweet…",
+            "Oh too bad…",
+            "Oh no…",
+            "I need to train more…",
+            "You aren’t the worst…",
+            "I won’t lose next time!",
+            "You’ll pay for this!",
+            "Batankyū…",
+            "That’s a Shame…"
+        ],
+        "lbquote": [
+            "The zenith of my mind, body, and my spirit! Become a raging fire and burn.",
+            "**BURN IN HELL**",
+            "**Now you’ll see why they call me FIRESTORM!**",
+            "**I’ll burn you to ASHES!**",
+            "**DON’T MESS WITH MY FRIENDS!!!**",
+            "Is it hot in here, or is it just me?",
+            "**Burn….**",
+            "**Bayoen!**"
+        ],
+        "healquote": [],
+        "helpedquote": [
+            "Thanks for the pick-me-up!",
+            "You are a true friend!",
+            "Thanks! I needed it."
+        ],
+        "lvlquote": [
+            "Level Up!",
+            "I must be getting stronger!",
+            "I gain power by the second!",
+            "You’ll never live up to the likes of me~"
+        ],
+        "lb1": {
+            "name": "MagmaEruption",
+            "pow": 250,
+            "cost": 100,
+            "status": "burn",
+            "statuschance": 50
+        },
+        "lb2": {
+            "name": "HellStorm",
+            "pow": 350,
+            "cost": 200,
+            "status": "burn",
+            "statuschance": 90
+        },
+        "missquote": [
+            "Did I miss?",
+            "I- I- I did that on purpose!",
+            "I wasn’t looking-",
+            "Oh- Your over here…"
+        ],
+        "resistquote": [],
+        "blockquote": [
+            "Block!",
+            "Woah Shock Dodge! Wow I’m on fire!",
+            "Parry!",
+            "Counter Attack! ",
+            "{Ultra Instinct Starts playing.}",
+            "How about…No U.",
+            "Gonna have to stop you right there.",
+            "Blockin Like it’s Tetris!"
+        ],
+        "repelquote": [],
+        "drainquote": [
+            "Your power is mine!",
+            "Thanks! Now back to you!",
+            "Flame Drain!"
+        ],
+        "hurtquote": [
+            "Ugh.",
+            "This is bad.",
+            "Oh boy",
+            "Ouch!",
+            "Stop It!",
+            "Tch.",
+            "Tis just a scratch.",
+            "Ahhhh!!!",
+            "Oof!",
+            "Hey! Watch it!",
+            "Oh no.",
+            "Gonna feel that in the morning…",
+            "I’m still standing!",
+            "You hit like a baby!",
+            "I thought you were stronger than that.",
+            "How mean!",
+            "No-!",
+            "Oh! Call an Ambulance! Call an Ambulance! But not for me!",
+            "That hurts!"
+        ],
+        "guard": false,
+        "weapon": "none",
+        "bio": {
+            "info": "",
+            "backstory": "",
+            "voice": "",
+            "theme": ""
+        }
+    },
+    "God": {
+        "name": "God",
+        "owner": "516359709779820544",
+        "level": 99,
+        "hp": 111753,
+        "mp": 111753,
+        "maxhp": 111753,
+        "maxmp": 111753,
+        "basehp": 10000,
+        "basemp": 10000,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "atk": 99,
+        "mag": 99,
+        "prc": 99,
+        "end": 99,
+        "chr": 99,
+        "int": 99,
+        "agl": 99,
+        "luk": 99,
+        "baseatk": 99,
+        "basemag": 99,
+        "baseprc": 99,
+        "baseend": 99,
+        "basechr": 99,
+        "baseint": 99,
+        "baseagl": 99,
+        "baseluk": 99,
+        "xp": 0,
+        "maxxp": -2167163155,
+        "weak": [],
+        "resist": [
+            "curse",
+            "bless",
+            "almighty"
+        ],
+        "block": [],
+        "repel": [],
+        "drain": [],
+        "skills": [
+            "God'sHand",
+            "Megidolaon",
+            "EndlessLight",
+            "SidestepCounter-God",
+            "RegenIII"
+        ],
+        "meleequote": [],
+        "physquote": [],
+        "magquote": [],
+        "missquote": [],
+        "blockquote": [],
+        "repelquote": [],
+        "drainquote": [],
+        "resistquote": [],
+        "hurtquote": [],
+        "lbquote": [],
+        "healquote": [],
+        "helpedquote": [],
+        "killquote": [],
+        "deathquote": [],
+        "bio": {
+            "info": "",
+            "backstory": "",
+            "voice": "",
+            "theme": ""
+        }
+    },
+    "Bow": {
+        "name": "Bow",
+        "owner": "498041248616153098",
+        "level": 40,
+        "hp": 188,
+        "mp": 179,
+        "maxhp": 188,
+        "maxmp": 179,
+        "basehp": 32,
+        "basemp": 23,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "atk": 23,
+        "mag": 44,
+        "prc": 23,
+        "end": 15,
+        "chr": 14,
+        "int": 43,
+        "agl": 43,
+        "luk": 22,
+        "baseatk": 4,
+        "basemag": 5,
+        "baseprc": 4,
+        "baseend": 2,
+        "basechr": 1,
+        "baseint": 4,
+        "baseagl": 4,
+        "baseluk": 3,
+        "xp": 0,
+        "maxxp": 26889,
+        "weak": [
+            "water",
+            "ice"
+        ],
+        "resist": [
+            "bless"
+        ],
+        "block": [],
+        "repel": [],
+        "drain": [
+            "electric"
+        ],
+        "skills": [
+            "AssaultDive",
+            "Self-Destruct",
+            "Tarukaja",
+            "Freila",
+            "Tetrakarn"
+        ],
+        "meleequote": [
+            "who knew all you needed to attack someone is to be made of metal? <:troll:690075870995808326>"
+        ],
+        "physquote": [
+            "Here is an example of an 'Assault Dive'."
+        ],
+        "magquote": [
+            "Fun Fact: I am about to either attack the opponent with a nuclear attack of sorts or blow up. You'll know which is which depending on my current life status."
+        ],
+        "strongquote": [
+            "You look like you've seen a chunk of scrap metal expose your weakness. Oh, right, **That was me.**"
+        ],
+        "critquote": [],
+        "weakquote": [
+            "if you're gonna do that, buy a waterproof model. you can tell its waterproof because its my brother that went missing 3 years ago  (Date may no longer be accurate)"
+        ],
+        "missquote": [
+            "damn I suck at this",
+            "a"
+        ],
+        "blockquote": [],
+        "repelquote": [],
+        "drainquote": [
+            "Thought you would know better than to give a robot electricity, dumbass."
+        ],
+        "resistquote": [],
+        "hurtquote": [
+            "watch the popcorn, i haven't found a shop yet.",
+            ":("
+        ],
+        "lbquote": [
+            "Alright who the hell added this."
+        ],
+        "healquote": [],
+        "helpedquote": [
+            "thanks"
+        ],
+        "killquote": [],
+        "deathquote": [
+            "hey guys im goin to the store yall want anything?",
+            "understandable have a great day"
+        ],
+        "bio": {
+            "info": "",
+            "backstory": "",
+            "voice": "",
+            "theme": ""
+        },
+        "dodgequote": [
+            "what? im not a training dummy, im not gonna stand around and let you hit me.",
+            "sorry, i tripped over your limited edition crusty ass grape jpeg glasses."
+        ],
+        "lvlquote": [
+            "guys holdon i need to save this text file i'll be a minute"
+        ]
+    },
+    "Nighthug": {
+        "name": "Nighthug",
+        "owner": "441198920668938260",
+        "level": 30,
+        "hp": 204,
+        "mp": 209,
+        "maxhp": 204,
+        "maxmp": 209,
+        "basehp": 30,
+        "basemp": 35,
+        "status": "none",
+        "statusturns": 0,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "atk": 13,
+        "mag": 36,
+        "prc": 36,
+        "end": 20,
+        "chr": 37,
+        "int": 20,
+        "agl": 12,
+        "luk": 18,
+        "baseatk": 4,
+        "basemag": 7,
+        "baseprc": 7,
+        "baseend": 6,
+        "basechr": 8,
+        "baseint": 6,
+        "baseagl": 3,
+        "baseluk": 4,
+        "lb": 0,
+        "xp": 0,
+        "maxxp": 4360,
+        "weak": [],
+        "resist": [],
+        "block": [],
+        "repel": [],
+        "drain": [],
+        "skills": [],
+        "meleequote": [],
+        "physquote": [],
+        "magquote": [],
+        "missquote": [],
+        "blockquote": [
+            "Twy something ewse, awwight?",
+            "Shame thiws doesn't wowk, does iwt?"
+        ],
+        "repelquote": [],
+        "drainquote": [],
+        "resistquote": [],
+        "hurtquote": [],
+        "lbquote": [],
+        "healquote": [],
+        "helpedquote": [],
+        "killquote": [
+            "I went ovewboawd, didn't I? Sowwy."
+        ],
+        "deathquote": [],
+        "dodgequote": [
+            "Mind if I hewped u with thawt?",
+            "Hewe, wet me get cwosew fow u.",
+            "Hey down't ovewwowk youwsewf if u down't feew good enough.",
+            "I couwd pewsonawwy twain thawt aim of youws if u wawnt."
+        ],
+        "lvlquote": [],
+        "bio": {
+            "info": "",
+            "backstory": "",
+            "voice": "",
+            "theme": ""
+        }
+    },
+    "Patella": {
+        "name": "Patella",
+        "owner": "441198920668938260",
+        "level": 30,
+        "hp": 219,
+        "mp": 175,
+        "maxhp": 219,
+        "maxmp": 175,
+        "basehp": 45,
+        "basemp": 30,
+        "status": "none",
+        "statusturns": 0,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "atk": 37,
+        "mag": 20,
+        "prc": 20,
+        "end": 13,
+        "chr": 12,
+        "int": 19,
+        "agl": 36,
+        "luk": 35,
+        "baseatk": 8,
+        "basemag": 6,
+        "baseprc": 6,
+        "baseend": 4,
+        "basechr": 3,
+        "baseint": 5,
+        "baseagl": 7,
+        "baseluk": 6,
+        "lb": 0,
+        "xp": 0,
+        "maxxp": 5070,
+        "weak": [],
+        "resist": [],
+        "block": [],
+        "repel": [],
+        "drain": [],
+        "skills": [],
+        "meleequote": [],
+        "physquote": [],
+        "magquote": [],
+        "missquote": [],
+        "blockquote": [],
+        "repelquote": [],
+        "drainquote": [],
+        "resistquote": [],
+        "hurtquote": [],
+        "lbquote": [],
+        "healquote": [],
+        "helpedquote": [],
+        "killquote": [],
+        "deathquote": [],
+        "dodgequote": [
+            "Ye pumpin' stink, ye ken that?"
+        ],
+        "lvlquote": [],
+        "bio": {
+            "info": "",
+            "backstory": "",
+            "voice": "",
+            "theme": ""
+        }
+    },
+    "Lacrimal": {
+        "name": "Lacrimal",
+        "owner": "441198920668938260",
+        "level": 30,
+        "hp": 249,
+        "mp": 69,
+        "maxhp": 249,
+        "maxmp": 69,
+        "basehp": 46,
+        "basemp": 11,
+        "status": "none",
+        "statusturns": 0,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "atk": 39,
+        "mag": 11,
+        "prc": 20,
+        "end": 20,
+        "chr": 11,
+        "int": 17,
+        "agl": 36,
+        "luk": 35,
+        "baseatk": 10,
+        "basemag": 2,
+        "baseprc": 6,
+        "baseend": 6,
+        "basechr": 2,
+        "baseint": 3,
+        "baseagl": 7,
+        "baseluk": 6,
+        "lb": 0,
+        "xp": 0,
+        "maxxp": 6445,
+        "weak": [],
+        "resist": [],
+        "block": [],
+        "repel": [],
+        "drain": [],
+        "skills": [],
+        "meleequote": [],
+        "physquote": [],
+        "magquote": [],
+        "missquote": [],
+        "blockquote": [],
+        "repelquote": [],
+        "drainquote": [],
+        "resistquote": [],
+        "hurtquote": [
+            "What done ah say about strikin' people for no reason?!"
+        ],
+        "lbquote": [],
+        "healquote": [],
+        "helpedquote": [],
+        "killquote": [],
+        "deathquote": [],
+        "bio": {
+            "info": "",
+            "backstory": "",
+            "voice": "",
+            "theme": ""
+        },
+        "dodgequote": [],
+        "lvlquote": []
+    },
+    "Ralako": {
+        "name": "Ralako",
+        "owner": "532291526634635285",
+        "level": 30,
+        "hp": 68,
+        "mp": 209,
+        "maxhp": 68,
+        "maxmp": 209,
+        "basehp": 10,
+        "basemp": 35,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "atk": 10,
+        "mag": 39,
+        "prc": 37,
+        "end": 11,
+        "chr": 21,
+        "int": 19,
+        "agl": 19,
+        "luk": 36,
+        "baseatk": 1,
+        "basemag": 10,
+        "baseprc": 8,
+        "baseend": 2,
+        "basechr": 7,
+        "baseint": 5,
+        "baseagl": 5,
+        "baseluk": 7,
+        "xp": 0,
+        "maxxp": 5070,
+        "weak": [
+            "slash",
+            "strike",
+            "pierce",
+            "electric"
+        ],
+        "resist": [
+            "fire",
+            "grass",
+            "water"
+        ],
+        "block": [
+            "curse",
+            "bless"
+        ],
+        "repel": [],
+        "drain": [],
+        "skills": [
+            "Eiha",
+            "Magna",
+            "Agilao",
+            "Bufu",
+            "Garu",
+            "Aqua"
+        ],
+        "meleequote": [],
+        "physquote": [],
+        "magquote": [],
+        "strongquote": [],
+        "critquote": [],
+        "weakquote": [],
+        "missquote": [],
+        "blockquote": [],
+        "repelquote": [],
+        "drainquote": [],
+        "resistquote": [],
+        "hurtquote": [],
+        "lbquote": [],
+        "healquote": [],
+        "helpedquote": [],
+        "killquote": [],
+        "deathquote": [],
+        "bio": {
+            "info": "",
+            "backstory": "",
+            "voice": "",
+            "theme": ""
+        }
+    },
+    "Taretle": {
+        "name": "Taretle",
+        "owner": "532291526634635285",
+        "level": 30,
+        "hp": 306,
+        "mp": 63,
+        "maxhp": 306,
+        "maxmp": 63,
+        "basehp": 45,
+        "basemp": 5,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "atk": 39,
+        "mag": 11,
+        "prc": 20,
+        "end": 38,
+        "chr": 12,
+        "int": 17,
+        "agl": 20,
+        "luk": 35,
+        "baseatk": 10,
+        "basemag": 2,
+        "baseprc": 6,
+        "baseend": 9,
+        "basechr": 3,
+        "baseint": 3,
+        "baseagl": 6,
+        "baseluk": 6,
+        "xp": 0,
+        "maxxp": 6445,
+        "weak": [
+            "grass",
+            "electric",
+            "pierce"
+        ],
+        "resist": [
+            "fire",
+            "strike",
+            "earth"
+        ],
+        "block": [
+            "metal"
+        ],
+        "repel": [
+            "water"
+        ],
+        "drain": [],
+        "skills": [
+            "Cleave",
+            "Lunge",
+            "Tarukaja",
+            "Hana",
+            "AssaultDive",
+            "CruelAttack"
+        ],
+        "meleequote": [],
+        "physquote": [],
+        "magquote": [],
+        "strongquote": [],
+        "critquote": [],
+        "weakquote": [],
+        "missquote": [],
+        "blockquote": [],
+        "repelquote": [],
+        "drainquote": [],
+        "resistquote": [],
+        "hurtquote": [],
+        "lbquote": [],
+        "healquote": [],
+        "helpedquote": [],
+        "killquote": [],
+        "deathquote": [],
+        "bio": {
+            "info": "",
+            "backstory": "",
+            "voice": "",
+            "theme": ""
+        }
+    },
+    "Rattle": {
+        "name": "Rattle",
+        "owner": "516359709779820544",
+        "level": 30,
+        "hp": 213,
+        "mp": 111,
+        "maxhp": 213,
+        "maxmp": 111,
+        "basehp": 39,
+        "basemp": 24,
+        "status": "none",
+        "statusturns": 0,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "atk": 37,
+        "mag": 37,
+        "prc": 19,
+        "end": 20,
+        "chr": 13,
+        "int": 12,
+        "agl": 35,
+        "luk": 19,
+        "baseatk": 8,
+        "basemag": 8,
+        "baseprc": 5,
+        "baseend": 6,
+        "basechr": 4,
+        "baseint": 3,
+        "baseagl": 6,
+        "baseluk": 5,
+        "lb": 0,
+        "xp": 0,
+        "maxxp": 6445,
+        "weak": [],
+        "resist": [],
+        "block": [],
+        "repel": [],
+        "drain": [],
+        "skills": [
+            "BoneRush",
+            "MortemFlames",
+            "Bonemerang"
+        ],
+        "meleequote": [],
+        "physquote": [],
+        "magquote": [],
+        "strongquote": [],
+        "critquote": [],
+        "weakquote": [],
+        "missquote": [],
+        "blockquote": [],
+        "repelquote": [],
+        "drainquote": [],
+        "resistquote": [],
+        "hurtquote": [],
+        "lbquote": [],
+        "healquote": [],
+        "helpedquote": [],
+        "killquote": [],
+        "deathquote": [],
+        "bio": {
+            "info": "",
+            "backstory": "",
+            "voice": "",
+            "theme": ""
+        }
+    },
+    "DJ": {
+        "name": "DJ",
+        "owner": "532291526634635285",
+        "level": 99,
+        "hp": 816,
+        "mp": 602,
+        "maxhp": 816,
+        "maxmp": 602,
+        "basehp": 40,
+        "basemp": 20,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "atk": 40,
+        "mag": 40,
+        "prc": 56,
+        "end": 56,
+        "chr": 56,
+        "int": 99,
+        "agl": 99,
+        "luk": 99,
+        "baseatk": 8,
+        "basemag": 8,
+        "baseprc": 8,
+        "baseend": 8,
+        "basechr": 8,
+        "baseint": 8,
+        "baseagl": 8,
+        "baseluk": 8,
+        "xp": 0,
+        "maxxp": 106579182,
+        "weak": [],
+        "resist": [],
+        "block": [],
+        "repel": [],
+        "drain": [],
+        "skills": [
+            "MorningStar",
+            "ThunderReign",
+            "Maragidyne",
+            "HealAria",
+            "BlazingHell",
+            "BlackViper"
+        ],
+        "meleequote": [],
+        "physquote": [
+            "Say goodbye!"
+        ],
+        "magquote": [
+            "I will end this!"
+        ],
+        "strongquote": [],
+        "critquote": [],
+        "weakquote": [],
+        "missquote": [],
+        "blockquote": [],
+        "repelquote": [
+            "That won't do you any good!"
+        ],
+        "drainquote": [],
+        "resistquote": [
+            "Resistance is futile!"
+        ],
+        "hurtquote": [],
+        "lbquote": [],
+        "healquote": [],
+        "helpedquote": [],
+        "killquote": [
+            "You're history!",
+            "You're dust!",
+            "You didn't stand a chance!"
+        ],
+        "deathquote": [],
+        "dodgequote": [
+            "You can't touch me, dumbass!",
+            "You are pissing your fucking pants now?",
+            "Are you trembling?",
+            "You seriously are a joke.",
+            "You're a god damn moron!",
+            "My Grandma aims better than that",
+            "Get those preceptors fixed!",
+            "L for those to made you exist to miss",
+            "You're pathetic compared to my speed!",
+            "Dodge fest, lmao",
+            "Your speed sucks",
+            "Did me standing here wide open lives here",
+            "My piss hits more often!",
+            "Grovel at my feet, and I may feel remorseful",
+            "Oh ok",
+            "Try again, but use your best move this time"
+        ],
+        "lvlquote": [],
+        "weapon": "none",
+        "bio": {
+            "info": "",
+            "backstory": "",
+            "voice": "",
+            "theme": ""
+        }
+    },
+    "XPTest": {
+        "name": "XPTest",
+        "owner": "516359709779820544",
+        "level": 32,
+        "hp": 267,
+        "mp": 221,
+        "maxhp": 267,
+        "maxmp": 221,
+        "basehp": 50,
+        "basemp": 35,
+        "status": "none",
+        "statusturns": 0,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "atk": 15,
+        "mag": 15,
+        "prc": 20,
+        "end": 20,
+        "chr": 20,
+        "int": 36,
+        "agl": 36,
+        "luk": 36,
+        "baseatk": 5,
+        "basemag": 5,
+        "baseprc": 5,
+        "baseend": 5,
+        "basechr": 5,
+        "baseint": 5,
+        "baseagl": 5,
+        "baseluk": 5,
+        "lb": 0,
+        "xp": 0,
+        "maxxp": 6886,
+        "weak": [],
+        "resist": [],
+        "block": [],
+        "repel": [],
+        "drain": [],
+        "skills": [],
+        "meleequote": [],
+        "physquote": [],
+        "magquote": [],
+        "strongquote": [],
+        "critquote": [],
+        "weakquote": [],
+        "missquote": [],
+        "blockquote": [],
+        "repelquote": [],
+        "drainquote": [],
+        "resistquote": [],
+        "hurtquote": [],
+        "lbquote": [],
+        "healquote": [],
+        "helpedquote": [],
+        "killquote": [],
+        "deathquote": [],
+        "bio": {
+            "species": "",
+            "age": "",
+            "info": "",
+            "backstory": "",
+            "likes": "",
+            "dislikes": "",
+            "fears": "",
+            "voice": "",
+            "theme": ""
+        }
+    }
+}

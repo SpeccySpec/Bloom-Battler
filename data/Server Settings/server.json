@@ -1,0 +1,227 @@
+{
+    "819616171086577667": {
+        "prefix": "rpg!",
+        "limitbreaks": true,
+        "showtimes": false,
+        "onemores": false,
+        "currency": "Ring",
+        "pvpstuff": {
+            "none": {
+                "544290248734015488": {
+                    "points": 2
+                },
+                "412328234198237189": {
+                    "points": 2
+                },
+                "516359709779820544": {
+                    "points": 2
+                }
+            },
+            "metronome": {
+                "532291526634635285": {
+                    "points": 7
+                },
+                "441198920668938260": {
+                    "points": 4
+                },
+                "516359709779820544": {
+                    "points": 8
+                },
+                "412328234198237189": {
+                    "points": 4
+                },
+                "498041248616153098": {
+                    "points": 3
+                },
+                "544290248734015488": {
+                    "points": 2
+                }
+            },
+            "randskills": {
+                "412328234198237189": {
+                    "points": 3
+                },
+                "516359709779820544": {
+                    "points": 7
+                },
+                "441198920668938260": {
+                    "points": 1
+                },
+                "544290248734015488": {
+                    "points": 4
+                }
+            },
+            "randstats": {
+                "544290248734015488": {
+                    "points": 2
+                },
+                "441198920668938260": {
+                    "points": 7
+                },
+                "412328234198237189": {
+                    "points": 2
+                },
+                "516359709779820544": {
+                    "points": 4
+                },
+                "532291526634635285": {
+                    "points": 5
+                }
+            },
+            "charfuck": {}
+        },
+        "banned": []
+    },
+    "808462313262415893": {
+        "prefix": "rpg!",
+        "limitbreaks": false,
+        "showtimes": false,
+        "onemores": false,
+        "currency": "Ring",
+        "pvpstuff": {},
+        "banned": []
+    },
+    "874635107300933682": {
+        "prefix": "rpg!",
+        "limitbreaks": false,
+        "showtimes": false,
+        "onemores": false,
+        "currency": "Token",
+        "pvpstuff": {
+            "none": {
+                "516359709779820544": {
+                    "points": 6
+                }
+            },
+            "metronome": {
+                "441198920668938260": {
+                    "points": 2
+                },
+                "498041248616153098": {
+                    "points": 3
+                },
+                "544290248734015488": {
+                    "points": 3
+                },
+                "516359709779820544": {
+                    "points": 10
+                },
+                "532291526634635285": {
+                    "points": 9
+                },
+                "412328234198237189": {
+                    "points": 3
+                }
+            },
+            "randskills": {
+                "544290248734015488": {
+                    "points": 9
+                },
+                "516359709779820544": {
+                    "points": 9
+                },
+                "441198920668938260": {
+                    "points": 7
+                },
+                "498041248616153098": {
+                    "points": 3
+                }
+            },
+            "randstats": {
+                "498041248616153098": {
+                    "points": 9
+                },
+                "544290248734015488": {
+                    "points": 3
+                },
+                "516359709779820544": {
+                    "points": 3
+                },
+                "441198920668938260": {
+                    "points": 3
+                }
+            },
+            "charfuck": {
+                "532291526634635285": {
+                    "points": 11
+                },
+                "544290248734015488": {
+                    "points": 14
+                },
+                "516359709779820544": {
+                    "points": 24
+                },
+                "441198920668938260": {
+                    "points": 14
+                },
+                "498041248616153098": {
+                    "points": 12
+                },
+                "412328234198237189": {
+                    "points": 14
+                }
+            }
+        },
+        "banned": []
+    },
+    "763858631836958771": {
+        "prefix": "rpg!",
+        "limitbreaks": true,
+        "showtimes": true,
+        "onemores": false,
+        "currency": "_sex",
+        "pvpstuff": {
+            "none": {},
+            "metronome": {},
+            "randskills": {},
+            "randstats": {},
+            "charfuck": {}
+        },
+        "banned": []
+    },
+    "728307995901034546": {
+        "prefix": "rpg!",
+        "limitbreaks": false,
+        "showtimes": false,
+        "onemores": false,
+        "currency": "Ring",
+        "pvpstuff": {
+            "none": {},
+            "metronome": {},
+            "randskills": {},
+            "randstats": {},
+            "charfuck": {}
+        },
+        "banned": []
+    },
+    "836346842848428092": {
+        "prefix": "rpg!",
+        "limitbreaks": false,
+        "showtimes": false,
+        "onemores": false,
+        "currency": "RPGBot Token",
+        "pvpstuff": {
+            "none": {},
+            "metronome": {},
+            "randskills": {},
+            "randstats": {},
+            "charfuck": {}
+        },
+        "banned": []
+    },
+    "739088538964066345": {
+        "prefix": "rpg!",
+        "limitbreaks": false,
+        "showtimes": false,
+        "onemores": false,
+        "currency": "RPGBot Token",
+        "pvpstuff": {
+            "none": {},
+            "metronome": {},
+            "randskills": {},
+            "randstats": {},
+            "charfuck": {}
+        },
+        "banned": []
+    }
+}

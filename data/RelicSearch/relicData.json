@@ -1,0 +1,132 @@
+{
+    "332619720802959361": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 1,
+        "stars": 0,
+        "relics": []
+    },
+    "461050360832720904": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 2,
+        "stars": 18,
+        "relics": [
+            "Ultra Ball",
+            "Senzu Bean",
+            "Samehada"
+        ]
+    },
+    "532291526634635285": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 4,
+        "stars": 8,
+        "relics": [
+            "The Chaos Emeralds"
+        ],
+        "userelic": "The Chaos Emeralds"
+    },
+    "455434131808059422": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 6,
+        "stars": 0,
+        "relics": []
+    },
+    "544290248734015488": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 28,
+        "stars": 16,
+        "relics": [
+            "Mega Ether",
+            "Coiled Nail"
+        ],
+        "userelic": "Mega Ether"
+    },
+    "516359709779820544": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 54,
+        "stars": 14,
+        "relics": [
+            "Super Crown",
+            "Senzu Bean"
+        ],
+        "userelic": "Super Crown"
+    },
+    "441198920668938260": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 55,
+        "stars": 0,
+        "relics": []
+    },
+    "285347786218799104": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 9,
+        "stars": 0,
+        "relics": []
+    },
+    "498041248616153098": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 24,
+        "stars": 0,
+        "relics": []
+    },
+    "422509808713990165": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 28,
+        "stars": 0,
+        "relics": []
+    },
+    "500703373926858907": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 53,
+        "stars": 0,
+        "relics": []
+    },
+    "746561571530080276": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 8,
+        "stars": 0,
+        "relics": []
+    },
+    "673977817263767591": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 35,
+        "stars": 0,
+        "relics": []
+    },
+    "412328234198237189": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 1,
+        "stars": 6,
+        "relics": [
+            "Channelled Nail"
+        ],
+        "userelic": "Channelled Nail"
+    },
+    "532601881915031553": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 37,
+        "stars": 0,
+        "relics": []
+    },
+    "427239800978931712": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 18,
+        "stars": 0,
+        "relics": []
+    }
+}

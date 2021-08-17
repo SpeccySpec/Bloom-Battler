@@ -1,0 +1,257 @@
+{
+    "819616171086577667": {
+        "battling": false,
+        "colosseum": [
+            false,
+            0,
+            "none"
+        ],
+        "trials": {
+            "Gods": [
+                [
+                    "Monum"
+                ],
+                [
+                    "Nyamem"
+                ],
+                [
+                    "Evergreen"
+                ]
+            ]
+        },
+        "parties": {
+            "1": {
+                "members": [
+                    "Sky",
+                    "Spectra",
+                    "Euphorica",
+                    "Lanagu",
+                    "Sparky",
+                    "Bow"
+                ],
+                "items": [],
+                "rings": 462
+            },
+            "2": {
+                "members": [
+                    "Flara",
+                    "Permic",
+                    "Ramia",
+                    "Nate",
+                    "Dusk"
+                ],
+                "items": [],
+                "rings": 236
+            },
+            "Explorers": {
+                "members": [
+                    "Spectra",
+                    "Lanagu",
+                    "Sky",
+                    "Permic"
+                ],
+                "items": {},
+                "rings": 1453
+            },
+            "God": {
+                "members": [
+                    "God"
+                ],
+                "items": {},
+                "rings": 64
+            },
+            "SpeedyMan": {
+                "members": [
+                    "SpeedyMan"
+                ],
+                "items": {},
+                "rings": 0
+            },
+            "Trials": {
+                "members": [
+                    "Dusk",
+                    "Spectra",
+                    "Ramia",
+                    "Euphorica"
+                ],
+                "items": {},
+                "rings": 86
+            },
+            "DJ": {
+                "members": [
+                    "DJ",
+                    "DJ",
+                    "DJ",
+                    "DJ",
+                    "DJ",
+                    "DJ"
+                ],
+                "items": [],
+                "rings": 0
+            }
+        },
+        "allies": {
+            "members": []
+        },
+        "enemies": {
+            "members": []
+        },
+        "battleteam": "none",
+        "battleteam2": "none",
+        "battlechannel": "none",
+        "doturn": 0,
+        "turn": 0,
+        "turnorder": [],
+        "pvp": false,
+        "pvpmode": "none",
+        "canshowtime": false
+    },
+    "874635107300933682": {
+        "battling": false,
+        "colosseum": [
+            false,
+            0,
+            "none"
+        ],
+        "trials": {
+            "Gods": [
+                [
+                    "Monum"
+                ],
+                [
+                    "Nyamem"
+                ],
+                [
+                    "Evergreen"
+                ]
+            ]
+        },
+        "parties": {
+            "1": {
+                "members": [
+                    "Permic",
+                    "Flara",
+                    "Bow"
+                ],
+                "items": {},
+                "rings": 0
+            },
+            "2": {
+                "members": [
+                    "Spectra",
+                    "Sky",
+                    "Sutela"
+                ],
+                "items": {},
+                "rings": 0
+            },
+            "CursedIce": {
+                "members": [
+                    "Lanagu",
+                    "Flara",
+                    "Ralako",
+                    "Taretle"
+                ],
+                "items": {},
+                "rings": 0
+            },
+            "SoonPower": {
+                "members": [
+                    "Lanagu",
+                    "Flara",
+                    "Sky",
+                    "Dusk"
+                ],
+                "items": {},
+                "rings": 0
+            },
+            "God": {
+                "members": [
+                    "God"
+                ],
+                "items": [],
+                "rings": 1650
+            },
+            "DJ": {
+                "members": [
+                    "DJ",
+                    "DJ",
+                    "DJ",
+                    "DJ"
+                ],
+                "items": [],
+                "rings": 694
+            },
+            "Flara": {
+                "members": [
+                    "Flara",
+                    "Sky",
+                    "Lanagu",
+                    "Sparky"
+                ],
+                "items": [],
+                "rings": 0
+            }
+        },
+        "allies": {
+            "members": []
+        },
+        "enemies": {
+            "members": [],
+            "items": [],
+            "rings": 0
+        },
+        "battleteam": "none",
+        "battleteam2": "none",
+        "battlechannel": "none",
+        "doturn": 0,
+        "turn": 0,
+        "turnorder": [],
+        "pvp": false,
+        "pvpmode": "none",
+        "canshowtime": false
+    },
+    "763858631836958771": {
+        "battling": false,
+        "colosseum": [
+            false,
+            0,
+            "none"
+        ],
+        "trials": {},
+        "parties": {
+            "Trinity": {
+                "members": [
+                    "Sutela",
+                    "Patella",
+                    "Nighthug"
+                ],
+                "items": [],
+                "rings": 0
+            },
+            "Sutela": {
+                "members": [
+                    "Sutela"
+                ],
+                "items": [],
+                "rings": 0
+            }
+        },
+        "allies": {
+            "members": []
+        },
+        "enemies": {
+            "members": [],
+            "items": [],
+            "rings": 0
+        },
+        "battleteam": "none",
+        "battleteam2": "none",
+        "battlechannel": "none",
+        "doturn": 0,
+        "turn": 0,
+        "turnorder": [],
+        "pvp": false,
+        "pvpmode": "none"
+    }
+}
