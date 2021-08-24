@@ -71,13 +71,13 @@ const itemTypeEmoji = {
 	healhpmp: "🔰"
 }
 	
-
 // Status Effects
 const statusEffects = [
     "burn",
 	"bleed",
     "freeze",
     "paralyze",
+	"sleep",
 	"despair",
     "poison",
     "brainwash",
@@ -91,6 +91,7 @@ const statusEmojis = {
 	bleed: "🩸",
     freeze: "❄",
     paralyze: "⚡",
+	sleep: "😴",
 	despair: "💦",
     poison: "☠️",
 	dizzy: "💫",
@@ -128,6 +129,43 @@ function clearBTL(btl) {
 	btl.colosseum[2] = "none";
 }
 
+function hasPassiveCopyLOL(userDefs, passivetype) {					
+	for (const skillNum in userDefs.skills) {
+		const skillPath = dataPath+'/skills.json'
+		const skillRead = fs.readFileSync(skillPath);
+		const skillFile = JSON.parse(skillRead);
+
+		var skillDefs2 = skillFile[userDefs.skills[skillNum]];
+		if (skillDefs2 && skillDefs2.type && skillDefs2.type === "passive") {
+			if (skillDefs2.passive.toLowerCase() === passivetype.toLowerCase()) {
+				console.log(`${userDefs.name} has the ${passivetype} passive.`)
+				return true
+			}
+		}
+	}
+	
+	return false
+}
+
+function healPassives(charDefs) {
+	var passiveMsg = ''
+	if (hasPassiveCopyLOL(charDefs, 'affinitypoint')) {
+		if (!charDefs.affinitypoint) {
+			charDefs.affinitypoint = 0
+		}
+
+		if (charDefs.affinitypoint < 10) {
+			passiveMsg += `\n${charDefs.name} got an affinity point!`
+			charDefs.affinitypoint = Math.min(10, charDefs.affinitypoint+1);
+			if (charDefs.affinitypoint >= 10) {
+				passiveMsg += ' (MAX)'
+			}
+		}
+	}
+	
+	return passiveMsg
+}
+
 // Export Functions
 module.exports = {
 	clearBTL: function(serverBtl) {
@@ -159,5 +197,9 @@ module.exports = {
 		var servDefs = servFile[server]
 		
 		return servDefs.showtimes ? true : false
+	},
+	
+	healPassives: function(charDefs) {
+		return healPassives(charDefs)
 	}
 }

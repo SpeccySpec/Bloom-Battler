@@ -71,13 +71,13 @@ const itemTypeEmoji = {
 	healhpmp: "🔰"
 }
 	
-
 // Status Effects
 const statusEffects = [
     "burn",
 	"bleed",
     "freeze",
     "paralyze",
+	"sleep",
 	"despair",
     "poison",
     "brainwash",
@@ -91,6 +91,7 @@ const statusEmojis = {
 	bleed: "🩸",
     freeze: "❄",
     paralyze: "⚡",
+	sleep: "😴",
 	despair: "💦",
     poison: "☠️",
 	dizzy: "💫",
@@ -140,6 +141,13 @@ function objClone(source) {
 		return source
 	}
 }
+
+/*
+function random(max) {
+    var milliseconds = new Date().getMilliseconds();
+    return Math.floor(milliseconds * max / 1000);
+}
+*/
 
 // Export Functions
 module.exports = {
@@ -261,5 +269,15 @@ module.exports = {
 		}
 		
 		return false	
+	},
+	
+	roundToDecimals: function(num, places) {
+		return +(Math.round(num + "e+" + places)  + "e-" + places);
 	}
+	
+	/*
+	random: function(max) {
+		return random(max)
+	}
+	*/
 }

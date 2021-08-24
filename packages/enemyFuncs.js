@@ -71,13 +71,13 @@ const itemTypeEmoji = {
 	healhpmp: "🔰"
 }
 	
-
 // Status Effects
 const statusEffects = [
     "burn",
 	"bleed",
     "freeze",
     "paralyze",
+	"sleep",
 	"despair",
     "poison",
     "brainwash",
@@ -91,6 +91,7 @@ const statusEmojis = {
 	bleed: "🩸",
     freeze: "❄",
     paralyze: "⚡",
+	sleep: "😴",
 	despair: "💦",
     poison: "☠️",
 	dizzy: "💫",
@@ -176,6 +177,7 @@ module.exports = {
 
 		var enemyDefs = {
 			name: enemy,
+			truename: enemy,
 			team: "enemies",
 			enemy: true,
 			id: 0,
@@ -238,7 +240,9 @@ module.exports = {
 			helpedquote: enm.helpedquote ? enm.helpedquote : [],
 			killquote: enm.killquote ? enm.killquote : [],
 			deathquote: enm.deathquote ? enm.deathquote : [],
-			lbquote: enm.lbquote ? enm.lbquote : []
+			lbquote: enm.lbquote ? enm.lbquote : [],
+			
+			trust: {}
 		}
 		
 		return enemyDefs

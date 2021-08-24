@@ -77,13 +77,13 @@ const itemTypeEmoji = {
 	healhpmp: "🔰"
 }
 	
-
 // Status Effects
 const statusEffects = [
     "burn",
 	"bleed",
     "freeze",
     "paralyze",
+	"sleep",
 	"despair",
     "poison",
     "brainwash",
@@ -97,6 +97,7 @@ const statusEmojis = {
 	bleed: "🩸",
     freeze: "❄",
     paralyze: "⚡",
+	sleep: "😴",
 	despair: "💦",
     poison: "☠️",
 	dizzy: "💫",
@@ -117,6 +118,108 @@ const enmHabitats = [
 	"icy",
 	"unknown"
 ]
+
+// Creates a Character.
+function writeChar(creator, name, health, magicpoints, attack, magic, perception, endurance, charisma, inteligence, agility, luck) {
+    var charPath = dataPath+'/characters.json'
+    var charRead = fs.readFileSync(charPath);
+    var charFile = JSON.parse(charRead);
+
+    charFile[name] = {
+		name: name,
+
+        // Only the owner can move this character, if they don't have admin permissions.
+        owner: creator.id,
+
+        // Level, HP and MP
+        level: 1,
+        hp: health,
+        mp: magicpoints,
+        maxhp: health,
+        maxmp: magicpoints,
+		basehp: health,
+		basemp: magicpoints,
+
+        // Status Effect
+        status: "none",
+        statusturns: 0,
+
+        // Melee Attack
+        melee: ["Strike Attack", "strike"],
+		weapon: "none",
+
+        // Main stats
+        atk: attack,
+        mag: magic,
+        prc: perception,
+        end: endurance,
+        chr: charisma,
+        int: inteligence,
+        agl: agility,
+        luk: luck,
+        baseatk: attack,
+        basemag: magic,
+        baseprc: perception,
+        baseend: endurance,
+        basechr: charisma,
+        baseint: inteligence,
+        baseagl: agility,
+        baseluk: luck,
+
+        // Limit Break Meter, XP.
+        lb: 0,
+        xp: 0,
+        maxxp: 100,
+
+        // Affinities & Skills
+        weak: [],
+        resist: [],
+        block: [],
+        repel: [],
+        drain: [],
+        skills: [],
+		
+		// Quotes
+		meleequote: [],
+		physquote: [],
+		magquote: [],
+		strongquote: [],
+		critquote: [],
+		weakquote: [],
+		missquote: [],
+		blockquote: [],
+		repelquote: [],
+		drainquote: [],
+		resistquote: [],
+		hurtquote: [],
+		lbquote: [],
+		healquote: [],
+		helpedquote: [],
+		killquote: [],
+		deathquote: [],
+		
+		// Bio Info
+		bio: {
+			species: "",
+			age: "",
+			info: "",
+			
+			backstory: "",
+			likes: "",
+			dislikes: "",
+			fears: "",
+			
+			voice: "",
+			theme: ""
+		},
+		
+		// Trust
+		trust: {}
+    };
+
+    fs.writeFileSync(charPath, JSON.stringify(charFile, null, '    '));
+    console.log(`Written ${name}.`)
+}
 
 // FUNCTIONS
 function resetMimic(userDefs) {
@@ -291,11 +394,52 @@ function levelDown(charDefs) {
 	charDefs.maxxp = Math.ceil((charDefs.maxxp-charDefs.baseint) - ((charDefs.maxxp-charDefs.baseint*2) / 5))
 }
 
+// Trust
+function initTrust(charDefs, targName) {
+	if (!charDefs.trust) {
+		charDefs.trust = {}
+	}
+
+	if (!charDefs.trust[targName]) {
+		charDefs.trust[targName] = {
+			value: 0,
+			nextLevel: 100,
+			level: 1
+		}
+	}
+	
+	return true
+}
+
+function trustLevel(charDefs, targName) {
+	if (!charDefs.trust)
+		charDefs.trust = {};
+
+	if (!charDefs.trust[targName]) {
+		charDefs.trust[targName] = {
+			value: 0,
+			nextLevel: 100,
+			level: 1
+		}
+	}
+
+	charDefs.trust[targName].level++;
+	charDefs.trust[targName].value = Math.max(0, charDefs.trust[targName].value-charDefs.trust[targName].nextLevel);
+
+	// Next Level Poggers!
+	charDefs.trust[targName].nextLevel += 50;
+}
+
 // Export Functions
 module.exports = {
+	writeChar: function(creator, name, health, magicpoints, attack, magic, perception, endurance, charisma, inteligence, agility, luck) {
+		writeChar(creator, name, health, magicpoints, attack, magic, perception, endurance, charisma, inteligence, agility, luck)
+	},
+
 	genChar: function(charDefs) {
 		var battlerDefs = {
 			name: charDefs.name,
+			truename: charDefs.name,
 			team: "allies",
 			id: 0,
 
@@ -322,7 +466,7 @@ module.exports = {
 			int: charDefs.int,
 			agl: charDefs.agl,
 			luk: charDefs.luk,
-			weapon: "none",
+			weapon: charDefs.weapon ? charDefs.weapon : "none",
 			guard: false,
 
 			buffs: {
@@ -360,35 +504,31 @@ module.exports = {
 			block: charDefs.block,
 			repel: charDefs.repel,
 			drain: charDefs.drain,
-			skills: charDefs.skills
+			skills: charDefs.skills,
+			
+			trust: charDefs.trust ? charDefs.trust : {}
 		}
 		
-		if (charDefs.owner) {
-			battlerDefs.owner = charDefs.owner
-		} else if (charDefs.npcchar) {
-			battlerDefs.enemy = charDefs.npcchar
-		}
+		if (charDefs.owner)
+			battlerDefs.owner = charDefs.owner;
+		else if (charDefs.npcchar)
+			battlerDefs.npc = charDefs.npcchar;
+		
+		
+		if (charDefs.pet)
+			battlerDefs.pet = charDefs.pet;
 		
 		// Insert Limit Breaks if they have them.
-		if (charDefs.lb1) {
+		if (charDefs.lb1)
 			battlerDefs.lb1 = charDefs.lb1;
-		}
-		
-		if (charDefs.lb2) {
+		if (charDefs.lb2)
 			battlerDefs.lb2 = charDefs.lb2;
-		}
-		
-		if (charDefs.lb3) {
+		if (charDefs.lb3)
 			battlerDefs.lb3 = charDefs.lb3;
-		}
-		
-		if (charDefs.lb4) {
+		if (charDefs.lb4)
 			battlerDefs.lb4 = charDefs.lb4;
-		}
-		
-		if (charDefs.lb5) {
+		if (charDefs.lb5)
 			battlerDefs.lb5 = charDefs.lb5;
-		}
 		
 		return battlerDefs
 	},
@@ -415,5 +555,59 @@ module.exports = {
 	
 	lvlDown: function(charDefs) {
 		levelDown(charDefs)
+	},
+	
+	initTrust: function(charDefs, targName) {
+		initTrust(charDefs, targName)
+	},
+	
+	trustLevel: function(charDefs, targName) {
+		trustLevel(charDefs, targName)
+	},
+	
+	trustUp: function(charDefs, targDefs, increment, server) {
+		if (charDefs == targDefs || charDefs.name === targDefs.name)
+			return false;
+
+		if (!charDefs.trust)
+			charDefs.trust = {};
+
+		if (!targDefs.trust) 
+			targDefs.trust = {};
+
+		var btlPath = dataPath+'/battle.json'
+		var btlRead = fs.readFileSync(btlPath);
+		var btl = JSON.parse(btlRead);
+		
+		var charName = charDefs.truename ? charDefs.truename : charDefs.name
+		var targName = targDefs.truename ? targDefs.truename : targDefs.name
+
+		if (targDefs.trust && !btl[server].pvp) {
+			if (!targDefs.trust[charName]) {
+				initTrust(charDefs, targName)
+				initTrust(targDefs, charName)
+			}
+			
+			if (targDefs.trust[charName].dislike) {
+				targDefs.trust[charName].dislike += increment
+				if (targDefs.trust[charName].dislike >= 200)
+					delete targDefs.trust[charName].dislike;
+			} else {
+				targDefs.trust[charName].value += increment
+				if (targDefs.trust[charName].value < 0) {
+					dislikeChar(targDefs, charName)
+				} else {
+					while (targDefs.trust[charName].value >= targDefs.trust[charName].nextLevel) {
+						trustLevel(targDefs, charName)
+					}
+				}
+			}
+			
+			charDefs.trust[targName] = targDefs.trust[charName];
+			return true
+		}
+		
+		// we'll get here if its pvp mode
+		return false
 	}
 }
