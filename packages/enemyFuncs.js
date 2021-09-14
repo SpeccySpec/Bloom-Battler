@@ -131,6 +131,31 @@ function enemyThinker(userDefs, allySide, oppSide) {
 		}
 	}
 	
+	// Heal if under 1/5 hp
+	var healSkills = [];
+	for (const i in possibleSkills) {
+		var skillDefs = skillFile[possibleSkills[i]]
+		
+		if (skillDefs.type === "heal" || skillDefs.terrain && skillDefs.terrain === "grassy" || skillDefs.drain)
+			healSkills.push(possibleSkills[i]);
+	}
+	
+	if (healSkills.length > 0 && userDefs.hp < Math.round(userDefs.maxhp/3)) {
+		var healSkill = healSkills[Math.round(Math.random() * (healSkills.length-1))];
+		for (const i in allySide) {
+			if (allySide[i] == userDefs)
+				return [healSkill, userDefs, i];
+		}
+		
+		var targNum = Math.round(Math.random() * (allySide.length-1))
+		if (allySide[targNum]) {
+			while (allySide[targNum].hp <= 0) {
+				targNum = Math.round(Math.random() * (allySide.length-1))
+			}
+		}
+		return [healSkill, allySide[targNum], targNum];
+	}
+
 	// Finally, attack.
 	var targNum = Math.round(Math.random() * (oppSide.length-1))	
 	if (oppSide[targNum]) {
@@ -140,8 +165,6 @@ function enemyThinker(userDefs, allySide, oppSide) {
 	}
 
 	var oppDefs = oppSide[targNum];
-	
-	console.log(`Out of [${possibleSkills}]`)
 
 	var doneWeakCheck = false;
 	var chosenSkill = possibleSkills[Math.round(Math.random() * (possibleSkills.length-1))];
@@ -159,7 +182,7 @@ function enemyThinker(userDefs, allySide, oppSide) {
 	}
 	
 	console.log(`${chosenSkill} => ${oppDefs.name}`)
-	return [chosenSkill, oppDefs]
+	return [chosenSkill, oppDefs, targNum]
 }
 
 // Export Functions
@@ -189,6 +212,8 @@ module.exports = {
 			lb: 0,
 				
 			boss: enm.boss ? true : false,
+			miniboss: enm.miniboss ? true : false,
+			finalboss: enm.finalboss ? true : false,
 			diety: enm.diety ? true : false,
 
 			atk: enm.atk,
@@ -250,5 +275,23 @@ module.exports = {
 	
 	thinkerFunc: function(charDefs, allyingSide, opposingSide) {
 		return enemyThinker(charDefs, allyingSide, opposingSide)
+	},
+	
+	encounteredEnemy: function(enmName, server) {
+		var servPath = dataPath+'/Server Settings/server.json'
+        var servRead = fs.readFileSync(servPath);
+        var servFile = JSON.parse(servRead);
+		
+		if (!servFile[server].encountered) {
+			servFile[server].encountered = []
+			fs.writeFileSync(servPath, JSON.stringify(servFile, null, '    '));
+		}
+		
+		for (const i in servFile[server].encountered) {
+			if (servFile[server].encountered[i] == enmName)
+				return true;
+		}
+		
+		return false
 	}
 }

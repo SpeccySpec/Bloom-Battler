@@ -83,6 +83,7 @@ const statusEffects = [
 	"bleed",
     "freeze",
     "paralyze",
+	"dizzy",
 	"sleep",
 	"despair",
     "poison",
@@ -222,14 +223,69 @@ function writeChar(creator, name, health, magicpoints, attack, magic, perception
 }
 
 // FUNCTIONS
+function mimic(userDefs, targDefs, turns) {
+	var copyStats = [
+		"name",
+		"atk",
+		"mag",
+		"prc",
+		"end",
+		"agl",
+		"int",
+		"chr",
+		"luk",
+		"weak",
+		"resist",
+		"block",
+		"repel",
+		"drain",
+		"skills",
+		"lb1",
+		"lb2",
+		"lb3",
+		"lb4"
+	]
+
+	for (const i in copyStats) {
+		if (userDefs[copyStats[i]] && targDefs[copyStats[i]])
+			userDefs[copyStats[i]] = targDefs[copyStats[i]];
+	}
+	
+	userDefs.mimic = true
+	userDefs.mimicturns = turns+1
+	userDefs.name += ` (${userDefs.truename})`
+	return true
+}
+
 function resetMimic(userDefs) {
 	if (!userDefs.oldDefs) {return false}
 	
+	var copyStats = [
+		"name",
+		"atk",
+		"mag",
+		"prc",
+		"end",
+		"agl",
+		"int",
+		"chr",
+		"luk",
+		"weak",
+		"resist",
+		"block",
+		"repel",
+		"drain",
+		"skills",
+		"lb1",
+		"lb2",
+		"lb3",
+		"lb4"
+	]
+	
 	var oldDefs = userDefs.oldDefs
-	for (const val in oldDefs) {
-		if (val != "owner" && val != "hp" && val != "mp" && val != "maxhp" && val != "maxmp" && val != "lb" && val != "meleequote" && val != "magquote" && val != "physquote" && val != "killquote" && val != "deathquote" && val != "lbquote") {
-			userDefs[val] = oldDefs[val]
-		}
+	for (const i in copyStats) {
+		if (userDefs[copyStats[i]] && oldDefs[copyStats[i]])
+			userDefs[copyStats[i]] = oldDefs[copyStats[i]];
 	}
 	
 	delete userDefs.mimic
@@ -238,15 +294,28 @@ function resetMimic(userDefs) {
 	return true
 }
 
-function hasPassive(userDefs, passivetype) {					
-	for (const skillNum in userDefs.skills) {
-		const skillPath = dataPath+'/skills.json'
-		const skillRead = fs.readFileSync(skillPath);
-		const skillFile = JSON.parse(skillRead);
+function knowsSkill(userDefs, skillName) {
+	const skillPath = dataPath+'/skills.json'
+	const skillRead = fs.readFileSync(skillPath);
+	const skillFile = JSON.parse(skillRead);
 
-		var skillDefs2 = skillFile[userDefs.skills[skillNum]];
-		if (skillDefs2 && skillDefs2.type && skillDefs2.type === "passive") {
-			if (skillDefs2.passive.toLowerCase() === passivetype.toLowerCase()) {
+	for (const i in userDefs.skills) {
+		if (userDefs.skills[i] == skillName && skillFile[i])
+			return true;
+	}
+	
+	return false
+}
+
+function hasPassive(userDefs, passivetype) {
+	const skillPath = dataPath+'/skills.json'
+	const skillRead = fs.readFileSync(skillPath);
+	const skillFile = JSON.parse(skillRead);
+
+	for (const skillNum in userDefs.skills) {
+		var skillDefs = skillFile[userDefs.skills[skillNum]];
+		if (skillDefs && skillDefs.type && skillDefs.type === "passive") {
+			if (skillDefs.passive.toLowerCase() === passivetype.toLowerCase()) {
 				console.log(`${userDefs.name} has the ${passivetype} passive.`)
 				return true
 			}
@@ -304,19 +373,25 @@ function hasShowTime(charDefs, targChar) {
 }
 
 function levelUp(charDefs) {
-	charDefs.level = Math.min(99, charDefs.level+1);
-	if (charDefs.level >= 99) {
+	if (charDefs.level+1 > 99) {
 		charDefs.xp = charDefs.maxxp - 1
 		console.log(`LevelUp: ${charDefs.name} cannot level up further.`)
 		return false
 	}
 
-	charDefs.hp = Math.floor(charDefs.hp + (charDefs.basehp/10) + (charDefs.baseend/2))
-	charDefs.mp = Math.floor(charDefs.mp + (charDefs.basemp/10) + (charDefs.baseint/2))
-	charDefs.maxhp = Math.floor(charDefs.maxhp + (charDefs.basehp/10) + (charDefs.baseend/2))
-	charDefs.maxmp = Math.floor(charDefs.maxmp + (charDefs.basemp/10) + (charDefs.baseint/2))
+	charDefs.level = Math.min(99, charDefs.level+1);
 	
-	console.log(`LevelUp: ${charDefs.name} levelled up.`)
+	if (charDefs.basehp > 1) {
+		charDefs.hp = Math.floor(charDefs.hp + (charDefs.basehp/10) + (charDefs.baseend/2))
+		charDefs.maxhp = Math.floor(charDefs.maxhp + (charDefs.basehp/10) + (charDefs.baseend/2))
+	}
+	
+	if (charDefs.basemp > 1) {
+		charDefs.mp = Math.floor(charDefs.mp + (charDefs.basemp/10) + (charDefs.baseint/2))
+		charDefs.maxmp = Math.floor(charDefs.maxmp + (charDefs.basemp/10) + (charDefs.baseint/2))
+	}
+	
+	console.log(`LevelUp: ${charDefs.name} levelled up to level ${charDefs.level}.`)
 	
 	var highestStats = [
 		["atk", charDefs.baseatk],
@@ -332,38 +407,43 @@ function levelUp(charDefs) {
 	highestStats.sort(function(a, b) {return  a[1] - b[1]})
 
 	for (const i in highestStats) {
-		if (i > highestStats.length-4) {
+		if (i > highestStats.length-4)
 			charDefs[highestStats[i][0]]++;
-		} else if (i <= 1) {
-			if (charDefs.level%3 == 1) {charDefs[highestStats[i][0]]++}
+		else if (i <= 1) {
+			if (charDefs.level%3 == 1)
+				charDefs[highestStats[i][0]]++;
 		} else {
-			if (charDefs.level%2 == 1) {charDefs[highestStats[i][0]]++}
+			if (charDefs.level%2 == 1)
+				charDefs[highestStats[i][0]]++;
 		}
 
 		charDefs[highestStats[i][0]] = Math.min(99, charDefs[highestStats[i][0]])
 	}
 
-	console.log(`${charDefs.xp} - ${charDefs.maxxp} = ${charDefs.xp - charDefs.maxxp}`)
 	charDefs.xp -= +charDefs.maxxp
-	
-	console.log(`${charDefs.maxxp} => ${Math.floor((charDefs.maxxp-charDefs.baseint) + ((charDefs.maxxp-charDefs.baseint*2) / 10))} Max XP`)
 	charDefs.maxxp = Math.floor((charDefs.maxxp-charDefs.baseint) + ((charDefs.maxxp-charDefs.baseint*2) / 6))
 }
 
 function levelDown(charDefs) {
-	charDefs.level = Math.max(1, charDefs.level-1);
-	if (charDefs.level <= 1) {
+	if (charDefs.level-1 < 1) {
 		charDefs.xp = 1
 		console.log(`LevelUp: ${charDefs.name} cannot level down further.`)
 		return false
 	}
 
-	charDefs.hp = Math.floor(charDefs.hp - (charDefs.basehp/10) - (charDefs.baseend/2))
-	charDefs.mp = Math.floor(charDefs.mp - (charDefs.basemp/10) - (charDefs.baseint/2))
-	charDefs.maxhp = Math.floor(charDefs.maxhp - (charDefs.basehp/10) - (charDefs.baseend/2))
-	charDefs.maxmp = Math.floor(charDefs.maxmp - (charDefs.basemp/10) - (charDefs.baseint/2))
+	charDefs.level = Math.max(1, charDefs.level-1);
+
+	if (charDefs.basehp > 1) {
+		charDefs.hp = Math.floor(charDefs.hp - (charDefs.basehp/10) - (charDefs.baseend/2))
+		charDefs.maxhp = Math.floor(charDefs.maxhp - (charDefs.basehp/10) - (charDefs.baseend/2))
+	}
 	
-	console.log(`LevelUp: ${charDefs.name} levelled up.`)
+	if (charDefs.basemp > 1) {
+		charDefs.mp = Math.floor(charDefs.mp - (charDefs.basemp/10) - (charDefs.baseint/2))
+		charDefs.maxmp = Math.floor(charDefs.maxmp - (charDefs.basemp/10) - (charDefs.baseint/2))
+	}
+	
+	console.log(`LevelUp: ${charDefs.name} levelled down to level ${charDefs.level}.`)
 	
 	var highestStats = [
 		["atk", charDefs.baseatk],
@@ -379,12 +459,14 @@ function levelDown(charDefs) {
 	highestStats.sort(function(a, b) {return  a[1] - b[1]})
 
 	for (const i in highestStats) {
-		if (i > highestStats.length-4) {
+		if (i > highestStats.length-4)
 			charDefs[highestStats[i][0]]--;
-		} else if (i <= 1) {
-			if (charDefs.level%3 == 1) {charDefs[highestStats[i][0]]--}
+		else if (i <= 1) {
+			if (charDefs.level%3 == 1) 
+				charDefs[highestStats[i][0]]--;
 		} else {
-			if (charDefs.level%2 == 1) {charDefs[highestStats[i][0]]--}
+			if (charDefs.level%2 == 1) 
+				charDefs[highestStats[i][0]]--;
 		}
 
 		charDefs[highestStats[i][0]] = Math.max(1, charDefs[highestStats[i][0]])
@@ -436,7 +518,7 @@ module.exports = {
 		writeChar(creator, name, health, magicpoints, attack, magic, perception, endurance, charisma, inteligence, agility, luck)
 	},
 
-	genChar: function(charDefs) {
+	genChar: function(charDefs, leader) {
 		var battlerDefs = {
 			name: charDefs.name,
 			truename: charDefs.name,
@@ -514,6 +596,12 @@ module.exports = {
 		else if (charDefs.npcchar)
 			battlerDefs.npc = charDefs.npcchar;
 		
+		if (leader) {
+			battlerDefs.leader = true;
+			
+			if (charDefs.leaderSkill)
+				battlerDefs.leaderSkill = charDefs.leaderSkill;
+		}
 		
 		if (charDefs.pet)
 			battlerDefs.pet = charDefs.pet;
@@ -527,14 +615,20 @@ module.exports = {
 			battlerDefs.lb3 = charDefs.lb3;
 		if (charDefs.lb4)
 			battlerDefs.lb4 = charDefs.lb4;
-		if (charDefs.lb5)
-			battlerDefs.lb5 = charDefs.lb5;
 		
 		return battlerDefs
 	},
 
+	mimic: function(userDefs, targDefs) {
+		mimic(userDefs, targDefs)
+	},
+
 	resetMimic: function(userDefs) {
 		resetMimic(userDefs)
+	},
+
+	knowsSkill: function(userDefs, skillName) {
+		return knowsSkill(userDefs, skillName)
 	},
 
 	hasPassive: function(userDefs, passiveString) {

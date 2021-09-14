@@ -161,6 +161,16 @@ module.exports = {
 		return false
 	},
 	
+	validStatus: function(eff) {
+		for (const i in statusEffects) {
+			if (eff === statusEffects[i]) {
+				return true
+			}
+		}
+
+		return false
+	},
+	
 	cloneObj: function(source) {
 		return objClone(source)
 	},

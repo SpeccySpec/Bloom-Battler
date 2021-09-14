@@ -113,6 +113,28 @@ const enmHabitats = [
 	"unknown"
 ]
 
+///////////////
+// Functions //
+///////////////
+function setUpBattleVars(btl) {
+	btl.battling = true;
+	btl.battleteam = "none";
+	btl.battleteam2 = "none";
+	btl.battlechannel = "none";
+	btl.doturn = -1;
+	btl.turn = 1;
+	
+	btl.pvp = false;
+	btl.pvpmode = "none";
+
+	btl.colosseum[0] = false;
+	btl.colosseum[1] = 0;
+	btl.colosseum[2] = "none";
+	
+	btl.weather = "clear";
+	btl.terrain = "normal"
+}
+
 function clearBTL(btl) {
 	btl.enemies.members = [];
     btl.allies.members = [];
@@ -122,11 +144,16 @@ function clearBTL(btl) {
 	btl.battling = false;
 	btl.doturn = 0;
 	btl.turn = 0;
+
 	btl.pvp = false;
 	btl.pvpmode = "none";
+
 	btl.colosseum[0] = false;
 	btl.colosseum[1] = 0;
 	btl.colosseum[2] = "none";
+	
+	btl.weather = "clear";
+	btl.terrain = "normal"
 }
 
 function hasPassiveCopyLOL(userDefs, passivetype) {					
@@ -201,5 +228,9 @@ module.exports = {
 	
 	healPassives: function(charDefs) {
 		return healPassives(charDefs)
+	},
+	
+	setUpBattleVars: function(servBtl) {
+		setUpBattleVars(servBtl)
 	}
 }

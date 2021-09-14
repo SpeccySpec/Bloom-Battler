@@ -78,6 +78,7 @@ const statusEffects = [
 	"bleed",
     "freeze",
     "paralyze",
+	"dizzy",
 	"sleep",
 	"despair",
     "poison",
@@ -160,6 +161,23 @@ function hasPassiveCopyLol(userDefs, passiveType) {
 	return false
 }
 
+// Cost
+function useCost(userDefs, skillDefs) {
+	if (skillDefs.cost && skillDefs.costtype) {
+		if (skillDefs.costtype === "hp" && !userDefs.diety) {
+			userDefs.hp = Math.max(0, userDefs.hp - skillDefs.cost)
+		} else if (skillDefs.costtype === "hppercent" && !userDefs.miniboss && !userDefs.boss) {
+			userDefs.hp = Math.round(Math.max(0, userDefs.hp - ((userDefs.maxhp / 100) * skillDefs.cost)))
+		} else if (skillDefs.costtype === "mp") {
+			userDefs.mp = Math.max(0, userDefs.mpe - skillDefs.cost)
+		} else if (skillDefs.costtype === "mppercent") {
+			userDefs.mp = Math.round(Math.max(0, userDefs.mp - ((userDefs.maxmp / 100) * skillDefs.cost)))
+		}
+	}
+	
+	return true
+}
+
 // Miss Check
 function missCheck(userPrc, oppAgl, moveAcc) {
 	if (moveAcc >= 100) {return true}
@@ -192,9 +210,8 @@ function genDmg(userDefs, targDefs, skillDefs) {
 		}
 	}
 
-    if (dmgtype === "block") {
-        return [0, dmgtype, false, false, false]
-    }
+    if (dmgtype === "block")
+        return [0, dmgtype, false, false, false];
 
     values[0] = 1
 
@@ -204,16 +221,47 @@ function genDmg(userDefs, targDefs, skillDefs) {
 		return [0, "miss", false, false, false]
 	}
 
-    // Damage Generation
-	var atkStat = userDefs.atk
-	var def = atkStat / targDefs.end;
+    // Damage Generation    
+	var itemPath = dataPath+'/items.json'
+    var itemRead = fs.readFileSync(itemPath);
+    var itemFile = JSON.parse(itemRead);
+
+	if (!userDefs.weapon) {
+		userDefs.weapon = "none"
+	}
+	
+	if (!targDefs.weapon) {
+		targDefs.weapon = "none"
+	}
+	
+	const userWeapon = itemFile[userDefs.weapon] ? itemFile[userDefs.weapon] : itemFile["none"]
+	const oppWeapon = itemFile[targDefs.weapon] ? itemFile[targDefs.weapon] : itemFile["none"]
+
+	var atkStat = userDefs.atk + (userWeapon.atk ? userWeapon.atk : 0) + ((userDefs.atk/10)*userDefs.buffs.atk)
+	var endStat = targDefs.end + (oppWeapon.end ? oppWeapon.end : 0) + ((targDefs.atk/10)*targDefs.buffs.atk)
+
+	var def = atkStat / endStat;
 	if (skillDefs.atktype === "magic") {
-		atkStat = userDefs.mag
-		def = atkStat / targDefs.end;
+		atkStat = userDefs.mag + (userWeapon.mag ? userWeapon.mag : 0) + ((userDefs.mag/10)*userDefs.buffs.mag)
+		def = atkStat / endStat;
+	}
+
+	if (userDefs.leader && userDefs.leaderSkill) {
+		if (userDefs.leaderSkill.type == "boost") {
+			if (userDefs.leaderSkill.target === skillDefs.type ||
+				userDefs.leaderSkill.target === "all" ||
+				userDefs.leaderSkill.target === "magic" && skillDefs.atktype === "magic" ||
+				userDefs.leaderSkill.target === "physical" && skillDefs.atktype === "physical") {
+					skillDefs.pow += Math.round((skillDefs.pow/100)*userDefs.leaderSkill.percent);
+			}
+		}
 	}
 
 	if (skillDefs.limitbreak) {
 		values[0] = Math.round((((skillDefs.pow+(atkStat*2)-targDefs.end)*2) + Math.round(Math.random() * 30))/2)
+		
+		if (targDefs.miniboss || targDefs.boss || targDefs.diety)
+			values[0] = Math.round(values[0]*0.75);
 		
 		// Damage Types
 		if (dmgtype === "weak") {
@@ -226,10 +274,14 @@ function genDmg(userDefs, targDefs, skillDefs) {
 		}
 	} else {
 		values[0] = Math.round(5 * Math.sqrt(def * skillDefs.pow));
-		    
-		if (dmgtype === "repel" || dmgtype === "drain") {
-			return [Math.round(values[0]), dmgtype, false, false, false]
+		if (targDefs.shield && (targDefs.shield === 'guard' || targDefs.shield === 'shield')) {
+			values[0] *= 0.33;
+			values[0] = Math.round(values[0]);
+			console.log('Damage Checks: Shield')
 		}
+		    
+		if (dmgtype === "repel" || dmgtype === "drain")
+			return [Math.round(values[0]), dmgtype, false, false, false];
 		
 		// Damage Types
 		if (dmgtype === "weak") {
@@ -248,7 +300,7 @@ function genDmg(userDefs, targDefs, skillDefs) {
 			var crit = (Math.floor(Math.random() * 100));
 			
 			console.log(`Random Value ${crit} < Target Value ${Math.round(targ2*100)}?`)
-			if (crit <= targ2 || skillDefs.crit >= 100) {
+			if (crit <= targ2 || skillDefs.crit >= 100 || targDefs.status === "sleep") {
 				values[0] = Math.round((values[0] * 3) / 2);
 				values[3] = true;
 			}
@@ -262,9 +314,8 @@ function genDmg(userDefs, targDefs, skillDefs) {
 		var st = Math.random();
 		
 		console.log(`Random Value ${Math.round(st*100)} < Target Value ${Math.round(targ3*100)}?`)
-		if (st < targ3 || skillDefs.statuschance >= 100) {
+		if (st < targ3 || skillDefs.statuschance >= 100)
 			values[4] = true;
-		}
     }
 
     return values
@@ -450,6 +501,49 @@ function inflictStatusFromText(oppDefs, statusEffect) {
 	}
 	
 	return finaltext
+}
+
+function weatherMod(dmg, weather) {
+	if (weather === "rain") {
+		if (skillDefs.type === "water")
+			dmg[0] = Math.round(dmg[0]*1.2);
+		else if (skillDefs.type === "fire")
+			dmg[0] = Math.round(dmg[0]/1.1);
+	} else if (weather === "thunder") {
+		if (skillDefs.status === "paralyze" && skillDefs.statuschance) {
+			if (Math.round() < 0.25)
+				dmg[4] = true;
+		}
+	} else if (weather === "sunlight") {
+		if (skillDefs.type === "fire")
+			dmg[0] = Math.round(dmg[0]*1.1);
+		else if (skillDefs.type === "water" || skillDefs.type === "grass")
+			dmg[0] = Math.round(dmg[0]/1.1);
+	} else if (weather === "windy") {
+		if (skillDefs.type === "wind" && skillDefs.atktype === "magic")
+			dmg[0] = Math.round(dmg[0]*1.2);
+	}
+	
+	return dmg
+}
+
+function terrainMod(dmg, terrain) {				
+	if (terrain === "flaming") {
+		if (skillDefs.type === "fire")
+			dmg[0] = Math.round(dmg[0]*1.2);
+	} else if (terrain === "thunder") {
+		if (skillDefs.type === "electric")
+			dmg[0] = Math.round(dmg[0]*1.2);
+	}
+	
+	return dmg
+}
+
+function fieldMod(dmg, weather, terrain) {
+	weatherMod(dmg, weather)
+	terrainMod(dmg, terrain)
+	
+	return dmg
 }
 
 // Attack Object
@@ -665,13 +759,22 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 		var repelSkill = null
 		var counterSkill = null
 		var resistSkill = null
-		var webTrapped = false
+		var trapped = false
 		if (!skillDefs.limitbreak) {
 			for (const i in oppDefs.skills) {
 				const skillDefs2 = skillFile[oppDefs.skills[i]]
 			
 				if (skillDefs2 && skillDefs2.type && skillDefs2.type == 'passive') {
-					if (skillDefs2.passive === "weaken" && skillDefs2.weaktype == skillDefs.type) {
+					if (skillDefs2.passive === "wonderguard" && dmgtype != "weak") {
+						embedText.targetText = `${userName} => ${oppName}`
+						embedText.attackText = `${userName} used ${skillDefs.name}!`
+						embedText.resultText = `${oppName}'s ${skillDefs2.name} made them immune to the attack!`
+						
+						if (useEnergy)
+							useCost(userDefs, skillDefs);
+
+						return embedText
+					} else if (skillDefs2.passive === "weaken" && skillDefs2.weaktype == skillDefs.type) {
 						movepow -= (movepow/100)*skillDefs2.pow
 					} else if (skillDefs2.passive === "repelmag") {
 						for (const i in skillDefs2.repeltypes) {
@@ -688,19 +791,8 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 							embedText.attackText = `${userName} used ${skillDefs.name}!`
 							embedText.resultText = `${oppName}'s ${skillDefs2.name} allowed them to dodge the attack!`
 							
-							if (useEnergy) {
-								if (skillDefs.cost && skillDefs.costtype) {
-									if (skillDefs.costtype === "hp") {
-										userDefs.hp = Math.max(0, userDefs.hp - skillDefs.cost)
-									} else if (skillDefs.costtype === "hppercent" && !userDefs.boss) {
-										userDefs.hp = Math.round(Math.max(0, userDefs.hp - ((userDefs.maxhp / 100) * skillDefs.cost)))
-									} else if (skillDefs.costtype === "mp") {
-										userDefs.mp = Math.max(0, userDefs.mpe - skillDefs.cost)
-									} else if (skillDefs.costtype === "mppercent") {
-										userDefs.mp = Math.round(Math.max(0, userDefs.mp - ((userDefs.maxmp / 100) * skillDefs.cost)))
-									}
-								}
-							}
+							if (useEnergy)
+								useCost(userDefs, skillDefs);
 
 							return embedText
 						}
@@ -717,7 +809,7 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 						}
 					}
 					
-					if (!counterSkill && skillDefs2.passive === "swordbreaker" && skillDefs.atktype === "physical") {
+					if (!counterSkill && skillDefs2.passive === "swordbreaker" && skillDefs.atktype === "physical" && (dmgtype === "normal" || dmgtype === "weak")) {
 						var resistChance = skillDefs2.pow/100
 						var resistValue = Math.random()
 
@@ -732,37 +824,37 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 		
 		if (counterSkill) {
 			var dmgtype2 = "normal"
-			if (skillDefs.type && skillDefs.type != "almighty") {
+			if (counterSkill.type && counterSkill.type != "almighty") {
 				for (i = 0; i < userDefs.weak.length; i++) {
-					if (userDefs.weak[i] == skillDefs.type) {
+					if (userDefs.weak[i] == counterSkill.type) {
 						dmgtype2 = "weak"
 					}
 				}
 				for (i = 0; i < userDefs.resist.length; i++) {
-					if (userDefs.resist[i] == skillDefs.type) {
+					if (userDefs.resist[i] == counterSkill.type) {
 						dmgtype2 = "resist"
 					}
 				}
 				for (i = 0; i < userDefs.block.length; i++) {
-					if (userDefs.block[i] == skillDefs.type) {
+					if (userDefs.block[i] == counterSkill.type) {
 						dmgtype2 = "block"
 					}
 				}
 				for (i = 0; i < userDefs.repel.length; i++) {
-					if (userDefs.repel[i] == skillDefs.type) {
+					if (userDefs.repel[i] == counterSkill.type) {
 						dmgtype2 = "repel"
 					}
 				}
 				for (i = 0; i < userDefs.drain.length; i++) {
-					if (userDefs.drain[i] == skillDefs.type) {
+					if (userDefs.drain[i] == counterSkill.type) {
 						dmgtype2 = "drain"
 					}
 				}
 			}
 
-			if (counterSkill.atktype == "physical" && userDefs.shield == "webtrap") {
+			if (counterSkill.atktype == "physical" && userDefs.shield == "trap" && !counterSkill.feint) {
 				dmgtype2 = "resist"
-				webTrapped = true
+				trapped = true
 			}
 
 			var atk = oppDefs.atk + (oppWeapon.atk ? oppWeapon.atk : 0) + ((oppDefs.atk/10)*oppDefs.buffs.atk)
@@ -827,9 +919,7 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 					var possibleQuote = Math.round(Math.random() * (userDefs.dodgequote.length-1))
 					finaltext += `\n*${userName}: "${userDefs.dodgequote[possibleQuote]}"*`
 				}
-			} else if (dmg[1] == "block" || dmg[1] == "repel" || repelSkill ||
-			(userDefs.shield === "makarakarn" && counterSkill.atktype === "magic" ||
-			userDefs.shield === "tetrakarn" && counterSkill.atktype === "physical")) {
+			} else if (!counterSkill.feint && (dmg[1] == "block" || dmg[1] == "repel" || repelSkill || (userDefs.shield === "makarakarn" && counterSkill.atktype === "magic" || userDefs.shield === "tetrakarn" && counterSkill.atktype === "physical"))) {
 				finaltext += `${userName} blocked it!`
 				dmg[1] = "block"
 					
@@ -927,14 +1017,21 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 		} else {
 			var userQuote
 			var oppQuote
+			   
+			var btlPath = dataPath+'/battle.json'
+			var btlRead = fs.readFileSync(btlPath);
+			var btl = JSON.parse(btlRead);
+			
+			const weather = btl[server].changeweather ? btl[server].changeweather.weather : btl[server].weather
+			const terrain = btl[server].changeterrain ? btl[server].changeterrain.terrain : btl[server].terrain
 			
 			// Resist Overwrites
-			if (resistSkill)
+			if (resistSkill && !skillDefs.feint)
 				dmgtype = "resist";
 
-			if (skillDefs.atktype == "physical" && oppDefs.shield == "webtrap") {
+			if (skillDefs.atktype == "physical" && oppDefs.shield == "trap" && !skillDefs.feint) {
 				dmgtype = "resist";
-				webTrapped = true;
+				trapped = true;
 			}
 
 			if (!skillDefs.hits || skillDefs.hits == 1) {
@@ -943,18 +1040,15 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 				
 				var rand = Math.round(Math.random() * 10);
 				dmg[0] += rand;
+				
+				fieldMod(dmg, weather, terrain)
 
 				// Prompts
 				var result = Math.round(dmg[0]);
 				if (result < 1) { result = 1 }
 
-				if (oppDefs.guard && !skillDefs.limitbreak) {
-					result = Math.round(dmg[0]/2)
-				}
-
-				if (oppDefs.shield && oppDefs.shield === "guard" && !skillDefs.type === "almighty" && !skillDefs.limitbreak) {
-					result = Math.round(dmg[0]/4)
-				}
+				if (oppDefs.guard && !skillDefs.limitbreak)
+					result = Math.round(dmg[0]/2);
 
 				if (dmg[1] == "miss") {
 					finaltext += `${oppName} dodged it!`
@@ -968,7 +1062,9 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 						oppQuote = `\n*${oppDefs.name}: "${oppDefs.dodgequote[possibleQuote]}"*`
 					}
 				} else if (dmg[1] == "repel") {
-					finaltext += `It was repelled!`
+					finaltext += `${oppName} repelled it!`
+					
+					fieldMod(repelDmg, weather, terrain)
 
 					skillDefs.acc = 999
 					var repelDmg = genDmg(userDefs, userDefs, skillDefs)
@@ -1007,6 +1103,8 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 					var rand = Math.round(Math.random() * 10);
 					repelDmg[0] += rand;
 					
+					fieldMod(repelDmg, weather, terrain)
+					
 					result = repelDmg[0];
 
 					if (repelDmg[1] === "block" || repelDmg[1] === "repel") {
@@ -1029,7 +1127,7 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 
 					skillDefs.acc = 0
 					dmg = repelDmg
-				} else if (oppDefs.shield === "makarakarn" && skillDefs.atktype === "magic" || oppDefs.shield === "tetrakarn" && skillDefs.atktype === "physical") {
+				} else if (!skillDefs.feint && (oppDefs.shield === "makarakarn" && skillDefs.atktype === "magic" || oppDefs.shield === "tetrakarn" && skillDefs.atktype === "physical")) {
 					finaltext += `${oppName}'s shield repels the attack, but gets destroyed!`;
 					delete oppDefs.shield
 
@@ -1038,6 +1136,8 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 					var repelDmg = genDmg(userDefs, userDefs, skillDefs)
 					var rand = Math.round(Math.random() * 10);
 					repelDmg[0] += rand;
+					
+					fieldMod(repelDmg, weather, terrain)
 					
 					result = repelDmg[0];
 
@@ -1210,7 +1310,7 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 						}
 					}
 
-					if (oppDefs.shield == "guard") {
+					if ((oppDefs.shield == "guard" || oppDefs.shield == "shield") && !skillDefs.feint) {
 						finaltext += `\n${oppName}'s protection was destroyed!`
 						delete oppDefs.shield
 					}
@@ -1244,7 +1344,7 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 						oppQuote = `\n*${oppDefs.name}: "${oppDefs.dodgequote[possibleQuote]}"*`
 					}
 				} else if (dmgCheck[1] == "repel") {
-					finaltext = `It was repelled! `;
+					finaltext = `${oppName} repelled it! `;
 
 					var repelDmg = genDmg(userDefs, userDefs, skillDefs)
 					if (repelDmg[1] === "block" || repelDmg[1] === "repel") {
@@ -1279,7 +1379,7 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 						var possibleQuote = Math.round(Math.random() * (oppDefs.repelquote.length-1))
 						oppQuote = `\n*${oppDefs.name}: "${oppDefs.repelquote[possibleQuote]}"*`
 					}
-				} else if (oppDefs.shield === "makarakarn" && skillDefs.atktype === "magic" || oppDefs.shield === "tetrakarn" && skillDefs.atktype === "physical") {
+				} else if (!skillDefs.feint && (oppDefs.shield === "makarakarn" && skillDefs.atktype === "magic" || oppDefs.shield === "tetrakarn" && skillDefs.atktype === "physical")) {
 					finaltext = `${oppName}'s shield repels the attack, but gets destroyed! `;
 					delete oppDefs.shield
 
@@ -1335,6 +1435,8 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 						var dmg = genDmg(userDefs, oppDefs, skillDefs)
 						var rand = Math.floor(Math.random() * 10);
 						dmg[0] += +rand;
+						
+						fieldMod(dmg, weather, terrain)
 
 						// Prompts
 						var result = Math.round(dmg[0]);
@@ -1344,14 +1446,11 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 							result = Math.round(dmg[0]/2)
 						}
 
-						if (oppDefs.shield && oppDefs.shield === "guard" && !skillDefs.type === "almighty" && !skillDefs.limitbreak) {
-							result = Math.round(dmg[0]/4)
-						}
-
-						if (dmgCheck[1] == "repel" || repelSkill || (oppDefs.shield === "makarakarn" && skillDefs.atktype === "magic" || oppDefs.shield === "tetrakarn" && skillDefs.atktype === "physical")) {
+						if (dmgCheck[1] == "repel" || repelSkill || (oppDefs.shield === "makarakarn" && skillDefs.atktype === "magic" || oppDefs.shield === "tetrakarn" && skillDefs.atktype === "physical") && !skillDefs.feint) {
 							var repelDmg = genDmg(userDefs, userDefs, skillDefs)
 							var rand = Math.round(Math.random() * 10);
 							repelDmg[0] += rand;
+							fieldMod(repelDmg, weather, terrain)
 							
 							result = repelDmg[0];
 
@@ -1510,7 +1609,7 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 							}
 						}
 
-						if (oppDefs.shield == "guard") {
+						if ((oppDefs.shield == "guard" || oppDefs.shield == "shield") && !skillDefs.feint) {
 							finaltext += `\n${oppName}'s protection was destroyed!`
 							delete oppDefs.shield
 						}
@@ -1534,7 +1633,7 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 			if (resistSkill)
 				finaltext += `\n${oppName}'s ${resistSkill} halved the power of the skill.`;
 			
-			if (webTrapped) {
+			if (trapped && !skillDefs.feint) {
 				finaltext += `\n${oppName}'s Web Trap halved the power of the skill. ${userName}'s agility was debuffed!`
 				userDefs.buffs.agl = Math.max(-3, oppDefs.buffs.agl-1)
 				oppDefs.shield = "none"
@@ -1586,19 +1685,8 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 		embedText.resultText = `${finaltext}`
 	}
 
-	if (useEnergy) {
-		if (skillDefs.cost && skillDefs.costtype) {
-			if (skillDefs.costtype === "hp") {
-				userDefs.hp = Math.max(1, userDefs.hp - skillDefs.cost)
-			} else if (skillDefs.costtype === "hppercent" && !userDefs.boss) {
-				userDefs.hp = Math.round(Math.max(1, userDefs.hp - ((userDefs.maxhp / 100) * skillDefs.cost)))
-			} else if (skillDefs.costtype === "mp") {
-				userDefs.mp = Math.max(0, userDefs.mp - skillDefs.cost)
-			} else if (skillDefs.costtype === "mppercent") {
-				userDefs.mp = Math.round(Math.max(0, userDefs.mp - ((userDefs.maxmp / 100) * skillDefs.cost)))
-			}
-		}
-	}
+	if (useEnergy)
+		useCost(userDefs, skillDefs);
 	
 	return embedText
 }
@@ -1670,9 +1758,46 @@ function meleeAttack(userDefs, enmDefs, server, rage) {
 			}
 		}
 	}
+	
+	const skillPath = dataPath+'/skills.json'
+	const skillRead = fs.readFileSync(skillPath);
+	const skillFile = JSON.parse(skillRead);
+	
+	// Boosting Passives
+	for (const i in userDefs.skills) {
+		const skillDefs2 = skillFile[userDefs.skills[i]]
+	
+		if (skillDefs2 && skillDefs2.type && skillDefs2.type === "passive") {
+			if (skillDefs2.passive === "boost" && skillDefs2.boosttype == userDefs.melee[1]) {
+				movepow += (movepow/100)*skillDefs2.pow
+			}
+		}
+	}
+	
+	// Resisting Passives
+	var repelSkill = null
+	var counterSkill = null
+	var resistSkill = null
+	var trapped = false
+	for (const i in enmDefs.skills) {
+		const skillDefs = skillFile[enmDefs.skills[i]]
+	
+		if (skillDefs && skillDefs.type && skillDefs.type == 'passive') {
+			if (skillDefs.passive === "wonderguard" && dmgtype != "weak") {
+				embedText.targetText = `${userName} => ${enmDefs.name}`
+				embedText.attackText = `${userName} used ${userDefs.melee[0]}!`
+				embedText.resultText = `${enmDefs.name}'s ${skillDefs.name} made them immune to the attack!`
+				
+				if (useEnergy)
+					useCost(userDefs, skillDefs);
+
+				return embedText
+			}
+		}
+	}
 
 	// Damage.
-	var dmg = genDmgFromVals(atk, prc, luk, chr, 15, 95, 10, "none", 0, movetype, enmdef, enmagl, enmluk, dmgtype)
+	var dmg = genDmgFromVals(atk, prc, luk, chr, 30, 95, 10, "none", 0, movetype, enmdef, enmagl, enmluk, dmgtype)
 	var finaltext = ``
 	var rand = Math.floor(Math.random() * 10);
 	dmg[0] = +dmg[0] + +rand;
@@ -1691,7 +1816,7 @@ function meleeAttack(userDefs, enmDefs, server, rage) {
 			finaltext += `\n*${enmDefs.name}: "${enmDefs.dodgequote[possibleQuote]}"*`
 		}
 	} else if (dmg[1] == "repel") {
-		finaltext += `It was repelled! ${userName} took ` + result;
+		finaltext += `${enmName} repelled it! ${userName} took ` + result;
 		userDefs.hp = Math.max(0, userDefs.hp - result)
 		userDefs.guard = false
 					
