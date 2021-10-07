@@ -283,6 +283,36 @@ module.exports = {
 	
 	roundToDecimals: function(num, places) {
 		return +(Math.round(num + "e+" + places)  + "e-" + places);
+	},
+
+	randNum: function(max) {
+		return Math.round(Math.random() * (max-1))
+	},
+	
+	getChannel: function(channel) {
+		if (typeof(channel) == "string") {
+			if (client.channels.cache.get(arg[2]))
+				return client.channels.cache.get(arg[2]);
+			else
+				return null
+		} else {
+		}
+	},
+
+	getChest: function(name, message) {
+		var chestPath = dataPath+'/chests.json'
+		var chestRead = fs.readFileSync(chestPath);
+		var chestFile = JSON.parse(chestRead);
+
+		for (const channelID in chestFile[message.guild.id]) {
+			for (const chest in chestFile[message.guild.id][channelID]) {
+				if (chestFile[message.guild.id][channelID][name]) {
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 	
 	/*

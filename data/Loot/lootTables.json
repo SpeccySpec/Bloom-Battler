@@ -1,0 +1,30 @@
+{
+    "Grassimp": {
+        "name": "Grassimp",
+        "items": [
+            "SparkleBerry",
+            "ShineBerry",
+            "PlumpBerry"
+        ],
+        "itemChances": [
+            50,
+            20,
+            5
+        ]
+    },
+    "Metalic": {
+        "name": "Metalic",
+        "items": [
+            "RoboticFist",
+            "RoboticFlamethrower",
+			"WaterGun",
+			"GrassGem"
+        ],
+        "itemChances": [
+            5,
+            5,
+			5,
+			8
+        ]
+    }
+}

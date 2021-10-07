@@ -1,1 +1,447 @@
-{}
+{
+    "819616171086577667": {
+        "prefix": "rpg!",
+        "limitbreaks": true,
+        "showtimes": false,
+        "onemores": false,
+        "currency": "Ring",
+        "xprate": 1,
+        "pvpstuff": {
+            "none": {
+                "544290248734015488": {
+                    "points": 4
+                },
+                "412328234198237189": {
+                    "points": 3
+                },
+                "516359709779820544": {
+                    "points": 16
+                },
+                "532291526634635285": {
+                    "points": 3
+                },
+                "461050360832720904": {
+                    "points": 8
+                },
+                "441198920668938260": {
+                    "points": 1
+                }
+            },
+            "metronome": {
+                "532291526634635285": {
+                    "points": 7
+                },
+                "441198920668938260": {
+                    "points": 4
+                },
+                "516359709779820544": {
+                    "points": 9
+                },
+                "412328234198237189": {
+                    "points": 4
+                },
+                "498041248616153098": {
+                    "points": 3
+                },
+                "544290248734015488": {
+                    "points": 2
+                }
+            },
+            "randskills": {
+                "412328234198237189": {
+                    "points": 3
+                },
+                "516359709779820544": {
+                    "points": 7
+                },
+                "441198920668938260": {
+                    "points": 1
+                },
+                "544290248734015488": {
+                    "points": 4
+                },
+                "532291526634635285": {
+                    "points": 1
+                }
+            },
+            "randstats": {
+                "544290248734015488": {
+                    "points": 2
+                },
+                "441198920668938260": {
+                    "points": 7
+                },
+                "412328234198237189": {
+                    "points": 2
+                },
+                "516359709779820544": {
+                    "points": 4
+                },
+                "532291526634635285": {
+                    "points": 5
+                }
+            },
+            "charfuck": {
+                "532291526634635285": {
+                    "points": 1
+                },
+                "412328234198237189": {
+                    "points": 2
+                }
+            }
+        },
+        "banned": [],
+        "themes": {
+            "battle": [
+                "https://www.youtube.com/watch?v=uQHm8PYBres"
+            ],
+            "advantage": [],
+            "disadvantage": [],
+            "bossfight": [
+                "https://www.youtube.com/watch?v=QC50ABNVexg",
+                "https://www.youtube.com/watch?v=1B0q3Ld7IEw"
+            ],
+            "miniboss": [
+                "https://www.youtube.com/watch?v=BVDJOtWuQYE",
+                "https://www.youtube.com/watch?v=5c6q642-p68"
+            ],
+            "strongfoe": [],
+            "finalboss": [
+                "https://www.youtube.com/watch?v=EBfz1Edo9-Q",
+                "https://www.youtube.com/watch?v=1e27wGQaAB0"
+            ],
+            "colosseum": [
+                "https://www.youtube.com/watch?v=UjBTtNU27Ec"
+            ],
+            "colosseumstrong": [
+                "https://www.youtube.com/watch?v=4yxgEsS8ogM",
+                "https://www.youtube.com/watch?v=ghSedPM6i5Y",
+                "https://www.youtube.com/watch?v=bI9A-Ulb-4I"
+            ],
+            "pvp": [
+                "https://www.youtube.com/watch?v=l97FWN9fDrg"
+            ],
+            "victory": [
+                "https://www.youtube.com/watch?v=QEmbOL3AAEs"
+            ],
+            "victorycolosseum": [],
+            "loss": []
+        },
+        "encountered": [
+            "Moltescle",
+            "Nyamem",
+            "Evergreen",
+            "Monum",
+            "GravenIdol",
+            "InfectedVessel",
+            "TheLuminosity",
+            "Mawler",
+            "Grassimp",
+            "Mossimp",
+            "GreatMossimp",
+            "Nyamo",
+            "Nyamush",
+            "Hydruu",
+            "Agilitop",
+            "Topium",
+            "NyamoWarrior",
+            "VolatileWarrior",
+            "DestructiveGrassimp",
+            "Folly",
+            "Mossknight",
+            "Mosstone",
+            "Mosscreep",
+            "ViolentEnigstone",
+            "Shimite",
+            "Glimbat",
+            "InfectedNyamem",
+            "ViolentNyamush",
+            "ViolentNyamo",
+            "Memoiru",
+            "ElderLuminosity",
+            "RestoredFlare",
+            "Miniscle",
+            "Sacriful",
+            "Sacriful",
+            "Sacriful",
+            "Sacriful",
+            "ReignitedFlare",
+            "Minet",
+            "Eleku",
+            "Eleku",
+            "Eleku",
+            "Hitten",
+            "Hitten",
+            "BigStriker",
+            "Grassage",
+            "Grassage",
+            "Grassage",
+            "Grassage",
+            "MassiveMossimp",
+            "Lazerite",
+            "Windite",
+            "Windite",
+            "Frostite",
+            "Frostite",
+            "Aquatite",
+            "Mossite",
+            "Aquatite",
+            "Melarue",
+            "Axel",
+            "RechargedLightning"
+        ]
+    },
+    "808462313262415893": {
+        "prefix": "rpg!",
+        "limitbreaks": false,
+        "showtimes": false,
+        "onemores": false,
+        "currency": "Ring",
+        "xprate": 0,
+        "pvpstuff": {
+            "none": {},
+            "metronome": {},
+            "randskills": {},
+            "randstats": {},
+            "charfuck": {
+                "516359709779820544": {
+                    "points": 2
+                }
+            }
+        },
+        "banned": []
+    },
+    "874635107300933682": {
+        "prefix": "rpg!",
+        "limitbreaks": true,
+        "showtimes": false,
+        "onemores": false,
+        "currency": "Token",
+        "xprate": 0,
+        "pvpstuff": {
+            "none": {
+                "516359709779820544": {
+                    "points": 6
+                }
+            },
+            "metronome": {
+                "441198920668938260": {
+                    "points": 2
+                },
+                "498041248616153098": {
+                    "points": 5
+                },
+                "544290248734015488": {
+                    "points": 3
+                },
+                "516359709779820544": {
+                    "points": 17
+                },
+                "532291526634635285": {
+                    "points": 11
+                },
+                "412328234198237189": {
+                    "points": 3
+                }
+            },
+            "randskills": {
+                "544290248734015488": {
+                    "points": 9
+                },
+                "516359709779820544": {
+                    "points": 9
+                },
+                "441198920668938260": {
+                    "points": 7
+                },
+                "498041248616153098": {
+                    "points": 3
+                }
+            },
+            "randstats": {
+                "498041248616153098": {
+                    "points": 9
+                },
+                "544290248734015488": {
+                    "points": 3
+                },
+                "516359709779820544": {
+                    "points": 3
+                },
+                "441198920668938260": {
+                    "points": 3
+                }
+            },
+            "charfuck": {
+                "532291526634635285": {
+                    "points": 20
+                },
+                "544290248734015488": {
+                    "points": 20
+                },
+                "516359709779820544": {
+                    "points": 39
+                },
+                "441198920668938260": {
+                    "points": 22
+                },
+                "498041248616153098": {
+                    "points": 20
+                },
+                "412328234198237189": {
+                    "points": 14
+                }
+            }
+        },
+        "banned": [],
+        "themes": {
+            "battle": [],
+            "advantage": [],
+            "disadvantage": [],
+            "bossfight": [],
+            "miniboss": [],
+            "strongfoe": [],
+            "finalboss": [],
+            "colosseum": [],
+            "colosseumstrong": [],
+            "pvp": [],
+            "victory": [],
+            "colosseumvictory": [],
+            "loss": []
+        },
+        "encountered": [
+            "ElderLuminosity",
+            "Nyamem",
+            "InfectedNyamem",
+            "Grassimp",
+            "Grassimp",
+            "Grassimp",
+            "Eleku",
+            "BigStriker",
+            "Eleku",
+            "god"
+        ]
+    },
+    "763858631836958771": {
+        "prefix": "rpg!",
+        "limitbreaks": true,
+        "showtimes": true,
+        "onemores": false,
+        "currency": "_sex",
+        "xprate": 1,
+        "pvpstuff": {
+            "none": {},
+            "metronome": {},
+            "randskills": {},
+            "randstats": {},
+            "charfuck": {}
+        },
+        "banned": [],
+        "themes": {
+            "battle": [],
+            "bossfight": [],
+            "strongfoe": [],
+            "colosseum": [],
+            "colosseumstrong": [],
+            "pvp": [
+                "https://www.youtube.com/watch?v=l97FWN9fDrg"
+            ]
+        }
+    },
+    "728307995901034546": {
+        "prefix": "rpg!",
+        "limitbreaks": false,
+        "showtimes": false,
+        "onemores": false,
+        "currency": "Ring",
+        "pvpstuff": {
+            "none": {},
+            "metronome": {},
+            "randskills": {},
+            "randstats": {},
+            "charfuck": {}
+        },
+        "banned": []
+    },
+    "836346842848428092": {
+        "prefix": "rpg!",
+        "limitbreaks": false,
+        "showtimes": false,
+        "onemores": false,
+        "currency": "RPGBot Token",
+        "xprate": 1,
+        "pvpstuff": {
+            "none": {},
+            "metronome": {},
+            "randskills": {},
+            "randstats": {},
+            "charfuck": {}
+        },
+        "banned": []
+    },
+    "739088538964066345": {
+        "prefix": "rpg!",
+        "limitbreaks": false,
+        "showtimes": false,
+        "onemores": false,
+        "currency": "Arrow_Introduction_Token",
+        "xprate": 0,
+        "pvpstuff": {
+            "none": {},
+            "metronome": {},
+            "randskills": {},
+            "randstats": {},
+            "charfuck": {}
+        },
+        "banned": [],
+        "themes": {
+            "battle": [],
+            "advantage": [],
+            "disadvantage": [],
+            "bossfight": [],
+            "miniboss": [],
+            "strongfoe": [],
+            "finalboss": [],
+            "colosseum": [],
+            "colosseumstrong": [],
+            "pvp": [],
+            "victory": [],
+            "colosseumvictory": [],
+            "loss": []
+        }
+    },
+    "759805005913260062": {
+        "prefix": "rpg!",
+        "limitbreaks": false,
+        "showtimes": false,
+        "onemores": false,
+        "currency": "RPGBot Token",
+        "xprate": 1,
+        "pvpstuff": {
+            "none": {},
+            "metronome": {},
+            "randskills": {},
+            "randstats": {},
+            "charfuck": {}
+        },
+        "themes": {
+            "battle": [],
+            "advantage": [],
+            "disadvantage": [],
+            "bossfight": [],
+            "miniboss": [],
+            "strongfoe": [],
+            "finalboss": [],
+            "colosseum": [],
+            "colosseumstrong": [],
+            "pvp": [],
+            "victory": [],
+            "colosseumvictory": [],
+            "loss": []
+        },
+        "banned": [],
+        "encountered": [
+            "god"
+        ]
+    }
+}

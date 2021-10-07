@@ -164,15 +164,14 @@ function hasPassiveCopyLol(userDefs, passiveType) {
 // Cost
 function useCost(userDefs, skillDefs) {
 	if (skillDefs.cost && skillDefs.costtype) {
-		if (skillDefs.costtype === "hp" && !userDefs.diety) {
-			userDefs.hp = Math.max(0, userDefs.hp - skillDefs.cost)
-		} else if (skillDefs.costtype === "hppercent" && !userDefs.miniboss && !userDefs.boss) {
-			userDefs.hp = Math.round(Math.max(0, userDefs.hp - ((userDefs.maxhp / 100) * skillDefs.cost)))
-		} else if (skillDefs.costtype === "mp") {
-			userDefs.mp = Math.max(0, userDefs.mpe - skillDefs.cost)
-		} else if (skillDefs.costtype === "mppercent") {
-			userDefs.mp = Math.round(Math.max(0, userDefs.mp - ((userDefs.maxmp / 100) * skillDefs.cost)))
-		}
+		if (skillDefs.costtype === "hp" && !userDefs.diety)
+			userDefs.hp = Math.max(0, userDefs.hp - skillDefs.cost);
+		else if (skillDefs.costtype === "hppercent" && !userDefs.miniboss && !userDefs.boss)
+			userDefs.hp = Math.round(Math.max(0, userDefs.hp - ((userDefs.maxhp / 100) * skillDefs.cost)));
+		else if (skillDefs.costtype === "mp")
+			userDefs.mp = Math.max(0, userDefs.mp - skillDefs.cost);
+		else if (skillDefs.costtype === "mppercent")
+			userDefs.mp = Math.round(Math.max(0, userDefs.mp - ((userDefs.maxmp / 100) * skillDefs.cost)));
 	}
 	
 	return true
@@ -180,14 +179,14 @@ function useCost(userDefs, skillDefs) {
 
 // Miss Check
 function missCheck(userPrc, oppAgl, moveAcc) {
-	if (moveAcc >= 100) {return true}
+	if (moveAcc >= 100) 
+		return true;
 	
 	var targVal = (moveAcc + ((userPrc - oppAgl)*(3/4))) / 100
 	var randomVal = Math.random()
 	
-	if (randomVal > targVal) {
-		return false
-	}
+	if (randomVal > targVal)
+		return false;
 	
 	return true
 }
@@ -217,22 +216,19 @@ function genDmg(userDefs, targDefs, skillDefs) {
 
     // Accuracy Checks
 	console.log("<<Accuracy Checks done in missCheck (line 149)>>")
-    if (!missCheck(userDefs.prc, targDefs.agl, skillDefs.acc)) {
-		return [0, "miss", false, false, false]
-	}
+    if (!missCheck(userDefs.prc, targDefs.agl, skillDefs.acc))
+		return [0, "miss", false, false, false];
 
     // Damage Generation    
 	var itemPath = dataPath+'/items.json'
     var itemRead = fs.readFileSync(itemPath);
     var itemFile = JSON.parse(itemRead);
 
-	if (!userDefs.weapon) {
-		userDefs.weapon = "none"
-	}
+	if (!userDefs.weapon)
+		userDefs.weapon = "none";
 	
-	if (!targDefs.weapon) {
-		targDefs.weapon = "none"
-	}
+	if (!targDefs.weapon)
+		targDefs.weapon = "none";
 	
 	const userWeapon = itemFile[userDefs.weapon] ? itemFile[userDefs.weapon] : itemFile["none"]
 	const oppWeapon = itemFile[targDefs.weapon] ? itemFile[targDefs.weapon] : itemFile["none"]
@@ -274,12 +270,12 @@ function genDmg(userDefs, targDefs, skillDefs) {
 		}
 	} else {
 		values[0] = Math.round(5 * Math.sqrt(def * skillDefs.pow));
-		if (targDefs.shield && (targDefs.shield === 'guard' || targDefs.shield === 'shield')) {
+		if (targDefs.shield) {
 			values[0] *= 0.33;
 			values[0] = Math.round(values[0]);
 			console.log('Damage Checks: Shield')
 		}
-		    
+
 		if (dmgtype === "repel" || dmgtype === "drain")
 			return [Math.round(values[0]), dmgtype, false, false, false];
 		
@@ -624,25 +620,31 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 				var targ = (skillDefs.statuschance + (userDefs.chr - oppDefs.luk)) / 100;
 				var chance = Math.random();
 
-				var finaltext = ""
-				if (chance > targ || skillDefs.statuschance >= 100) {
-					finaltext += inflictStatus(oppDefs, skillDefs)
+				if (oppDefs.status === "none") {
+					var finaltext = ""
+					if (chance > targ || skillDefs.statuschance >= 100) {
+						finaltext += inflictStatus(oppDefs, skillDefs)
+					} else {
+						finaltext = "But they dodged it!"
+
+						if (userDefs.missquote && userDefs.missquote.length > 0) {
+							var possibleQuote = Math.round(Math.random() * (userDefs.missquote.length-1))
+							finaltext += `\n*${userName}: "${userDefs.missquote[possibleQuote]}"*`
+						}
+						if (oppDefs.dodgequote && oppDefs.dodgequote.length > 0) {
+							var possibleQuote = Math.round(Math.random() * (oppDefs.dodgequote.length-1))
+							finaltext += `\n*${oppName}: "${oppDefs.dodgequote[possibleQuote]}"*`
+						}
+					}
+
+					embedText.targetText = `${userName} => ${oppName}`, 
+					embedText.attackText = `${userName} used ${skillDefs.name} on ${oppName}!`
+					embedText.resultText = `${finaltext}`
 				} else {
-					finaltext = "But they dodged it!"
-
-					if (userDefs.missquote && userDefs.missquote.length > 0) {
-						var possibleQuote = Math.round(Math.random() * (userDefs.missquote.length-1))
-						finaltext += `\n*${userName}: "${userDefs.missquote[possibleQuote]}"*`
-					}
-					if (oppDefs.dodgequote && oppDefs.dodgequote.length > 0) {
-						var possibleQuote = Math.round(Math.random() * (oppDefs.dodgequote.length-1))
-						finaltext += `\n*${oppName}: "${oppDefs.dodgequote[possibleQuote]}"*`
-					}
+					embedText.targetText = `${userName} => ${oppName}`, 
+					embedText.attackText = `${userName} used ${skillDefs.name} on ${oppName}!`
+					embedText.resultText = 'But it had no effect!'
 				}
-
-				embedText.targetText = `${userName} => ${oppName}`, 
-				embedText.attackText = `${userName} used ${skillDefs.name} on ${oppName}!`
-				embedText.resultText = `${finaltext}`
 			}
 		} else if (skillDefs.futuresight) {
 			oppDefs.futureSightSkill = skillDefs.futuresight
@@ -769,6 +771,11 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 						embedText.targetText = `${userName} => ${oppName}`
 						embedText.attackText = `${userName} used ${skillDefs.name}!`
 						embedText.resultText = `${oppName}'s ${skillDefs2.name} made them immune to the attack!`
+
+						if (charDefs.blockquote && charDefs.blockquote.length > 0) {
+							var possibleQuote = Math.round(Math.random() * (charDefs.blockquote.length-1))
+							finaltext += `\n*${charName}: "${charDefs.blockquote[possibleQuote]}"*`
+						}
 						
 						if (useEnergy)
 							useCost(userDefs, skillDefs);
@@ -852,7 +859,7 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 				}
 			}
 
-			if (counterSkill.atktype == "physical" && userDefs.shield == "trap" && !counterSkill.feint) {
+			if (counterSkill.atktype == "physical" && userDefs.trapType && !counterSkill.feint) {
 				dmgtype2 = "resist"
 				trapped = true
 			}
@@ -907,9 +914,9 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 			var result = Math.round(dmg[0]);
 			if (result < 1) { result = 1 }
 
-
 			if (dmg[1] == "miss") {
-				finaltext += `${userName} dodged it!`
+				finaltext += `${userName} dodged it!`;
+				trapped = false;
 
 				if (oppDefs.missquote && oppDefs.missquote.length > 0) {
 					var possibleQuote = Math.round(Math.random() * (oppDefs.missquote.length-1))
@@ -919,7 +926,7 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 					var possibleQuote = Math.round(Math.random() * (userDefs.dodgequote.length-1))
 					finaltext += `\n*${userName}: "${userDefs.dodgequote[possibleQuote]}"*`
 				}
-			} else if (!counterSkill.feint && (dmg[1] == "block" || dmg[1] == "repel" || repelSkill || (userDefs.shield === "makarakarn" && counterSkill.atktype === "magic" || userDefs.shield === "tetrakarn" && counterSkill.atktype === "physical"))) {
+			} else if (!counterSkill.feint && (dmg[1] == "block" || dmg[1] == "repel" || repelSkill || (userDefs.makarakarn && counterSkill.atktype === "magic" || userDefs.tetrakarn && counterSkill.atktype === "physical"))) {
 				finaltext += `${userName} blocked it!`
 				dmg[1] = "block"
 					
@@ -1029,7 +1036,7 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 			if (resistSkill && !skillDefs.feint)
 				dmgtype = "resist";
 
-			if (skillDefs.atktype == "physical" && oppDefs.shield == "trap" && !skillDefs.feint) {
+			if (skillDefs.atktype == "physical" && oppDefs.trapType && !skillDefs.feint) {
 				dmgtype = "resist";
 				trapped = true;
 			}
@@ -1052,6 +1059,7 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 
 				if (dmg[1] == "miss") {
 					finaltext += `${oppName} dodged it!`
+					trapped = false;
 
 					if (userDefs.missquote && userDefs.missquote.length > 0) {
 						var possibleQuote = Math.round(Math.random() * (userDefs.missquote.length-1))
@@ -1075,14 +1083,14 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 					result = repelDmg[0];
 
 					if (repelDmg[1] === "block" || repelDmg[1] === "repel") {
-						finaltext += `${userName} blocked it, dealing no `;
+						finaltext += `${userName} blocked it, dealing no damage.`;
 						dmg[1] = "block"
 					} else if (repelDmg[1] === "drain") {
-						finaltext += `${userName} HP was restored by ${result} damage.`;
+						finaltext += `${userName} HP was restored by ${result}.`;
 						userDefs.hp = Math.min(userDefs.maxhp, userDefs.hp + result)
 						dmg = repelDmg
 					} else {
-						finaltext += `${userName} took ${result}`;
+						finaltext += `${userName} took ${result} damage.`;
 						userDefs.hp = Math.max(0, userDefs.hp - result)
 						dmg = repelDmg
 						
@@ -1108,14 +1116,14 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 					result = repelDmg[0];
 
 					if (repelDmg[1] === "block" || repelDmg[1] === "repel") {
-						finaltext += `${userName} blocked it, dealing no `;
+						finaltext += `${userName} blocked it, dealing no damage.`;
 						dmg[1] = "block"
 					} else if (repelDmg[1] === "drain") {
-						finaltext += `${userName} HP was restored by ${result} damage.`;
+						finaltext += `${userName} HP was restored by ${result}.`;
 						userDefs.hp = Math.min(userDefs.maxhp, userDefs.hp + result)
 						dmg = repelDmg
 					} else {
-						finaltext += `${userName} took ${result}`;
+						finaltext += `${userName} took ${result} damage.`;
 						userDefs.hp = Math.max(0, userDefs.hp - result)
 						dmg = repelDmg
 						
@@ -1127,9 +1135,14 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 
 					skillDefs.acc = 0
 					dmg = repelDmg
-				} else if (!skillDefs.feint && (oppDefs.shield === "makarakarn" && skillDefs.atktype === "magic" || oppDefs.shield === "tetrakarn" && skillDefs.atktype === "physical")) {
-					finaltext += `${oppName}'s shield repels the attack, but gets destroyed!`;
-					delete oppDefs.shield
+				} else if (!skillDefs.feint && (oppDefs.makarakarn && skillDefs.atktype === "magic" || oppDefs.tetrakarn && skillDefs.atktype === "physical")) {
+					if (oppDefs.makarakarn && skillDefs.atktype === "magic") {
+						finaltext += `${oppName}'s ${oppDefs.makarakarn} repels the magical attack, but gets destroyed!`;
+						delete oppDefs.makarakarn
+					} else if (oppDefs.tetrakarn && skillDefs.atktype === "physical") {
+						finaltext += `${oppName}'s ${oppDefs.tetrakarn} repels the physical attack, but gets destroyed!`;
+						delete oppDefs.tetrakarn
+					}
 
 					skillDefs.acc = 999
 
@@ -1142,14 +1155,14 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 					result = repelDmg[0];
 
 					if (repelDmg[1] === "block" || repelDmg[1] === "repel") {
-						finaltext += `${userName} blocked it, dealing no `;
+						finaltext += `${userName} blocked it, dealing no damage.`;
 						dmg[1] = "block"
 					} else if (repelDmg[1] === "drain") {
-						finaltext += `${userName} HP was restored by ${result} damage.`;
+						finaltext += `${userName} HP was restored by ${result}.`;
 						userDefs.hp = Math.min(userDefs.maxhp, userDefs.hp + result)
 						dmg = repelDmg
 					} else {
-						finaltext += `${userName} took ${result}`;
+						finaltext += `${userName} took ${result} damage.`;
 						userDefs.hp = Math.max(0, userDefs.hp - result)
 						dmg = repelDmg
 						
@@ -1334,6 +1347,7 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 				var dmgCheck = genDmgFromVals(atk, prc, luk, chr, movepow, moveacc, movecrit, movestatus, movestatuschance, movetype, enmdef, enmagl, enmluk, dmgtype);
 				if (dmgCheck[1] == "miss") {
 					finaltext = `${oppName} dodged it!`;
+					trapped = false;
 
 					if (userDefs.missquote && userDefs.missquote.length > 0) {
 						var possibleQuote = Math.round(Math.random() * (userDefs.missquote.length-1))
@@ -1379,9 +1393,14 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 						var possibleQuote = Math.round(Math.random() * (oppDefs.repelquote.length-1))
 						oppQuote = `\n*${oppDefs.name}: "${oppDefs.repelquote[possibleQuote]}"*`
 					}
-				} else if (!skillDefs.feint && (oppDefs.shield === "makarakarn" && skillDefs.atktype === "magic" || oppDefs.shield === "tetrakarn" && skillDefs.atktype === "physical")) {
-					finaltext = `${oppName}'s shield repels the attack, but gets destroyed! `;
-					delete oppDefs.shield
+				} else if (!skillDefs.feint && (oppDefs.makarakarn && skillDefs.atktype === "magic" || oppDefs.tetrakarn && skillDefs.atktype === "physical")) {
+					if (oppDefs.makarakarn && skillDefs.atktype === "magic") {
+						finaltext += `${oppName}'s ${oppDefs.makarakarn} repels the magical attack, but gets destroyed!`;
+						delete oppDefs.makarakarn
+					} else if (oppDefs.tetrakarn && skillDefs.atktype === "physical") {
+						finaltext += `${oppName}'s ${oppDefs.tetrakarn} repels the physical attack, but gets destroyed!`;
+						delete oppDefs.tetrakarn
+					}
 
 					var repelDmg = genDmg(userDefs, userDefs, skillDefs)
 					if (repelDmg[1] === "block" || repelDmg[1] === "repel") {
@@ -1446,7 +1465,7 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 							result = Math.round(dmg[0]/2)
 						}
 
-						if (dmgCheck[1] == "repel" || repelSkill || (oppDefs.shield === "makarakarn" && skillDefs.atktype === "magic" || oppDefs.shield === "tetrakarn" && skillDefs.atktype === "physical") && !skillDefs.feint) {
+						if (dmgCheck[1] == "repel" || repelSkill || (oppDefs.makarakarn && skillDefs.atktype === "magic" || oppDefs.tetrakarn && skillDefs.atktype === "physical") && !skillDefs.feint) {
 							var repelDmg = genDmg(userDefs, userDefs, skillDefs)
 							var rand = Math.round(Math.random() * 10);
 							repelDmg[0] += rand;
@@ -1634,9 +1653,25 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 				finaltext += `\n${oppName}'s ${resistSkill} halved the power of the skill.`;
 			
 			if (trapped && !skillDefs.feint) {
-				finaltext += `\n${oppName}'s Web Trap halved the power of the skill. ${userName}'s agility was debuffed!`
-				userDefs.buffs.agl = Math.max(-3, oppDefs.buffs.agl-1)
-				oppDefs.shield = "none"
+				finaltext += `\n${oppName}'s ${oppDefs.trapType.name} halved the power of the skill! `
+				
+				if (oppDefs.trapType.effect[0] == "damage") {
+					userDefs.hp -= parseInt(oppDefs.trapType.effect[1])
+					finaltext += `${userName} took ${oppDefs.trapType.effect[1]} damage`;
+					if (userDefs.hp <= 0) {
+						userDefs.hp = 0;
+						finaltext += ' and was defeated!'
+					} else
+						finaltext += '!';
+				} else if (oppDefs.trapType.effect[0] == "status")
+					finaltext += ' ' + inflictStatusFromText(userDefs, oppDefs.trapType.effect[1]);
+				else if (oppDefs.trapType.effect[0] == "debuff") {
+					finaltext += `${userName}'s ${oppDefs.trapType.effect[1].toUpperCase()} was debuffed!`;
+					userDefs.buffs.agl = Math.max(-3, oppDefs.buffs[oppDefs.trapType.effect[1]]-1)
+				}
+				
+				delete oppDefs.trap
+				delete oppDefs.trapType
 			}
 
 			if (userQuote) {finaltext += userQuote}
@@ -1805,7 +1840,8 @@ function meleeAttack(userDefs, enmDefs, server, rage) {
 	// Prompts
 	var result = Math.round(dmg[0]);
 	if (dmg[1] == "miss") {
-		finaltext += `${enmName} dodged it!`
+		finaltext += `${enmName} dodged it!`;
+		trapped = false;
 
 		if (userDefs.missquote && userDefs.missquote.length > 0) {
 			var possibleQuote = Math.round(Math.random() * (userDefs.missquote.length-1))
@@ -1824,10 +1860,10 @@ function meleeAttack(userDefs, enmDefs, server, rage) {
 			var possibleQuote = Math.round(Math.random() * (enmDefs.repelquote.length-1))
 			finaltext += `\n*${enmDefs.name}: "${enmDefs.repelquote[possibleQuote]}"*`
 		}
-	} else if (enmDefs.shield === "tetrakarn") {
+	} else if (enmDefs.tetrakarn) {
 		finaltext += `${enmDefs.name}'s Tetrakarn Shield repels the attack, but gets destroyed! ${userDefs.name} took ${result}`;
 		userDefs.hp = Math.max(0, userDefs.hp - result)
-		delete enmDefs.shield
+		delete enmDefs.tetrakarn
 		
 		if (enmDefs.repelquote && enmDefs.repelquote.length > 0) {
 			var possibleQuote = Math.round(Math.random() * (enmDefs.repelquote.length-1))

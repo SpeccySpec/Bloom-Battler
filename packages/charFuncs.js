@@ -222,7 +222,68 @@ function writeChar(creator, name, health, magicpoints, attack, magic, perception
     console.log(`Written ${name}.`)
 }
 
+function writeTransformation(userDefs, trnsName, req, auto, hpBuff, atkBuff, magBuff, prcBuff, endBuff, chrBuff, intBuff, aglBuff, lukBuff) {
+	if (!userDefs.transformations)
+		userDefs.transformations = {};
+	
+	userDefs.transformations[trnsName] = {
+		name: trnsName,
+		requirement: req.toLowerCase(),
+		automatic: auto,
+		desc: '',
+		
+		hp: parseInt(hpBuff),
+		atk: parseInt(atkBuff),
+		mag: parseInt(magBuff),
+		prc: parseInt(prcBuff),
+		end: parseInt(endBuff),
+		chr: parseInt(chrBuff),
+		int: parseInt(intBuff),
+		agl: parseInt(aglBuff),
+		luk: parseInt(lukBuff),
+		
+		tp: 0,
+		tpmax: 10,
+		level: 1
+	}
+	
+	console.log(`Written ${userDefs.name}'s ${trnsName} Transformation.`)
+}
+
 // FUNCTIONS
+function transformChar(userDefs, transformation) {
+	if (!userDefs.transformations)
+		return false;
+	
+	if (!userDefs.transformations[transformation])
+		return false;
+	
+	var transformDefs = userDefs.transformations[transformation]
+
+	var addStats = [
+		"hp",
+		"atk",
+		"mag",
+		"prc",
+		"end",
+		"agl",
+		"int",
+		"chr",
+		"luk"
+	]
+
+	userDefs.beforeTransformation = {}
+	for (const i in addStats) {
+		if (userDefs[addStats[i]] && transformDefs[addStats[i]]) {
+			userDefs.beforeTransformation[addStats[i]] = userDefs[addStats[i]]
+			userDefs[addStats[i]] += transformDefs[addStats[i]]
+		}
+	}
+	
+	userDefs.transformation = true
+	return true
+}
+
 function mimic(userDefs, targDefs, turns) {
 	var copyStats = [
 		"name",
@@ -298,12 +359,16 @@ function knowsSkill(userDefs, skillName) {
 	const skillPath = dataPath+'/skills.json'
 	const skillRead = fs.readFileSync(skillPath);
 	const skillFile = JSON.parse(skillRead);
-
+	
+	console.log('Knows ' + skillName + '?')
 	for (const i in userDefs.skills) {
-		if (userDefs.skills[i] == skillName && skillFile[i])
-			return true;
+		if (userDefs.skills[i] == skillName) {
+			console.log('true')
+			return true
+		}
 	}
 	
+	console.log('false')
 	return false
 }
 
@@ -516,6 +581,10 @@ function trustLevel(charDefs, targName) {
 module.exports = {
 	writeChar: function(creator, name, health, magicpoints, attack, magic, perception, endurance, charisma, inteligence, agility, luck) {
 		writeChar(creator, name, health, magicpoints, attack, magic, perception, endurance, charisma, inteligence, agility, luck)
+	},
+	
+	makeTransformation: function(userDefs, trnsName, req, auto, hpBuff, atkBuff, magBuff, prcBuff, endBuff, chrBuff, intBuff, aglBuff, lukBuff) {
+		writeTransformation(userDefs, trnsName, req, auto, hpBuff, atkBuff, magBuff, prcBuff, endBuff, chrBuff, intBuff, aglBuff, lukBuff)
 	},
 
 	genChar: function(charDefs, leader) {

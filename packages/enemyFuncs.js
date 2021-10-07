@@ -122,7 +122,7 @@ function enemyThinker(userDefs, allySide, oppSide) {
 	for (const i in userDefs.skills) {
 		var skillDefs = skillFile[userDefs.skills[i]]
 		
-		if (!skillDefs.passive && skillDefs.type != "passive") {
+		if (skillDefs && !skillDefs.passive && skillDefs.type != "passive") {
 			if (userDefs.status === "ego") {
 				if (skillDefs.type != "heal") {possibleSkills.push(userDefs.skills[i])}
 			} else {
@@ -132,28 +132,30 @@ function enemyThinker(userDefs, allySide, oppSide) {
 	}
 	
 	// Heal if under 1/5 hp
-	var healSkills = [];
-	for (const i in possibleSkills) {
-		var skillDefs = skillFile[possibleSkills[i]]
-		
-		if (skillDefs.type === "heal" || skillDefs.terrain && skillDefs.terrain === "grassy" || skillDefs.drain)
-			healSkills.push(possibleSkills[i]);
-	}
+	if (!userDefs.miniboss && !userDefs.boss && !userDefs.finalboss) {
+		var healSkills = [];
+		for (const i in possibleSkills) {
+			var skillDefs = skillFile[possibleSkills[i]]
+			
+			if (skillDefs.type === "heal" || skillDefs.terrain && skillDefs.terrain === "grassy" || skillDefs.drain)
+				healSkills.push(possibleSkills[i]);
+		}
 	
-	if (healSkills.length > 0 && userDefs.hp < Math.round(userDefs.maxhp/3)) {
-		var healSkill = healSkills[Math.round(Math.random() * (healSkills.length-1))];
-		for (const i in allySide) {
-			if (allySide[i] == userDefs)
-				return [healSkill, userDefs, i];
-		}
-		
-		var targNum = Math.round(Math.random() * (allySide.length-1))
-		if (allySide[targNum]) {
-			while (allySide[targNum].hp <= 0) {
-				targNum = Math.round(Math.random() * (allySide.length-1))
+		if (healSkills.length > 0 && userDefs.hp < Math.round(userDefs.maxhp/3)) {
+			var healSkill = healSkills[Math.round(Math.random() * (healSkills.length-1))];
+			for (const i in allySide) {
+				if (allySide[i] == userDefs)
+					return [healSkill, userDefs, i];
 			}
+			
+			var targNum = Math.round(Math.random() * (allySide.length-1))
+			if (allySide[targNum]) {
+				while (allySide[targNum].hp <= 0) {
+					targNum = Math.round(Math.random() * (allySide.length-1))
+				}
+			}
+			return [healSkill, allySide[targNum], targNum];
 		}
-		return [healSkill, allySide[targNum], targNum];
 	}
 
 	// Finally, attack.

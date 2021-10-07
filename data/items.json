@@ -3,81 +3,193 @@
         "type": "weapon"
     },
     "WornOutSword": {
-		"name": "Worn-out Sword",
+        "name": "Worn-out Sword",
         "type": "weapon",
-        "atk": 5
+        "cost": 200,
+        "atk": 5,
+        "desc": "A worn out sword that can be equipped to raise atk stat by 5."
     },
     "WornOutWand": {
-		"name": "Worn-out Wand",
+        "name": "Worn-out Wand",
         "type": "weapon",
-        "mag": 5
+        "cost": 200,
+        "mag": 5,
+        "desc": "A worn out want that can be equipped to raise mag stat by 5."
     },
     "WornOutShield": {
-		"name": "Worn-out Shield",
+        "name": "Worn-out Shield",
         "type": "weapon",
-        "def": 5
+        "cost": 200,
+        "def": 5,
+        "desc": "A worn out shield that can be equipped to raise def stat by 5."
     },
     "WoodenSword": {
-		"name": "Wooden Sword",
+        "name": "Wooden Sword",
         "type": "weapon",
-        "atk": 10
+        "cost": 400,
+        "atk": 8,
+        "desc": "An old sword made out of wood that can be equipped to raise atk stat by 8."
     },
     "WoodenWand": {
-		"name": "Wooden Wand",
+        "name": "Wooden Wand",
         "type": "weapon",
-        "mag": 10
+        "cost": 400,
+        "mag": 8,
+        "desc": "An old wand made out of wood that can be equipped to raise mag stat by 8."
     },
     "WoodenShield": {
-		"name": "Wooden Shield",
+        "name": "Wooden Shield",
         "type": "weapon",
-        "def": 10
+        "cost": 400,
+        "def": 8,
+        "desc": "An old sword made out of shield that can be equipped to raise def stat by 8."
     },
-
+    "SteelSword": {
+        "name": "Steel Sword",
+        "type": "weapon",
+        "cost": 200,
+        "atk": 8,
+        "def": 5,
+        "desc": "A steel sword used for both offense and defense that can be equipped to raise atk stat by 8 and def stat by 5."
+    },
+    "SteelShield": {
+        "name": "Steel Shield",
+        "type": "weapon",
+        "cost": 200,
+        "def": 15,
+        "desc": "A steel shield used for defense that can be equipped to raise def stat by 15."
+    },
+    "SteelWand": {
+        "name": "Steel Wand",
+        "type": "weapon",
+        "cost": 200,
+        "mag": 8,
+        "def": 5,
+        "desc": "A steel wand used for both offense and defense that can be equipped to raise mag stat by 8 and def stat by 5."
+    },
+    "RoboticFist": {
+        "name": "Robotic Fist",
+        "type": "weapon",
+        "cost": 400,
+        "atk": 15,
+        "skill": "GiganticFist",
+        "desc": "A part of a robot that was broken off. It can be used to raise attack stat by 15, and use Gigantic Fist."
+    },
+    "RoboticFlamethrower": {
+        "name": "Robotic Flamethrower",
+        "type": "weapon",
+        "cost": 400,
+        "mag": 15,
+        "skill": "Flamethrower",
+        "desc": "A part of a robot that was broken off. It can be used to raise magic stat by 15, and use Flamethrower."
+    },
+    "WaterGun": {
+        "name": "Water Gun",
+        "type": "weapon",
+        "cost": 400,
+        "mag": 15,
+        "skill": "Scald",
+        "desc": "A part of a robot that was broken off. It can be used to raise magic stat by 15, and use Scald."
+    },
+    "GrassGem": {
+        "name": "Grass Gem",
+        "type": "weapon",
+        "cost": 400,
+		"atk": 4,
+        "mag": 4,
+		"def": 4,
+        "skill": "GrassyTerrain",
+        "desc": "One of the various elemental crystals. It can be used to raise all stats by 4, and use Grassy Terrain."
+    },
     "God'sBlessing": {
-		"name": "God's Blessing",
+        "name": "God's Blessing",
         "type": "weapon",
-        "atk": 99999999999999999,
-        "mag": 99999999999999999,
-        "def": 99999999999999999
+        "atk": 100000000000000000,
+        "mag": 100000000000000000,
+        "def": 100000000000000000,
+        "cost": 100000000000000000,
+        "skill": "Megidolaon",
+        "desc": "A blessing."
     },
-
     "SliceOfPizza": {
-		"emoji": "🍕",
-		"name": "Slice of Pizza",
+        "emoji": "🍕",
+        "name": "Slice of Pizza",
+        "cost": 60,
         "type": "heal",
-        "heal": 50
+        "heal": 50,
+        "desc": "Yummy! Pizza! This item restores one ally's HP by 50."
     },
     "ChickenNugget": {
-		"name": "Chicken Nugget",
+        "name": "Chicken Nugget",
         "type": "heal",
-        "heal": 20
-    },
-    "SparkleBerry": {
-		"name": "Sparkle Berry",
-        "type": "heal",
-        "heal": 65
+        "cost": 20,
+        "heal": 20,
+        "desc": "Just a chicken nugget. Restores one ally's HP by 20."
     },
     "Potion": {
-		"name": "Potion",
+        "name": "Potion",
         "type": "heal",
-        "heal": 80
-    },
-
-    "ShineBerry": {
-		"name": "Shine Berry",
-        "type": "healmp",
-        "heal": 50
+        "cost": 65,
+        "heal": 80,
+        "desc": "If one were to drink this, their HP would be restored by 80."
     },
     "MPPotion": {
-		"name": "MP Potion",
+        "name": "MP Potion",
         "type": "healmp",
-        "heal": 50
+        "cost": 65,
+        "heal": 60,
+        "desc": "If one were to drink this, their MP would be restored by 60."
     },
-
     "BottleOfWater": {
-		"name": "Bottle of Water",
+        "name": "Bottle of Water",
         "type": "healhpmp",
+        "cost": 75,
         "healhp": 50,
-        "healmp": 50
+        "healmp": 50,
+        "desc": "Just water. Restores HP & MP by 50."
+    },
+    "SparkleBerry": {
+        "name": "Sparkle Berry",
+        "type": "heal",
+        "cost": 50,
+        "heal": 65,
+        "desc": "A berry that is said to taste really good. Restores HP by 65."
+    },
+    "ShineBerry": {
+        "name": "Shine Berry",
+        "type": "healmp",
+        "cost": 50,
+        "heal": 50,
+        "desc": "A berry that is said to taste really good. Restores MP by 50."
+    },
+    "PlumpBerry": {
+        "name": "Plump Berry",
+        "type": "healhpmp",
+        "cost": 75,
+        "healhp": 50,
+        "healmp": 50,
+        "desc": "A berry that is said to taste really good. Restores HP & MP by 50."
+    },
+    "BerryBlend": {
+        "name": "Berry Blend",
+        "type": "healhpmp",
+        "cost": 200,
+        "healhp": 150,
+        "healmp": 150,
+        "desc": "A tasty, soft sponge cake tasting of 3 different berries. Restores 150 HP & 150 MP."
+    },
+    "RevivalSpray": {
+        "name": "Revival Spray",
+        "type": "revive",
+        "cost": 100,
+        "revive": 2,
+        "desc": "Spray this on someone's wounds to wake them up from unconciousness."
+    },
+    "SuperPotion": {
+        "name": "Super Potion",
+        "cost": 120,
+        "type": "heal",
+        "desc": "If one were to drink this, their HP would be restored by 160.",
+        "heal": 160
     }
 }

@@ -1,4 +1,27 @@
 {
+    "BecauseWeMustKnow": {
+        "name": "BecauseWeMustKnow",
+        "cost": 99,
+        "costtype": "hppercent",
+        "pow": 1,
+        "acc": -9999999999999,
+        "crit": 100,
+        "type": "strike",
+        "atktype": "physical",
+        "target": "one"
+    },
+    "BrainJab": {
+        "name": "Brain Jab",
+        "costtype": "hppercent",
+        "cost": 30,
+        "pow": 2,
+        "acc": 90,
+        "type": "strike",
+        "status": "brainwash",
+        "statuschance": 999,
+        "atktype": "psychic",
+        "target": "allopposing"
+    },
     "StrikeAttack": {
         "pow": 15,
         "acc": 95,
@@ -6,7 +29,7 @@
         "type": "strike",
         "atktype": "physical",
         "target": "one",
-        "name": "StrikeAttack"
+        "name": "Strike Attack"
     },
     "Barrage": {
         "name": "Barrage",
@@ -20,8 +43,44 @@
         "atktype": "physical",
         "target": "one"
     },
+    "NeoWolfFangFist": {
+        "name": "Neo Wolf Fang Fist",
+        "cost": 35,
+        "costtype": "hppercent",
+        "pow": 15,
+        "acc": 80,
+        "hits": 10,
+        "type": "strike",
+        "atktype": "physical",
+        "target": "one",
+        "desc": "A move from Yamcha himself, but you'd probably live long enough to actually use it, lmfao. Use your fists to strike the opponent and send them back with a mighty finishing punch"
+    },
+    "AwakenSlap": {
+        "name": "AwakenSlap",
+        "cost": 12,
+        "costtype": "hp",
+        "pow": 26,
+        "acc": 90,
+        "crit": 2,
+        "type": "strike",
+        "atktype": "physical",
+        "target": "one",
+        "desc": "A bold slap to one foe's face in an attempt to wake them up."
+    },
+    "LuckyPunch": {
+        "name": "LuckyPunch",
+        "cost": 3,
+        "costtype": "hppercent",
+        "pow": 30,
+        "acc": 75,
+        "crit": 50,
+        "type": "strike",
+        "atktype": "physical",
+        "target": "one",
+        "desc": "Deals miniscule strike damage to one foe, but has a high critical hit chance in return."
+    },
     "DivePress": {
-        "name": "DivePress",
+        "name": "Dive Press",
         "cost": 4,
         "costtype": "hp",
         "pow": 35,
@@ -44,19 +103,6 @@
         "target": "one",
         "desc": "The user slams the target with a long tail, vines, or a tentacle. The target is hit twice in a row."
     },
-    "Chase": {
-        "name": "Chase",
-        "costtype": "hppercent",
-        "cost": 5,
-        "pow": 40,
-        "hits": 2,
-        "acc": 85,
-        "crit": 5,
-        "type": "strike",
-        "atktype": "physical",
-        "target": "allopposing",
-        "desc": "Let multiple Grassimps chase after your foes."
-    },
     "RapidKicks": {
         "costtype": "hppercent",
         "cost": 10,
@@ -68,6 +114,19 @@
         "atktype": "physical",
         "target": "one",
         "name": "Rapid Kicks"
+    },
+    "Chase": {
+        "name": "Chase",
+        "costtype": "hppercent",
+        "cost": 10,
+        "pow": 50,
+        "hits": 3,
+        "acc": 85,
+        "crit": 5,
+        "type": "strike",
+        "atktype": "physical",
+        "target": "allopposing",
+        "desc": "Let multiple Grassimps chase after your foes."
     },
     "DoubleSlap": {
         "name": "DoubleSlap",
@@ -103,6 +162,18 @@
         "atktype": "physical",
         "target": "one"
     },
+    "TwinklePunch": {
+        "name": "TwinklePunch",
+        "cost": 5,
+        "costtype": "hppercent",
+        "pow": 60,
+        "acc": 95,
+        "crit": 5,
+        "type": "strike",
+        "atktype": "physical",
+        "target": "one",
+        "desc": "The user punches the foe lightly."
+    },
     "HystericalSlap": {
         "name": "HystericalSlap",
         "costtype": "hppercent",
@@ -116,6 +187,32 @@
         "atktype": "physical",
         "target": "one",
         "desc": "The user slaps the foe hard on the head. This may also inflict Dizziness."
+    },
+    "BoneToss": {
+        "name": "Bone Toss",
+        "cost": 20,
+        "costtype": "mp",
+        "pow": 66,
+        "acc": 95,
+        "crit": 15,
+        "hits": 2,
+        "type": "strike",
+        "atktype": "magic",
+        "target": "one",
+        "desc": "The user tosses the bone it holds. The bone then returns to the user. This attack hits twice, once when thrown and once when returning. This skill has a higher chance to land as a critical hit."
+    },
+    "WindmillKick": {
+        "name": "WindmillKick",
+        "cost": 19,
+        "costtype": "hppercent",
+        "pow": 78,
+        "acc": 90,
+        "crit": 2,
+        "hits": 3,
+        "type": "strike",
+        "atktype": "physical",
+        "target": "one",
+        "desc": "The target kicks the foe three times in quick motion"
     },
     "FinalBlow": {
         "name": "Final Blow",
@@ -155,6 +252,43 @@
         "target": "one",
         "desc": "The target is gripped and squeezed from both sides to inflict damage."
     },
+    "MiraclePunch": {
+        "name": "MiraclePunch",
+        "cost": 10,
+        "costtype": "hppercent",
+        "pow": 85,
+        "acc": 75,
+        "crit": 55,
+        "type": "strike",
+        "atktype": "physical",
+        "target": "one",
+        "desc": "Deals medium-light strike damage to one foe, but has a high critical hit chance."
+    },
+    "MiracleRush": {
+        "name": "MiracleRush",
+        "cost": 16,
+        "costtype": "hppercent",
+        "pow": 85,
+        "acc": 75,
+        "crit": 53,
+        "type": "strike",
+        "atktype": "physical",
+        "target": "allopposing",
+        "desc": "Deals medium-light strike damage to all foes, but has a high critical hit chance."
+    },
+    "TornadoSpin": {
+        "name": "Tornado Spin",
+        "cost": 22,
+        "costtype": "hppercent",
+        "pow": 88,
+        "acc": 92,
+        "crit": 5,
+        "hits": 3,
+        "type": "strike",
+        "atktype": "physical",
+        "target": "allopposing",
+        "desc": "The user spins, arms extended, hitting all foes 3 times."
+    },
     "WingAttack": {
         "name": "Wing Attack",
         "cost": 3,
@@ -192,19 +326,6 @@
         "target": "one",
         "desc": "The user slams the target with its wings. The target is hit twice in a row."
     },
-    "TentacleSwipe": {
-        "costtype": "hppercent",
-        "cost": 5,
-        "pow": 100,
-        "acc": 95,
-        "crit": 7,
-        "type": "strike",
-        "status": "dizzy",
-        "statuschance": 2,
-        "atktype": "physical",
-        "target": "allopposing",
-        "name": "TentacleSwipe"
-    },
     "DizzyPunch": {
         "name": "Dizzy Punch",
         "cost": 10,
@@ -214,16 +335,42 @@
         "crit": 10,
         "type": "strike",
         "status": "dizzy",
+        "statuschance": 20,
+        "atktype": "physical",
+        "target": "one"
+    },
+    "BrainwashingPunch": {
+        "name": "Brainwashing Punch",
+        "cost": 10,
+        "costtype": "mp",
+        "pow": 100,
+        "acc": 95,
+        "crit": 10,
+        "type": "strike",
+        "status": "brainwash",
         "statuschance": 12,
         "atktype": "physical",
         "target": "one"
+    },
+    "Agneyastra": {
+        "name": "Agneyastra",
+        "cost": 24,
+        "costtype": "hppercent",
+        "pow": 110,
+        "acc": 80,
+        "crit": 5,
+        "hits": 3,
+        "type": "strike",
+        "atktype": "physical",
+        "target": "allopposing",
+        "desc": "The user discharges a weapon of mass damage, hitting all foes 3 times."
     },
     "BoneRush": {
         "name": "Bone Rush",
         "cost": 15,
         "costtype": "hppercent",
         "hits": 2,
-        "pow": 115,
+        "pow": 130,
         "acc": 89,
         "crit": 5,
         "type": "strike",
@@ -244,6 +391,18 @@
         "atktype": "physical",
         "target": "one"
     },
+    "Headbutt": {
+        "name": "Headbutt",
+        "cost": 12,
+        "costtype": "hppercent",
+        "pow": 140,
+        "acc": 90,
+        "crit": 15,
+        "type": "strike",
+        "atktype": "physical",
+        "target": "one",
+        "desc": "The user charges towards the foe, and lunges at them to attack using their head."
+    },
     "Flail": {
         "costtype": "hppercent",
         "cost": 5,
@@ -256,6 +415,21 @@
         "atktype": "physical",
         "target": "allopposing",
         "name": "Flail"
+    },
+    "WolfFangFist": {
+        "name": "WolfFangFist",
+        "cost": 30,
+        "costtype": "hppercent",
+        "pow": 150,
+        "acc": 90,
+        "crit": 1,
+        "hits": 3,
+        "type": "strike",
+        "status": "dizzy",
+        "statuschance": 6,
+        "atktype": "physical",
+        "target": "one",
+        "desc": "The user channels Wolf-like energy into their fists, punching the enemy in a three hit combo."
     },
     "SavageStrike": {
         "name": "SavageStrike",
@@ -271,19 +445,6 @@
         "affinitypow": 10,
         "target": "one"
     },
-    "DesolateDive": {
-        "name": "DesolateDive",
-        "costtype": "hppercent",
-        "cost": 15,
-        "pow": 180,
-        "acc": 90,
-        "crit": 15,
-        "type": "strike",
-        "status": "dizzy",
-        "statuschance": 10,
-        "atktype": "physical",
-        "target": "one"
-    },
     "BodySlam": {
         "name": "BodySlam",
         "cost": 7,
@@ -297,6 +458,29 @@
         "atktype": "physical",
         "target": "one"
     },
+    "ShadowChop": {
+        "name": "ShadowChop",
+        "cost": 19,
+        "costtype": "hppercent",
+        "pow": 190,
+        "acc": 95,
+        "crit": 20,
+        "type": "strike",
+        "atktype": "physical",
+        "target": "one",
+        "desc": "The user attacks the opponent with a chop of with excessive force. This skill has a high chance to be a critical hit."
+    },
+    "TentacleSwipe": {
+        "costtype": "hppercent",
+        "cost": 5,
+        "pow": 200,
+        "acc": 95,
+        "crit": 15,
+        "type": "strike",
+        "atktype": "physical",
+        "target": "allopposing",
+        "name": "TentacleSwipe"
+    },
     "AssaultDive": {
         "costtype": "hppercent",
         "cost": 12,
@@ -308,14 +492,27 @@
         "target": "one",
         "name": "AssaultDive"
     },
-    "Charge": {
-        "name": "Charge",
+    "HugeKnuckle": {
         "costtype": "hppercent",
-        "cost": 18,
-        "pow": 225,
-        "acc": 90,
-        "crit": 10,
+        "cost": 20,
+        "pow": 300,
+        "acc": 93,
+        "crit": 33,
         "type": "strike",
+        "atktype": "physical",
+        "target": "one",
+        "name": "Huge Knuckle"
+    },
+    "DesolateDive": {
+        "name": "DesolateDive",
+        "costtype": "hppercent",
+        "cost": 15,
+        "pow": 340,
+        "acc": 90,
+        "crit": 20,
+        "type": "strike",
+        "status": "dizzy",
+        "statuschance": 10,
         "atktype": "physical",
         "target": "one"
     },
@@ -327,6 +524,30 @@
         "acc": 95,
         "crit": 15,
         "type": "strike",
+        "atktype": "physical",
+        "target": "one"
+    },
+    "LightHand": {
+        "costtype": "hppercent",
+        "cost": 25,
+        "pow": 350,
+        "acc": 90,
+        "crit": 33,
+        "type": "strike",
+        "atktype": "physical",
+        "target": "one",
+        "name": "Light Hand"
+    },
+    "BraverySlap": {
+        "name": "BraverySlap",
+        "cost": 15,
+        "costtype": "hppercent",
+        "pow": 380,
+        "acc": 90,
+        "crit": 5,
+        "type": "strike",
+        "status": "fear",
+        "statuschance": 40,
         "atktype": "physical",
         "target": "one"
     },
@@ -344,6 +565,16 @@
         "target": "one",
         "affinitypow": 10
     },
+    "KaiokenRush": {
+        "name": "KaiokenRush",
+        "cost": 20,
+        "costtype": "hppercent",
+        "pow": 400,
+        "acc": 95,
+        "type": "strike",
+        "atktype": "physical",
+        "target": "one"
+    },
     "MegaPunch": {
         "name": "MegaPunch",
         "cost": 20,
@@ -355,8 +586,31 @@
         "atktype": "physical",
         "target": "one"
     },
+    "Last-Resort": {
+        "name": "Last Resort",
+        "costtype": "mppercent",
+        "cost": 10,
+        "pow": 430,
+        "acc": 999,
+        "type": "strike",
+        "atktype": "physical",
+        "needlessthan": 40,
+        "desc": "The user uses this as a last resort skill. Requires less than 40% of the user's current MP to use. This skill cannot miss.",
+        "target": "one"
+    },
+    "GiganticFist": {
+        "name": "GiganticFist",
+        "cost": 20,
+        "costtype": "hppercent",
+        "pow": 460,
+        "acc": 95,
+        "crit": 5,
+        "type": "strike",
+        "atktype": "physical",
+        "target": "one"
+    },
     "MegatonRaid": {
-        "cost": 16,
+        "cost": 22,
         "costtype": "hppercent",
         "pow": 680,
         "acc": 95,
@@ -366,47 +620,63 @@
         "statuschance": 0,
         "atktype": "physical",
         "target": "one",
-        "name": "MegatonRaid"
+        "name": "Megaton Raid"
     },
     "God'sHand": {
         "costtype": "hppercent",
-        "cost": 25,
+        "cost": 33,
         "pow": 700,
         "acc": 90,
         "crit": 33,
         "type": "strike",
         "atktype": "physical",
         "target": "one",
-        "name": "God'sHand"
+        "name": "God's Hand"
+    },
+    "HyperKaiokenRush": {
+        "name": "Hyper Kaioken Rush",
+        "cost": 25,
+        "costtype": "hppercent",
+        "pow": 700,
+        "acc": 90,
+        "type": "strike",
+        "atktype": "physical",
+        "target": "one"
+    },
+    "StrikeOfFury": {
+        "name": "StrikeOfFury",
+        "cost": 35,
+        "costtype": "hppercent",
+        "pow": 720,
+        "acc": 90,
+        "crit": 5,
+        "type": "strike",
+        "atktype": "physical",
+        "target": "one",
+        "desc": "The user, in a state of rage, launches towards the foe to deliver a heavy punch in retaliation for an ally."
+    },
+    "UltimateKaiokenRush": {
+        "name": "Ultimate Kaioken Rush",
+        "cost": 30,
+        "costtype": "hppercent",
+        "pow": 1100,
+        "acc": 85,
+        "type": "strike",
+        "atktype": "physical",
+        "target": "one"
     },
     "ThunderGodDance": {
         "name": "Thunder God Dance",
         "type": "slash",
         "costtype": "hppercent",
         "cost": 20,
-        "pow": 1,
-        "acc": 94,
-        "crit": 1,
+        "pow": 4,
+        "acc": 90,
+        "crit": 3,
         "hits": 11,
-        "status": "paralyze",
-        "statuschance": 1,
         "target": "one",
-        "atktype": "physical"
-    },
-    "3CutShock": {
-        "name": "3CutShock",
-        "cost": 40,
-        "costtype": "mp",
-        "pow": 30,
-        "acc": 85,
-        "crit": 5,
-        "hits": 3,
-        "type": "slash",
-        "status": "bleed",
-        "statuschance": 10,
-        "atktype": "magic",
-        "target": "one",
-        "desc": "The user sends out three consecutive slash shockwaves with their own scythe, dealing damage to the target."
+        "atktype": "physical",
+        "desc": "The user performs a mystical set of sword slashes to deal damage."
     },
     "SlashAttack": {
         "pow": 15,
@@ -429,6 +699,35 @@
         "target": "allopposing",
         "desc": "It inflicts damage on all foes surrounding the user."
     },
+    "3CutShock": {
+        "name": "3CutShock",
+        "cost": 40,
+        "costtype": "mp",
+        "pow": 30,
+        "acc": 85,
+        "crit": 5,
+        "hits": 3,
+        "type": "slash",
+        "status": "bleed",
+        "statuschance": 10,
+        "atktype": "magic",
+        "target": "one",
+        "desc": "The user sends out three consecutive slash shockwaves with their own scythe, dealing damage to the target."
+    },
+    "SwipesOfMany": {
+        "name": "Swipes of Many",
+        "cost": 20,
+        "costtype": "hppercent",
+        "pow": 30,
+        "acc": 92,
+        "crit": 5,
+        "hits": 4,
+        "type": "slash",
+        "status": "bleed",
+        "statuschance": 5,
+        "atktype": "physical",
+        "target": "one"
+    },
     "Scratch": {
         "pow": 50,
         "acc": 85,
@@ -440,18 +739,20 @@
         "target": "one",
         "name": "Scratch"
     },
-    "CrossSlash": {
-        "costtype": "mp",
-        "cost": 9,
-        "pow": 68,
-        "acc": 95,
+    "HurricaneSlash": {
+        "name": "HurricaneSlash",
+        "cost": 20,
+        "costtype": "hppercent",
+        "pow": 75,
+        "acc": 90,
         "crit": 5,
+        "hits": 3,
         "type": "slash",
         "status": "bleed",
-        "statuschance": 5,
+        "statuschance": 2,
         "atktype": "physical",
-        "target": "one",
-        "name": "CrossSlash"
+        "target": "allopposing",
+        "desc": "The user spins around with their weapon pointed outward."
     },
     "Cleave": {
         "costtype": "hppercent",
@@ -476,37 +777,10 @@
         "target": "one",
         "name": "RapidSlashes"
     },
-    "CycloneSlash": {
-        "costtype": "hppercent",
-        "cost": 10,
-        "pow": 85,
-        "acc": 90,
-        "crit": 25,
-        "type": "slash",
-        "status": "bleed",
-        "statuschance": 2,
-        "atktype": "physical",
-        "target": "allopposing",
-        "name": "CycloneSlash"
-    },
-    "TornadoSlash": {
-        "costtype": "hppercent",
-        "cost": 15,
-        "pow": 100,
-        "acc": 90,
-        "crit": 15,
-        "hits": 2,
-        "type": "slash",
-        "status": "bleed",
-        "statuschance": 3,
-        "atktype": "physical",
-        "target": "one",
-        "name": "TornadoSlash"
-    },
     "QuickSlash": {
         "name": "Quick Slash",
         "costtype": "hppercent",
-        "cost": 11,
+        "cost": 17,
         "pow": 100,
         "acc": 96,
         "crit": 10,
@@ -528,18 +802,70 @@
         "target": "one",
         "desc": "The user slashes at the target by crossing its scythes or claws as if they were a pair of scissors."
     },
+    "ToyKnife": {
+        "name": "ToyKnife",
+        "cost": 5,
+        "costtype": "hppercent",
+        "pow": 110,
+        "acc": 97,
+        "crit": 3,
+        "type": "slash",
+        "atktype": "physical",
+        "target": "one"
+    },
+    "TornadoSlash": {
+        "name": "Tornado Slash",
+        "cost": 18,
+        "costtype": "hppercent",
+        "pow": 115,
+        "acc": 90,
+        "crit": 15,
+        "hits": 2,
+        "type": "slash",
+        "status": "bleed",
+        "statuschance": 2,
+        "atktype": "physical",
+        "target": "allopposing",
+        "desc": "The uses slashes in a tornado-like fashion."
+    },
+    "CycloneSlash": {
+        "name": "Cyclone Slash",
+        "costtype": "hppercent",
+        "cost": 14,
+        "pow": 120,
+        "acc": 90,
+        "crit": 25,
+        "type": "slash",
+        "status": "bleed",
+        "statuschance": 2,
+        "atktype": "physical",
+        "target": "allopposing"
+    },
     "UnseenSlashes": {
         "costtype": "hppercent",
-        "cost": 15,
-        "pow": 140,
-        "acc": 97,
-        "crit": 10,
+        "cost": 20,
+        "pow": 120,
+        "acc": 90,
+        "crit": 8,
         "hits": 3,
         "type": "slash",
         "atktype": "physical",
         "desc": "The user slashes the enemy 3 times at a speed so fast, it's barely visible.",
         "target": "one",
         "name": "Unseen Slashes"
+    },
+    "RottenSlash": {
+        "name": "RottenSlash",
+        "cost": 14,
+        "costtype": "hppercent",
+        "pow": 145,
+        "acc": 97,
+        "crit": 3,
+        "type": "slash",
+        "status": "poison",
+        "statuschance": 12,
+        "atktype": "physical",
+        "target": "one"
     },
     "GiantSlice": {
         "costtype": "hppercent",
@@ -557,10 +883,10 @@
         "cost": 3,
         "pow": 170,
         "acc": 95,
-        "crit": 10,
+        "crit": 11,
         "type": "slash",
         "status": "bleed",
-        "statuschance": 2,
+        "statuschance": 5,
         "atktype": "physical",
         "target": "one",
         "name": "Clawshread"
@@ -578,6 +904,20 @@
         "desc": "The user puts all their power into one strong slash.",
         "target": "one",
         "name": "GreatSlash"
+    },
+    "CrossSlash": {
+        "name": "CrossSlash",
+        "cost": 17,
+        "costtype": "hppercent",
+        "pow": 200,
+        "acc": 93,
+        "crit": 5,
+        "type": "slash",
+        "status": "bleed",
+        "statuschance": 10,
+        "atktype": "physical",
+        "target": "one",
+        "desc": "The user slashes the foe in a cross motion. This skill can inflict bleeding."
     },
     "SupremeSlash": {
         "costtype": "hppercent",
@@ -630,6 +970,18 @@
         "atktype": "physical",
         "target": "one"
     },
+    "ABitterEnd": {
+        "name": "ABitterEnd",
+        "cost": 28,
+        "costtype": "hppercent",
+        "pow": 385,
+        "acc": 97,
+        "type": "slash",
+        "status": "poison",
+        "statuschance": 65,
+        "atktype": "physical",
+        "target": "one"
+    },
     "FatalEnd": {
         "name": "FatalEnd",
         "cost": 14,
@@ -656,6 +1008,17 @@
         "atktype": "physical",
         "target": "one"
     },
+    "DeterminationSlash": {
+        "name": "DeterminationSlash",
+        "cost": 51,
+        "costtype": "hppercent",
+        "pow": 1400,
+        "acc": 97,
+        "crit": 3,
+        "type": "slash",
+        "atktype": "physical",
+        "target": "one"
+    },
     "PierceAttack": {
         "pow": 15,
         "acc": 95,
@@ -675,7 +1038,7 @@
         "type": "pierce",
         "atktype": "physical",
         "target": "allopposing",
-        "name": "ArrowRaid"
+        "name": "Arrow Raid"
     },
     "GemJab": {
         "costtype": "hppercent",
@@ -686,7 +1049,7 @@
         "type": "pierce",
         "atktype": "physical",
         "target": "one",
-        "name": "GemJab"
+        "name": "Gem Jab"
     },
     "ThornGem": {
         "costtype": "mp",
@@ -697,7 +1060,7 @@
         "type": "pierce",
         "atktype": "physical",
         "target": "one",
-        "name": "ThornGem"
+        "name": "Thorn Gem"
     },
     "ImpalingArm": {
         "costtype": "mp",
@@ -710,14 +1073,66 @@
         "target": "one",
         "name": "ImpalingArm"
     },
+    "CrystalShots": {
+        "name": "Crystal Shots",
+        "costtype": "hppercent",
+        "cost": 18,
+        "pow": 50,
+        "acc": 94,
+        "crit": 5,
+        "hits": 3,
+        "type": "pierce",
+        "atktype": "magic",
+        "target": "one",
+        "desc": "The user shoots 3 sharp gems at the foe."
+    },
     "TripleCrunch": {
         "name": "Triple Crunch",
         "costtype": "hppercent",
-        "cost": 19,
+        "cost": 20,
         "pow": 70,
         "acc": 90,
         "crit": 10,
         "hits": 3,
+        "type": "pierce",
+        "atktype": "physical",
+        "target": "one"
+    },
+    "WolfBite": {
+        "name": "WolfBite",
+        "cost": 55,
+        "costtype": "hp",
+        "pow": 70,
+        "acc": 80,
+        "crit": 3,
+        "hits": 2,
+        "type": "pierce",
+        "atktype": "physical",
+        "target": "one",
+        "desc": "The user bites a single foe twice."
+    },
+    "SharpChomp-I": {
+        "name": "SharpChomp-I",
+        "cost": 60,
+        "costtype": "hp",
+        "pow": 70,
+        "acc": 90,
+        "crit": 2,
+        "type": "pierce",
+        "status": "bleed",
+        "statuschance": 5,
+        "atktype": "physical",
+        "target": "one",
+        "desc": "A single bite directed at one foe. Has a low chance of causing Bleed."
+    },
+    "EmptyGun": {
+        "name": "EmptyGun",
+        "cost": 12,
+        "costtype": "hppercent",
+        "pow": 75,
+        "acc": 75,
+        "crit": 2,
+        "hits": 4,
         "type": "pierce",
         "atktype": "physical",
         "target": "one"
@@ -745,6 +1160,57 @@
         "target": "one",
         "name": "DoubleCrunch"
     },
+    "StarThrust": {
+        "name": "StarThrust",
+        "cost": 36,
+        "costtype": "hppercent",
+        "pow": 95,
+        "acc": 83,
+        "crit": 2,
+        "hits": 5,
+        "type": "pierce",
+        "atktype": "physical",
+        "target": "one",
+        "desc": "The user deftly strikes the opponent with five calculated thrusts in a star-pattern."
+    },
+    "ProngedThrust": {
+        "name": "ProngedThrust",
+        "cost": 9,
+        "costtype": "hppercent",
+        "pow": 100,
+        "acc": 94,
+        "crit": 5,
+        "type": "pierce",
+        "atktype": "physical",
+        "target": "one",
+        "desc": "The user swiftly delivers a single thrust at the opponent."
+    },
+    "2ProngedThrust": {
+        "name": "2-ProngedThrust",
+        "cost": 17,
+        "costtype": "hppercent",
+        "pow": 100,
+        "acc": 92,
+        "crit": 5,
+        "hits": 2,
+        "type": "pierce",
+        "atktype": "physical",
+        "target": "one",
+        "desc": "The user swiftly delivers two precise thrusts towards the opponent."
+    },
+    "3ProngedThrust": {
+        "name": "3-ProngedThrust",
+        "cost": 26,
+        "costtype": "hppercent",
+        "pow": 100,
+        "acc": 90,
+        "crit": 4,
+        "hits": 3,
+        "type": "pierce",
+        "atktype": "physical",
+        "target": "one",
+        "desc": "The user swiftly delivers three pinpoint thrusts towards the opponent."
+    },
     "SpiderFang": {
         "name": "Spider Fang",
         "costtype": "hppercent",
@@ -767,17 +1233,20 @@
         "target": "one",
         "name": "Root Stab"
     },
-    "Sandstorm": {
-        "costtype": "hppercent",
-        "cost": 10,
-        "pow": 120,
+    "SharpChomp-II": {
+        "name": "SharpChomp-II",
+        "cost": 90,
+        "costtype": "hp",
+        "pow": 125,
         "acc": 90,
-        "crit": 10,
+        "crit": 3,
+        "hits": 2,
         "type": "pierce",
-        "atktype": "magic",
-        "target": "everyone",
-        "desc": "The user starts up a sandstorm that attacks all fighters in the battlefield. This move has a higher chance to be a critical hit than others.",
-        "name": "Sandstorm"
+        "status": "bleed",
+        "statuschance": 5,
+        "atktype": "physical",
+        "target": "one",
+        "desc": "Two bites directed at one foe. Has a low chance of causing Bleed."
     },
     "HyperVoice": {
         "name": "HyperVoice",
@@ -801,6 +1270,7 @@
         "name": "Engarde"
     },
     "SpikyThorns": {
+        "name": "Spiky Thorns",
         "costtype": "hppercent",
         "cost": 10,
         "pow": 150,
@@ -809,22 +1279,6 @@
         "hits": 3,
         "type": "pierce",
         "atktype": "physical",
-        "target": "one",
-        "name": "SpikyThorns"
-    },
-    "PoisonFang": {
-        "name": "Poison Fang",
-        "costtype": "hppercent",
-        "cost": 7,
-        "pow": 150,
-        "acc": 95,
-        "hits": 2,
-        "type": "pierce",
-        "atktype": "physical",
-        "status": "poison",
-        "statuschance": 5,
-        "drain": 4,
-        "crit": 5,
         "target": "one"
     },
     "CrystalPierce": {
@@ -837,6 +1291,46 @@
         "atktype": "physical",
         "target": "one",
         "name": "CrystalPierce"
+    },
+    "PoisonFang": {
+        "name": "Poison Fang",
+        "costtype": "hppercent",
+        "cost": 7,
+        "pow": 175,
+        "acc": 95,
+        "hits": 2,
+        "type": "pierce",
+        "atktype": "physical",
+        "status": "poison",
+        "statuschance": 5,
+        "drain": 4,
+        "crit": 5,
+        "target": "one"
+    },
+    "JewelDrill": {
+        "name": "Jewel Drill",
+        "costtype": "hppercent",
+        "cost": 20,
+        "pow": 180,
+        "acc": 90,
+        "crit": 20,
+        "type": "pierce",
+        "atktype": "physical",
+        "target": "one",
+        "desc": "The user drills into the target with a sharp crystal. This skill has a high critical hit chance."
+    },
+    "ShiningThorns": {
+        "name": "Shining Thorns",
+        "costtype": "hppercent",
+        "cost": 16,
+        "pow": 185,
+        "acc": 97,
+        "crit": 10,
+        "type": "pierce",
+        "status": "bleed",
+        "statuschance": 5,
+        "atktype": "physical",
+        "target": "one"
     },
     "Boomburst": {
         "name": "Boomburst",
@@ -861,6 +1355,55 @@
         "target": "one",
         "desc": "Medium Pierce damage to a single foe."
     },
+    "BrainBite": {
+        "name": "Brain Bite",
+        "cost": 15,
+        "costtype": "hppercent",
+        "pow": 235,
+        "acc": 93,
+        "crit": 5,
+        "type": "pierce",
+        "status": "dizzy",
+        "statuschance": 18,
+        "atktype": "physical",
+        "target": "one",
+        "desc": "The user dashes forward, biting the opponent's head with their large jaws. This skill has a moderate chance of inflicting dizziness."
+    },
+    "ThornOfAgony": {
+        "pow": 400,
+        "acc": 95,
+        "crit": 11,
+        "type": "pierce",
+        "atktype": "physical",
+        "target": "one",
+        "name": "Thorn of Agony"
+    },
+    "RapierStrike": {
+        "name": "Rapier Strike",
+        "cost": 20,
+        "costtype": "hppercent",
+        "pow": 450,
+        "acc": 92,
+        "crit": 8,
+        "type": "pierce",
+        "status": "bleed",
+        "statuschance": 15,
+        "atktype": "physical",
+        "target": "one",
+        "desc": "The user uses their rapier to strike the foe. This skill has a moderate chance to inflict bleeding."
+    },
+    "TheRail": {
+        "name": "The Rail",
+        "cost": 30,
+        "costtype": "mp",
+        "pow": 600,
+        "acc": 30,
+        "crit": 30,
+        "type": "pierce",
+        "atktype": "physical",
+        "target": "one",
+        "desc": "*Insert cowboy standoff music here.*"
+    },
     "OneShotKill": {
         "name": "One-Shot Kill",
         "pow": 700,
@@ -868,6 +1411,19 @@
         "crit": 33,
         "type": "pierce",
         "atktype": "physical",
+        "target": "one"
+    },
+    "FireballVolley": {
+        "name": "FireballVolley",
+        "cost": 12,
+        "costtype": "mp",
+        "pow": 11,
+        "acc": 80,
+        "hits": 5,
+        "type": "fire",
+        "status": "burn",
+        "statuschance": 9,
+        "atktype": "magic",
         "target": "one"
     },
     "Maragi": {
@@ -899,13 +1455,12 @@
         "cost": 10,
         "pow": 70,
         "acc": 90,
-        "crit": 0,
         "type": "fire",
         "status": "burn",
         "statuschance": 5,
         "atktype": "magic",
         "target": "one",
-        "name": "FlameCharge"
+        "name": "Flame Charge"
     },
     "FlareCharge": {
         "costtype": "mp",
@@ -918,11 +1473,11 @@
         "statuschance": 5,
         "atktype": "physical",
         "target": "one",
-        "name": "FlareCharge"
+        "name": "Flare Charge"
     },
     "Fireball": {
         "costtype": "mp",
-        "cost": 7,
+        "cost": 10,
         "pow": 100,
         "acc": 95,
         "crit": 20,
@@ -934,7 +1489,7 @@
         "name": "Fireball"
     },
     "FirePledge": {
-        "name": "FirePledge",
+        "name": "Fire Pledge",
         "cost": 6,
         "costtype": "mppercent",
         "pow": 110,
@@ -943,9 +1498,32 @@
         "type": "fire",
         "atktype": "magic",
         "target": "one",
-        "desc": "A column of fire hits the target."
+        "desc": "A column of fire hits the target.",
+        "pledge": {
+            "GrassPledge": {
+                "name": "Sea of Fire",
+                "pow": 200,
+                "acc": 100,
+                "type": "water",
+                "atktype": "magic",
+                "target": "allopposing",
+                "status": "burn",
+                "statuschance": 50
+            },
+            "WaterPledge": {
+                "name": "Watery Rainbow",
+                "pow": 200,
+                "acc": 100,
+                "type": "water",
+                "atktype": "magic",
+                "target": "allopposing",
+                "status": "dizzy",
+                "statuschance": 50
+            }
+        }
     },
     "ToastedSands": {
+        "name": "Toasted Sands",
         "costtype": "mp",
         "cost": 10,
         "pow": 120,
@@ -956,32 +1534,19 @@
         "status": "burn",
         "statuschance": 33,
         "desc": "The user blows burning hot sand at it's opponent.",
-        "target": "one",
-        "name": "ToastedSands"
-    },
-    "BurningSpirit": {
-        "costtype": "mp",
-        "cost": 10,
-        "pow": 120,
-        "acc": 93,
-        "type": "fire",
-        "status": "burn",
-        "statuschance": 4,
-        "atktype": "magic",
-        "target": "one",
-        "name": "BurningSpirit"
+        "target": "one"
     },
     "ExplosiveMist": {
         "costtype": "mp",
-        "cost": 19,
+        "cost": 30,
         "pow": 130,
         "acc": 100,
         "type": "fire",
         "atktype": "magic",
         "status": "burn",
         "statuschance": 10,
-        "target": "allopposing",
-        "name": "ExplosiveMist"
+        "target": "everyone",
+        "name": "Explosive Mist"
     },
     "Agilao": {
         "costtype": "mp",
@@ -1009,7 +1574,7 @@
         "name": "Maragion"
     },
     "BlazeKick": {
-        "name": "BlazeKick",
+        "name": "Blaze Kick",
         "cost": 9,
         "costtype": "hppercent",
         "pow": 140,
@@ -1022,21 +1587,34 @@
         "target": "one",
         "desc": "The user ignites their feet and strikes the opponent. This move has a very high critical hit rate. This move may burn the opponent."
     },
-    "FlarePunch": {
-        "name": "FlarePunch",
+    "Lavawave": {
+        "costtype": "mp",
         "cost": 20,
+        "pow": 150,
+        "acc": 92,
+        "type": "fire",
+        "status": "burn",
+        "statuschance": 10,
+        "atktype": "magic",
+        "target": "everyone",
+        "name": "Lavawave"
+    },
+    "FlarePunch": {
+        "name": "Flare Punch",
+        "cost": 10,
         "costtype": "mppercent",
         "pow": 160,
-        "acc": 90,
+        "acc": 92,
         "crit": 3,
         "type": "fire",
         "status": "burn",
         "statuschance": 2,
         "atktype": "physical",
-        "target": "one"
+        "target": "one",
+        "desc": "The user imbues their fist with flame, and strikes the opponent. Very low chance to burn."
     },
     "MortemFlames": {
-        "name": "MortemFlames",
+        "name": "Mortem Flames",
         "cost": 10,
         "costtype": "mp",
         "pow": 165,
@@ -1048,32 +1626,21 @@
         "target": "one",
         "desc": "The user fires a green flame at the foe, with a chance to burn them."
     },
-    "Lavawave": {
+    "BurningSpirit": {
+        "name": "Burning Spirit",
         "costtype": "mp",
-        "cost": 9,
-        "pow": 170,
-        "acc": 92,
+        "cost": 18,
+        "pow": 175,
+        "acc": 93,
         "type": "fire",
         "status": "burn",
-        "statuschance": 10,
-        "atktype": "magic",
-        "target": "allopposing",
-        "name": "Lavawave"
-    },
-    "FlamingCyclone": {
-        "costtype": "mp",
-        "cost": 12,
-        "pow": 190,
-        "acc": 95,
-        "type": "fire",
-        "status": "burn",
-        "statuschance": 33,
+        "statuschance": 5,
         "atktype": "magic",
         "target": "one",
-        "name": "FlamingCyclone"
+        "desc": "The user harnesses learned powers from ancient shamans to fire a spirit of burning souls at the foe."
     },
     "FlameSlash": {
-        "name": "FlameSlash",
+        "name": "Flame Slash",
         "cost": 10,
         "costtype": "hppercent",
         "pow": 200,
@@ -1086,6 +1653,7 @@
         "target": "one"
     },
     "MissileBlows": {
+        "name": "Missile Blows",
         "pow": 200,
         "acc": 95,
         "crit": 5,
@@ -1093,12 +1661,11 @@
         "status": "burn",
         "statuschance": 20,
         "atktype": "magic",
-        "target": "one",
-        "name": "MissileBlows"
+        "target": "one"
     },
     "Flamethrower": {
         "costtype": "mp",
-        "cost": 15,
+        "cost": 20,
         "pow": 200,
         "acc": 95,
         "type": "fire",
@@ -1132,6 +1699,31 @@
         "resistremove": "fire",
         "desc": "The user burns itself out, removing all resistances, blocks, repels and drains of fire from the user."
     },
+    "MonkeyBomb": {
+        "name": "MonkeyBomb",
+        "cost": 25,
+        "costtype": "hppercent",
+        "pow": 300,
+        "acc": 60,
+        "type": "fire",
+        "status": "brainwash",
+        "statuschance": 999,
+        "atktype": "physical",
+        "target": "allopposing",
+        "desc": "The user throws a Cymbal Monkey with a bomb strapped to it that plays a tune, to distract the enemies from battle completely, before exploding. Sometimes it works."
+    },
+    "FlamingCyclone": {
+        "costtype": "mp",
+        "cost": 25,
+        "pow": 350,
+        "acc": 95,
+        "type": "fire",
+        "status": "burn",
+        "statuschance": 15,
+        "atktype": "magic",
+        "target": "one",
+        "name": "Flaming Cyclone"
+    },
     "Agidyne": {
         "costtype": "mp",
         "cost": 16,
@@ -1157,6 +1749,20 @@
         "atktype": "magic",
         "target": "allopposing"
     },
+    "ConflagrationPummel": {
+        "name": "ConflagrationPummel",
+        "cost": 18,
+        "costtype": "mppercent",
+        "pow": 370,
+        "acc": 92,
+        "crit": 3,
+        "type": "fire",
+        "status": "burn",
+        "statuschance": 2,
+        "atktype": "physical",
+        "target": "one",
+        "desc": "The user heavily strikes the opponent while imbued in flames. Very low chance to burn."
+    },
     "Fire-Tornado": {
         "cost": 20,
         "costtype": "mp",
@@ -1168,7 +1774,23 @@
         "statuschance": 55,
         "atktype": "magic",
         "target": "one",
-        "name": "Fire-Tornado"
+        "name": "Fire-Tornado",
+        "desc": "Summon a whirling wall of flames to envelop your enemy in."
+    },
+    "Overheat": {
+        "name": "Overheat",
+        "cost": 14,
+        "costtype": "mp",
+        "pow": 395,
+        "acc": 90,
+        "type": "fire",
+        "status": "burn",
+        "statuschance": 20,
+        "atktype": "magic",
+        "target": "one",
+        "debuffuser": "mag",
+        "debuffcount": 2,
+        "desc": "The user unleashes a burning fury at full power. The attack's recoil harshly debuffs the user's magic."
     },
     "BlueFlare": {
         "name": "Blue Flare",
@@ -1183,6 +1805,19 @@
         "target": "one",
         "desc": "The user spreads a blue fire in an attempt to burn the foe."
     },
+    "FlareLaser": {
+        "name": "Flare Laser",
+        "costtype": "mp",
+        "cost": 50,
+        "pow": 480,
+        "acc": 90,
+        "type": "fire",
+        "status": "burn",
+        "statuschance": 12,
+        "atktype": "magic",
+        "target": "one",
+        "desc": "The user fires a laser of fires at the foe."
+    },
     "Trisagion": {
         "name": "Trisagion",
         "cost": 42,
@@ -1194,7 +1829,7 @@
         "statuschance": 50,
         "atktype": "magic",
         "target": "one",
-        "desc": "The target summons a mass of flames to burn the target. This skill has very low accuracy, but a very high chance to burn the opponent."
+        "desc": "The user summons a mass of flames to burn the target. This skill has very low accuracy, but a very high chance to burn the opponent."
     },
     "BlazingHell": {
         "name": "BlazingHell",
@@ -1219,21 +1854,8 @@
         "target": "allopposing",
         "name": "Rainfall"
     },
-    "WaterShuriken": {
-        "name": "WaterShuriken",
-        "cost": 5,
-        "costtype": "mppercent",
-        "pow": 20,
-        "acc": 45,
-        "crit": 5,
-        "hits": 5,
-        "type": "water",
-        "atktype": "physical",
-        "target": "one",
-        "desc": "The user hits the target with throwing stars up to five times in a row."
-    },
     "SurgingStrikes": {
-        "name": "SurgingStrikes",
+        "name": "Surging Strikes",
         "cost": 15,
         "costtype": "hppercent",
         "pow": 25,
@@ -1244,6 +1866,19 @@
         "atktype": "physical",
         "target": "one",
         "desc": "The user, having mastered the Water style, strikes the target with a flowing motion three times in a row. This attack always results in a critical hit."
+    },
+    "WaterShuriken": {
+        "name": "WaterShuriken",
+        "cost": 5,
+        "costtype": "mppercent",
+        "pow": 35,
+        "acc": 95,
+        "crit": 5,
+        "hits": 5,
+        "type": "water",
+        "atktype": "physical",
+        "target": "one",
+        "desc": "The user hits the target with throwing stars up to five times in a row."
     },
     "WaterGun": {
         "name": "WaterGun",
@@ -1301,32 +1936,6 @@
         "atktype": "magic",
         "target": "allopposing"
     },
-    "WaterPulse": {
-        "name": "WaterPulse",
-        "cost": 6,
-        "costtype": "mppercent",
-        "pow": 90,
-        "acc": 100,
-        "crit": 5,
-        "type": "water",
-        "status": "confusion",
-        "statuschance": 20,
-        "atktype": "physical",
-        "target": "one",
-        "desc": "The user attacks the target with a pulsing blast of water. This may also confuse the target."
-    },
-    "HydroPump": {
-        "name": "HydroPump",
-        "cost": 40,
-        "costtype": "mp",
-        "pow": 110,
-        "acc": 80,
-        "crit": 5,
-        "type": "water",
-        "atktype": "magic",
-        "target": "one",
-        "desc": "The target is blasted by a huge volume of water launched under great pressure."
-    },
     "WaterPledge": {
         "name": "WaterPledge",
         "cost": 6,
@@ -1338,6 +1947,32 @@
         "atktype": "magic",
         "target": "one",
         "desc": "A column of water hits the target."
+    },
+    "Scald": {
+        "costtype": "mp",
+        "cost": 8,
+        "pow": 120,
+        "acc": 95,
+        "status": "burn",
+        "statuschance": 15,
+        "type": "water",
+        "atktype": "magic",
+        "target": "one",
+        "name": "Scald"
+    },
+    "WaterPulse": {
+        "name": "WaterPulse",
+        "cost": 6,
+        "costtype": "mppercent",
+        "pow": 140,
+        "acc": 95,
+        "crit": 5,
+        "type": "water",
+        "status": "brainwash",
+        "statuschance": 20,
+        "atktype": "magic",
+        "target": "one",
+        "desc": "The user attacks the target with a pulsing blast of water. This may also brainwash the target."
     },
     "Aques": {
         "costtype": "mp",
@@ -1363,12 +1998,12 @@
         "cost": 3,
         "costtype": "hppercent",
         "pow": 180,
-        "acc": 93,
+        "acc": 90,
         "crit": 5,
         "type": "water",
         "atktype": "physical",
         "target": "one",
-        "name": "AquaSlash"
+        "name": "Aqua Slash"
     },
     "Surf": {
         "name": "Surf",
@@ -1432,6 +2067,29 @@
         "atktype": "magic",
         "target": "one",
         "name": "Aquadyne"
+    },
+    "OriginPulse": {
+        "name": "OriginPulse",
+        "cost": 42,
+        "costtype": "mp",
+        "pow": 380,
+        "acc": 85,
+        "type": "water",
+        "atktype": "magic",
+        "target": "allopposing",
+        "desc": "The user attacks all enemies with countless beams of light that glow a deep and brilliant blue."
+    },
+    "HydroPump": {
+        "name": "HydroPump",
+        "cost": 40,
+        "costtype": "mp",
+        "pow": 400,
+        "acc": 80,
+        "crit": 5,
+        "type": "water",
+        "atktype": "magic",
+        "target": "one",
+        "desc": "The target is blasted by a huge volume of water launched under great pressure."
     },
     "TidalWave": {
         "costtype": "mp",
@@ -1505,6 +2163,20 @@
         "target": "allopposing",
         "name": "Mabufu"
     },
+    "FrozenDaggers": {
+        "name": "FrozenDaggers",
+        "cost": 14,
+        "costtype": "mppercent",
+        "pow": 125,
+        "acc": 90,
+        "hits": 3,
+        "type": "ice",
+        "status": "bleed",
+        "statuschance": 15,
+        "atktype": "magic",
+        "target": "one",
+        "desc": "The user shoots three daggers made of pure ice at a target, which has a chance to cause bleeding to them"
+    },
     "TwinIcicle": {
         "name": "TwinIcicle",
         "cost": 25,
@@ -1547,16 +2219,30 @@
     },
     "FrozenShards": {
         "costtype": "mp",
-        "cost": 15,
-        "pow": 150,
+        "cost": 16,
+        "pow": 200,
         "acc": 95,
         "crit": 10,
         "type": "ice",
         "atktype": "magic",
         "status": "bleed",
         "statuschance": 5,
-        "target": "allopposing",
+        "target": "one",
         "name": "FrozenShards"
+    },
+    "IceFang": {
+        "name": "IceFang",
+        "cost": 15,
+        "costtype": "mp",
+        "pow": 200,
+        "acc": 95,
+        "crit": 10,
+        "type": "ice",
+        "status": "freeze",
+        "statuschance": 10,
+        "atktype": "physical",
+        "target": "one",
+        "desc": "The user bites with cold-infused fangs. It may also freeze or critically hit."
     },
     "FreezerBurn": {
         "name": "FreezerBurn",
@@ -1569,6 +2255,19 @@
         "statuschance": 50,
         "atktype": "magic",
         "target": "one"
+    },
+    "IcicleCrash": {
+        "name": "IcicleCrash",
+        "cost": 24,
+        "costtype": "mp",
+        "pow": 230,
+        "acc": 90,
+        "type": "ice",
+        "status": "dizzy",
+        "statuschance": 10,
+        "atktype": "magic",
+        "target": "allopposing",
+        "desc": "The user makes a bunch of icicles crash onto the opposing side, with the potential to cause dizzyness to them."
     },
     "IcyCannon": {
         "name": "IcyCannon",
@@ -1584,6 +2283,46 @@
         "target": "one",
         "desc": "The user fires a beam of ice at the foe. This skill has a high chance to freeze the foe."
     },
+    "IcicleShower": {
+        "name": "IcicleShower",
+        "cost": 50,
+        "costtype": "mp",
+        "pow": 240,
+        "acc": 85,
+        "crit": 1,
+        "hits": 4,
+        "type": "ice",
+        "status": "bleed",
+        "statuschance": 10,
+        "atktype": "magic",
+        "target": "one",
+        "desc": "The user send 4 extremely sharp icicles at an opponent. Bleed is a low chance to happen when this move hits."
+    },
+    "IceBeam": {
+        "name": "IceBeam",
+        "cost": 20,
+        "costtype": "mp",
+        "pow": 250,
+        "acc": 90,
+        "type": "ice",
+        "status": "freeze",
+        "statuschance": 10,
+        "atktype": "magic",
+        "target": "one",
+        "desc": "The target is struck with an icy-cold beam of energy. It may also freeze the target solid."
+    },
+    "Bufudyne": {
+        "name": "Bufudyne",
+        "cost": 16,
+        "costtype": "mp",
+        "pow": 350,
+        "acc": 95,
+        "type": "ice",
+        "status": "freeze",
+        "statuschance": 5,
+        "atktype": "magic",
+        "target": "one"
+    },
     "Mabufudyne": {
         "name": "Mabufudyne",
         "cost": 32,
@@ -1596,17 +2335,31 @@
         "atktype": "magic",
         "target": "allopposing"
     },
+    "Blizzard": {
+        "name": "Blizzard",
+        "cost": 40,
+        "costtype": "mppercent",
+        "pow": 550,
+        "acc": 70,
+        "type": "ice",
+        "status": "freeze",
+        "statuschance": 3,
+        "atktype": "magic",
+        "target": "allopposing",
+        "desc": "A howling blizzard is summoned to strike the opposing foes. This can cause a foe to be frozen."
+    },
     "Impulse": {
+        "name": "Impulse",
         "costtype": "mp",
         "cost": 4,
         "pow": 30,
         "acc": 85,
         "type": "electric",
         "status": "paralyze",
-        "statuschance": 33,
+        "statuschance": 40,
         "atktype": "magic",
         "target": "one",
-        "name": "Impulse"
+        "desc": "The user attacks with strong static electricity. This attack will paralyse alot of the time."
     },
     "Zio": {
         "costtype": "mp",
@@ -1672,16 +2425,17 @@
     },
     "VoltLunge": {
         "name": "VoltLunge",
-        "cost": 20,
+        "cost": 10,
         "costtype": "mppercent",
         "pow": 160,
-        "acc": 90,
+        "acc": 92,
         "crit": 3,
         "type": "electric",
         "status": "paralyze",
         "statuschance": 2,
         "atktype": "physical",
-        "target": "one"
+        "target": "one",
+        "desc": "The user imbues theirselves in electricity, and charges into the opponent. Very low chance to paralyze."
     },
     "ZapCannon": {
         "name": "ZapCannon",
@@ -1706,6 +2460,31 @@
         "atktype": "magic",
         "target": "allopposing",
         "name": "Thunderstorm"
+    },
+    "ElectricLaser": {
+        "cost": 28,
+        "costtype": "mp",
+        "pow": 300,
+        "acc": 93,
+        "type": "electric",
+        "status": "paralyze",
+        "statuschance": 5,
+        "debuff": "agl",
+        "target": "one",
+        "atktype": "magic",
+        "name": "Electric Laser"
+    },
+    "Discharge": {
+        "name": "Discharge",
+        "cost": 28,
+        "costtype": "mp",
+        "pow": 275,
+        "acc": 90,
+        "type": "electric",
+        "status": "paralyze",
+        "statuschance": 10,
+        "atktype": "magic",
+        "target": "allopposing"
     },
     "Thunder": {
         "costtype": "mp",
@@ -1743,6 +2522,32 @@
         "statuschance": 5,
         "atktype": "magic",
         "target": "allopposing"
+    },
+    "Justice": {
+        "name": "Justice",
+        "cost": 28,
+        "costtype": "mp",
+        "pow": 350,
+        "acc": 100,
+        "type": "electric",
+        "status": "shock",
+        "statuschance": 35,
+        "atktype": "magic",
+        "target": "one"
+    },
+    "LightningTackle": {
+        "name": "LightningTackle",
+        "cost": 18,
+        "costtype": "mppercent",
+        "pow": 370,
+        "acc": 92,
+        "crit": 3,
+        "type": "electric",
+        "status": "paralyze",
+        "statuschance": 2,
+        "atktype": "physical",
+        "target": "one",
+        "desc": "The user imbues themselves with electricity, and tackles the opponent at lightning (:)) speed. Very low chance to paralyze."
     },
     "ThunderReign": {
         "name": "ThunderReign",
@@ -1836,9 +2641,21 @@
         "target": "one",
         "name": "Current"
     },
+    "Shockwave": {
+        "name": "Shockwave",
+        "cost": 16,
+        "costtype": "mp",
+        "pow": 105,
+        "acc": 90,
+        "status": "dizzy",
+        "statuschance": 25,
+        "type": "wind",
+        "atktype": "magic",
+        "target": "allopposing"
+    },
     "WingRush": {
-        "costtype": "hp",
-        "cost": 10,
+        "costtype": "hppercent",
+        "cost": 15,
         "pow": 140,
         "acc": 95,
         "crit": 5,
@@ -1850,6 +2667,8 @@
         "name": "Wing Rush"
     },
     "Garula": {
+        "costtype": "mp",
+        "cost": 8,
         "pow": 140,
         "acc": 95,
         "crit": 0,
@@ -1923,6 +2742,19 @@
         "atktype": "magic",
         "target": "allopposing"
     },
+    "DragonAscent": {
+        "name": "DragonAscent",
+        "cost": 50,
+        "costtype": "mp",
+        "pow": 500,
+        "acc": 96,
+        "crit": 5,
+        "type": "wind",
+        "atktype": "physical",
+        "target": "one",
+        "debuffuser": "end",
+        "desc": "After soaring upward, the user attacks its target by dropping out of the sky at high speeds. But it lowers its own Endurance stats in the process."
+    },
     "PantaRhei": {
         "name": "Panta Rhei",
         "cost": 42,
@@ -1981,6 +2813,18 @@
         "atktype": "magic",
         "target": "allopposing"
     },
+    "Mamagna": {
+        "name": "Mamagna",
+        "cost": 8,
+        "costtype": "mp",
+        "pow": 60,
+        "acc": 90,
+        "type": "earth",
+        "status": "dizzy",
+        "statuschance": 5,
+        "atktype": "magic",
+        "target": "allopposing"
+    },
     "BoneClub": {
         "name": "BoneClub",
         "cost": 28,
@@ -1995,6 +2839,29 @@
         "target": "one",
         "desc": "The user clubs the target with a bone. This may also paralyze the target."
     },
+    "RockThrow": {
+        "costtype": "mp",
+        "cost": 18,
+        "pow": 80,
+        "acc": 90,
+        "hits": 2,
+        "type": "earth",
+        "atktype": "magic",
+        "target": "one",
+        "name": "Rock Throw"
+    },
+    "Sandstorm": {
+        "costtype": "hppercent",
+        "cost": 10,
+        "pow": 120,
+        "acc": 90,
+        "crit": 10,
+        "type": "earth",
+        "atktype": "magic",
+        "target": "everyone",
+        "desc": "The user starts up a sandstorm that attacks all fighters in the battlefield. This move has a higher chance to be a critical hit than others.",
+        "name": "Sandstorm"
+    },
     "Magnara": {
         "name": "Magnara",
         "cost": 8,
@@ -2007,6 +2874,18 @@
         "atktype": "magic",
         "target": "one"
     },
+    "Mamagnara": {
+        "name": "Mamagnara",
+        "cost": 16,
+        "costtype": "mp",
+        "pow": 140,
+        "acc": 90,
+        "type": "earth",
+        "status": "dizzy",
+        "statuschance": 5,
+        "atktype": "magic",
+        "target": "allopposing"
+    },
     "Materazi": {
         "name": "Materazi",
         "cost": 16,
@@ -2018,16 +2897,6 @@
         "statuschance": 5,
         "atktype": "magic",
         "target": "allopposing"
-    },
-    "RockThrow": {
-        "costtype": "mp",
-        "cost": 4,
-        "pow": 150,
-        "acc": 90,
-        "type": "earth",
-        "atktype": "magic",
-        "target": "one",
-        "name": "Rock Throw"
     },
     "RollingRock": {
         "costtype": "mp",
@@ -2053,6 +2922,18 @@
         "desc": "The user rains sand down onto the opponent. There is a very high chance of this move to be a critical hit.",
         "name": "Sand-Tomb"
     },
+    "Earthquake": {
+        "name": "Earthquake",
+        "cost": 25,
+        "costtype": "mp",
+        "pow": 185,
+        "acc": 100,
+        "crit": 20,
+        "type": "earth",
+        "atktype": "physical",
+        "target": "everyone",
+        "desc": "The user stamps and causes an earthquake that attacks all fighters."
+    },
     "RockDrive": {
         "costtype": "mp",
         "cost": 5,
@@ -2062,6 +2943,18 @@
         "atktype": "physical",
         "target": "one",
         "name": "Rock Drive"
+    },
+    "EarthPower": {
+        "name": "EarthPower",
+        "cost": 35,
+        "costtype": "mp",
+        "pow": 300,
+        "acc": 95,
+        "crit": 5,
+        "type": "earth",
+        "atktype": "magic",
+        "target": "one",
+        "desc": "The user causes earth to rise from the ground."
     },
     "Magnadyne": {
         "name": "Magnadyne",
@@ -2086,6 +2979,19 @@
         "statuschance": 5,
         "atktype": "magic",
         "target": "allopposing"
+    },
+    "BulletSeed": {
+        "name": "BulletSeed",
+        "cost": 20,
+        "costtype": "mp",
+        "pow": 35,
+        "acc": 90,
+        "crit": 5,
+        "hits": 5,
+        "type": "grass",
+        "atktype": "magic",
+        "target": "one",
+        "desc": "The user forcefully shoots seeds at the target two to five times in a row."
     },
     "VineLash": {
         "costtype": "mp",
@@ -2118,32 +3024,6 @@
         "atktype": "magic",
         "target": "allopposing"
     },
-    "MagicalLeaf": {
-        "name": "MagicalLeaf",
-        "cost": 20,
-        "costtype": "mp",
-        "pow": 60,
-        "acc": 999,
-        "crit": 5,
-        "type": "grass",
-        "atktype": "magic",
-        "target": "one",
-        "desc": "The user scatters curious leaves that chase the target. This attack never misses."
-    },
-    "NeedleArm": {
-        "name": "NeedleArm",
-        "cost": 32,
-        "costtype": "mp",
-        "pow": 60,
-        "acc": 100,
-        "crit": 5,
-        "type": "grass",
-        "status": "paralyze",
-        "statuschance": 30,
-        "atktype": "physical",
-        "target": "one",
-        "desc": "The user attacks by wildly swinging its thorny arms. This may also paralyze the target. (look paralyze was that closest to flinch, Spectra)"
-    },
     "VineWhip": {
         "name": "VineWhip",
         "cost": 3,
@@ -2156,6 +3036,19 @@
         "target": "one",
         "desc": "The target is struck with slender, whiplike vines to inflict damage."
     },
+    "LeafStorm": {
+        "name": "Leaf Storm",
+        "cost": 20,
+        "costtype": "mp",
+        "pow": 70,
+        "hits": 2,
+        "acc": 90,
+        "type": "grass",
+        "atktype": "magic",
+        "target": "allopposing",
+        "status": "bleed",
+        "statuschance": 20
+    },
     "SapSnip": {
         "costtype": "mp",
         "cost": 7,
@@ -2167,30 +3060,6 @@
         "drain": 3,
         "target": "one",
         "name": "Sap Snip"
-    },
-    "LeafBlade": {
-        "name": "LeafBlade",
-        "cost": 30,
-        "costtype": "mp",
-        "pow": 90,
-        "acc": 100,
-        "crit": 15,
-        "type": "grass",
-        "atktype": "physical",
-        "target": "one",
-        "desc": "The user handles a sharp leaf like a sword and attacks by cutting its target. Critical hits land more easily."
-    },
-    "LeafStorm": {
-        "name": "Leaf Storm",
-        "cost": 20,
-        "costtype": "mp",
-        "pow": 120,
-        "acc": 90,
-        "type": "grass",
-        "atktype": "magic",
-        "target": "allopposing",
-        "status": "bleed",
-        "statuschance": 20
     },
     "Mahanama": {
         "name": "Mahanama",
@@ -2211,6 +3080,20 @@
         "type": "grass",
         "atktype": "magic",
         "target": "one"
+    },
+    "NeedleArm": {
+        "name": "NeedleArm",
+        "cost": 10,
+        "costtype": "hppercent",
+        "pow": 150,
+        "acc": 95,
+        "crit": 5,
+        "type": "grass",
+        "status": "paralyze",
+        "statuschance": 30,
+        "atktype": "physical",
+        "target": "one",
+        "desc": "The user attacks by wildly swinging its thorny arms. This may also paralyze the target. (look paralyze was that closest to flinch, Spectra)"
     },
     "Sun-beam": {
         "costtype": "mp",
@@ -2235,6 +3118,18 @@
         "drain": 2,
         "desc": "The user drains the life energy of the target. Half of the damage dealt, the user restores."
     },
+    "MagicalLeaf": {
+        "name": "MagicalLeaf",
+        "cost": 20,
+        "costtype": "mp",
+        "pow": 340,
+        "acc": 999,
+        "crit": 2,
+        "type": "grass",
+        "atktype": "magic",
+        "target": "one",
+        "desc": "The user scatters curious leaves that chase the target. This attack never misses."
+    },
     "Hanamadyne": {
         "name": "Hanamadyne",
         "cost": 16,
@@ -2254,6 +3149,151 @@
         "type": "grass",
         "atktype": "magic",
         "target": "allopposing"
+    },
+    "LeafBlade": {
+        "name": "Leaf Blade",
+        "cost": 25,
+        "costtype": "mp",
+        "pow": 380,
+        "acc": 100,
+        "crit": 20,
+        "type": "grass",
+        "atktype": "physical",
+        "target": "one",
+        "desc": "The user handles a sharp leaf like a sword and attacks by cutting its target. Critical hits land more easily."
+    },
+    "Confusion": {
+        "costtype": "mp",
+        "cost": 7,
+        "pow": 40,
+        "acc": 95,
+        "type": "psychic",
+        "status": "brainwash",
+        "statuschance": 20,
+        "atktype": "magic",
+        "target": "one",
+        "name": "Confusion"
+    },
+    "CopySkill": {
+        "name": "Copy Skill",
+        "cost": 35,
+        "costtype": "mp",
+        "pow": 40,
+        "acc": 95,
+        "type": "psychic",
+        "atktype": "magic",
+        "target": "one",
+        "copyskill": true,
+        "desc": "Uses psychic powers to use an ally skill at random."
+    },
+    "BrainTrick": {
+        "pow": 50,
+        "acc": 90,
+        "crit": 33,
+        "type": "psychic",
+        "status": "brainwash",
+        "statuschance": 50,
+        "atktype": "magic",
+        "target": "one",
+        "name": "Brain Trick"
+    },
+    "Psi": {
+        "costtype": "mp",
+        "cost": 4,
+        "pow": 60,
+        "acc": 95,
+        "type": "psychic",
+        "atktype": "magic",
+        "target": "one",
+        "name": "Psi"
+    },
+    "WayOfMirroringYourself": {
+        "name": "WayOfMirroringYourself",
+        "cost": 7,
+        "costtype": "mppercent",
+        "pow": 60,
+        "acc": 85,
+        "crit": 5,
+        "hits": 2,
+        "type": "psychic",
+        "status": "dizzy",
+        "statuschance": 15,
+        "atktype": "magic",
+        "target": "one",
+        "desc": "You can essentially think of it as Kirby's Mirror ability named Mirror Body.\nThe user splits themself with a spirit, or whatever you have as a spirit, and deal damage from distance. It attacks on appear and on retraction."
+    },
+    "Mapsi": {
+        "costtype": "mp",
+        "cost": 8,
+        "pow": 60,
+        "acc": 95,
+        "type": "psychic",
+        "atktype": "magic",
+        "target": "allopposing",
+        "name": "Mapsi"
+    },
+    "Psy-Blast": {
+        "costtype": "mp",
+        "cost": 4,
+        "pow": 70,
+        "acc": 95,
+        "crit": 10,
+        "type": "psychic",
+        "status": "none",
+        "statuschance": 0,
+        "atktype": "magic",
+        "target": "one",
+        "name": "Psy-Blast"
+    },
+    "AuraSpear": {
+        "name": "AuraSpear",
+        "cost": 16,
+        "costtype": "mp",
+        "pow": 100,
+        "acc": 70,
+        "crit": 5,
+        "type": "psychic",
+        "atktype": "magic",
+        "target": "one",
+        "desc": "The user channels energy into their palm and fires it out in the form of a spear"
+    },
+    "ZenHeadbutt": {
+        "name": "ZenHeadbutt",
+        "cost": 8,
+        "costtype": "hppercent",
+        "pow": 100,
+        "acc": 90,
+        "crit": 5,
+        "type": "psychic",
+        "status": "paralyze",
+        "statuschance": 10,
+        "atktype": "physical",
+        "target": "one",
+        "desc": "The user focuses its willpower to its head and strikes the target. This may also paralyze the foe."
+    },
+    "Psyshot": {
+        "costtype": "mp",
+        "cost": 3,
+        "pow": 100,
+        "acc": 95,
+        "type": "psychic",
+        "atktype": "magic",
+        "target": "one",
+        "status": "brainwash",
+        "statuschance": 10,
+        "name": "Psyshot"
+    },
+    "Psybeam": {
+        "costtype": "mp",
+        "cost": 6,
+        "pow": 130,
+        "acc": 95,
+        "status": "brainwash",
+        "statuschance": 2,
+        "type": "psychic",
+        "atktype": "magic",
+        "target": "one",
+        "name": "Psybeam"
     },
     "Mapsio": {
         "name": "Mapsio",
@@ -2276,6 +3316,7 @@
         "name": "Psio"
     },
     "AwayWithTheWave": {
+        "name": "Away with the Wave",
         "costtype": "mp",
         "cost": 12,
         "pow": 150,
@@ -2285,8 +3326,7 @@
         "statuschance": 10,
         "atktype": "magic",
         "crit": 10,
-        "target": "one",
-        "name": "Away with the Wave"
+        "target": "one"
     },
     "Psy-Strike": {
         "costtype": "mp",
@@ -2304,12 +3344,22 @@
     "Trickery": {
         "name": "Trickery",
         "costtype": "mp",
-        "cost": 14,
+        "cost": 25,
         "pow": 180,
         "acc": 93,
         "type": "psychic",
         "status": "brainwash",
-        "statuschance": 40,
+        "statuschance": 33,
+        "atktype": "magic",
+        "target": "one"
+    },
+    "CrystalLazer": {
+        "name": "Crystal Lazer",
+        "costtype": "mp",
+        "cost": 20,
+        "pow": 200,
+        "acc": 95,
+        "type": "psychic",
         "atktype": "magic",
         "target": "one"
     },
@@ -2323,15 +3373,30 @@
         "target": "one",
         "name": "Crystal Lightshow"
     },
-    "Psiodyne": {
+    "AuraSphere": {
+        "name": "AuraSphere",
+        "cost": 20,
         "costtype": "mp",
-        "cost": 12,
-        "pow": 350,
-        "acc": 95,
+        "pow": 240,
+        "acc": 70,
+        "crit": 5,
         "type": "psychic",
         "atktype": "magic",
         "target": "one",
-        "name": "Psiodyne"
+        "desc": "The user channels energy into their hand and throws it as an explosive ball."
+    },
+    "PsyCannon": {
+        "name": "Psy Cannon",
+        "cost": 16,
+        "costtype": "mp",
+        "pow": 300,
+        "acc": 95,
+        "type": "psychic",
+        "status": "brainwash",
+        "statuschance": 18,
+        "atktype": "magic",
+        "target": "one",
+        "desc": "The user fires an explosive beam of psychic energy at the foe. This skill has a moderate chance to inflict brainwash."
     },
     "Mapsiodyne": {
         "name": "Mapsiodyne",
@@ -2343,130 +3408,15 @@
         "atktype": "magic",
         "target": "allopposing"
     },
-    "Confusion": {
+    "Psiodyne": {
         "costtype": "mp",
-        "cost": 7,
-        "pow": 40,
-        "acc": 95,
-        "type": "psychic",
-        "status": "brainwash",
-        "statuschance": 20,
-        "atktype": "magic",
-        "target": "one",
-        "name": "Confusion"
-    },
-    "CrystalLazer": {
-        "name": "Crystal Lazer",
-        "costtype": "mp",
-        "cost": 3,
-        "pow": 40,
-        "acc": 97,
-        "type": "psychic",
-        "atktype": "magic",
-        "target": "one"
-    },
-    "CopySkill": {
-        "name": "Copy Skill",
-        "cost": 35,
-        "costtype": "mp",
-        "pow": 40,
+        "cost": 12,
+        "pow": 350,
         "acc": 95,
         "type": "psychic",
         "atktype": "magic",
         "target": "one",
-        "copyskill": true,
-        "desc": "Uses psychic powers to use an ally skill at random."
-    },
-    "Psyshot": {
-        "costtype": "mp",
-        "cost": 3,
-        "pow": 42,
-        "acc": 95,
-        "type": "psychic",
-        "atktype": "magic",
-        "target": "one",
-        "name": "Psyshot"
-    },
-    "BrainTrick": {
-        "pow": 50,
-        "acc": 90,
-        "crit": 33,
-        "type": "psychic",
-        "status": "brainwash",
-        "statuschance": 50,
-        "atktype": "magic",
-        "target": "one",
-        "name": "Brain Trick"
-    },
-    "Mapsi": {
-        "costtype": "mp",
-        "cost": 8,
-        "pow": 60,
-        "acc": 95,
-        "type": "psychic",
-        "atktype": "magic",
-        "target": "allopposing",
-        "name": "Mapsi"
-    },
-    "AuraSpear": {
-        "pow": 60,
-        "acc": 70,
-        "crit": 15,
-        "type": "psychic",
-        "status": "none",
-        "statuschance": 0,
-        "atktype": "magic",
-        "target": "one",
-        "name": "Aura Spear"
-    },
-    "Psi": {
-        "costtype": "mp",
-        "cost": 4,
-        "pow": 60,
-        "acc": 95,
-        "type": "psychic",
-        "atktype": "magic",
-        "target": "one",
-        "name": "Psi"
-    },
-    "Psy-Blast": {
-        "costtype": "mp",
-        "cost": 4,
-        "pow": 70,
-        "acc": 95,
-        "crit": 10,
-        "type": "psychic",
-        "status": "none",
-        "statuschance": 0,
-        "atktype": "magic",
-        "target": "one",
-        "name": "Psy-Blast"
-    },
-    "ZenHeadbutt": {
-        "name": "ZenHeadbutt",
-        "cost": 8,
-        "costtype": "hppercent",
-        "pow": 100,
-        "acc": 90,
-        "crit": 5,
-        "type": "psychic",
-        "status": "paralyze",
-        "statuschance": 10,
-        "atktype": "physical",
-        "target": "one",
-        "desc": "The user focuses its willpower to its head and strikes the target. This may also paralyze the foe."
-    },
-    "Psybeam": {
-        "costtype": "mp",
-        "cost": 6,
-        "pow": 130,
-        "acc": 95,
-        "status": "brainwash",
-        "statuschance": 2,
-        "type": "psychic",
-        "atktype": "magic",
-        "target": "one",
-        "name": "Psybeam"
+        "name": "Psiodyne"
     },
     "Secrete": {
         "name": "Secrete",
@@ -2491,20 +3441,6 @@
         "status": "poison",
         "statuschance": 60,
         "target": "one"
-    },
-    "PoisonTail": {
-        "name": "PoisonTail",
-        "cost": 22,
-        "costtype": "mp",
-        "pow": 50,
-        "acc": 100,
-        "crit": 15,
-        "type": "poison",
-        "status": "poison",
-        "statuschance": 10,
-        "atktype": "physical",
-        "target": "one",
-        "desc": "The user hits the target with its tail. This may also poison the target. Critical hits land more easily."
     },
     "Doku": {
         "costtype": "mp",
@@ -2564,6 +3500,21 @@
         "target": "allopposing",
         "name": "Goo-Wave"
     },
+    "Twineedle": {
+        "name": "Twineedle",
+        "cost": 20,
+        "costtype": "hppercent",
+        "pow": 100,
+        "acc": 95,
+        "crit": 10,
+        "hits": 2,
+        "type": "poison",
+        "status": "poison",
+        "statuschance": 20,
+        "atktype": "physical",
+        "target": "one",
+        "desc": "The user damages the target twice in succession by jabbing it with two spikes. This may also poison the target."
+    },
     "Dokusei": {
         "costtype": "mp",
         "cost": 8,
@@ -2611,6 +3562,19 @@
         "target": "one",
         "name": "Draining Strike"
     },
+    "PoisonOoze": {
+        "name": "Poison Ooze",
+        "cost": 15,
+        "costtype": "hppercent",
+        "pow": 170,
+        "acc": 95,
+        "crit": 10,
+        "type": "poison",
+        "atktype": "magic",
+        "target": "one",
+        "feint": true,
+        "desc": "The user fakes out the target, before bypassing their defenses and tossing a poisonous ball at them. This skill bypasses Protect skills like Protect, Makarakarn, Tetrakarn & Web Trap."
+    },
     "InfectiousOutbreak": {
         "costtype": "mp",
         "cost": 20,
@@ -2623,21 +3587,6 @@
         "target": "allopposing",
         "name": "Infectious Outbreak"
     },
-    "Twineedle": {
-        "name": "Twineedle",
-        "cost": 20,
-        "costtype": "hppercent",
-        "pow": 200,
-        "acc": 95,
-        "crit": 10,
-        "hits": 2,
-        "type": "poison",
-        "status": "poison",
-        "statuschance": 20,
-        "atktype": "physical",
-        "target": "one",
-        "desc": "The user damages the target twice in succession by jabbing it with two spikes. This may also poison the target."
-    },
     "InkySplat": {
         "costtype": "mp",
         "cost": 25,
@@ -2649,6 +3598,20 @@
         "statuschance": 5,
         "target": "one",
         "name": "Inky Splat"
+    },
+    "PoisonTail": {
+        "name": "PoisonTail",
+        "cost": 22,
+        "costtype": "mp",
+        "pow": 250,
+        "acc": 100,
+        "crit": 15,
+        "type": "poison",
+        "status": "poison",
+        "statuschance": 10,
+        "atktype": "physical",
+        "target": "one",
+        "desc": "The user hits the target with its tail. This may also poison the target. Critical hits land more easily."
     },
     "Dokudyne": {
         "costtype": "mp",
@@ -2721,17 +3684,6 @@
         "atktype": "magic",
         "target": "allopposing"
     },
-    "Majino": {
-        "name": "Majino",
-        "cost": 16,
-        "costtype": "mp",
-        "pow": 60,
-        "acc": 90,
-        "crit": 2,
-        "type": "metal",
-        "atktype": "magic",
-        "target": "allopposing"
-    },
     "MetalBlast": {
         "name": "Metal Blast",
         "cost": 20,
@@ -2744,6 +3696,17 @@
         "statuschance": 5,
         "atktype": "magic",
         "target": "one"
+    },
+    "Majino": {
+        "name": "Majino",
+        "cost": 16,
+        "costtype": "mp",
+        "pow": 140,
+        "acc": 90,
+        "crit": 2,
+        "type": "metal",
+        "atktype": "magic",
+        "target": "allopposing"
     },
     "Jino": {
         "name": "Jino",
@@ -2841,6 +3804,16 @@
         "target": "allopposing",
         "desc": "The user causes toxic explosions to appear around the targets."
     },
+    "TacticalNuke": {
+        "name": "TacticalNuke",
+        "cost": 40,
+        "costtype": "mp",
+        "pow": 450,
+        "acc": 100,
+        "type": "nuclear",
+        "atktype": "magic",
+        "target": "allopposing"
+    },
     "CursedBlast": {
         "costtype": "mp",
         "cost": 4,
@@ -2873,15 +3846,19 @@
         "target": "allopposing",
         "name": "Maeiha"
     },
-    "GasterBlaster": {
+    "Ping": {
+        "name": "Ping",
+        "cost": 17,
         "costtype": "mp",
-        "cost": 10,
-        "pow": 80,
-        "acc": 92,
+        "pow": 64,
+        "acc": 90,
+        "crit": 3,
         "type": "curse",
-        "atktype": "magic",
+        "status": "rage",
+        "statuschance": 10,
+        "atktype": "physical",
         "target": "one",
-        "name": "Gaster Blaster"
+        "desc": "God damnit, ~~@~~everyone AGAIN. Has a moderate chance to cause Rage."
     },
     "FeedingOnYourDespair": {
         "costtype": "mp",
@@ -2919,8 +3896,8 @@
         "name": "Astonish"
     },
     "ShadowStriking": {
-        "name": "ShadowStriking",
-        "cost": 15,
+        "name": "Shadow Striking",
+        "cost": 23,
         "costtype": "hppercent",
         "pow": 115,
         "acc": 90,
@@ -2966,7 +3943,7 @@
         "type": "curse",
         "atktype": "magic",
         "target": "allopposing",
-        "desc": "The user damages the opposing side with light."
+        "desc": "The user damages the opposing side with darkness."
     },
     "Eiga": {
         "costtype": "mp",
@@ -2977,7 +3954,7 @@
         "atktype": "magic",
         "target": "one",
         "name": "Eiga",
-        "desc": "The user damages the opposing side with light."
+        "desc": "The user damages one foe with darkness."
     },
     "Mudodyne": {
         "name": "Mudodyne",
@@ -2989,17 +3966,38 @@
         "atktype": "magic",
         "target": "one"
     },
-    "SpiritHorns": {
+    "Mamudodyne": {
+        "name": "Mamudodyne",
+        "cost": 16,
         "costtype": "mp",
-        "cost": 10,
-        "pow": 165,
-        "acc": 92,
+        "pow": 160,
+        "acc": 90,
+        "type": "curse",
+        "atktype": "magic",
+        "target": "allopposing"
+    },
+    "Feint": {
+        "name": "Feint",
+        "cost": 15,
+        "costtype": "hppercent",
+        "pow": 170,
+        "acc": 999,
+        "crit": 10,
         "type": "curse",
         "atktype": "physical",
-        "crit": 10,
         "target": "one",
-        "name": "Spirit Horns",
-        "desc": "The user stabs their target with horns."
+        "feint": true,
+        "desc": "The user fakes out the target, before bypassing their defenses and sucker punching them in their blindspot. This skill bypasses Protect skills like Protect, Makarakarn, Tetrakarn & Web Trap."
+    },
+    "GasterBlaster": {
+        "costtype": "mp",
+        "cost": 10,
+        "pow": 180,
+        "acc": 92,
+        "type": "curse",
+        "atktype": "magic",
+        "target": "one",
+        "name": "Gaster Blaster"
     },
     "YowlingSpirits": {
         "costtype": "mp",
@@ -3025,6 +4023,29 @@
         "name": "Shadow Spirit",
         "desc": "The user fires a spirit at the target."
     },
+    "CruelIntent": {
+        "name": "Cruel Intent",
+        "costtype": "hppercent",
+        "cost": 18,
+        "pow": 200,
+        "acc": 90,
+        "type": "curse",
+        "atktype": "physical",
+        "target": "one",
+        "desc": "The user damages one foe with a fiendish strike from behind. A low chance of inflicting dizziness."
+    },
+    "SpiritHorns": {
+        "costtype": "mp",
+        "cost": 10,
+        "pow": 230,
+        "acc": 92,
+        "type": "curse",
+        "atktype": "magic",
+        "crit": 10,
+        "target": "one",
+        "name": "Spirit Horns",
+        "desc": "The user stabs their target horns manifested from spirits."
+    },
     "ShadowyBlast": {
         "name": "ShadowyBlast",
         "cost": 22,
@@ -3038,6 +4059,18 @@
         "atktype": "magic",
         "target": "one",
         "desc": "A shadowy blast that only Lan is able to accomplish to a single foe. Remember that it has a very low chance of dizzy"
+    },
+    "ShadowStrike": {
+        "name": "Shadow Strike",
+        "cost": 17,
+        "costtype": "hppercent",
+        "pow": 265,
+        "acc": 87,
+        "crit": 10,
+        "type": "curse",
+        "atktype": "physical",
+        "target": "one",
+        "desc": "The target envelops their hand in a void-like energy and strikes the foe with one very strong hit."
     },
     "Maeigaon": {
         "name": "Maeigaon",
@@ -3060,6 +4093,28 @@
         "target": "one",
         "name": "Eigaon",
         "desc": "The user harnesses the shadows to attack."
+    },
+    "ShadowEdge": {
+        "name": "ShadowEdge",
+        "cost": 32,
+        "costtype": "hppercent",
+        "pow": 370,
+        "acc": 92,
+        "crit": 3,
+        "type": "curse",
+        "atktype": "physical",
+        "target": "one",
+        "desc": "Imbued with dark magic, the user slashes at the target."
+    },
+    "HatredBurst": {
+        "name": "HatredBurst",
+        "cost": 24,
+        "costtype": "hppercent",
+        "pow": 420,
+        "acc": 100,
+        "type": "curse",
+        "atktype": "physical",
+        "target": "allopposing"
     },
     "Eggion": {
         "name": "Eggion",
@@ -3149,6 +4204,72 @@
         "atktype": "magic",
         "target": "one"
     },
+    "Mahamadyne": {
+        "name": "Mahamadyne",
+        "cost": 16,
+        "costtype": "mp",
+        "pow": 160,
+        "acc": 90,
+        "type": "bless",
+        "atktype": "magic",
+        "target": "allopposing"
+    },
+    "EyeCannon": {
+        "name": "Eye Cannon",
+        "costtype": "mp",
+        "cost": 12,
+        "pow": 200,
+        "acc": 96,
+        "type": "bless",
+        "atktype": "magic",
+        "target": "one",
+        "desc": "The user uses their eyes to fire a shot of light."
+    },
+    "Tribeam": {
+        "name": "Tribeam",
+        "cost": 20,
+        "costtype": "hppercent",
+        "pow": 220,
+        "acc": 90,
+        "type": "bless",
+        "atktype": "magic",
+        "target": "one",
+        "desc": "The User channels energy into their hands and fires a beam at a single opponent, but it takes a hefty toll on their health in exchange for its power"
+    },
+    "Kamehameha": {
+        "name": "Kamehameha",
+        "cost": 40,
+        "costtype": "mp",
+        "pow": 250,
+        "acc": 85,
+        "crit": 1,
+        "type": "bless",
+        "atktype": "magic",
+        "target": "one",
+        "desc": "A Ki Blast fired from your hands, in a form of a beam, at a single foe"
+    },
+    "Hope": {
+        "name": "Hope",
+        "cost": 55,
+        "costtype": "mp",
+        "pow": 290,
+        "acc": 999,
+        "type": "bless",
+        "atktype": "magic",
+        "target": "everyone"
+    },
+    "NeoTribeam": {
+        "name": "NeoTribeam",
+        "cost": 40,
+        "costtype": "hppercent",
+        "pow": 320,
+        "acc": 90,
+        "hits": 3,
+        "type": "bless",
+        "atktype": "magic",
+        "target": "one",
+        "desc": "The more powered up version of the Tribeam. It costs more HP to use, but has more punch and hits the opponent up to 3 times."
+    },
     "Kougaon": {
         "costtype": "mp",
         "cost": 16,
@@ -3171,6 +4292,79 @@
         "name": "Makougaon",
         "desc": "The user blinds the opposing side with light."
     },
+    "MegaRave": {
+        "name": "MegaRave",
+        "cost": 20,
+        "costtype": "mp",
+        "pow": 410,
+        "acc": 93,
+        "type": "bless",
+        "atktype": "magic",
+        "target": "one",
+        "desc": "A sphere of bundled light magic is sent to the foe, dealing damage."
+    },
+    "HolyHandGrenade": {
+        "name": "HolyHandGrenade",
+        "cost": 35,
+        "costtype": "hppercent",
+        "pow": 420,
+        "acc": 80,
+        "crit": 10,
+        "type": "bless",
+        "status": "dizzy",
+        "statuschance": 50,
+        "atktype": "magic",
+        "target": "allopposing",
+        "desc": "The user summons an overflowing amount of concentrated light energy, confines it to a ball in the shape of a grenade, and throws it to the opposing side. When it explodes it can blind almost anything, assuming assuming the explosion actually hits of course. It has pretty bad recoil in gathering the light energy, so be careful."
+    },
+    "SKamehameha": {
+        "name": "SKamehameha",
+        "cost": 100,
+        "costtype": "mp",
+        "pow": 500,
+        "acc": 80,
+        "crit": 1,
+        "type": "bless",
+        "atktype": "magic",
+        "target": "one",
+        "desc": "A powered up version of the normal Kamehameha, does more damage, but costs much more."
+    },
+    "PKamehameha": {
+        "name": "PKamehameha",
+        "cost": 150,
+        "costtype": "mp",
+        "pow": 750,
+        "acc": 75,
+        "crit": 1,
+        "type": "bless",
+        "atktype": "magic",
+        "target": "one",
+        "desc": "Cell's very own version of the Kamehameha, but 'perfect'. Does way more damage than S.Kamehameha, but at the cost of Higher MP and lowered Accuracy."
+    },
+    "UKamehameha": {
+        "name": "UKamehameha",
+        "cost": 200,
+        "costtype": "mp",
+        "pow": 1000,
+        "acc": 70,
+        "crit": 1,
+        "type": "bless",
+        "atktype": "magic",
+        "target": "one",
+        "desc": "The Ultimate Kamehameha that Gogeta used. Very lowered Accuracy, with a very high power and Mp cost"
+    },
+    "MasterSpark": {
+        "name": "MasterSpark",
+        "cost": 100,
+        "costtype": "mppercent",
+        "pow": 1,
+        "acc": 100,
+        "hits": 100,
+        "type": "almighty",
+        "atktype": "magic",
+        "target": "one",
+        "desc": "Burn all of your MP to unleash a gigantic beam of destructive energy at the opponent."
+    },
     "SpiritDrain": {
         "name": "Spirit Drain",
         "stealmp": true,
@@ -3182,6 +4376,17 @@
         "atktype": "magic",
         "target": "one",
         "desc": "The user drains 20 MP from the target by any means necessary. They will gain all MP stolen."
+    },
+    "StrikeOfEternity": {
+        "name": "StrikeOfEternity",
+        "cost": 90,
+        "costtype": "mppercent",
+        "pow": 35,
+        "acc": 100,
+        "hits": 16,
+        "type": "almighty",
+        "atktype": "magic",
+        "target": "one"
     },
     "SpiritLeech": {
         "name": "Spirit Leech",
@@ -3206,9 +4411,43 @@
         "target": "one",
         "desc": "The user blasts their target with a strong gale."
     },
+    "Mazan": {
+        "name": "Mazan",
+        "cost": 16,
+        "costtype": "mp",
+        "pow": 60,
+        "acc": 90,
+        "type": "almighty",
+        "atktype": "magic",
+        "target": "allopposing",
+        "desc": "The user blasts the targets with a strong gale."
+    },
+    "NoDodging": {
+        "name": "NoDodging",
+        "cost": 69,
+        "costtype": "mp",
+        "pow": 69,
+        "acc": 1e+39,
+        "crit": 69,
+        "type": "almighty",
+        "atktype": "physical",
+        "target": "one",
+        "desc": "You're not allowed to dodge this attack."
+    },
+    "FantasySeal": {
+        "name": "FantasySeal",
+        "cost": 75,
+        "costtype": "mppercent",
+        "pow": 75,
+        "acc": 100,
+        "hits": 5,
+        "type": "almighty",
+        "atktype": "magic",
+        "target": "one"
+    },
     "Metronome": {
         "name": "Metronome",
-        "cost": 25,
+        "cost": 0,
         "costtype": "mp",
         "pow": 100,
         "acc": 999,
@@ -3217,6 +4456,18 @@
         "metronome": true,
         "desc": "Use any random skill.",
         "target": "one"
+    },
+    "LifeDrain": {
+        "name": "LifeDrain",
+        "cost": 8,
+        "costtype": "mp",
+        "pow": 120,
+        "acc": 90,
+        "type": "almighty",
+        "atktype": "magic",
+        "target": "one",
+        "drain": 2,
+        "desc": "The user drains half of the damage dealt to the foe."
     },
     "Zanma": {
         "name": "Zanma",
@@ -3229,6 +4480,17 @@
         "target": "one",
         "desc": "The user blasts their target with a strong gale."
     },
+    "Mazanma": {
+        "name": "Mazanma",
+        "cost": 24,
+        "costtype": "mp",
+        "pow": 140,
+        "acc": 90,
+        "type": "almighty",
+        "atktype": "magic",
+        "target": "allopposing",
+        "desc": "The user blasts the targets with a strong gale."
+    },
     "Megido": {
         "name": "Megido",
         "cost": 20,
@@ -3240,6 +4502,18 @@
         "target": "allopposing",
         "desc": "The user causes a small explosion of high power to hit the targets."
     },
+    "LifeLeech": {
+        "name": "LifeLeech",
+        "cost": 24,
+        "costtype": "mp",
+        "pow": 240,
+        "acc": 90,
+        "type": "almighty",
+        "atktype": "magic",
+        "target": "one",
+        "drain": 2,
+        "desc": "The user drains half of the damage dealt to the foe."
+    },
     "Zandyne": {
         "name": "Zandyne",
         "cost": 32,
@@ -3250,6 +4524,17 @@
         "atktype": "magic",
         "target": "one",
         "desc": "The user blasts their target with a strong gale."
+    },
+    "Mazandyne": {
+        "name": "Mazandyne",
+        "cost": 48,
+        "costtype": "mp",
+        "pow": 350,
+        "acc": 90,
+        "type": "almighty",
+        "atktype": "magic",
+        "target": "allopposing",
+        "desc": "The user blasts the targets with a strong gale."
     },
     "SoulSacrifice": {
         "name": "Soul Sacrifice",
@@ -3279,20 +4564,42 @@
         "name": "Illuminate",
         "costtype": "mp",
         "cost": 50,
-        "pow": 600,
+        "pow": 400,
         "acc": 88,
         "type": "almighty",
         "atktype": "magic",
         "target": "allopposing",
         "status": "dizzy",
         "statuschance": 10,
-        "desc": "Used by the Godess of the Infection, of light herself, to blind her foes. Low chance to inflict Dizziness."
+        "desc": "Used by the Goddess of the Infection, of light herself, to blind her foes. Low chance to inflict Dizziness."
+    },
+    "VaporisingRay": {
+        "name": "Vaporising Ray",
+        "cost": 60,
+        "costtype": "mp",
+        "pow": 500,
+        "acc": 90,
+        "type": "almighty",
+        "atktype": "magic",
+        "target": "one",
+        "desc": "The user blasts their target with a vaporising laser."
+    },
+    "Megidola": {
+        "name": "Megidola",
+        "cost": 36,
+        "costtype": "mp",
+        "pow": 550,
+        "acc": 90,
+        "type": "almighty",
+        "atktype": "magic",
+        "target": "allopposing",
+        "desc": "The user causes a large explosion of high power to hit the targets."
     },
     "GooeyExplosion": {
         "name": "Gooey Explosion",
         "sacrifice": true,
-        "cost": 25,
-        "costtype": "mppercent",
+        "cost": 1,
+        "costtype": "mp",
         "pow": 600,
         "acc": 888,
         "type": "almighty",
@@ -3303,8 +4610,8 @@
     "Self-Destruct": {
         "name": "Self-Destruct",
         "sacrifice": true,
-        "cost": 25,
-        "costtype": "mppercent",
+        "cost": 1,
+        "costtype": "mp",
         "pow": 666,
         "acc": 888,
         "type": "almighty",
@@ -3358,7 +4665,7 @@
         "statuschance": 0,
         "atktype": "magic",
         "target": "one",
-        "desc": "This legendary Almighty Type Skill does massive damage in which a Black Viper Snake from the shadows crunches the foe."
+        "desc": "This legendary Almighty Type Skill does massive damage in which a Snake from the shadows crunches the foe."
     },
     "MorningStar": {
         "costtype": "mp",
@@ -3406,6 +4713,22 @@
         "target": "one",
         "desc": "The user blows cold breath to those around them. May freeze the target."
     },
+    "DapMeUp": {
+        "name": "DapMeUp",
+        "type": "status",
+        "cost": 10,
+        "costtype": "mp",
+        "desc": "If hit it'll paralyse the target by covering them inna strange slime kinda thing",
+        "status": "paralyze",
+        "statuschance": 70
+    },
+    "Mamakanda": {
+        "name": "Mamakanda",
+        "type": "status",
+        "cost": 24,
+        "costtype": "mp",
+        "desc": "Supresses your enemies' magic attacks by a singular stage"
+    },
     "FreezingGlare": {
         "name": "Freezing Glare",
         "cost": 8,
@@ -3436,6 +4759,15 @@
         "desc": "The user buffs their own defense.",
         "atktype": "physical"
     },
+    "Harden": {
+        "name": "Crystalize",
+        "costtype": "mp",
+        "cost": 4,
+        "type": "status",
+        "buff": "end",
+        "target": "caster",
+        "desc": "The user buffs their own defense."
+    },
     "Analysis": {
         "name": "Analysis",
         "costtype": "mppercent",
@@ -3461,11 +4793,19 @@
         "cost": 20,
         "costtype": "mp",
         "type": "status",
-        "autoguard": true,
-        "protectitem": "an Icy Shield",
+        "shield": "Shield",
         "desc": "The user encloses their ally in an icy shield, protecting them.",
         "target": "one",
         "atktype": "physical"
+    },
+    "ThunderShield": {
+        "name": "Thunder Shield",
+        "cost": 20,
+        "costtype": "mp",
+        "type": "status",
+        "shield": "Shield",
+        "desc": "The user encloses their ally in an thunder shield, protecting them.",
+        "target": "one"
     },
     "Tetrakarn": {
         "name": "Tetrakarn",
@@ -3473,7 +4813,6 @@
         "costtype": "mp",
         "type": "status",
         "tetrakarn": true,
-        "protectitem": "Tetrakarn",
         "desc": "The user protects their ally from all Physical Skills.",
         "target": "one",
         "atktype": "physical"
@@ -3484,10 +4823,18 @@
         "costtype": "mp",
         "type": "status",
         "makarakarn": true,
-        "protectitem": "Makarakarn",
         "desc": "The user protects their ally from all Magic Skills.",
         "target": "one",
         "atktype": "physical"
+    },
+    "Pulinpa": {
+        "cost": 20,
+        "costtype": "mp",
+        "type": "status",
+        "status": "brainwash",
+        "statuschance": 40,
+        "target": "one",
+        "name": "Pulinpa"
     },
     "Roar": {
         "cost": 5,
@@ -3501,29 +4848,40 @@
         "atktype": "physical"
     },
     "FreezingAir": {
-        "cost": 5,
+        "cost": 20,
         "costtype": "mp",
         "type": "status",
         "status": "freeze",
         "statuschance": 40,
-        "desc": "The user covers the foe in freezing gas. Inflicts Freeze 75% of the time.",
+        "desc": "The user covers the foe in freezing gas. Inflicts Freeze 40% of the time.",
         "target": "one",
         "name": "FreezingAir",
         "atktype": "physical"
     },
     "ThunderWings": {
-        "cost": 5,
+        "cost": 20,
         "costtype": "mp",
         "type": "status",
         "status": "paralyze",
         "statuschance": 40,
-        "desc": "The user flaps their wings to produce electrical friction. Inflicts Paralysis 75% of the time.",
+        "desc": "The user flaps their wings to produce electrical friction. Inflicts Paralysis 40% of the time.",
         "target": "one",
-        "name": "ThunderWings",
+        "name": "Thunder Wings",
         "atktype": "physical"
     },
+    "ThunderWave": {
+        "cost": 20,
+        "costtype": "mp",
+        "type": "status",
+        "status": "paralyze",
+        "statuschance": 40,
+        "desc": "The user discharges sparks of electricity to paralyse the foe. Inflicts paralysis 40% of the time.",
+        "target": "one",
+        "name": "Thunder Wave",
+        "atktype": "magic"
+    },
     "Embers": {
-        "cost": 5,
+        "cost": 20,
         "costtype": "mp",
         "type": "status",
         "status": "burn",
@@ -3533,7 +4891,7 @@
         "name": "Embers"
     },
     "Taunt": {
-        "cost": 5,
+        "cost": 20,
         "costtype": "mp",
         "type": "status",
         "status": "rage",
@@ -3542,8 +4900,17 @@
         "target": "one",
         "name": "Taunt"
     },
+    "FiendishThinking": {
+        "name": "Fiendish Thinking",
+        "cost": 12,
+        "costtype": "mp",
+        "type": "status",
+        "target": "caster",
+        "buff": "atk",
+        "desc": "Buffs the caster's attack."
+    },
     "Tarukaja": {
-        "cost": 6,
+        "cost": 12,
         "costtype": "mp",
         "type": "status",
         "target": "one",
@@ -3552,7 +4919,7 @@
         "name": "Tarukaja"
     },
     "Makakaja": {
-        "cost": 6,
+        "cost": 12,
         "costtype": "mp",
         "type": "status",
         "target": "one",
@@ -3562,7 +4929,7 @@
         "atktype": "magic"
     },
     "Rakukaja": {
-        "cost": 6,
+        "cost": 12,
         "costtype": "mp",
         "type": "status",
         "target": "one",
@@ -3571,16 +4938,15 @@
         "name": "Rakukaja"
     },
     "Rakunda": {
-        "cost": 8,
-        "costtype": "mp",
+        "name": "Rakunda",
         "type": "status",
-        "target": "one",
-        "debuff": "end",
-        "desc": "Buffs one ally's defense.",
-        "name": "Rakunda"
+        "cost": 12,
+        "costtype": "mp",
+        "desc": "Use this to lower an enemy's End by one stage",
+        "debuff": "end"
     },
     "Sukukaja": {
-        "cost": 6,
+        "cost": 12,
         "costtype": "mp",
         "type": "status",
         "target": "one",
@@ -3588,14 +4954,50 @@
         "desc": "Buffs one ally's agility.",
         "name": "Sukukaja"
     },
+    "Masukukaja": {
+        "cost": 24,
+        "costtype": "mp",
+        "type": "status",
+        "target": "allallises",
+        "buff": "agl",
+        "desc": "Buffs all allies' agility.",
+        "name": "Sukukaja"
+    },
+    "Visunda": {
+        "cost": 12,
+        "costtype": "mp",
+        "type": "status",
+        "target": "one",
+        "debuff": "prc",
+        "desc": "Debuffs one foe's perception.",
+        "name": "Visunda",
+        "atktype": "magic"
+    },
     "Visukaja": {
-        "cost": 6,
+        "cost": 12,
         "costtype": "mp",
         "type": "status",
         "target": "one",
         "buff": "prc",
         "desc": "Buffs one ally's perception.",
         "name": "Visukaja",
+        "atktype": "magic"
+    },
+    "Mavisukaja": {
+        "name": "Mavisukaja",
+        "type": "status",
+        "cost": 24,
+        "costtype": "mp",
+        "desc": "Raises all allies Perception by one stage"
+    },
+    "Dekunda": {
+        "cost": 32,
+        "costtype": "mp",
+        "type": "status",
+        "target": "allallies",
+        "dekunda": true,
+        "desc": "Removes debuffs of all allies.",
+        "name": "Dekunda",
         "atktype": "magic"
     },
     "MindReader": {
@@ -3613,9 +5015,31 @@
         "costtype": "mp",
         "type": "status",
         "autoguard": true,
-        "protectitem": "a Gaster Blaster",
+        "shield": "shield",
         "desc": "The user protects their ally with a Gaster Blaster.",
-        "target": "one",
+        "target": "ally",
+        "atktype": "physical"
+    },
+    "BoneShield": {
+        "name": "Bone Shield",
+        "cost": 20,
+        "costtype": "mp",
+        "type": "status",
+        "autoguard": true,
+        "shield": "shield",
+        "desc": "The user protects themselves with a bone.",
+        "target": "caster",
+        "atktype": "physical"
+    },
+    "ElectricalShield": {
+        "name": "Electrical Shield",
+        "cost": 20,
+        "costtype": "mp",
+        "type": "status",
+        "autoguard": true,
+        "shield": "shield",
+        "desc": "The user protects an ally with an electrical shield.",
+        "target": "ally",
         "atktype": "physical"
     },
     "Glare": {
@@ -3652,7 +5076,7 @@
         "atktype": "physical"
     },
     "Matarukaja": {
-        "cost": 12,
+        "cost": 24,
         "costtype": "mp",
         "type": "status",
         "target": "allallies",
@@ -3662,7 +5086,7 @@
         "atktype": "physical"
     },
     "Mamakakaja": {
-        "cost": 12,
+        "cost": 24,
         "costtype": "mp",
         "type": "status",
         "target": "allallies",
@@ -3672,44 +5096,52 @@
         "atktype": "magic"
     },
     "Makanda": {
-        "cost": 6,
+        "name": "Makanda",
+        "cost": 24,
         "costtype": "mp",
         "type": "status",
         "debuff": "mag",
         "desc": "Debuffs one foe's magic.",
         "target": "one",
-        "name": "Makanda",
+        "atktype": "magic"
+    },
+    "Marakunda": {
+        "name": "Marakunda",
+        "cost": 24,
+        "costtype": "mp",
+        "type": "status",
+        "debuff": "end",
+        "desc": "Debuffs all foes' endurance.",
+        "target": "allopposing",
         "atktype": "magic"
     },
     "Debilitate": {
-        "cost": 20,
+        "name": "Debilitate",
+        "cost": 32,
         "costtype": "mp",
         "type": "status",
         "debuff": "all",
         "desc": "Debuffs all of the foe's stats.",
         "target": "one",
-        "name": "Debilitate",
         "atktype": "magic"
     },
     "IcySpirit": {
+        "name": "Icy Spirit",
         "cost": 15,
         "costtype": "mp",
         "type": "status",
         "target": "allallies",
         "buff": "mag",
         "desc": "Buffs all allies' magic.",
-        "name": "IcySpirit",
         "atktype": "physical"
     },
     "FreezingTemps": {
-        "cost": 15,
-        "costtype": "mp",
-        "type": "status",
-        "target": "allopposing",
-        "debuff": "atk",
-        "desc": "Debuffs all opponents' attack.",
         "name": "FreezingTemps",
-        "atktype": "physical"
+        "type": "status",
+        "cost": 24,
+        "costtype": "mp",
+        "desc": "The user surrounds the foe with freezing temperatures, making them too cold and debuffing their attack stat.",
+        "debuff": "atk"
     },
     "HeartSwap": {
         "name": "Heart Swap",
@@ -3722,7 +5154,7 @@
     },
     "Mimic": {
         "type": "status",
-        "cost": 50,
+        "cost": 42,
         "costtype": "mppercent",
         "desc": "Transforms into the opponent for 2 turns.",
         "mimic": {
@@ -3743,7 +5175,7 @@
     },
     "Tanukimation": {
         "type": "status",
-        "cost": 35,
+        "cost": 42,
         "costtype": "mppercent",
         "desc": "Transforms into the opponent for 2 turns.",
         "mimic": {
@@ -3757,7 +5189,7 @@
     "De-Tanukimation": {
         "type": "status",
         "unmimic": true,
-        "desc": "Manually reverts to normal, after mimicking an opponent.",
+        "desc": "Manually reverts to normal, after becoming an opponent.",
         "target": "one",
         "name": "De-Tanukimation",
         "atktype": "physical"
@@ -3775,8 +5207,24 @@
             "turns": 2
         },
         "target": "one",
-        "name": "TimeAccelerate",
+        "name": "Time-Accelerate",
         "atktype": "physical"
+    },
+    "BurningCurse": {
+        "name": "Burning Curse",
+        "type": "status",
+        "cost": 20,
+        "costtype": "mp",
+        "desc": "Lays a curse on the foe that inflicts heavy fire damage in two turns.",
+        "target": "one",
+        "atktype": "magic",
+        "futuresight": {
+            "pow": 350,
+            "acc": 95,
+            "type": "fire",
+            "atktype": "magic",
+            "turns": 2
+        }
     },
     "Harmonics": {
         "type": "status",
@@ -3842,7 +5290,7 @@
         "acc": 85,
         "type": "status",
         "status": "burn",
-        "statuschance": 85,
+        "statuschance": 50,
         "atktype": "physical",
         "target": "one",
         "desc": "The user shoots a sinister, bluish-white flame at the target to inflict a burn."
@@ -3861,7 +5309,7 @@
         "cost": 10,
         "costtype": "mppercent",
         "desc": "The user tenses its muscles to bulk up its body, raising both its Attack and Defense stats.",
-        "buff": "attack"
+        "buff": "atk"
     },
     "TailWhip": {
         "name": "TailWhip",
@@ -3871,28 +5319,235 @@
         "desc": "The user wags its tail cutely, making opposing foes less wary and lowering their endurance.",
         "debuff": "end"
     },
+    "Hypnosis": {
+        "name": "Hypnosis",
+        "type": "status",
+        "cost": 30,
+        "costtype": "mppercent",
+        "desc": "The user employs hypnotic suggestion to make the target fall into a deep sleep.",
+        "status": "sleep",
+        "statuschance": 60
+    },
+    "WebTrap": {
+        "name": "Web Trap",
+        "type": "status",
+        "cost": 20,
+        "costtype": "mp",
+        "desc": "The user puts up a web. If attacked by a physical attack after, the power is halved, weaknesses are nullified, and the attacker's agility is debuffed.",
+        "trap": true,
+        "effect": [
+            "debuff",
+            "agl"
+        ],
+        "target": "caster"
+    },
+    "ElectricTrap": {
+        "name": "Electric Trap",
+        "type": "status",
+        "cost": 20,
+        "costtype": "mp",
+        "desc": "The user puts up an electrical trap. If attacked by a physical attack after, the power is halved, weaknesses are nullified, and the attacker is paralyzed.",
+        "trap": true,
+        "effect": [
+            "status",
+            "paralyze"
+        ],
+        "target": "caster"
+    },
+    "FlareTrap": {
+        "name": "Flare Trap",
+        "type": "status",
+        "cost": 20,
+        "costtype": "mp",
+        "desc": "The user puts up an electrical trap. If attacked by a physical attack after, the power is halved, weaknesses are nullified, and the attacker is burned.",
+        "trap": true,
+        "effect": [
+            "status",
+            "burn"
+        ],
+        "target": "caster"
+    },
+    "Marakukaja": {
+        "name": "Marakukaja",
+        "type": "status",
+        "cost": 32,
+        "costtype": "mp",
+        "desc": "Buffs all allies' Endurance stats.",
+        "buff": "end"
+    },
+    "BurningTemps": {
+        "name": "BurningTemps",
+        "type": "status",
+        "cost": 24,
+        "costtype": "mp",
+        "desc": "The user surrounds the foe with burning temperatures, making them too hot and debuffing their attack stat.",
+        "debuff": "atk"
+    },
+    "Sukunda": {
+        "name": "Sukunda",
+        "type": "status",
+        "cost": 8,
+        "costtype": "mp",
+        "desc": "Debuff to the foe's agility",
+        "debuff": "agility"
+    },
+    "Mavisunda": {
+        "name": "Mavisunda",
+        "type": "status",
+        "cost": 24,
+        "costtype": "mp",
+        "desc": "Debuff to the opposing side's perception.",
+        "debuff": "perception"
+    },
+    "Makunda": {
+        "name": "Makunda",
+        "type": "status",
+        "cost": 8,
+        "costtype": "mp",
+        "desc": "This move will reduce an opponent's Magic by a single stage",
+        "debuff": "mag",
+        "target": "one"
+    },
+    "GrassyTerrain": {
+        "name": "Grassy Terrain",
+        "type": "status",
+        "cost": 20,
+        "costtype": "mp",
+        "desc": "The user starts up a grassy terrain to heal everyone on their turn.",
+        "terrain": "grassy"
+    },
+    "Alakunda": {
+        "name": "Alakunda",
+        "type": "status",
+        "cost": 64,
+        "costtype": "mp",
+        "desc": "The user debuffs every single stat of the foes.",
+        "debuff": "all",
+        "target": "allopposing"
+    },
+    "Poisma": {
+        "name": "Poisma",
+        "type": "status",
+        "cost": 20,
+        "costtype": "mp",
+        "desc": "The user covers the foe in a poisonous gas that may inflict poison",
+        "status": "poison",
+        "statuschance": 40
+    },
+    "Charge": {
+        "cost": 10,
+        "costtype": "mp",
+        "type": "status",
+        "target": "caster",
+        "buff": "mag",
+        "desc": "Buffs the caster's magic.",
+        "name": "Charge",
+        "atktype": "magic"
+    },
+    "SleepPowder": {
+        "name": "SleepPowder",
+        "type": "status",
+        "cost": 10,
+        "costtype": "mp",
+        "desc": "The user scatters a big cloud of sleep-inducing dust around the target.",
+        "status": "sleep",
+        "statuschance": 20
+    },
+    "PoisonPowder": {
+        "name": "PoisonPowder",
+        "type": "status",
+        "cost": 10,
+        "costtype": "mp",
+        "desc": "The user scatters a cloud of poisonous dust that poisons the target.",
+        "status": "poison",
+        "statuschance": 20
+    },
+    "SwordsDance": {
+        "name": "SwordsDance",
+        "type": "status",
+        "cost": 5,
+        "costtype": "mp",
+        "desc": "A frenetic dance to uplift the fighting spirit. This sharply raises the user’s Attack stat.",
+        "buff": "atk",
+        "target": "caster"
+    },
+    "SunnyDay": {
+        "name": "SunnyDay",
+        "type": "status",
+        "cost": 10,
+        "costtype": "mppercent",
+        "desc": "The user intensifies the sun for five turns, powering up Fire type moves. It lowers the power of Water and Grass type moves.",
+        "weather": "sunlight"
+    },
+    "RainDance": {
+        "name": "RainDance",
+        "type": "status",
+        "cost": 10,
+        "costtype": "mppercent",
+        "desc": "The user summons a heavy rain that falls for five turns, powering up Water type moves. It lowers the power of Fire type moves.",
+        "weather": "rain"
+    },
+    "Hopamuda": {
+        "name": "Hopamuda",
+        "cost": 8,
+        "costtype": "mppercent",
+        "pow": 30,
+        "acc": 85,
+        "crit": 3,
+        "type": "status",
+        "status": "dizzy",
+        "statuschance": 10,
+        "atktype": "magic",
+        "target": "allopposing",
+        "desc": "A string of words... Well, letters, directed at all enemies. Moderate chance at causing Dizzy."
+    },
+    "Taiyo-ken": {
+        "name": "Taiyo-ken",
+        "cost": 20,
+        "costtype": "mp",
+        "pow": 60,
+        "acc": 95,
+        "type": "status",
+        "status": "freeze",
+        "statuschance": 30,
+        "atktype": "magic",
+        "target": "allopposing",
+        "desc": "Use a huge flash of light used to disorient and cause your opponent to freeze up"
+    },
+    "IcyGuard": {
+        "name": "IcyGuard",
+        "type": "status",
+        "cost": 16,
+        "costtype": "mp",
+        "desc": "The user uses their Ice powers to raise up a single ally's endurance.",
+        "buff": "end",
+        "target": "one"
+    },
+    "NuclearTrap": {
+        "name": "NuclearTrap",
+        "type": "status",
+        "cost": 20,
+        "costtype": "mp",
+        "desc": "The user puts up a nuclear trap. If attacked by a physical attack after, the power is halved, weaknesses are nullified and the attacker is poisoned.",
+        "trap": true,
+        "trapType": {
+            "name": "NuclearTrap",
+            "effect": [
+                "poison",
+                "100"
+            ]
+        }
+    },
     "EnergyRing": {
         "costtype": "mppercent",
         "cost": 15,
         "pow": 10,
         "type": "heal",
-        "healall": true,
+        "target": "allallies",
         "healmp": true,
         "atktype": "magic",
         "desc": "The user restores their allies' MP by 45.",
-        "target": "one",
         "name": "Energy Ring"
-    },
-    "ChillyWinds": {
-        "costtype": "mppercent",
-        "cost": 12,
-        "pow": 50,
-        "type": "heal",
-        "healall": true,
-        "atktype": "magic",
-        "desc": "The user restores their allies' HP by 50.",
-        "target": "one",
-        "name": "Chilly Winds"
     },
     "RevitalizingAura": {
         "costtype": "mp",
@@ -3911,30 +5566,47 @@
         "type": "heal",
         "desc": "The user heals one ally for 60 HP.",
         "target": "one",
-        "name": "Dia",
-        "atktype": "physical"
+        "name": "Dia"
     },
     "Media": {
         "costtype": "mp",
-        "cost": 4,
+        "cost": 8,
         "pow": 60,
         "type": "heal",
-        "healall": true,
+        "target": "allallies",
         "desc": "The user heals all allies for 60 HP.",
+        "name": "Media"
+    },
+    "Smooch": {
+        "name": "Smooch",
+        "cost": 7,
+        "costtype": "mppercent",
+        "pow": 75,
+        "acc": 999,
+        "type": "heal",
+        "atktype": "magic",
         "target": "one",
-        "name": "Media",
-        "atktype": "physical"
+        "desc": "Smooch an ally to give them a refreshing recovery by 75 HP."
     },
     "HealRing": {
-        "costtype": "mppercent",
-        "cost": 5,
+        "costtype": "mp",
+        "cost": 13,
         "pow": 80,
         "type": "heal",
-        "healall": true,
+        "target": "allallies",
         "atktype": "magic",
         "desc": "The user restores their allies' HP by 80.",
-        "target": "one",
         "name": "HealRing"
+    },
+    "SoulConversion": {
+        "name": "Soul Conversion",
+        "cost": 10,
+        "costtype": "mppercent",
+        "pow": 100,
+        "mptohp": true,
+        "type": "heal",
+        "target": "caster",
+        "desc": "Convert your MP into HP."
     },
     "Undead-Like_(Teammates)": {
         "name": "Undead-Like_(Teammates)",
@@ -3963,12 +5635,20 @@
         "cost": 15,
         "pow": 120,
         "type": "heal",
-        "healall": true,
+        "target": "allallies",
         "healmp": true,
         "atktype": "magic",
         "desc": "The user restores their allies' MP by 120.",
-        "target": "one",
         "name": "EnergyAria"
+    },
+    "Mediarama": {
+        "costtype": "mp",
+        "cost": 16,
+        "pow": 140,
+        "type": "heal",
+        "target": "allallies",
+        "desc": "The user heals all allies for 140 HP.",
+        "name": "Mediarama"
     },
     "Diarama": {
         "costtype": "mp",
@@ -3992,25 +5672,54 @@
     },
     "HealAria": {
         "name": "Heal Aria",
-        "costtype": "mppercent",
-        "cost": 10,
+        "costtype": "mp",
+        "cost": 20,
         "pow": 150,
         "type": "heal",
-        "healall": true,
+        "target": "allallies",
         "atktype": "magic",
-        "desc": "The user restores their allies' HP by 150.",
-        "target": "one"
+        "desc": "The user restores their allies' HP by 150."
+    },
+    "CoolBreeze": {
+        "name": "Cool Breeze",
+        "costtype": "mp",
+        "cost": 30,
+        "pow": 150,
+        "type": "heal",
+        "target": "ally",
+        "atktype": "magic",
+        "desc": "The user restores their allies' HP by 150."
+    },
+    "ChillyWinds": {
+        "costtype": "mppercent",
+        "cost": 20,
+        "pow": 200,
+        "type": "heal",
+        "target": "allallies",
+        "atktype": "magic",
+        "desc": "The user restores their allies' HP by 200.",
+        "name": "Chilly Winds"
     },
     "HealMelody": {
         "name": "Heal Melody",
-        "costtype": "mppercent",
-        "cost": 13,
+        "costtype": "mp",
+        "cost": 30,
         "pow": 215,
         "type": "heal",
-        "healall": true,
+        "target": "allallies",
         "atktype": "magic",
-        "desc": "The user uses psychic powers to restore their allies' HP by 215.",
-        "target": "one"
+        "desc": "The user uses psychic powers to restore their allies' HP by 215."
+    },
+    "Kindness": {
+        "name": "Kindness",
+        "cost": 55,
+        "costtype": "mp",
+        "pow": 300,
+        "acc": 95,
+        "type": "heal",
+        "atktype": "magic",
+        "target": "allallies",
+        "desc": "Interesting healing power that restores 300 HP to all allies."
     },
     "Diarahan": {
         "costtype": "mp",
@@ -4039,27 +5748,57 @@
         "type": "heal",
         "desc": "The user fully heals one ally.",
         "target": "one",
-        "name": "RefreshingLightshow",
+        "name": "Refreshing Lightshow",
         "atktype": "physical"
     },
-    "CuringAura": {
-        "costtype": "mppercent",
-        "cost": 20,
+    "Patra": {
+        "costtype": "mp",
+        "cost": 6,
         "type": "heal",
         "statusheal": true,
-        "target": "allallies",
-        "desc": "The user cures all allies of their status ailments.",
-        "name": "CuringAura",
+        "desc": "The user cures one ally of their status ailments.",
+        "name": "Curing Aura",
         "atktype": "physical"
+    },
+    "MePatra": {
+        "costtype": "mp",
+        "cost": 12,
+        "type": "heal",
+        "target": "allallies",
+        "healall": true,
+        "statusheal": true,
+        "desc": "The user cures their allies of their status ailments.",
+        "name": "Me Patra",
+        "atktype": "magic"
+    },
+    "CuringAura": {
+        "costtype": "mp",
+        "cost": 6,
+        "type": "heal",
+        "statusheal": true,
+        "desc": "The user cures one ally of their status ailments.",
+        "name": "Curing Aura",
+        "atktype": "physical"
+    },
+    "CuringWall": {
+        "costtype": "mp",
+        "cost": 12,
+        "type": "heal",
+        "target": "allallies",
+        "healall": true,
+        "statusheal": true,
+        "desc": "The user cures their allies of their status ailments.",
+        "name": "Curing Wall",
+        "atktype": "magic"
     },
     "LifePowder": {
         "costtype": "mp",
-        "cost": 30,
+        "cost": 8,
         "revive": 3,
         "type": "heal",
         "desc": "The user revives a downed ally, with a 3rd of their max HP",
         "target": "one",
-        "name": "LifePowder",
+        "name": "Life Powder",
         "atktype": "physical"
     },
     "Recarm": {
@@ -4082,25 +5821,29 @@
         "name": "Samarecarm",
         "atktype": "physical"
     },
-    "DodgePhys": {
-        "name": "Dodge Phys",
-        "pow": 10,
-        "type": "passive",
-        "passive": "dodgephys",
-        "desc": "A Passive Skill that raises evasion chance against physical skills.",
-        "target": "one",
-        "atktype": "physical"
-    },
-    "IceBoost": {
-        "name": "IceBoost",
-        "type": "passive",
-        "desc": "15% increase of Ice power"
+    "Bloom": {
+        "name": "Bloom",
+        "cost": 20,
+        "costtype": "mp",
+        "pow": 200,
+        "acc": 100,
+        "type": "heal",
+        "atktype": "magic",
+        "target": "ally",
+        "desc": "The user blooms and hands the things they produce to an ally, restoring 200 HP."
     },
     "RegenI": {
         "name": "Regenerate I",
         "type": "passive",
         "desc": "The user recovers 5% of their Max HP at the start of every turn.",
         "passive": "regen",
+        "pow": 5
+    },
+    "InvigI": {
+        "name": "Invigorate I",
+        "type": "passive",
+        "desc": "The user recovers 5% of their Max MP at the start of every turn.",
+        "passive": "invig",
         "pow": 5
     },
     "InvigII": {
@@ -4110,6 +5853,13 @@
         "passive": "invig",
         "pow": 6
     },
+    "RegenII": {
+        "name": "Regenerate II",
+        "type": "passive",
+        "desc": "The user recovers 6% of their Max HP at the start of every turn.",
+        "passive": "regen",
+        "pow": 6
+    },
     "InvigIII": {
         "name": "Invigorate III",
         "type": "passive",
@@ -4117,24 +5867,20 @@
         "passive": "invig",
         "pow": 8
     },
-    "FreezeBoost": {
-        "pow": 15,
+    "RegenIII": {
+        "name": "Regenerate III",
         "type": "passive",
-        "passive": "boost",
-        "boosttype": "ice",
-        "desc": "A Passive Skill that boosts Ice Type Skills by 15%.",
-        "target": "one",
-        "name": "FreezeBoost",
-        "atktype": "physical"
+        "desc": "The user recovers 8% of their Max HP at the start of every turn.",
+        "passive": "regen",
+        "pow": 8
     },
-    "PsyBoost": {
-        "pow": 15,
+    "DodgePhys": {
+        "name": "Dodge Phys",
+        "pow": 10,
         "type": "passive",
-        "passive": "boost",
-        "boosttype": "psychic",
-        "desc": "A Passive Skill that boosts Psychic Type Skills by 15%.",
+        "passive": "dodgephys",
+        "desc": "A Passive Skill that raises evasion chance against physical skills.",
         "target": "one",
-        "name": "PsyBoost",
         "atktype": "physical"
     },
     "RestoringAura": {
@@ -4143,258 +5889,36 @@
         "passive": "healmponturn",
         "desc": "A Passive Skill that restores 15 MP every turn.",
         "target": "one",
-        "name": "RestoringAura",
+        "name": "Restoring Aura",
+        "atktype": "physical"
+    },
+    "FreezeBoost": {
+        "name": "Freeze Boost",
+        "pow": 15,
+        "type": "passive",
+        "passive": "boost",
+        "boosttype": "ice",
+        "desc": "A Passive Skill that boosts Ice Type Skills by 15%.",
+        "target": "one",
+        "atktype": "physical"
+    },
+    "PsyBoost": {
+        "name": "Psy Boost",
+        "pow": 15,
+        "type": "passive",
+        "passive": "boost",
+        "boosttype": "psychic",
+        "desc": "A Passive Skill that boosts Psychic Type Skills by 15%.",
+        "target": "one",
         "atktype": "physical"
     },
     "FireBoost": {
-        "name": "FireBoost",
+        "name": "Fire Boost",
         "type": "passive",
         "desc": "The user's Fire Type Skills have their power boosted by 15%.",
         "passive": "boost",
         "boosttype": "fire",
         "pow": 15
-    },
-    "HealingAura": {
-        "pow": 18,
-        "type": "passive",
-        "passive": "healonturn",
-        "desc": "A Passive Skill that restores 18 HP every turn.",
-        "target": "one",
-        "name": "HealingAura",
-        "atktype": "physical"
-    },
-    "MoltenBody": {
-        "pow": 20,
-        "type": "passive",
-        "passive": "damagephys",
-        "desc": "A Passive Skill that damages the attacker if they use a physical skill.",
-        "target": "one",
-        "name": "MoltenBody",
-        "atktype": "physical"
-    },
-    "FireAmp": {
-        "name": "FireAmp",
-        "type": "passive",
-        "desc": "The user's Fire Type Skills have their power boosted by 30%.",
-        "passive": "boost",
-        "boosttype": "fire",
-        "pow": 30
-    },
-    "FreezeAmp": {
-        "pow": 30,
-        "type": "passive",
-        "passive": "boost",
-        "boosttype": "ice",
-        "desc": "A Passive Skill that boosts Ice Type Skills by 30%.",
-        "target": "one",
-        "name": "FreezeAmp",
-        "atktype": "physical"
-    },
-    "PsyAmp": {
-        "pow": 30,
-        "type": "passive",
-        "passive": "boost",
-        "boosttype": "psychic",
-        "desc": "A Passive Skill that boosts Psychic Type Skills by 30%.",
-        "target": "one",
-        "name": "PsyAmp",
-        "atktype": "physical"
-    },
-    "FreezeAura": {
-        "pow": 45,
-        "type": "passive",
-        "passive": "boost",
-        "boosttype": "ice",
-        "desc": "A Passive Skill that boosts Ice Type Skills by 45%.",
-        "target": "one",
-        "name": "Freeze Aura",
-        "atktype": "physical"
-    },
-    "PsyAura": {
-        "pow": 45,
-        "type": "passive",
-        "passive": "boost",
-        "boosttype": "psychic",
-        "desc": "A Passive Skill that boosts Psychic Type Skills by 45%.",
-        "target": "one",
-        "name": "Psy Aura",
-        "atktype": "physical"
-    },
-    "PsyEssence": {
-        "pow": 60,
-        "type": "passive",
-        "passive": "boost",
-        "boosttype": "psychic",
-        "desc": "A Passive Skill that boosts Psychic Type Skills by 60%.",
-        "target": "one",
-        "name": "Psy Essence",
-        "atktype": "physical"
-    },
-    "FreezeEssence": {
-        "pow": 60,
-        "type": "passive",
-        "passive": "boost",
-        "boosttype": "ice",
-        "desc": "A Passive Skill that boosts Ice Type Skills by 60%.",
-        "target": "one",
-        "name": "Freeze Essence",
-        "atktype": "physical"
-    },
-    "ShadowCounter": {
-        "name": "Shadow Counter",
-        "type": "passive",
-        "passive": "counterphys",
-        "desc": "Delve into the shadows to avoid attacks and counter them.",
-        "counter": {
-            "chance": 12,
-            "skill": {
-                "name": "Shadow Counter",
-                "acc": 90,
-                "pow": 80,
-                "crit": 5,
-                "type": "pierce",
-                "atktype": "physical"
-            }
-        },
-        "target": "one",
-        "atktype": "physical"
-    },
-    "SidestepCounter": {
-        "name": "Sidestep Counter",
-        "type": "passive",
-        "passive": "counterphys",
-        "desc": "A Passive Skill that raises evasion chance against physical skills by about 15%, and counters them.",
-        "counter": {
-            "chance": 15,
-            "skill": {
-                "name": "Sidestep Counter",
-                "acc": 90,
-                "pow": 80,
-                "crit": 5,
-                "type": "slash",
-                "atktype": "physical"
-            }
-        },
-        "target": "one",
-        "atktype": "physical"
-    },
-    "ElusionCounterattack": {
-        "name": "Elusion Counterattack",
-        "type": "passive",
-        "passive": "counterphys",
-        "desc": "A Passive Skill that raises evasion chance against physical skills by about 30%, and counters them.",
-        "counter": {
-            "chance": 25,
-            "skill": {
-                "name": "Elusion Counterattack",
-                "acc": 90,
-                "pow": 120,
-                "crit": 10,
-                "type": "slash",
-                "atktype": "physical"
-            }
-        },
-        "target": "one",
-        "atktype": "physical"
-    },
-    "SidestepCounter-God": {
-        "name": "Godly Aura",
-        "type": "passive",
-        "passive": "counterphys",
-        "desc": "Counters all Physical Skills",
-        "counter": {
-            "chance": 999,
-            "skill": {
-                "name": "Godly Aura",
-                "acc": 99,
-                "pow": 999,
-                "crit": 99,
-                "type": "almighty",
-                "atktype": "physical"
-            }
-        },
-        "target": "one",
-        "atktype": "physical"
-    },
-    "ProjectileRedirection": {
-        "type": "passive",
-        "passive": "repelmag",
-        "repeltypes": [
-            "strike",
-            "pierce",
-            "slash"
-        ],
-        "desc": "A Passive Skill that stops time to repel Magic Attacks that are Strike, Pierce or Slash, back at the opponent.",
-        "target": "one",
-        "name": "ProjectileRedirection",
-        "atktype": "physical"
-    },
-    "Navinity": {
-        "type": "passive",
-        "passive": "affinitypoint",
-        "desc": "Every time the current Navigator uses a skill that helps the team in some way, the user's affinity count raises by 1 and maxes at 10. When the battle ends the user's affinity count resets to 0.",
-        "target": "one",
-        "name": "Navinity",
-        "atktype": "physical"
-    },
-    "RestoringLight": {
-        "name": "RestoringLight",
-        "type": "passive",
-        "desc": "This skill restores 35 HP per turn.",
-        "passive": "healonturn",
-        "pow": 35
-    },
-    "FireTurbo": {
-        "name": "FireTurbo",
-        "type": "passive",
-        "desc": "The user's Fire Type Skills have their power boosted by 45%.",
-        "passive": "boost",
-        "boosttype": "fire",
-        "pow": 45
-    },
-    "FireAura": {
-        "name": "FireAura",
-        "type": "passive",
-        "desc": "The user's Fire Type Skills have their power boosted by 60%.",
-        "passive": "boost",
-        "boosttype": "fire",
-        "pow": 60
-    },
-    "IceAmp": {
-        "name": "IceAmp",
-        "type": "passive",
-        "desc": "Boosts ice-type attack skill power by 30%"
-    },
-    "IceTurbo": {
-        "name": "IceTurbo",
-        "type": "passive",
-        "desc": "Buffs Ice attacks by 45%"
-    },
-    "IceAura": {
-        "name": "IceAura",
-        "type": "passive",
-        "desc": "Buffs Ice attacks by a whole 60%"
-    },
-    "InvigI": {
-        "name": "Invigorate I",
-        "type": "passive",
-        "desc": "The user recovers 5% of their Max MP at the start of every turn.",
-        "passive": "invig",
-        "pow": 5
-    },
-    "RegenII": {
-        "name": "Regenerate II",
-        "type": "passive",
-        "desc": "The user recovers 6% of their Max HP at the start of every turn.",
-        "passive": "regen",
-        "pow": 6
-    },
-    "RegenIII": {
-        "name": "Regenerate III",
-        "type": "passive",
-        "desc": "The user recovers 8% of their Max HP at the start of every turn.",
-        "passive": "regen",
-        "pow": 8
     },
     "CurseBoost": {
         "name": "CurseBoost",
@@ -4420,6 +5944,68 @@
         "pow": 15,
         "desc": "Powers up Electric Type Attacks by 15%."
     },
+    "NukeBoost": {
+        "name": "NukeBoost",
+        "type": "passive",
+        "desc": "Boosts Nuclear skills' power by 15%.",
+        "passive": "boost",
+        "boosttype": "15",
+        "pow": 15
+    },
+    "HardKnuckle": {
+        "name": "HardKnuckle",
+        "type": "passive",
+        "desc": "The user's Strike Type Skills are boosted by 15%.",
+        "passive": "boost",
+        "boosttype": "strike",
+        "pow": 15
+    },
+    "HealingAura": {
+        "name": "Healing Aura",
+        "pow": 18,
+        "type": "passive",
+        "passive": "healonturn",
+        "desc": "A Passive Skill that restores 18 HP every turn.",
+        "target": "one",
+        "atktype": "physical"
+    },
+    "MoltenBody": {
+        "name": "Molten Body",
+        "pow": 20,
+        "type": "passive",
+        "passive": "damagephys",
+        "desc": "A Passive Skill that damages the attacker if they use a physical skill.",
+        "target": "one",
+        "atktype": "physical"
+    },
+    "FireAmp": {
+        "name": "FireAmp",
+        "type": "passive",
+        "desc": "The user's Fire Type Skills have their power boosted by 30%.",
+        "passive": "boost",
+        "boosttype": "fire",
+        "pow": 30
+    },
+    "PsyAmp": {
+        "pow": 30,
+        "type": "passive",
+        "passive": "boost",
+        "boosttype": "psychic",
+        "desc": "A Passive Skill that boosts Psychic Type Skills by 30%.",
+        "target": "one",
+        "name": "PsyAmp",
+        "atktype": "physical"
+    },
+    "FreezeAmp": {
+        "pow": 30,
+        "type": "passive",
+        "passive": "boost",
+        "boosttype": "ice",
+        "desc": "A Passive Skill that boosts Ice Type Skills by 30%.",
+        "target": "one",
+        "name": "FreezeAmp",
+        "atktype": "physical"
+    },
     "CurseAmp": {
         "name": "CurseAmp",
         "type": "passive",
@@ -4436,13 +6022,36 @@
         "boosttype": "bless",
         "pow": 30
     },
-    "CurseTurbo": {
-        "name": "CurseTurbo",
+    "Teleport": {
+        "name": "Teleport",
         "type": "passive",
-        "desc": "Buffs Curse attacks by 45%",
+        "desc": "The user teleports out of the way of an incoming physical attack.",
+        "passive": "dodgephys",
+        "pow": 33
+    },
+    "RestoringLight": {
+        "name": "RestoringLight",
+        "type": "passive",
+        "desc": "This skill restores 35 HP per turn.",
+        "passive": "healonturn",
+        "pow": 35
+    },
+    "Swordbreaker": {
+        "name": "Swordbreaker",
+        "pow": 40,
+        "type": "passive",
+        "passive": "swordbreaker",
+        "desc": "The user has a 40% chance to change the affinity of physical attacks to resist."
+    },
+    "FreezeAura": {
+        "pow": 45,
+        "type": "passive",
         "passive": "boost",
-        "boosttype": "curse",
-        "pow": 45
+        "boosttype": "ice",
+        "desc": "A Passive Skill that boosts Ice Type Skills by 45%.",
+        "target": "one",
+        "name": "Freeze Aura",
+        "atktype": "physical"
     },
     "BlessTurbo": {
         "name": "BlessTurbo",
@@ -4452,12 +6061,75 @@
         "boosttype": "bless",
         "pow": 45
     },
+    "CurseTurbo": {
+        "name": "CurseTurbo",
+        "type": "passive",
+        "desc": "Buffs Curse attacks by 45%",
+        "passive": "boost",
+        "boosttype": "curse",
+        "pow": 45
+    },
+    "PsyAura": {
+        "pow": 45,
+        "type": "passive",
+        "passive": "boost",
+        "boosttype": "psychic",
+        "desc": "A Passive Skill that boosts Psychic Type Skills by 45%.",
+        "target": "one",
+        "name": "Psy Aura",
+        "atktype": "physical"
+    },
+    "FireTurbo": {
+        "name": "FireTurbo",
+        "type": "passive",
+        "desc": "The user's Fire Type Skills have their power boosted by 45%.",
+        "passive": "boost",
+        "boosttype": "fire",
+        "pow": 45
+    },
+    "SpikyBody": {
+        "name": "Spiky Body",
+        "pow": 50,
+        "type": "passive",
+        "passive": "damagephys",
+        "desc": "A Passive Skill that damages the attacker if they use a physical skill.",
+        "target": "one",
+        "atktype": "physical"
+    },
+    "FreezeEssence": {
+        "pow": 60,
+        "type": "passive",
+        "passive": "boost",
+        "boosttype": "ice",
+        "desc": "A Passive Skill that boosts Ice Type Skills by 60%.",
+        "target": "one",
+        "name": "Freeze Essence",
+        "atktype": "physical"
+    },
     "CurseAura": {
         "name": "CurseAura",
         "type": "passive",
         "desc": "Buffs Curse attacks by 60%",
         "passive": "boost",
         "boosttype": "curse",
+        "pow": 60
+    },
+    "PsyEssence": {
+        "pow": 60,
+        "type": "passive",
+        "passive": "boost",
+        "boosttype": "psychic",
+        "desc": "A Passive Skill that boosts Psychic Type Skills by 60%.",
+        "target": "one",
+        "name": "Psy Essence",
+        "atktype": "physical"
+    },
+    "FireAura": {
+        "name": "FireAura",
+        "type": "passive",
+        "desc": "The user's Fire Type Skills have their power boosted by 60%.",
+        "passive": "boost",
+        "boosttype": "fire",
         "pow": 60
     },
     "BlessAura": {
@@ -4467,5 +6139,183 @@
         "passive": "boost",
         "boosttype": "bless",
         "pow": 60
+    },
+    "IceBoost": {
+        "name": "IceBoost",
+        "type": "passive",
+        "passive": "boost",
+        "desc": "15% increase of Ice power"
+    },
+    "SharpParry": {
+        "name": "Sharp Parry",
+        "type": "passive",
+        "passive": "counterphys",
+        "desc": "Parry physical attacks 25% of the time.",
+        "counter": {
+            "chance": 25,
+            "skill": {
+                "name": "Sharp Parry",
+                "acc": 90,
+                "pow": 100,
+                "crit": 10,
+                "type": "slash",
+                "atktype": "physical"
+            }
+        }
+    },
+    "ShadowCounter": {
+        "name": "Shadow Counter",
+        "type": "passive",
+        "passive": "counterphys",
+        "desc": "Delve into the shadows to avoid physical attacks and counter them 20% of the time.",
+        "counter": {
+            "chance": 20,
+            "skill": {
+                "name": "Shadow Counter",
+                "acc": 90,
+                "pow": 200,
+                "crit": 5,
+                "type": "pierce",
+                "atktype": "physical"
+            }
+        }
+    },
+    "SidestepCounter": {
+        "name": "Sidestep Counter",
+        "type": "passive",
+        "passive": "counterphys",
+        "pow": 100,
+        "acc": 90,
+        "crit": 9,
+        "desc": "A Passive Skill that raises evasion chance against physical skills by about 15%, and counters them with a slash type skill with 100 power.",
+        "counter": {
+            "chance": 15,
+            "skill": {
+                "name": "Sidestep Counter",
+                "acc": 100,
+                "pow": 80,
+                "crit": 9,
+                "type": "slash",
+                "atktype": "physical"
+            }
+        },
+        "target": "one",
+        "atktype": "physical"
+    },
+    "ElusionCounterattack": {
+        "name": "Elusion Counterattack",
+        "type": "passive",
+        "passive": "counterphys",
+        "pow": 200,
+        "acc": 90,
+        "crit": 15,
+        "desc": "A Passive Skill that raises evasion chance against physical skills by about 25%, and counters them with a slash type skill with 200 power.",
+        "counter": {
+            "chance": 25,
+            "skill": {
+                "name": "Elusion Counterattack",
+                "acc": 90,
+                "pow": 200,
+                "crit": 15,
+                "type": "slash",
+                "atktype": "physical"
+            }
+        }
+    },
+    "SidestepCounter-God": {
+        "name": "Godly Aura",
+        "type": "passive",
+        "passive": "counterphys",
+        "desc": "Counters all Physical Skills",
+        "counter": {
+            "chance": 999,
+            "skill": {
+                "name": "Godly Aura",
+                "acc": 99,
+                "pow": 999,
+                "crit": 99,
+                "type": "almighty",
+                "atktype": "magic"
+            }
+        }
+    },
+    "CruelCounter": {
+        "name": "Cruel Counter",
+        "type": "passive",
+        "passive": "counterphys",
+        "desc": "A Passive Skill that raises evasion chance against physical skills by about 15%, and counters them with a pierce type skill.",
+        "counter": {
+            "chance": 15,
+            "skill": {
+                "name": "Cruel Counter",
+                "acc": 85,
+                "pow": 90,
+                "crit": 10,
+                "type": "pierce",
+                "atktype": "physical"
+            }
+        }
+    },
+    "ProjectileRedirection": {
+        "type": "passive",
+        "passive": "repelmag",
+        "repeltypes": [
+            "strike",
+            "pierce",
+            "slash"
+        ],
+        "desc": "A Passive Skill that stops time to repel Magic Attacks that are Strike, Pierce or Slash, back at the opponent.",
+        "target": "one",
+        "name": "ProjectileRedirection",
+        "atktype": "physical"
+    },
+    "Navinity": {
+        "name": "Navinity",
+        "type": "passive",
+        "passive": "affinitypoint",
+        "desc": "Every time someone uses a skill that helps the team in some way, the user's affinity count raises by 1 and maxes at 10. When the battle ends the user's affinity count resets to 0."
+    },
+    "IceAmp": {
+        "name": "IceAmp",
+        "type": "passive",
+        "desc": "Boosts ice-type attack skill power by 30%"
+    },
+    "IceTurbo": {
+        "name": "IceTurbo",
+        "type": "passive",
+        "desc": "Buffs Ice attacks by 45%"
+    },
+    "IceAura": {
+        "name": "IceAura",
+        "type": "passive",
+        "desc": "Buffs Ice attacks by a whole 60%"
+    },
+    "Counterstrike": {
+        "name": "Counterstrike",
+        "type": "passive",
+        "passive": "counterphys",
+        "counter": {
+            "chance": 30,
+            "skill": {
+                "name": "Counterstrike",
+                "pow": 125,
+                "acc": 95,
+                "type": "strike",
+                "atktype": "physical"
+            }
+        }
+    },
+    "WonderGuard": {
+        "name": "Wonder Guard",
+        "type": "passive",
+        "desc": "The user is immune to all attacking skills they are not weak to.",
+        "passive": "wonderguard"
+    },
+    "Exhaust": {
+        "name": "Exhaust",
+        "type": "passive",
+        "desc": "The user has their energy slowly drained over time. This could be for a variety of reasons, including transformations or something else.",
+        "passive": "healmponturn",
+        "pow": -3
     }
 }

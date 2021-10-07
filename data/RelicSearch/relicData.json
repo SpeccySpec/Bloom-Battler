@@ -2,130 +2,198 @@
     "332619720802959361": {
         "rolls": 10,
         "canfind": true,
-        "findcooldown": 1,
+        "findcooldown": 59,
         "stars": 0,
         "relics": []
     },
     "461050360832720904": {
         "rolls": 10,
         "canfind": true,
-        "findcooldown": 2,
-        "stars": 18,
+        "findcooldown": 60,
+        "stars": 22,
         "relics": [
             "Ultra Ball",
             "Senzu Bean",
-            "Samehada"
+            "Samehada",
+            "Kunai"
         ]
     },
     "532291526634635285": {
         "rolls": 10,
         "canfind": true,
-        "findcooldown": 4,
-        "stars": 8,
+        "findcooldown": 2,
+        "stars": 16,
         "relics": [
-            "The Chaos Emeralds"
+            "The Chaos Emeralds",
+            "Invincibility Candy"
         ],
         "userelic": "The Chaos Emeralds"
     },
     "455434131808059422": {
         "rolls": 10,
         "canfind": true,
-        "findcooldown": 6,
+        "findcooldown": 4,
         "stars": 0,
         "relics": []
     },
     "544290248734015488": {
         "rolls": 10,
         "canfind": true,
-        "findcooldown": 28,
-        "stars": 16,
+        "findcooldown": 26,
+        "stars": 36,
         "relics": [
             "Mega Ether",
-            "Coiled Nail"
+            "Coiled Nail",
+            "Master Emerald",
+            "Joker's Gun"
         ],
-        "userelic": "Mega Ether"
+        "userelic": "Master Emerald"
     },
     "516359709779820544": {
         "rolls": 10,
         "canfind": true,
-        "findcooldown": 54,
-        "stars": 14,
+        "findcooldown": 52,
+        "stars": 32,
         "relics": [
             "Super Crown",
-            "Senzu Bean"
+            "Senzu Bean",
+            "Invincibility Leaf",
+            "Mega Potion"
         ],
-        "userelic": "Super Crown"
+        "userelic": "Invincibility Leaf"
     },
     "441198920668938260": {
         "rolls": 10,
         "canfind": true,
-        "findcooldown": 55,
-        "stars": 0,
-        "relics": []
+        "findcooldown": 53,
+        "stars": 18,
+        "relics": [
+            "The 7 Dragon Balls",
+            "Mega Ether"
+        ]
     },
     "285347786218799104": {
         "rolls": 10,
         "canfind": true,
-        "findcooldown": 9,
+        "findcooldown": 7,
         "stars": 0,
         "relics": []
     },
     "498041248616153098": {
         "rolls": 10,
         "canfind": true,
-        "findcooldown": 24,
+        "findcooldown": 22,
         "stars": 0,
         "relics": []
     },
     "422509808713990165": {
         "rolls": 10,
         "canfind": true,
-        "findcooldown": 28,
+        "findcooldown": 26,
         "stars": 0,
         "relics": []
     },
     "500703373926858907": {
         "rolls": 10,
         "canfind": true,
-        "findcooldown": 53,
+        "findcooldown": 51,
         "stars": 0,
         "relics": []
     },
     "746561571530080276": {
         "rolls": 10,
         "canfind": true,
-        "findcooldown": 8,
+        "findcooldown": 6,
         "stars": 0,
         "relics": []
     },
     "673977817263767591": {
         "rolls": 10,
         "canfind": true,
-        "findcooldown": 35,
+        "findcooldown": 33,
         "stars": 0,
         "relics": []
     },
     "412328234198237189": {
         "rolls": 10,
         "canfind": true,
-        "findcooldown": 1,
-        "stars": 6,
+        "findcooldown": 59,
+        "stars": 14,
         "relics": [
-            "Channelled Nail"
+            "Channelled Nail",
+            "Super Crown"
         ],
         "userelic": "Channelled Nail"
     },
     "532601881915031553": {
         "rolls": 10,
         "canfind": true,
-        "findcooldown": 37,
+        "findcooldown": 35,
         "stars": 0,
         "relics": []
     },
     "427239800978931712": {
         "rolls": 10,
         "canfind": true,
-        "findcooldown": 18,
+        "findcooldown": 16,
+        "stars": 0,
+        "relics": []
+    },
+    "642841151484985365": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 51,
+        "stars": 0,
+        "relics": []
+    },
+    "530545842822578178": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 40,
+        "stars": 0,
+        "relics": []
+    },
+    "287581629839572992": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 24,
+        "stars": 0,
+        "relics": []
+    },
+    "539885676653576222": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 53,
+        "stars": 0,
+        "relics": []
+    },
+    "569923593694216222": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 32,
+        "stars": 0,
+        "relics": []
+    },
+    "712602499823042620": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 39,
+        "stars": 4,
+        "relics": [
+            "Yellow Wisp"
+        ]
+    },
+    "457176118110191617": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 1,
+        "stars": 0,
+        "relics": []
+    },
+    "260198755754573825": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 22,
         "stars": 0,
         "relics": []
     }

@@ -22,6 +22,9 @@ const client = new Discord.Client({
 	]
 });
 
+//Canvas, for making custom pictures.
+const Canvas = require('canvas');
+
 // Bot Stuff
 const utilityFuncs = require('./Packages/utilityFuncs.js');
 const charFuncs = require('./Packages/charFuncs.js');
@@ -30,7 +33,13 @@ const attackFuncs = require('./Packages/attackFuncs.js');
 const turnFuncs = require('./Packages/turnFuncs.js');
 
 // Now for specific commands
-const icecream = require('./Packages/Commands/icecream.js');
+const makeLoot = require('./packages/commands/loot/makeloot.js');
+const assignLoot = require('./packages/commands/loot/assignloot.js');
+const getLoot = require('./packages/commands/loot/getloot.js');
+const searchLoot = require('./packages/commands/loot/searchloots.js');
+const listLoot = require('./packages/commands/loot/listloots.js');
+const deassignLoot = require('./packages/commands/loot/deassignloot.js');
+const removeLoot = require('./packages/commands/loot/removeloot.js');
 
 //FS, for writing files.
 const fs = require('fs');
@@ -105,7 +114,8 @@ const itemTypes = [
 	"weapon",
 	"heal",
 	"healmp",
-	"healhpmp"
+	"healhpmp",
+	"revive"
 ]
 
 const itemTypeEmoji = {
@@ -113,7 +123,9 @@ const itemTypeEmoji = {
 
 	heal: "🌀",
 	healmp: "⭐",
-	healhpmp: "🔰"
+	healhpmp: "🔰",
+
+	revive: "✨"
 }
 
 // Status Effects
@@ -193,7 +205,7 @@ function roundNum(num, places) {
 	return +(Math.round(num + "e+" + places)  + "e-" + places);
 }
 
-// Buttons
+// Buttons and the various different lists.
 const backId = 'back'
 const forwardId = 'forward'
 const backButton = new Discord.MessageButton({
@@ -338,9 +350,115 @@ const sendItemArray = async(channel, theArray) => {
 	})
 }
 
+const sendBasicArray = async(channel, theArray) => {
+	const generateEmbed = async start => {
+		const current = theArray.slice(start, start + 10)
+		return new Discord.MessageEmbed({
+			title: `Showing results ${start + 1}-${start + current.length} out of ${theArray.length}`,
+			fields: await Promise.all(
+				current.map(async arrayDefs => ({
+					name: `- ${arrayDefs.name}`,
+					value: `_ _`
+				}))
+			)
+		})
+	}
+
+	const canFitOnOnePage = theArray.length <= 10
+	const embedMessage = await channel.send({
+		embeds: [await generateEmbed(0)],
+		components: canFitOnOnePage ? [] : [new Discord.MessageActionRow({components: [forwardButton]})]
+	})
+
+	if (canFitOnOnePage) return
+
+	const collector = embedMessage.createMessageComponentCollector({
+		filter: ({user}) => true // fuck you and your (the sequel)
+	})
+
+	let currentIndex = 0
+	collector.on('collect', async interaction => {
+		interaction.customId === backId ? (currentIndex -= 10) : (currentIndex += 10)
+		await interaction.update({
+			embeds: [await generateEmbed(currentIndex)],
+			components: [
+				new Discord.MessageActionRow({
+					components: [
+						...(currentIndex ? [backButton] : []),
+						...(currentIndex + 10 < theArray.length ? [forwardButton] : [])
+					]
+				})
+			]
+		})
+	})
+}
+
+const sendFoodArray = async(channel, theArray, nameArray, ownerArray) => {
+	const generateEmbed = async start => {
+		let current = theArray.slice(start, start + 10)
+		const current2 = nameArray.slice(start, start + 10)
+		const current3 = ownerArray.slice(start, start + 10)
+
+		for (const i in current) {
+			current[i].name = current2[i]
+
+			if (current3[i] !== 'official') {
+				if (isFinite(parseInt(current3[i]))) {
+					var userID = client.users.cache.find(user => user.id === current3[i].toString())
+					userID = userID.username
+				} else
+				userID = current3[i]
+			} else
+			var userID = 'official'
+
+			current[i].owner = userID
+		}
+
+		return new Discord.MessageEmbed({
+			title: `Showing results ${start + 1}-${start + current.length} out of ${theArray.length}`,
+			fields: await Promise.all(
+				current.map(async arrayDefs => ({
+					name: `- ${arrayDefs.name} *(${arrayDefs.owner !== 'official' ? arrayDefs.owner : `Official`})*`,
+					value: `Image: ${arrayDefs.image !== 'image' ? arrayDefs.image : 'Image separate from a link'}`
+				}))
+			)
+		})
+	}
+
+	const canFitOnOnePage = theArray.length <= 10
+	const embedMessage = await channel.send({
+		embeds: [await generateEmbed(0)],
+		components: canFitOnOnePage ? [] : [new Discord.MessageActionRow({components: [forwardButton]})]
+	})
+
+	if (canFitOnOnePage) return
+
+	const collector = embedMessage.createMessageComponentCollector({
+		filter: ({user}) => true // fuck you and your (the sequel)
+	})
+
+	let currentIndex = 0
+	collector.on('collect', async interaction => {
+		interaction.customId === backId ? (currentIndex -= 10) : (currentIndex += 10)
+		await interaction.update({
+			embeds: [await generateEmbed(currentIndex)],
+			components: [
+				new Discord.MessageActionRow({
+					components: [
+						...(currentIndex ? [backButton] : []),
+						...(currentIndex + 10 < theArray.length ? [forwardButton] : [])
+					]
+				})
+			]
+		})
+	})
+}
+
 // Finally, Voice Channel shit
+// LETS G
 var voiceChannelShit = {}
 
+// Download the song so that we can play it! We'll keep this song downloaded so that it can be played instantly if asked for again.
 async function downloadSong(fileName, url) {
 	const songInfo = await ytdl.getInfo(url)
 
@@ -359,6 +477,7 @@ async function downloadSong(fileName, url) {
 	})
 }
 
+// Add it to the queue.
 async function addToQueue(server, url) {
 	if (ytdl.validateURL(url)) {
 		if (!voiceChannelShit[server]) {
@@ -391,6 +510,7 @@ async function addToQueue(server, url) {
 	}
 }
 
+// Play the song!
 async function playSong(server, url, sendToChannel) {
 	if (ytdl.validateURL(url)) {
 		if (!voiceChannelShit[server]) {
@@ -456,6 +576,7 @@ async function playSong(server, url, sendToChannel) {
 	}
 }
 
+// End the song.
 function endSong(server, sendString) {
 	if (!voiceChannelShit[server]) {
 		voiceChannelShit[server] = {
@@ -502,6 +623,7 @@ function endSong(server, sendString) {
 	return true
 }
 
+// Force stop the bot
 function forceStop(server) {
 	if (voiceChannelShit[server] && !voiceChannelShit[server].battlethemes)
 		return false;
@@ -522,6 +644,7 @@ function forceStop(server) {
 	return true
 }
 
+// Leave the VC
 function leaveVC(server) {
 	if (voiceChannelShit[server]) {
 		if (voiceChannelShit[server].player)
@@ -546,7 +669,7 @@ function playThemeType(server, themeType) {
 			limitbreaks: false,
 			showtimes: false,
 			onemores: false,
-			currency: "RPGBot Token",
+			currency: "Bloom Token",
 			xprate: 1,
 			pvpstuff: {
 				none: {},
@@ -616,7 +739,7 @@ function playThemeType(server, themeType) {
 	
 	const themes = servFile[server].themes[themeType.toLowerCase()]
 	if (themes.length > 0) {
-		var themeNum = Math.round(Math.random() * themes.length-1)
+		var themeNum = utilityFuncs.randNum(themes.length-1)
 		playSong(server, themes[themeNum])
 	}
 }
@@ -631,11 +754,23 @@ function writeAffinity(name, type, affinity) {
     var charRead = fs.readFileSync(charPath);
     var charFile = JSON.parse(charRead);
 
-    if (!charFile[name][affinity] || affinity == "skills") {
-        return false
-    }
+	if (affinity === "normal") {
+		const affinities = ['weak', 'resist', 'block', 'repel', 'drain']
+		for (const i in affinities) {
+			if (affinities[i] && charFile[name][affinities[i]]) {
+				for (const k in charFile[name][affinities[i]]) {
+					if (charFile[name][affinities[i]][k].toLowerCase() === type.toLowerCase()) {
+						charFile[name][affinities[i]].splice(k);
+						break
+					}
+				}
+			}
+		}
+	} else {
+		if (charFile[name][affinity])
+			charFile[name][affinity].push(type);
+	}
 
-    charFile[name][affinity].push(type)
     fs.writeFileSync(charPath, JSON.stringify(charFile, null, '    '));
     console.log(`Written ${name}'s ${type} ${affinity} to "characters.json".`)
 }
@@ -650,21 +785,6 @@ function writeMelee(name, skillname, type) {
 
     fs.writeFileSync(charPath, JSON.stringify(charFile, null, '    '));
     console.log(`${name} learned a new melee skill: ${skillname}. It has been written to "characters.json"`)
-}
-
-// Learns a skill.
-function learnSkill(name, skill) {
-    var charPath = dataPath+'/characters.json'
-    var charRead = fs.readFileSync(charPath);
-    var charFile = JSON.parse(charRead);
-
-    if (!charFile[name].skills || !readSkill(skill)) {
-        return false
-    } else {
-        charFile[name].skills.push(skill)
-        fs.writeFileSync(charPath, JSON.stringify(charFile, null, '    '));
-        console.log(`${name} learned ${skill}. It has been written to "characters.json"`)
-    }
 }
 
 // Gives EXP to a Character.
@@ -726,6 +846,7 @@ function writeSkill(name, need, bartype, power, accuracy, critical, movetype, st
 	return true
 }
 
+// Creates a status type skill to be used in battle.
 function writeStatus(name, need, bartype, statustype, extra1, extra2, desc) {
     var skillPath = dataPath+'/skills.json'
     var skillRead = fs.readFileSync(skillPath);
@@ -738,7 +859,7 @@ function writeStatus(name, need, bartype, statustype, extra1, extra2, desc) {
         costtype: bartype ? bartype.toLowerCase() : 'mp',
 		desc: desc ? desc.toString() : null
     };
-	
+
 	var statusType = statustype.toLowerCase()
 	if (statusType === 'status') {
 		skillFile[name].status = extra1.toLowerCase()
@@ -753,14 +874,25 @@ function writeStatus(name, need, bartype, statustype, extra1, extra2, desc) {
 		skillFile[name].mimic = true;
 	else if (statusType === 'clone' || statusType === 'harmonics')
 		skillFile[name].clone = true;
-	else if (statusType === 'shield' || statusType === 'guard' || statusType === 'trap') {
+	else if (statusType === 'shield') {
 		skillFile[name].shield = extra1.toLowerCase()
 		skillFile[name].target = extra2.toLowerCase()
-	} else if (statusType === 'weather') {
-		skillFile[name].weather = extra1.toLowerCase()
-	} else if (statusType === 'terrain') {
-		skillFile[name].terrain = extra1.toLowerCase()
-	}
+	} else if (statusType === 'makarakarn' || statusType === 'tetrakarn') {
+		skillFile[name][statusType] = true
+		skillFile[name].target = extra1.toLowerCase()
+	} else if (statusType === 'trap') {
+		skillFile[name].trap = true
+		skillFile[name].trapType = {
+			name: name,
+			effect: [extra1.toLowerCase(), extra2.toLowerCase()]
+		}
+
+		if (extra1.toLowerCase() == "damage")
+			skillFile[name].trapType.effect[2] = parseInt(extra2);
+	} else if (statusType === 'weather')
+		skillFile[name].weather = extra1.toLowerCase();
+	else if (statusType === 'terrain')
+		skillFile[name].terrain = extra1.toLowerCase();
 
 	if (!desc || desc === "none" || desc === "null") {
 		delete skillFile[name].desc
@@ -773,6 +905,7 @@ function writeStatus(name, need, bartype, statustype, extra1, extra2, desc) {
 	return true
 }
 
+// Creates a passive skill to be used in battle.
 function writePassive(name, passivetype, extra1, extra2, desc) {
     var skillPath = dataPath+'/skills.json'
     var skillRead = fs.readFileSync(skillPath);
@@ -831,20 +964,18 @@ function readChar(name) {
     var charRead = fs.readFileSync(charPath);
     var charFile = JSON.parse(charRead);
 
-    if (charFile[name]) {
-        return charFile[name]
-    } else {
-        return false
-    }
+    if (charFile[name])
+        return charFile[name];
+    else
+        return false;
 }
 
 function getBattleChar(n, server) {
     const btl = readBattle()
 
     for (const i in btl[server].allies.members) {
-        if (btl[server].allies.members[i].name == n) {
-            return btl[server].allies.members[i]
-        }
+        if (btl[server].allies.members[i].name == n)
+            return btl[server].allies.members[i];
     }
 
     return false
@@ -854,9 +985,8 @@ function getBattleCharNum(n, server) {
     const btl = readBattle()
 
     for (const i in btl[server].allies.members) {
-        if (btl[server].allies.members[i].name == n) {
-            return i
-        }
+        if (btl[server].allies.members[i].name == n)
+            return i;
     }
 
     return false
@@ -906,11 +1036,10 @@ function readSkill(name) {
     var skillRead = fs.readFileSync(skillPath);
     var skillFile = JSON.parse(skillRead);
 
-    if (skillFile[name]) {
+    if (skillFile[name])
         return skillFile[name]
-    } else {
-        return false
-    }
+    else
+        return false;
 }
 
 // Reads Battle Data
@@ -1212,9 +1341,8 @@ function doStatusEffect(fighterDef, btl, server) {
 			} else if (fighterDef.boss || fighterDef.miniboss) {
 				fighterDef.status = "none"
 				statusEmbed.setDescription("They shook off their status effect.")
-			} else {
-				statusEmbed.setDescription("The accuracy of their moves are halved.")
-            }
+			} else
+				statusEmbed.setDescription("The accuracy of their moves are halved.");
 			
             client.channels.fetch(btl[server].battlechannel)
                 .then(channel => channel.send({embeds: [statusEmbed]}))
@@ -1232,9 +1360,8 @@ function doStatusEffect(fighterDef, btl, server) {
 			console.log(`TurnOrder: Notified of ${fighterDef.name}'s ${fighterDef.status} status effect.`);
 
 			fighterDef.statusturns--;
-            if (fighterDef.statusturns == 0) {
-                fighterDef.status = "none"
-            }
+            if (fighterDef.statusturns == 0)
+                fighterDef.status = "none";
 
 			fs.writeFileSync(dataPath+'/battle.json', JSON.stringify(btl, null, '    '));
             return [fighterDef, "continue"]
@@ -1248,27 +1375,29 @@ function doStatusEffect(fighterDef, btl, server) {
 				var skillDefs = skillFile[fighterDef.skills[i]]
 				
 				if (!skillDefs.passive && skillDefs.type != "passive") {
-					switch(skillDefs.costtype) {
-						case "hp":
+					var costType = skillDefs.costtype ? skillDefs.costtype.toLowerCase() : 'mp'
+
+					switch(costType) {
+						case 'hp':
 							if (fighterDef.hp > skillDefs.cost)
 								possibleSkills.push(fighterDef.skills[i]);
 							
 							break
 							
-						case "hppercent":
+						case 'hppercent':
 							if (fighterDef.hp > (fighterDef.maxhp/100*skillDefs.cost))
 								possibleSkills.push(fighterDef.skills[i]);
 							
 							break
 							
-						case "mppercent":
-							if (fighterDef.mp > (fighterDef.maxmp/100*skillDefs.cost))
+						case 'mppercent':
+							if (fighterDef.mp >= (fighterDef.maxmp/100*skillDefs.cost))
 								possibleSkills.push(fighterDef.skills[i]);
 							
 							break
 							
 						default:
-							if (fighterDef.mp > skillDefs.cost)
+							if (fighterDef.mp >= skillDefs.cost)
 								possibleSkills.push(fighterDef.skills[i]);
 					}
 				}
@@ -1286,9 +1415,10 @@ function doStatusEffect(fighterDef, btl, server) {
 			} else {
 				skillDefs = skillFile[possibleSkills[Math.round(Math.random() * (possibleSkills.length-1))]]
 			}
-			
+
 			var targets = []
-			switch(skillDefs.target) {
+			var targType = skillDefs.target ? skillDefs.target.toLowerCase() : 'one'
+			switch(targType) {
 				case 'ally':
 					if (charFuncs.isOpposingSide(fighterDef, btl[server])) {
 						var targNum = Math.round(Math.random() * (btl[server].allies.members.length - 1))
@@ -1329,13 +1459,17 @@ function doStatusEffect(fighterDef, btl, server) {
 						targets.push(btl[server].enemies.members[i]);
 					
 					break
+
+				case 'caster':
+					targets.push(fighterDef)					
+					break
 				
 				default: 
 					if (charFuncs.isOpposingSide(fighterDef, btl[server])) {
-						var targNum = Math.round(Math.random() * (btl[server].enemies.members.length - 1))
+						var targNum = utilityFuncs.randNum(btl[server].enemies.members.length - 1)
 						targets.push(btl[server].enemies.members[targNum])
 					} else {
-						var targNum = Math.round(Math.random() * (btl[server].allies.members.length - 1))
+						var targNum = utilityFuncs.randNum(btl[server].allies.members.length - 1)
 						targets.push(btl[server].allies.members[targNum])
 					}
 			}
@@ -1388,9 +1522,8 @@ function doStatusEffect(fighterDef, btl, server) {
 				.setDescription(`${embedText.attackText}!\n${embedText.resultText}`)
 
 			fighterDef.statusturns--;
-            if (fighterDef.statusturns == 0 || fighterDef.hp <= 0 || fighterDef.boss) {
-                fighterDef.status = "none"
-            }
+            if (fighterDef.statusturns == 0 || fighterDef.hp <= 0 || fighterDef.boss || fighterDef.miniboss)
+                fighterDef.status = "none";
 
             client.channels.fetch(btl[server].battlechannel)
                 .then(channel => channel.send({embeds: [DiscordEmbed]}))
@@ -1416,9 +1549,8 @@ function doStatusEffect(fighterDef, btl, server) {
 				.setDescription(`*${fighterDef.name} is enraged!*\n${embedText.attackText}!\n${embedText.resultText}`)
 
 			fighterDef.statusturns--;
-            if (fighterDef.statusturns == 0 || fighterDef.hp <= 0 || fighterDef.boss || fighterDef.miniboss) {
-                fighterDef.status = "none"
-            }
+            if (fighterDef.statusturns == 0 || fighterDef.hp <= 0 || fighterDef.boss || fighterDef.miniboss)
+                fighterDef.status = "none";
 
             client.channels.fetch(btl[server].battlechannel)
                 .then(channel => channel.send({embeds: [DiscordEmbed]}))
@@ -1488,20 +1620,17 @@ function sendTurnBrief(btl, channel) {
 			if (turnFuncs.oneMores(channel.guild.id) && ally.down) {allies += "🡇"}
 			allies += `${ally.name} *(${ally.hp}/${ally.maxhp}HP) (${ally.mp}/${ally.maxmp}MP)`
 			
-			if (charFuncs.hasPassive(ally, "affinitypoint") && ally.affinitypoint && ally.affinitypoint > 0) {
-				allies += ` (${ally.affinitypoint}✰)*`
-			} else {
-				allies += "*"
-			}
+			if (charFuncs.hasPassive(ally, "affinitypoint") && ally.affinitypoint && ally.affinitypoint > 0)
+				allies += ` (${ally.affinitypoint}✰)*`;
+			else
+				allies += "*";
 			
 			allies += "\n"
-		} else {
-            allies += `~~**${i}**: ${ally.name} *(DOWN)*~~\n`
-        }
+		} else
+            allies += `~~**${i}**: ${ally.name} *(DOWN)*~~\n`;
 		
-		if (charDefs.id == ally.id) {
-			charNum = i
-		}
+		if (charDefs.id == ally.id)
+			charNum = i;
     }
 
     var targets = ""
@@ -1530,16 +1659,14 @@ function sendTurnBrief(btl, channel) {
 
 			targets += `${enemy.name} *(${enemy.hp}/${enemy.maxhp}HP) (${enemy.mp}/${enemy.maxmp}MP)`
 			
-			if (charFuncs.hasPassive(enemy, "affinitypoint") && enemy.affinitypoint && enemy.affinitypoint > 0) {
-				targets += ` (${enemy.affinitypoint}✰)*`
-			} else {
-				targets += "*"
-			}
+			if (charFuncs.hasPassive(enemy, "affinitypoint") && enemy.affinitypoint && enemy.affinitypoint > 0)
+				targets += ` (${enemy.affinitypoint}✰)*`;
+			else
+				targets += "*";
 			
 			targets += "\n"
-		} else {
-            targets += `~~**${i}**: ${enemy.name} *(DOWN)*~~\n`
-        }
+		} else
+            targets += `~~**${i}**: ${enemy.name} *(DOWN)*~~\n`;
     }
 	
 	if (downCount == opposingSide.length)
@@ -1586,23 +1713,24 @@ function sendTurnBrief(btl, channel) {
         }
 	}
 	
-	if (btl[channel.guild.id].weather != "clear" || btl[channel.guild.id].terrain != "normal") {
+	const weather = btl[channel.guild.id].changeweather ? btl[channel.guild.id].changeweather.weather : btl[channel.guild.id].weather
+	const terrain = btl[channel.guild.id].changeterrain ? btl[channel.guild.id].changeterrain.terrain : btl[channel.guild.id].terrain
+	
+	if (weather != "clear" || terrain != "normal") {
 		hpBrief += `\n<:warning:878094052208296007> `
-		if (btl[channel.guild.id].weather != "clear" && btl[channel.guild.id].terrain === "normal")
-			hpBrief += `${btl[channel.guild.id].weather} weather`;
-		else if (btl[channel.guild.id].weather === "clear" && btl[channel.guild.id].terrain != "normal")
-			hpBrief += `${btl[channel.guild.id].terrain} terrain`;
-		else if (btl[channel.guild.id].weather != "clear" && btl[channel.guild.id].terrain != "normal")
-			hpBrief += `${btl[channel.guild.id].weather} weather, ${btl[channel.guild.id].terrain} terrain`;
+		if (weather != "clear" && terrain === "normal")
+			hpBrief += `${weather.toUpperCase()} weather`;
+		else if (weather === "clear" && terrain != "normal")
+			hpBrief += `${terrain.toUpperCase()} terrain`;
+		else if (weather != "clear" && terrain != "normal")
+			hpBrief += `${weather.toUpperCase()} weather, ${terrain.toUpperCase()} terrain`;
 	}
 
-	if (allDown && turnFuncs.oneMores(channel.guild.id)) {
-		otherBrief += `\nrpg!allout ${charNum}`
-	}
+	if (allDown && turnFuncs.oneMores(channel.guild.id))
+		otherBrief += `\nrpg!allout ${charNum}`;
 
-	if (btl[channel.guild.id].canshowtime && charFuncs.hasShowTime(charDefs)) {
-		otherBrief += `\nrpg!showtime ${charNum} <Ally Number>`
-	}
+	if (btl[channel.guild.id].canshowtime && charFuncs.hasShowTime(charDefs))
+		otherBrief += `\nrpg!showtime ${charNum} <Ally Number>`;
 
     let harassedUser = client.users.fetch(charDefs.owner)
     harassedUser.then(function(user) {
@@ -1634,23 +1762,6 @@ function advanceTurn(btl, server) {
 			enemy.status = "none"
 			enemy.statusturns = 0
 			enemy.lb = 0
-			
-			if (enemy.weapon) {
-				var itemPath = dataPath+'/items.json'
-				var itemRead = fs.readFileSync(itemPath);
-				var itemFile = JSON.parse(itemRead);
-
-				if (itemFile[enemy.weapon] && itemFile[enemy.weapon].skill) {
-					const itemDefs = itemFile[enemy.weapon]
-					const itemSkill = itemFile[enemy.weapon].skill
-					
-					console.log("trying to learn " + itemSkill)
-					if (!charFuncs.knowsSkill(enemy, itemSkill)) {
-						console.log("learned " + itemSkill)
-						enemy.skills.push(itemSkill)
-					}
-				}
-			}
 
 			if (enemy.clone || enemy.undead) {
 				btl[server].enemies.members.splice(enm, 1)
@@ -1669,24 +1780,6 @@ function advanceTurn(btl, server) {
 			p.status = "none";
 			p.statusturns = 0;
 			p.lb = 0;
-			
-			if (p.weapon) {
-				var itemPath = dataPath+'/items.json'
-				var itemRead = fs.readFileSync(itemPath);
-				var itemFile = JSON.parse(itemRead);
-				
-				console.log(p.weapon + ", " + itemFile[p.weapon])
-				if (itemFile[p.weapon] && itemFile[p.weapon].skill) {
-					const itemDefs = itemFile[p.weapon]
-					const itemSkill = itemFile[p.weapon].skill
-					
-					console.log("trying to learn " + itemSkill)
-					if (!charFuncs.knowsSkill(p, itemSkill)) {
-						console.log("learned " + itemSkill)
-						p.skills.push(itemSkill)
-					}
-				}
-			}
 
 			if (p.clone || p.undead) {
 				btl[server].allies.members.splice(player, 1)
@@ -1782,6 +1875,9 @@ function advanceTurn(btl, server) {
 		var skillPath = dataPath+'/skills.json'
 		var skillRead = fs.readFileSync(skillPath);
 		var skillFile = JSON.parse(skillRead);
+		var itemPath = dataPath+'/items.json'
+		var itemRead = fs.readFileSync(itemPath);
+		var itemFile = JSON.parse(itemRead);
 		
 		var fighterDefs = defs
 		
@@ -1841,7 +1937,7 @@ function advanceTurn(btl, server) {
 		}
 
 		if (btl[server].changeweather) {
-			btl[server].changeweather.weathertime = $-1
+			btl[server].changeweather.weathertime--;
 			
 			if (btl[server].changeweather.weathertime <= 0) {
 				client.channels.fetch(btl[server].battlechannel)
@@ -1852,13 +1948,23 @@ function advanceTurn(btl, server) {
 		}
 
 		if (btl[server].changeterrain) {
-			btl[server].changeterrain.terraintime = $-1
+			btl[server].changeterrain.terraintime--;
 			
 			if (btl[server].changeterrain.terraintime <= 0) {
 				client.channels.fetch(btl[server].battlechannel)
 					.then(channel => channel.send(`The ${btl[server].changeterrain.terrain} weather subsided.`))
 
 				delete btl[server].changeterrain
+			}
+		}
+		
+		if (fighterDefs.weapon) {
+			if (itemFile[fighterDefs.weapon] && itemFile[fighterDefs.weapon].skill) {
+				const itemDefs = itemFile[fighterDefs.weapon]
+				const itemSkill = itemFile[fighterDefs.weapon].skill
+				if (!charFuncs.knowsSkill(fighterDefs, itemSkill)) {
+					fighterDefs.skills.push(itemSkill)
+				}
 			}
 		}
 
@@ -2067,7 +2173,7 @@ function winBattle(btl, server) {
 				limitbreaks: false,
 				showtimes: false,
 				onemores: false,
-				currency: "RPGBot Token",
+				currency: "Bloom Token",
 				xprate: 1,
 				pvpstuff: {
 					none: {},
@@ -2196,11 +2302,11 @@ function winBattle(btl, server) {
 			isBigBoss = true;
 
 		if (isBigBoss)
-            totalRings = Math.round(Math.random() * 1500);
-        else if (enmDefs.boss)
-            totalRings = Math.round(Math.random() * 600);
+            totalRings += Math.round(Math.random() * 1500);
+        else if (enmDefs.boss || enmDefs.miniboss)
+            totalRings += Math.round(Math.random() * 600);
         else
-            totalRings = Math.round(Math.random() * 100);
+            totalRings += Math.round(Math.random() * 100);
     }
 
     // Reset Battle stuff and award XP
@@ -2267,12 +2373,58 @@ function winBattle(btl, server) {
     if (totalRings > 0) {
         btl[server].parties[btl[server].battleteam].rings = (btl[server].parties[btl[server].battleteam].rings + totalRings)
     }
+	
+	// Item Drops
+	let additionalText = ``
+	let itemList = ``
+	
+	for (const enemy in btl[server].enemies.members) {
+		var lootPath = dataPath+'/Loot/lootTables.json'
+		var lootRead = fs.readFileSync(lootPath);
+		var lootFile = JSON.parse(lootRead);
+		var btlPath = dataPath+'/battle.json'
+		var btlRead = fs.readFileSync(btlPath);
+		var btlFile = JSON.parse(btlRead);
+
+		const enmDefs = readEnm(btl[server].enemies.members[enemy].name)
+
+		if (enmDefs.loot || enmDefs.loot !== '' || enmDefs.loot !== undefined) {
+			if (lootFile[enmDefs.loot]) {
+				console.log('BattleStatus: Opening Loot')
+
+				let itemInput = lootFile[enmDefs.loot].items
+				let chanceInput = lootFile[enmDefs.loot].itemChances
+
+				for (const loot in itemInput) {
+					if (Math.random() * 100 < chanceInput[loot]) {
+						console.log(`BattleStatus: Successfully gathered ${itemInput[loot]}`)
+						itemList += `\n- ${itemInput[loot]} from ${btl[server].enemies.members[enemy].name}`
+
+						if (btl[server].parties[btl[server].battleteam].items == []) {
+							btl[server].parties[btl[server].battleteam].items = {}
+						}
+
+						if (!btl[server].parties[btl[server].battleteam].items[itemInput[loot]]) {
+							btl[server].parties[btl[server].battleteam].items[itemInput[loot]] = 0
+						}
+						
+						btl[server].parties[btl[server].battleteam].items[itemInput[loot]] += 1
+					}
+				}
+			}
+
+			fs.writeFileSync(btlPath, JSON.stringify(btl, null, '    '));
+
+			if (itemList.length > 1)
+				additionalText = `\n\nThe party also got:${itemList}`;
+		}
+	}
 
     console.log('BattleStatus: Defeated all enemies');
     const dEmbed = new Discord.MessageEmbed()
         .setColor('#d613cc')
         .setTitle(`Team ${btl[server].battleteam} won!`)
-		.setDescription(`You defeated all the enemies!\nThe party obtained ${totalRings} ${servFile[server].currency}s!`)
+		.setDescription(`You defeated all the enemies!\nThe party obtained ${totalRings} ${servFile[server].currency}s!${additionalText}`)
     client.channels.fetch(btl[server].battlechannel)
         .then(channel => channel.send({embeds: [dEmbed]}))
 
@@ -2298,7 +2450,7 @@ function loseBattle(btl, server) {
 				limitbreaks: false,
 				showtimes: false,
 				onemores: false,
-				currency: "RPGBot Token",
+				currency: "Bloom Token",
 				xprate: 1,
 				pvpstuff: {},
 				themes: {
@@ -2382,9 +2534,8 @@ function loseBattle(btl, server) {
 			}
 		}
 		
-		if (server.toString() === "874635107300933682") {
+		if (server.toString() === "874635107300933682")
 			pointTxt += "**OFFICIAL SERVER BONUS** (+1)"
-		}
 		
 		fs.writeFileSync(servPath, JSON.stringify(servFile, null, '    '));
 		
@@ -2815,12 +2966,39 @@ function enemyMove(enmID, btl, channel) {
 		}
 	} else if (skillDefs.type === "status") {
 		if (skillDefs.shield) {
-			userDefs.shield = skillDefs.shield.toLowerCase()
+			userDefs.shield = skillName;
 
 			const DiscordEmbed = new Discord.MessageEmbed()
 				.setColor('#e36b2b')
 				.setTitle(`${enmName} => Self`)
 				.setDescription(`${enmName} used ${skillName}!\n${enmName} is protected from attacks with a ${skillDefs.shield}!`)
+			channel.send({embeds: [DiscordEmbed]})
+		} else if (skillDefs.makarakarn) {
+			userDefs.makarakarn = skillName;
+
+			const DiscordEmbed = new Discord.MessageEmbed()
+				.setColor('#e36b2b')
+				.setTitle(`${enmName} => Self`)
+				.setDescription(`${enmName} used ${skillName}!\n${enmName} is protected from magic attacks with ${skillName}!`)
+			channel.send({embeds: [DiscordEmbed]})
+		} else if (skillDefs.tetrakarn) {
+			userDefs.tetrakarn = skillName;
+
+			const DiscordEmbed = new Discord.MessageEmbed()
+				.setColor('#e36b2b')
+				.setTitle(`${enmName} => Self`)
+				.setDescription(`${enmName} used ${skillName}!\n${enmName} is protected from physical attacks with ${skillName}!`)
+			channel.send({embeds: [DiscordEmbed]})
+		} else if (skillDefs.trap) {
+			userDefs.trapType = {
+				name: skillName,
+				effect: skillDefs.effect
+			}
+
+			const DiscordEmbed = new Discord.MessageEmbed()
+				.setColor('#e36b2b')
+				.setTitle(`${enmName} => Self`)
+				.setDescription(`${enmName} used ${skillName}!\n${enmName} is preparing to trap a foe with ${skillName}!`)
 			channel.send({embeds: [DiscordEmbed]})
 		} else if (skillDefs.status && skillDefs.statuschance) {
 			if (skillDefs.statuschance > 0) {
@@ -3001,7 +3179,7 @@ function enemyMove(enmID, btl, channel) {
 			}
 		} else if (skillDefs.terrain) {
 			btl[channel.guild.id].changeterrain = {
-				weather: skillDefs.terrain,
+				terrain: skillDefs.terrain,
 				terraintime: skillDefs.turns ? skillDefs.turns : 3,
 			}
 
@@ -3067,9 +3245,7 @@ const statusList = [
 ];
 
 client.once('ready', () => {
-    console.log('RPGBot is now online!');
-    console.log('The "Data" file is for json info.');
-    console.log('Enjoy your time with the bot!');
+    console.log('Bloom Battler is now online!\nThe "Data" file is for json info.\nThe "Packages" file is for extra functions.\nEnjoy your time with the bot!');
 
     setInterval(() => {
         const index = Math.floor(Math.random() * (statusList.length - 1) + 1);
@@ -3387,7 +3563,7 @@ client.on('messageCreate', async message => {
                 }
             }
         }
-    }
+	}
 
     // Now normal commands.
     var servPath = dataPath+'/Server Settings/server.json'
@@ -3401,7 +3577,7 @@ client.on('messageCreate', async message => {
 				limitbreaks: false,		
 				showtimes: false,
 				onemores: false,
-				currency: "RPGBot Token",
+				currency: "Bloom Token",
 				xprate: 1,
 				pvpstuff: {
 					none: {},
@@ -3430,11 +3606,44 @@ client.on('messageCreate', async message => {
 
             fs.writeFileSync(servPath, JSON.stringify(servFile, null, '    '));
         }
-    } else {
-        return false
     }
 
     const prefix = servFile[message.guild.id].prefix
+	
+	if (message.mentions.users.first()) {
+		var bloomBattler = message.mentions.users.first();
+
+		if (bloomBattler.id == "776480348757557308") {
+			var content = message.content.toLowerCase()
+
+			if (content.includes("hello") || content.includes("hi") || content.includes("hewwo") || content.includes("heya")) {
+				message.channel.send('Hiiii! :)');
+				return false;
+			} else if (content.includes("privet")) { // russian
+				message.channel.send("Privet!!! Ya plokho znayu russkiy, no starayus', da?");
+				return false;
+			} else if (content.includes("cześć") || content.includes("czesc") || content.includes("siema")) { // polish
+				message.channel.send("Czesc!!! Nie znam zadnego polskiego, ale przynajmniej probuje, prawda?");
+				return false;
+			} else if (content.includes("konnichiwa") || content.includes("kon'nichiwa") || content.includes("konichiwa")) { // japanese
+				message.channel.send("Kon'nichiwa! Nihongo wa amari yoku wakarimasenga, sukunakutomo yatte mimasu yo ne? Watashi wa itsuka manabu koto ga dekita to omoimasu.");
+				return false;
+			} else if (content.includes("hola")) { // spanish
+				message.channel.send("Hola, no hablo español, pero algún día podría aprender.")
+				return false;
+			} else if (content.includes("how") && content.includes("are") && content.includes("you")) {
+				message.channel.send("I'm doing great!");
+				return false;
+			} else if ((content.includes("i") && content.includes("love") && content.includes("you")) ||
+			(content.includes("will") && content.includes("you") && content.includes("marry"))) {
+				message.channel.send("I... I... I've never had anyone propose to me before... uhm...\nhttps://c.tenor.com/VrfSZUjiWn4AAAAC/shy-anime.gif");
+				return false;
+			} else if (content.includes("lettuce")) {
+				message.channel.send('https://media2.giphy.com/media/uj9l4ULaFx7erdZvei/200.gif');
+				return false;
+			}
+		}
+	}
 
     if (!message.content.toLowerCase().startsWith(prefix) || message.author.bot) return;
 
@@ -3462,6 +3671,7 @@ client.on('messageCreate', async message => {
 						{ name: `${prefix}quote`, value: "I'll recite one of the quotes I remember... I don't remember many.", inline: true },
 						{ name: `${prefix}ship`, value: '(Args <Person> <Person> <Person>...) Ships any number of people of your choice based on certain variables. Supports as many people as one wants, should you pick at least two people.', inline: true },
 						{ name: `${prefix}icecream`, value: "(Args <Amount Of Scoops> <Optional: Repeat Scoop Flavors>)\nI'll make an ice cream of any amount of scoop with randomized flavors. You can do up to 100 scoops.", inline: true },
+						{ name: `${prefix}pizza`, value: "(Args <Amount Of Toppings> <Optional: Amount of Condiments> <Optional: Include Cheese> <Optional: Include Sauce> <Optional: Repeat Toppings> <Optional: Repeat Condiments>)\nI'll make a pizza of any amount of toppings and condiments. You can do up to 100 toppings and 20 condiments", inline: true },
 					)
 				message.channel.send({embeds: [DiscordEmbed]})
 				break
@@ -3487,9 +3697,11 @@ client.on('messageCreate', async message => {
 					.addFields(
 						{ name: `${prefix}guide`, value: "(Args <Page>) Some spider girl gave me a book, so I'll read it out to you.", inline: true },
 						{ name: `${prefix}registerchar`, value: '(Args <Name> <Base HP> <Base MP> <STR> <MAG> <PRC> <END> <CHR> <INT> <AGL> <LUK>)\nCreates a character to be used in battle.\nFor balancing purposes, Base HP should be 50 or below, Base MP should be 35 or below, and all other stats should be 10 or below.', inline: false },
-						{ name: `${prefix}getchar`, value: `(Args <Character Name>)\nGets the info of a character, including Current HP & MP, EXP and more.`, inline: true },
-						{ name: `${prefix}setmelee`, value: `(Args <CharName> <Skill Name> <Type>)\nGives your character a new Melee Skill.`, inline: true },
-						{ name: `${prefix}setaffinity`, value: `(Args <CharName> <Type> <Affinity>)\nGives your character a new Affinity.`, inline: true },
+						{ name: `${prefix}getchar`, value: '(Args <Character Name>)\nGets the info of a character, including Current HP & MP, EXP and more.', inline: true },
+						{ name: `${prefix}setmelee`, value: '(Args <CharName> <Skill Name> <Type>)\nGives your character a new Melee Skill.', inline: true },
+						{ name: `${prefix}learnskill`, value: '(Args <CharName> <Skill Name> <Skill Name> <...>)\nGives your character a new Skill.', inline: true },
+						{ name: `${prefix}setleaderskill`, value: '(Args <CharName> <Skill Name> <Type>)\nGives your character a Leader Skill - A passive skill that activates when you are the leader..', inline: true },
+						{ name: `${prefix}setaffinity`, value: '(Args <CharName> <Type> <Affinity>)\nGives your character a new Affinity.', inline: true },
 						{ name: `${prefix}setquote`, value: '(Args <CharName> <Action> "<Quote>")\nGives your character a flashy quote to say whenever an action is done!', inline: true },
 						{ name: `${prefix}clearquotes`, value: "(Args <CharName> <Action>)\nClears the quotes for a specific action.", inline: true },
 						{ name: `${prefix}showquotes`, value: "(Args <CharName> <Optional: Action>)\nShows the quotes for all or a specific action.", inline: true },
@@ -3503,7 +3715,7 @@ client.on('messageCreate', async message => {
 						{ name: `${prefix}startenemybattle`, value: "(Args <Team> <...>)\nThis command is Admin Only. Starts a battle with the specified enemies.", inline: true },
 						{ name: `${prefix}startcolosseum`, value: "(Args <Team> <Trial Name>)\nThis command is Admin Only. Starts the specified trial.", inline: true },
 						{ name: `${prefix}startpvp`, value: "(Args <Team 1> <Team 2> <Gamemode?>)\nThis command is Admin Only. Starts a PVP battle. There are server leaderboards too!", inline: true },
-						{ name: `${prefix}endbattle`, value: 'This command is Admin Only. Ends the battle.', inline: true },
+						{ name: `${prefix}endbattle`, value: 'This command is Admin Only. Ends the current battle that is in progress.', inline: true },
 					)
 				message.channel.send({embeds: [DiscordEmbed]})
 				break
@@ -3536,23 +3748,88 @@ client.on('messageCreate', async message => {
 					)
 				message.channel.send({embeds: [DiscordEmbed]})
 				break
-       
-			default:
+
+			case 'loot':
 				DiscordEmbed = new Discord.MessageEmbed()
 					.setColor('#0099ff')
-					.setTitle('Hello! I am RPGBot!')
-					.setAuthor('RPGBot', 'https://media.wired.com/photos/5a593a7ff11e325008172bc2/125:94/w_2393,h_1800,c_limit/pulsar-831502910.jpg', 'https://discord.gg/87yPQtd5au')
-					.setDescription('I can give you a quick rundown of the commands')
-					.setThumbnail('https://media.wired.com/photos/5a593a7ff11e325008172bc2/125:94/w_2393,h_1800,c_limit/pulsar-831502910.jpg')
+					.setTitle('These are the commands that have to do with **Loot Tables** and enemy drops')
 					.addFields(
-						{ name: 'Fun', value: 'Commands that are made for fun.', inline: true },
-						{ name: 'Relics', value: 'Begin the search for very cool relics! Cool, I promise!', inline: true },
-						{ name: 'Battle', value: 'Commands intended to assist with battle.', inline: true },
-						{ name: 'Music', value: 'Commands intended to play youtube videos & battle themes during battles.', inline: true },
-						{ name: 'Moderation', value: 'Commands intended to help with server moderation.', inline: true },
+						{ name: `${prefix}makeloot`, value: '(Args <Name> <Items, Drop Chances, ...>)\nCreates a loot table that can be assigned to enemies after a battle victory.', inline: true },
+						{ name: `${prefix}removeloot`, value: '(Args <Loot Table>)\nRemoves a loot table and unsets it for everything.', inline: true },
+						{ name: `${prefix}assignloot`, value: '(Args <Name> <Loot Table>)\nAssigns a loot table to a certain enemy type.', inline: true },
+						{ name: `${prefix}deassignloot`, value: '(Args <Enemy Name>)\nRemoves a loot table from a certain enemy type.', inline: true },
+						{ name: `${prefix}getloot`, value: '(Args <Loot Table / Enemy Name>)\nGets the loot table you want to look into.', inline: true },
+						{ name: `${prefix}searchloots`, value: '(Args <Search Parameter>)\nSearch for Loot Tables that include the word specified', inline: true },
+						{ name: `${prefix}listloots`, value: 'Will let you see a list of available loot tables', inline: true },
 					)
-					.setFooter('zzzzzzzz');
 				message.channel.send({embeds: [DiscordEmbed]})
+				break
+				
+			case 'chests':
+				DiscordEmbed = new Discord.MessageEmbed()
+					.setColor('#0099ff')
+					.setTitle('These are the commands that have to do with **Chests** because people have to store stuff somewhere')
+					.addFields(
+						{ name: `${prefix}makechest`, value: '(Args <Name> <Channel> <Spoiler> <Optional: Loot Table, Items...>)\nCreates a chest that characters can open, gather items from and put them in.', inline: true },
+						{ name: `${prefix}removechest`, value: '(Args <Name>)\nWill remove a chest and delete every item inside of it.', inline: true },
+						{ name: `${prefix}getchest`, value: "(Args <Name>)\nWill display some information about a specific chest.", inline: true },
+						{ name: `${prefix}searchchests`, value: "(Args <Search Parameter>)\nWill search for chests based on the word specified, in a server you type into.", inline: true },
+						{ name: `${prefix}listchests`, value: "Will show you a list of chests, in a server you type into.", inline: true },
+						{ name: `${prefix}chestlocation`, value: "(Args <Name> <Channel>)\nWill change a chest's location.", inline: true },
+						{ name: `${prefix}renamechest`, value: "(Args <Name> <New Name>)\nWill change a chest's name to what you want it to be.", inline: true },
+						{ name: `${prefix}spoilerchest`, value: '(Args <Name>)\nWill change if a chest is spoilered or not.', inline: true },
+						{ name: `${prefix}encounterchest`, value: '(Args <Name>)\nWill make a chest opened for the first time.', inline: true },
+						{ name: `${prefix}chestloot`, value: "(Args <Name> <New Name>)\nWill change a chest's loot table and items within.", inline: true },
+						{ name: `${prefix}removechestloot`, value: "(Args <Name>)\nWill remove a chest's loot table, and items related to it within.", inline: true },
+						{ name: `${prefix}chestitems`, value: "(Args <Name> <Optional: Items>)\nWill set a chest's base items to put into a chest.", inline: true },
+						{ name: `${prefix}removechestitems`, value: "(Args <Name>)\nWill remove a chest's base items.", inline: true },
+						{ name: `${prefix}lockchest`, value: "(Args <Name> <Item>)\nWill lock a chest with an item.", inline: true },
+						{ name: `${prefix}removelock`, value: "(Args <Name>)\nWill remove a chest's lock.", inline: true },
+						{ name: `${prefix}openchest`, value: "(Args <Chest Name> <Party>)\nOpens a created chest with the specified party.", inline: true },
+						{ name: `${prefix}closechest`, value: "(Args <Chest Name>)\nCloses a created chest if it is open.", inline: true },
+						{ name: `${prefix}takeitem`, value: "(Args <Chest Name> <Item> <Optional: Quantity>)\nTake items from a chest, should it be open.", inline: true },
+						{ name: `${prefix}putitem`, value: "(Args <Chest Name> <Item> <Optional: Quantity>)\nTake items from a party, and put them inside of a chest, should it be open.", inline: true },
+					)
+				message.channel.send({embeds: [DiscordEmbed]})
+				break
+
+			case 'food':
+				DiscordEmbed = new Discord.MessageEmbed()
+					.setColor('#0099ff')
+					.setTitle('You can make yourself some food however you like, or even make your own food with the official ones.')
+					.addFields(
+						{ name: `${prefix}makefood`, value: "(Args <Name> <Category> <Image Link / Attachment>)\nI will make your very own food available to the ice cream generator.", inline: false },
+						{ name: `${prefix}foodtemplate`, value: "Get yourself a textbook example of what to make for a certain food category.", inline: true },
+						{ name: `${prefix}removefood`, value: "(Args <Category> <Name>)\nIf you don't want your food to be there, I can make it gone.", inline: true },
+						{ name: `${prefix}renamefood`, value: "(Args <Category> <Name> <New Name>)\nI will change the name of your food from one to another.", inline: true },
+						{ name: `${prefix}foodimage`, value: "(Args <Category> <Name> <Image Link / Attachment>)\nI will change the look of your chosen food.", inline: true },
+						{ name: `${prefix}foodprivacy`, value: "I can make your stuff with your food private if you want to.", inline: false },
+						{ name: `${prefix}listfood`, value: `(Args <Category> <'official'/'users'/__<User ID / User Mention>__/'me'/'all'>)\nWill make a list of food in a certain category.`, inline: true },
+						{ name: `${prefix}searchfood`, value: `(Args <Category> <Search Parameter(s)>)\nWill search within a certain food category given the search parameter.`, inline: true },
+						{ name: `${prefix}icecream`, value: "(Args <Amount Of Scoops> <Optional: Repeat Scoop Flavors>)\nI'll make an ice cream of any amount of scoop with randomized flavors. You can do up to 100 scoops.", inline: false },
+						{ name: `${prefix}pizza`, value: "(Args <Amount Of Toppings> <Optional: Amount of Condiments> <Optional: Include Cheese> <Optional: Include Sauce> <Optional: Repeat Toppings> <Optional: Repeat Condiments>)\nI'll make a pizza of any amount of toppings and condiments. You can do up to 100 toppings and 20 condiments", inline: true },
+					)
+				message.channel.send({embeds: [DiscordEmbed]})
+				break
+
+			default:
+				const file = new Discord.MessageAttachment('./images/enemies/grassimp.png');
+				DiscordEmbed = new Discord.MessageEmbed()
+					.setColor('#0099ff')
+					.setTitle('Hello! I am Bloom Battler!')
+					.setDescription("I'm a barely functional discord bot that will add Turn-Based RPG Battling to your Discord Server! With me, you can create characters, skills, items, enemies and more! I also have a few other fun things that I can do.\n\nBut enough with the chit-chat, let me show you just what I have the capability to do!")
+					.setThumbnail('attachment://grassimp.png')
+					.addFields(
+						{ name: 'Fun', value: 'Commands that are made for fun!', inline: true },
+						{ name: 'Food', value: 'Everyone has to eat food (and drink) to survive afterall.', inline: true },
+						{ name: 'Relics', value: 'Begin the search for very cool relics! Cool, I promise!', inline: true },
+						{ name: 'Battle', value: 'The Main section of this bot. Here, you can creat characters and skills and stuff to use in-battle, and start the battles too!', inline: true },
+						{ name: 'Loot', value: 'Because enemies dropping items has got to be very important!', inline: true },
+						{ name: 'Chests', value: 'Because one has to store their items somewhere.', inline: true },
+						{ name: 'Music', value: 'Does it get quiet in the server? Why dont I spice it up with some music! Battle music, chill music, whatever you need!', inline: true },
+						{ name: 'Moderation', value: 'Because every Discord Bot needs server moderation.', inline: true },
+					)
+				message.channel.send({embeds: [DiscordEmbed], files: [file]})
         }
     }
 
@@ -3645,7 +3922,7 @@ client.on('messageCreate', async message => {
     const soloScenarios = [
         `is lonely. They need some friends, so they go out for a search. They're unlucky.`,
         `is getting beat up by some strong anime character.`,
-        `"Omae wa mou, shinderu."\nRPGBot "Nani!?"`,
+        `"Omae wa mou, shinderu."\nBloom Battler "Nani!?"`,
         `explores the dark web. They found a fedora.`,
         `: Stand Master「Edge」\n*The ability to summon a Fedora.*`,
         `dies.`,
@@ -3893,7 +4170,10 @@ client.on('messageCreate', async message => {
             .setTitle("Werewolf (or Mafia)")
             .setDescription(`A game of trust or betrayal.\nOne will be elected as the "Werewolf" or "Mafia Leader", as the others try to find out just who would kill them.\n\n*(React with the emoji (🔪) to join.)*`)
             .setFooter("Werewolf/Mafia");
-        message.channel.send({embeds: [DiscordEmbed]})
+
+        message.channel.send({embeds: [DiscordEmbed]}).then(message => {
+			message.react("🔪")
+		})
 
         fs.writeFileSync(mafiaPath, JSON.stringify(mafiaFile, null, '    '));
     }
@@ -3966,7 +4246,10 @@ client.on('messageCreate', async message => {
             .setTitle('Uno - The card game made to destroy.')
             .setDescription('You know this game.\n\n*(React with the emoji (🃏) to join.)*')
             .setFooter("Uno");
-        message.channel.send({embeds: [DiscordEmbed]})
+
+        message.channel.send({embeds: [DiscordEmbed]}).then(message => {
+			message.react("🃏")
+		})
 
         fs.writeFileSync(unoPath, JSON.stringify(uno, null, '    '));
     }
@@ -4213,32 +4496,2213 @@ client.on('messageCreate', async message => {
 	}
 	
 	if (command === 'icecream') {
+		let iceCreamFlavors = []
+		let iceCreamIDs = []
+			
 		const arg = message.content.slice(prefix.length).trim().split(/ +/);
 
-		if (!arg[1] || !isFinite(parseInt(arg[1]))) {
-			message.channel.send(`Please specify the amount of scoops you would like. Maximum is 100.`)
+		if (!arg[1]) {
+			const DiscordEmbed = new Discord.MessageEmbed()
+				.setColor('#0099ff')
+				.setTitle(`${prefix}icecream`)
+				.setDescription("(Args <Amount Of Scoops> <Optional: Repeat Scoop Flavors>)\nI'll make an ice cream of any amount of scoop with randomized flavors. You can do up to 100 scoops.\n\n Alternatively, you can also use:\n(Args <Scoop Flavors>)\n that if you want to specify flavors on an ice cream.")
+			message.channel.send({embeds: [DiscordEmbed]})
 			return false
 		}
 
-		if (parseFloat(arg[1]) > 100) {
-			message.channel.send(`That's way too much. Please use a number of scoops below or equal to 100.`)
-			return false
-		} else if (parseFloat(arg[1]) < 0) {
-			arg[1] = 0
+		var foodPath = dataPath+'/foodConfig.json'
+		var foodRead = fs.readFileSync(foodPath);
+		var foodFile = JSON.parse(foodRead);
+
+		let scoopNumber
+		let repeatscoops
+
+		let users = await message.guild.members.fetch().catch(console.error);
+		let list = users.map(m => m.id)
+
+		//Official Ice Creams
+		for (const flavor in foodFile['official']['iceCream']['flavors']) {
+			iceCreamFlavors.push(flavor)
+			iceCreamIDs.push('official')
+		}
+		//User-Based
+		for (const i in list) {
+			if (foodFile[list[i]] && foodFile[list[i]]['iceCream'] && foodFile[list[i]]['iceCream']['flavors']) {
+				var user = list[i]
+				for (const flavor in foodFile[list[i]]['iceCream']['flavors']) {
+					iceCreamFlavors.push(flavor)
+					iceCreamIDs.push(user)
+				}
+			}
 		}
 
-		let scoopNumber = Math.round(arg[1])
-		let repeatscoops = `true`
+		if (isFinite(parseInt(arg[1]))) {
 
-		if (arg[2] !== `false` || !arg[2])
+			if (parseFloat(arg[1]) > 100) {
+				message.channel.send(`<:warning:878094052208296007>That's way too much. Please use a number of scoops below or equal to 100. Changing the value to 100.`)
+				arg[1] = 100
+			} else if (parseFloat(arg[1]) < 0) {
+				arg[1] = 0
+			}
+
+			scoopNumber = parseInt(arg[1])
 			repeatscoops = `true`
-		else
-			repeatscoops = 'false'
 
-		if (scoopNumber > 10)
-			message.channel.send(`Please wait until your ice cream is done.`)
+			if (arg[2] !== `false` || !arg[2])
+				repeatscoops = `true`
+			else
+				repeatscoops = 'false'
 
-		icecream.getIceCream(scoopNumber, repeatscoops, message)
+			if (scoopNumber > 10)
+				message.channel.send(`Please wait until your ice cream is done.`)
+		} else {
+
+			let input = message.content.slice(prefix.length).trim()
+			input = input.slice(command.length).trim()
+
+			const regex = new RegExp('"[^"]+"|[\\S]+', 'g');
+			let arguments = [];
+			input.match(regex).forEach(element => {
+				if (!element) return;
+				return arguments.push(element.replace(/"/g, ''));
+			});
+
+			if (arguments.length > 100) {
+				message.channel.send(`<:warning:878094052208296007>That's way too much. Please specify the scoop flavors, but make their amount below or equal to 100. Changing the amount to 100.`)
+				arguments.length = 100
+			}
+
+			if (arguments[0] == "None") {
+				arguments = []
+			}
+
+			let invalidFlavors = ''
+
+			for (const i in arguments) {
+				if (iceCreamFlavors.indexOf(arguments[i]) < 0) {
+					invalidFlavors += `\n- ${arguments[i]}`
+					arguments[i] = ''
+				}
+			}
+			const filterArray=(a,b)=>{return a.filter((e)=>{return e!=b})}
+			arguments = filterArray(arguments,'')
+
+			if (invalidFlavors.length > 0)
+				message.channel.send(`<:warning:878094052208296007>**Your invalid flavors are:**${invalidFlavors}`)
+
+			scoopNumber = arguments
+			repeatscoops = `true`
+
+			if (scoopNumber.length > 10)
+				message.channel.send(`Please wait until your ice cream is done.`)
+		}
+
+		getIceCream(scoopNumber, repeatscoops, message, iceCreamIDs)
+
+		async function getIceCream(scoops, repeatScoops, message) {
+			let iceCreamResults = []
+			let iceCreamIDList = []
+			var iceCreamFlavorList = ''
+
+			if (!isFinite(scoops)) {
+				for (const i in scoops) {
+					scoops[i].slice(1,scoops[i].length - 1)
+
+					iceCreamResults.push(scoops[i])
+
+					var failureLevel = 0
+					var userRandTable = []
+
+					//if this flavor exists in your personal list
+					if (Math.round(Math.random() * 100) <= 40) { //which will look into 40% of the time
+						if (foodFile[message.author.id] && foodFile[message.author.id]['iceCream']['flavors'][scoops[i]])
+						iceCreamIDList.push(message.author.id)
+						else
+						failureLevel = 1
+					} else
+					failureLevel = 1
+					
+					//if not, then it will search through the user list first
+					if (failureLevel == 1) {
+						for (const userID in foodFile) {
+							for (const a in list) {
+								if (list[a] == userID && foodFile[userID]['iceCream'] && foodFile[userID]['iceCream']['flavors']) {
+									for (const flavor in foodFile[userID]['iceCream']['flavors']) {
+										if (flavor == scoops[i])
+										userRandTable.push(userID)
+									}
+								}
+							}
+						}
+
+						console.log(userRandTable)
+
+						//and pick a random ID
+						if (userRandTable.length > 0)
+						iceCreamIDList.push(userRandTable[Math.floor(Math.random() * userRandTable.length)])
+						else	//and if that fails, we will resort to the official flavors
+						iceCreamIDList.push('official')
+					}
+
+					iceCreamFlavorList += `\n- ${scoops[i]} *(${iceCreamIDList[i] !== 'official' ? client.users.cache.get(iceCreamIDList[i]) : 'Official'})*`
+				}
+
+				scoops = scoops.length
+			} else {
+				var iceCreamInput = [...iceCreamFlavors]
+				var IDInput = [...iceCreamIDs]
+				iceCreamResults = []
+				iceCreamFlavorList = ''
+			
+				for (var i = 1; i <= scoops; i++) {
+			
+					if (iceCreamInput.length < 1) {
+						iceCreamInput = [...iceCreamFlavors]
+						IDInput = [...iceCreamIDs]
+						console.log(`Oops. Ran out of ice cream flavors. Repeating the list.`)
+					}
+			
+					var flavorNum = Math.floor(Math.random() * iceCreamInput.length)
+			
+					iceCreamResults.push(iceCreamInput[flavorNum])
+					iceCreamIDList.push(IDInput[flavorNum])
+					iceCreamFlavorList += `\n- ${iceCreamInput[flavorNum]} *(${IDInput[flavorNum] !== 'official' ? client.users.cache.get(IDInput[flavorNum]) : 'Official'})*`
+			
+					if (repeatScoops == 'false') {
+						iceCreamInput.splice(flavorNum, 1)
+						IDInput.splice(flavorNum, 1)
+					}
+				}
+			}
+		
+			console.log(`Flavors: ${iceCreamResults}\nIDs: ${iceCreamIDList}`)
+		
+			var filtered = new Set(iceCreamResults);
+			var iceCreamFiltered = [...filtered]
+			var iceCreamName = iceCreamFiltered.join(' ');
+		
+			///////////
+			// IMAGE //
+			///////////
+		
+			const canvas = Canvas.createCanvas(201, 240 + (62 * iceCreamResults.length));
+			const context = canvas.getContext('2d');
+		
+			// Since the image takes time to load, you should await it
+			const cone = await Canvas.loadImage('./images/foodgenerators/icecream/cone.png')
+		
+			// This uses the canvas dimensions to stretch the image onto the entire canvas
+			var coneY = canvas.height - 240
+			context.drawImage(cone, 20, coneY, 161, 231);
+		
+			var lastScoopY
+			for (var i = 1; i <= scoops; i++) {
+				var scoop
+
+				if (iceCreamIDList[iceCreamIDList.length - i] == 'official')
+					try {
+						scoop = await Canvas.loadImage(`./images/foodgenerators/icecream/scoopflavors/${iceCreamResults[iceCreamResults.length - i]}.png`)
+					} catch (error) {
+						scoop = await Canvas.loadImage(`./images/foodgenerators/icecream/error_scoop.png`)
+					}
+				else {
+					try {
+						scoop = await Canvas.loadImage(foodFile[iceCreamIDList[iceCreamIDList.length - i]]['iceCream']['flavors'][iceCreamResults[iceCreamResults.length - i]].image)
+					} catch (error) {
+						scoop = await Canvas.loadImage(`./images/foodgenerators/icecream/error_scoop.png`)
+					}
+				}
+		
+				lastScoopY = coneY - 57 - 62 * (i-1)
+				context.drawImage(scoop, 20, lastScoopY, 161, 155);
+			}
+		
+			// Use the helpful Attachment class structure to process the file for you
+			const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'icecream-result.png');
+		
+			//////////////////
+			// Last Touches //
+			//////////////////
+		
+			if (iceCreamResults.length > 8) {
+				embed = new Discord.MessageEmbed()
+					.setColor('#F0B2ED')
+					.setTitle(`Current Ice Cream Flavors:`)
+					.setDescription(`${iceCreamFlavorList}`)
+					.setFooter(`Ice Cream`);
+		
+				message.author.send({embeds: [embed]})
+				iceCreamFlavorList = `*Too many scoops in this field.\nYou should get a DM with the flavor list.*`
+			}
+		
+			if (scoops < 1) {
+				scoops = 0
+				iceCreamFlavorList = `\nNone`
+				iceCreamName = `Cone Only`
+			}
+		
+			if (iceCreamName.length > 128)
+				iceCreamName = "Title too long to process."
+
+			console.log(scoops)
+		
+			embed = new Discord.MessageEmbed()
+					.setColor('#F0B2ED')
+					.setTitle(`${iceCreamName} ${iceCreamName == "Title too long to process." ? '' : 'Ice Cream'}`)
+					.addFields(
+						{ name: 'Scoops', value: `${scoops}`, inline: true },
+						{ name: 'Flavors', value: `${iceCreamFlavorList}`, inline: false },
+					)
+					.setImage(`attachment://icecream-result.png`)
+					.setFooter(`Ice Cream`);
+		
+			return message.channel.send({embeds: [embed], files: [attachment]})
+		}
+	}
+
+	if (command == 'foodprivacy') {
+		var foodPath = dataPath+'/foodConfig.json'
+		var foodRead = fs.readFileSync(foodPath);
+		var foodFile = JSON.parse(foodRead);
+
+		if (!foodFile[message.author.id]) {
+			foodFile[message.author.id] = {}
+
+			fs.writeFileSync(foodPath, JSON.stringify(foodFile, null, '    '));
+		}
+
+		if (!foodFile[message.author.id]['privacy']) {
+			foodFile[message.author.id]['privacy'] = {
+				globalBlock: false
+			}
+
+			fs.writeFileSync(foodPath, JSON.stringify(foodFile, null, '    '));
+		}
+
+		if (!foodFile[message.author.id]['privacy'][message.guild.id]) {
+			foodFile[message.author.id]['privacy'][message.guild.id] = {
+				blockedServer: false,
+				blockedCategories: [],
+				blockedChannels: []
+			}
+
+			fs.writeFileSync(foodPath, JSON.stringify(foodFile, null, '    '));
+		}
+
+		const arg = message.content.slice(prefix.length).trim().split(/ +/);
+		
+		if ((arg[1] !== 'global' && arg[1] !== 'server' && arg[1] !== 'category' && arg[1] !== 'channel') || !arg[1] ) {
+
+			const isGlobalBlock = foodFile[message.author.id]['privacy'].globalBlock == true ? 'Yes' : 'No'
+			const isServerBlock = foodFile[message.author.id]['privacy'][message.guild.id].blockedServer == true ? 'Yes' : 'No'
+
+			let categoryBlock = ``
+
+			for (i in foodFile[message.author.id]['privacy'][message.guild.id].blockedCategories) {
+				var categoryID = foodFile[message.author.id]['privacy'][message.guild.id].blockedCategories[i]
+				var category = message.guild.channels.cache.get(categoryID)
+				categoryBlock += `\n- ${category.name} *(${category.isText() ? 'Thread Parent' : 'Category'})*`
+			}
+
+			if (categoryBlock == ``)
+			categoryBlock = `None`
+
+			let channelBlock = ``
+
+			for (i in foodFile[message.author.id]['privacy'][message.guild.id].blockedChannels) {
+				var channelID = foodFile[message.author.id]['privacy'][message.guild.id].blockedChannels[i]
+				var channel = message.guild.channels.cache.get(channelID)
+				channelBlock += `\n- ${channel.name} *(${channel.isThread() ? 'Thread' : 'Channel'})*`
+			}
+
+			if (channelBlock == ``)
+			channelBlock = `None`
+
+			embed = new Discord.MessageEmbed()
+			.setColor('#0099ff')
+			.setTitle(`Food Privacy for ${message.author.username}`)
+			.setDescription(`If you want to set privacy, try:\n**${prefix}${command} global** - for setting the global privacy\n**${prefix}${command} server** - for setting the current server's privacy\n**${prefix}${command} category** - for setting the privacy of a category you're in\n**${prefix}${command} channel** - for setting the privacy of a channel you're in\n\n_ _`)
+			.addFields(
+				{ name: 'Globally private', value: `${isGlobalBlock}`, inline: true },
+				{ name: `Private everywhere in ${message.guild.name}`, value: `${isServerBlock}`, inline: true },
+				{ name: `Private ${message.guild.name} categories/thread parents`, value: `${categoryBlock}`, inline: false },
+				{ name: `Private ${message.guild.name} channels/threads`, value: `${channelBlock}`, inline: false },
+			)
+
+			return message.channel.send({embeds: [embed]})
+		}
+
+		if (arg[1] == 'global') {
+			foodFile[message.author.id]['privacy'].globalBlock = !foodFile[message.author.id]['privacy'].globalBlock
+			fs.writeFileSync(foodPath, JSON.stringify(foodFile, null, '    '));
+
+			message.channel.send(`Your food lists are ${foodFile[message.author.id]['privacy'].globalBlock == true ? 'now private globally.' : 'no longer globally private.'}`)
+		}
+
+		if (arg[1] == 'server') {
+			foodFile[message.author.id]['privacy'][message.guild.id].blockedServer = !foodFile[message.author.id]['privacy'][message.guild.id].blockedServer
+			fs.writeFileSync(foodPath, JSON.stringify(foodFile, null, '    '));
+
+			message.channel.send(`Your food lists are ${foodFile[message.author.id]['privacy'][message.guild.id].blockedServer ? 'now private for this server.' : 'no longer private for this server.'}`)
+		}
+
+		if (arg[1] == 'category') {
+			
+			var categoryID = message.channel.parentId
+
+			if (categoryID == null)
+			return message.channel.send(`There isn't a category this channel is appended to.`)
+
+			var addOrReduce = "add"
+			
+			for (i in foodFile[message.author.id]['privacy'][message.guild.id].blockedCategories) {
+				if (foodFile[message.author.id]['privacy'][message.guild.id].blockedCategories[i] == categoryID)
+				addOrReduce = "reduce"
+			}
+
+			if (addOrReduce == 'add') {
+				foodFile[message.author.id]['privacy'][message.guild.id].blockedCategories.push(categoryID)
+				message.channel.send(`Your food lists are now private for the **${message.channel.parent.name}** ${message.channel.parent.isText() ? 'thread parent' : 'category'}.`)
+			} else {
+				foodFile[message.author.id]['privacy'][message.guild.id].blockedCategories.splice(foodFile[message.author.id]['privacy'][message.guild.id].blockedCategories.indexOf(categoryID), 1)
+				message.channel.send(`Your food lists are no longer private for the **${message.channel.parent.name}** ${message.channel.parent.isText() ? 'thread parent' : 'category'}.`)
+			}
+
+			fs.writeFileSync(foodPath, JSON.stringify(foodFile, null, '    '));
+		}
+
+		if (arg[1] == 'channel') {
+			
+			var channelID = message.channel.id
+
+			var addOrReduce = "add"
+			
+			for (i in foodFile[message.author.id]['privacy'][message.guild.id].blockedChannels) {
+				if (foodFile[message.author.id]['privacy'][message.guild.id].blockedChannels[i] == channelID)
+				addOrReduce = "reduce"
+			}
+
+			if (addOrReduce == 'add') {
+				foodFile[message.author.id]['privacy'][message.guild.id].blockedChannels.push(channelID)
+				message.channel.send(`Your food lists are now private for the **${message.channel.name}** ${message.channel.isThread() ? 'thread' : 'channel'}.`)
+			} else {
+				foodFile[message.author.id]['privacy'][message.guild.id].blockedChannels.splice(foodFile[message.author.id]['privacy'][message.guild.id].blockedChannels.indexOf(channelID), 1)
+				message.channel.send(`Your food lists are no longer private for the **${message.channel.name}** ${message.channel.isThread() ? 'thread' : 'channel'}.`)
+			}
+
+			fs.writeFileSync(foodPath, JSON.stringify(foodFile, null, '    '));
+		}
+	}
+
+	if (command == 'listfood') {
+		const arg = message.content.slice(prefix.length).trim().split(/ +/);
+
+		if (!arg[1] || (arg[1] && !arg[2])) {
+			const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle(`${prefix}listfood`)
+				.setDescription(`(Args <Category> <'official'/'users'/__<User ID / User Mention>__/'me'/'all'>)\nWill make a list of food in a certain categorys.`)
+            message.channel.send({embeds: [DiscordEmbed]})
+            return false
+		}
+
+		var foodPath = dataPath+'/foodConfig.json'
+		var foodRead = fs.readFileSync(foodPath);
+		var foodFile = JSON.parse(foodRead);
+
+		var skillTxt = []
+		var nameTxt = []
+		var ownerTxt = []
+
+		if ((arg[1] && arg[1].toLowerCase() !== 'ic_flavor' && arg[1].toLowerCase() !== 'pi_sauce' && arg[1].toLowerCase() !== 'pi_cheese' && arg[1].toLowerCase() !== 'pi_topping'
+		&& arg[1].toLowerCase() !== 'pi_condiment') || !arg[1]) {
+		const DiscordEmbed = new Discord.MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle(`Invalid`)
+			.setDescription(`This is not a valid food category. Please use:`)
+			.addFields(
+				{ name: `ic_flavor`, value: `This is for ice cream flavors.`, inline: true },
+				{ name: `pi_sauce`, value: `This is for pizza sauces.`, inline: true },
+				{ name: `pi_cheese`, value: `This is for pizza cheeses.`, inline: true },
+				{ name: `pi_topping`, value: `This is for pizza toppings.`, inline: true },
+				{ name: `pi_condiment`, value: `This is for pizza condiments.`, inline: true },
+			)
+        message.channel.send({embeds: [DiscordEmbed]})
+        return false
+		}
+
+		var category = arg[1].toLowerCase()
+
+		var catText = ''
+
+		var begmean = ''
+		var midmean = ''
+
+		if (category.startsWith(`ic_`)) {
+			begmean = 'iceCream'
+
+			if (category.includes(`flavor`)) {
+				midmean = 'flavors'
+				catText = 'ice cream flavors'
+			}
+		}else if (category.startsWith(`pi_`)) {
+			begmean = 'pizza'
+
+			if (category.includes(`sauce`)) {
+				midmean = 'sauces'
+				catText = 'pizza sauces'
+			} else if (category.includes(`cheese`)) {
+				midmean = 'cheeses'
+				catText = 'pizza cheeses'
+			} else if (category.includes(`topping`)) {
+				midmean = 'toppings'
+				catText = 'pizza toppings'
+			} else if (category.includes(`condiment`)) {
+				midmean = 'condiments'
+				catText = 'pizza condiments'
+			}
+		}
+
+		//this is for official ice cream
+		if (arg[2] == 'official' || arg[2] == 'all') {
+			for (const i in foodFile['official'][begmean][midmean]) {
+				skillTxt.push(foodFile['official'][begmean][midmean][i])
+				nameTxt.push(i)
+				ownerTxt.push('official')
+			}
+		}
+		//and now, for user-based ice cream
+		let users = await message.guild.members.fetch().catch(console.error);
+		let list = users.map(m => m.id)
+		//firstly, the all and users options
+		if (arg[2] == 'all' || arg[2] == 'users') {
+			for (const userID in foodFile) {
+				for (const i in list) {
+					if (list[i] == userID) {
+
+						var skip = false
+
+						//global block
+						if (foodFile[userID]['privacy'].globalBlock == true)
+						skip = true
+
+						//server block
+						if (foodFile[userID]['privacy'][message.guild.id].blockedServer == true)
+						skip = true
+
+						//category block
+						for (const categories in foodFile[userID]['privacy'][message.guild.id].blockedCategories) {
+							if (message.channel.parentId == foodFile[userID]['privacy'][message.guild.id].blockedCategories[categories])
+							skip = true
+						}
+
+						//channel block
+						for (const channels in foodFile[userID]['privacy'][message.guild.id].blockedChannels) {
+							if (message.channel.id == foodFile[userID]['privacy'][message.guild.id].blockedChannels[channels])
+							skip = true
+						}
+
+						if (skip == false) {
+							for (const i in foodFile[userID][begmean][midmean]) {
+								skillTxt.push(foodFile[userID][begmean][midmean][i])
+								nameTxt.push(i)
+								ownerTxt.push(userID)
+							}
+						}
+					}
+				}
+			}
+			if (skillTxt.length < 2)
+			return message.channel.send(`There aren't any user-based ${catText} available to the public yet.`)
+		}
+
+		if (arg[2] == 'me') {
+			var userID = message.author.id
+			var userName = message.author.username
+
+			if (!foodFile[userID] || !foodFile[userID][begmean] || !foodFile[userID][begmean][midmean] || foodFile[userID][begmean][midmean] == {})
+			return message.channel.send(`You don't have any ${catText} set.`)
+
+			for (const i in foodFile[userID][begmean][midmean]) {
+				skillTxt.push(foodFile[userID][begmean][midmean][i])
+				nameTxt.push(i)
+				ownerTxt.push(userID)
+			}
+		}
+
+		if (arg[2] !== 'all' && arg[2] !== 'users' && arg[2] !== 'official' && arg[2] !== 'me' && arg[2]) {
+			if (message.mentions.users.first())
+			arg[3] = message.mentions.users.first()
+			else {
+			arg[3] = client.users.cache.find(user => user.id === arg[2].toString())
+
+			if (arg[3] == undefined)
+			return message.channel.send(`Please provide a valid member ID, or mention someone.`)
+			}
+
+			var userID = arg[3].id
+			var userName = arg[3].username
+
+			if (!foodFile[userID] || !foodFile[userID][begmean] || !foodFile[userID][begmean][midmean] || foodFile[userID][begmean][midmean] == {})
+			return message.channel.send(`${userName} doesn't have any ${catText} set.`)
+
+			var skip = false
+
+			if (userID !== message.author.id) {
+				//global block
+				if (foodFile[userID]['privacy'].globalBlock == true)
+				skip = true
+
+				//server block
+				if (foodFile[userID]['privacy'][message.guild.id].blockedServer == true)
+				skip = true
+
+				//category block
+				for (const categories in foodFile[userID]['privacy'][message.guild.id].blockedCategories) {
+					if (message.channel.parentId == foodFile[userID]['privacy'][message.guild.id].blockedCategories[categories])
+					skip = true
+				}
+
+				//channel block
+				for (const channels in foodFile[userID]['privacy'][message.guild.id].blockedChannels) {
+					if (message.channel.id == foodFile[userID]['privacy'][message.guild.id].blockedChannels[channels])
+					skip = true
+				}
+			}
+
+			if (skip == true)
+			return message.channel.send(`${userName}'s list is private.`)
+
+			if (skip == false) {
+				for (const i in foodFile[userID][begmean][midmean]) {
+					skillTxt.push(foodFile[userID][begmean][midmean][i])
+					nameTxt.push(i)
+					ownerTxt.push(userID)
+				}
+			}
+		}
+
+		sendFoodArray(message.channel, skillTxt, nameTxt, ownerTxt)
+	}
+
+	if (command == 'searchfood') {
+		const arg = message.content.slice(prefix.length).trim().split(/ +/);
+
+		if (!arg[1]) {
+			const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle(`${prefix}searchfood`)
+				.setDescription(`(Args <Category> <Search Parameter(s)>)\nWill search within a certain food category given the search parameter.`)
+            message.channel.send({embeds: [DiscordEmbed]})
+            return false
+		}
+
+		var foodPath = dataPath+'/foodConfig.json'
+		var foodRead = fs.readFileSync(foodPath);
+		var foodFile = JSON.parse(foodRead);
+
+		var skillTxt = []
+		var nameTxt = []
+		var ownerTxt = []
+
+		let input = message.content.slice(prefix.length).trim()
+		input = input.slice(command.length).trim()
+
+		const regex = new RegExp('"[^"]+"|[\\S]+', 'g');
+		let arguments = [];
+		input.match(regex).forEach(element => {
+			if (!element) return;
+			return arguments.push(element.replace(/"/g, ''));
+		});
+
+		if ((arguments[0] && arguments[0].toLowerCase() !== 'ic_flavor' && arguments[0].toLowerCase() !== 'pi_sauce' && arguments[0].toLowerCase() !== 'pi_cheese' && arguments[0].toLowerCase() !== 'pi_topping'
+		&& arguments[0].toLowerCase() !== 'pi_condiment') || !arguments[0]) {
+		const DiscordEmbed = new Discord.MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle(`Invalid`)
+			.setDescription(`This is not a valid food category. Please use:`)
+			.addFields(
+				{ name: `ic_flavor`, value: `This is for ice cream flavors.`, inline: true },
+				{ name: `pi_sauce`, value: `This is for pizza sauces.`, inline: true },
+				{ name: `pi_cheese`, value: `This is for pizza cheeses.`, inline: true },
+				{ name: `pi_topping`, value: `This is for pizza toppings.`, inline: true },
+				{ name: `pi_condiment`, value: `This is for pizza condiments.`, inline: true },
+			)
+        message.channel.send({embeds: [DiscordEmbed]})
+        return false
+		}
+
+		if (!arguments[1]) {
+			message.channel.send(`Please specify a search parameter.`)
+		}
+
+		let searchP = arguments[1]
+		var category = arguments[0]
+
+		var catText = ''
+
+		var begmean = ''
+		var midmean = ''
+
+		if (category.startsWith(`ic_`)) {
+			begmean = 'iceCream'
+
+			if (category.includes(`flavor`)) {
+				midmean = 'flavors'
+				catText = 'flavor'
+			}
+		}else if (category.startsWith(`pi_`)) {
+			begmean = 'pizza'
+
+			if (category.includes(`sauce`)) {
+				midmean = 'sauces'
+				catText = 'sauce'
+			} else if (category.includes(`cheese`)) {
+				midmean = 'cheeses'
+				catText = 'cheese'
+			} else if (category.includes(`topping`)) {
+				midmean = 'toppings'
+				catText = 'topping'
+			} else if (category.includes(`condiment`)) {
+				midmean = 'condiments'
+				catText = 'condiment'
+			}
+		}
+
+		//this is for official ice cream
+		for (const i in foodFile['official'][begmean][midmean]) {
+			if (i.includes(searchP)) {
+				skillTxt.push(foodFile['official'][begmean][midmean][i])
+				nameTxt.push(i)
+				ownerTxt.push('official')
+			}
+		}
+		//and now, for user-based ice cream
+		let users = await message.guild.members.fetch().catch(console.error);
+		let list = users.map(m => m.id)
+
+		for (const userID in foodFile) {
+			for (const i in list) {
+				if (list[i] == userID) {
+
+					var skip = false
+
+					//global block
+					if (foodFile[userID]['privacy'].globalBlock == true)
+					skip = true
+
+					//server block
+					if (foodFile[userID]['privacy'][message.guild.id].blockedServer == true)
+					skip = true
+
+					//category block
+					for (const categories in foodFile[userID]['privacy'][message.guild.id].blockedCategories) {
+						if (message.channel.parentId == foodFile[userID]['privacy'][message.guild.id].blockedCategories[categories])
+						skip = true
+					}
+
+					//channel block
+					for (const channels in foodFile[userID]['privacy'][message.guild.id].blockedChannels) {
+						if (message.channel.id == foodFile[userID]['privacy'][message.guild.id].blockedChannels[channels])
+						skip = true
+					}
+
+					if (skip == false) {
+						for (const i in foodFile[userID][begmean][midmean]) {
+							if (i.includes(searchP)) {
+								skillTxt.push(foodFile[userID][begmean][midmean][i])
+								nameTxt.push(i)
+								ownerTxt.push(userID)
+							}
+						}
+					}
+				}
+			}
+		}
+
+		if (skillTxt.length < 1)
+			return message.channel.send(`There aren't any ${catText} with **${searchP}** yet.`)
+		
+		sendFoodArray(message.channel, skillTxt, nameTxt, ownerTxt)
+	}
+
+	if (command == 'makefood') {
+		const arg = message.content.slice(prefix.length).trim().split(/ +/);
+
+		if (!arg[1]) {
+			const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle(`${prefix}makefood`)
+				.setDescription(`(Args <Name> <Category> <Image Link / Attachment>)\nI will make your very own ice cream flavor available to the ice cream generator.\n\n**Name:** It can be pretty much any name you want.`
+				+`\n**Category:** There are some categories. If you want to see them, just type a random name after the command and nothing else.\n**Image:** You are going to be fine with it as long as it is an image file/link. **Almost however.**\n`
+				+`You see, the bigger the image in size, the longer things will load for everyone, making a huge delay. This means that a 10 MB file would take way longer than a 5 KB file. Huge stuff.\n`
+				+`There is of course no legitimate limit on the size, but for everyone's sanity, it is recommended to stick to the template's size or smaller.\n\n You can grab templates with the ${prefix}foodtemplate command.`)
+            message.channel.send({embeds: [DiscordEmbed]})
+            return false
+		}
+
+		if (message.mentions.roles.first() || message.mentions.users.first() || message.mentions.channels.first() || message.content.includes(`@everyone`) || message.content.includes(`@here`))
+		return message.channel.send(`You really gotta be mean, huh?`)
+
+		let input = message.content.slice(prefix.length).trim()
+		input = input.slice(command.length).trim()
+
+		const regex = new RegExp('"[^"]+"|[\\S]+', 'g');
+		let arguments = [];
+		input.match(regex).forEach(element => {
+			if (!element) return;
+			return arguments.push(element.replace(/"/g, ''));
+		});
+
+		if ((arguments[1] && arguments[1].toLowerCase() !== 'ic_flavor' && arguments[1].toLowerCase() !== 'pi_sauce' && arguments[1].toLowerCase() !== 'pi_cheese' && arguments[1].toLowerCase() !== 'pi_topping'
+		&& arguments[1].toLowerCase() !== 'pi_condiment') || !arguments[1]) {
+		const DiscordEmbed = new Discord.MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle(`Invalid`)
+			.setDescription(`This is not a valid food category. Please use:`)
+			.addFields(
+				{ name: `ic_flavor`, value: `This is for ice cream flavors.`, inline: true },
+				{ name: `pi_sauce`, value: `This is for pizza sauces.`, inline: true },
+				{ name: `pi_cheese`, value: `This is for pizza cheeses.`, inline: true },
+				{ name: `pi_topping`, value: `This is for pizza toppings.`, inline: true },
+				{ name: `pi_condiment`, value: `This is for pizza condiments.`, inline: true },
+			)
+        message.channel.send({embeds: [DiscordEmbed]})
+        return false
+		}
+
+		var name = arguments[0]
+		var category = arguments[1].toLowerCase()
+		var imageFile
+
+		if (message.attachments.first() && 
+		(   message.attachments.first().url.endsWith('.png') || message.attachments.first().url.endsWith('.jpg') || message.attachments.first().url.endsWith('.jpeg') ||
+			message.attachments.first().url.endsWith('.bmp') || message.attachments.first().url.endsWith('.gif') || message.attachments.first().url.endsWith('.apng') ||
+			message.attachments.first().url.endsWith('.tif') || message.attachments.first().url.endsWith('.tiff')   ))
+		imageFile = message.attachments.first().url;
+		else if (arguments[2]) {
+
+			if (arguments[2].startsWith('<'))
+			arguments[2] = arguments[2].slice(1, -1)
+
+			if ((arguments[2].startsWith('http') || arguments[2].startsWith('https')) && 
+			(   arguments[2].endsWith('.png') || arguments[2].endsWith('.jpg') || arguments[2].endsWith('.jpeg') ||
+				arguments[2].endsWith('.bmp') || arguments[2].endsWith('.gif') || arguments[2].endsWith('.apng') ||
+				arguments[2].endsWith('.tif') || arguments[2].endsWith('.tiff')   ))
+			imageFile = arguments[2];
+			else
+				return message.channel.send("Please send a valid URL or image.");
+		} else
+			return message.channel.send("Please send a valid URL or image.");
+
+		var foodPath = dataPath+'/foodConfig.json'
+		var foodRead = fs.readFileSync(foodPath);
+		var foodFile = JSON.parse(foodRead);
+
+		if (!foodFile[message.author.id]) {
+			foodFile[message.author.id] = {}
+
+			fs.writeFileSync(foodPath, JSON.stringify(foodFile, null, '    '));
+		}
+
+		var catText = ''
+		var smalltext = ''
+
+		var begmean = ''
+		var midmean = ''
+
+		if (category.startsWith(`ic_`)) {
+			begmean = 'iceCream'
+
+			if (category.includes(`flavor`)) {
+				midmean = 'flavors'
+				catText = 'an ice cream flavor'
+				smalltext = 'flavor'
+			}
+		}else if (category.startsWith(`pi_`)) {
+			begmean = 'pizza'
+
+			if (category.includes(`sauce`)) {
+				midmean = 'sauces'
+				catText = 'a pizza sauce'
+				smalltext = 'sauce'
+			} else if (category.includes(`cheese`)) {
+				midmean = 'cheeses'
+				catText = 'a pizza cheese'
+				smalltext = 'cheese'
+			} else if (category.includes(`topping`)) {
+				midmean = 'toppings'
+				catText = 'a pizza topping'
+				smalltext = 'topping'
+			} else if (category.includes(`condiment`)) {
+				midmean = 'condiments'
+				catText = 'a pizza condiment'
+				smalltext = 'condiment'
+			}
+		}
+
+		if (!foodFile[message.author.id][begmean]) {
+			foodFile[message.author.id][begmean] = {}
+
+			fs.writeFileSync(foodPath, JSON.stringify(foodFile, null, '    '));
+		}
+
+		if (!foodFile[message.author.id][begmean][midmean]) {
+			foodFile[message.author.id][begmean][midmean] = {}
+
+			fs.writeFileSync(foodPath, JSON.stringify(foodFile, null, '    '));
+		}
+
+		if (foodFile[message.author.id][begmean][midmean][name])
+		return message.channel.send(`The **${name}** ${smalltext} already exists in your list.`)
+
+		foodFile[message.author.id][begmean][midmean][name] = {
+			image: imageFile
+		}
+
+		fs.writeFileSync(foodPath, JSON.stringify(foodFile, null, '    '));
+
+		message.channel.send(`**${name}** registered as ${catText}.`)
+	}
+
+	if (command == 'foodtemplate') {
+		const arg = message.content.slice(prefix.length).trim().split(/ +/);
+
+		if (!arg[1]) {
+			const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle(`${prefix}foodtemplate`)
+				.setDescription(`(Args <Category>)\nGet yourself a textbook example of what to make for a certain food category.`)
+            message.channel.send({embeds: [DiscordEmbed]})
+            return false
+		}
+
+		if ((arg[1] && arg[1].toLowerCase() !== 'ic_flavor' && arg[1].toLowerCase() !== 'pi_sauce' && arg[1].toLowerCase() !== 'pi_cheese' && arg[1].toLowerCase() !== 'pi_topping'
+		&& arg[1].toLowerCase() !== 'pi_condiment') || !arg[1]) {
+		const DiscordEmbed = new Discord.MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle(`Invalid`)
+			.setDescription(`This is not a valid food category. Please use:`)
+			.addFields(
+				{ name: `ic_flavor`, value: `This is for ice cream flavors.`, inline: true },
+				{ name: `pi_sauce`, value: `This is for pizza sauces.`, inline: true },
+				{ name: `pi_cheese`, value: `This is for pizza cheeses.`, inline: true },
+				{ name: `pi_topping`, value: `This is for pizza toppings.`, inline: true },
+				{ name: `pi_condiment`, value: `This is for pizza condiments.`, inline: true },
+			)
+        message.channel.send({embeds: [DiscordEmbed]})
+        return false
+		}
+
+		var category = arg[1]
+
+		var catText = ''
+		var attachment
+
+		if (category.startsWith(`ic_`)) {
+			if (category.includes(`flavor`)) {
+				catText = 'Ice Cream Flavor'
+				attachment = new Discord.MessageAttachment(`./images/foodgenerators/icecream/scoopflavors/Vanilla.png`, 'template.png');
+			}
+		}else if (category.startsWith(`pi_`)) {
+			if (category.includes(`sauce`)) {
+				catText = 'Pizza Sauce'
+				attachment = new Discord.MessageAttachment(`./images/foodgenerators/pizza/sauces/Traditional.png`, 'template.png');
+			} else if (category.includes(`cheese`)) {
+				catText = 'Pizza Cheese'
+				attachment = new Discord.MessageAttachment(`./images/foodgenerators/pizza/cheeses/Cheddar.png`, 'template.png');
+			} else if (category.includes(`topping`)) {
+				catText = 'Pizza Topping'
+				attachment = new Discord.MessageAttachment(`./images/foodgenerators/pizza/toppings/Champignons.png`, 'template.png');
+			} else if (category.includes(`condiment`)) {
+				catText = 'Pizza Condiment'
+				attachment = new Discord.MessageAttachment(`./images/foodgenerators/pizza/condiments/Ketchup.png`, 'template.png');
+			}
+		}
+
+		const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle(`${catText} Template`)
+				.setDescription(`You don't have to follow the template to a tee but it is a textbook example.`)
+				.setImage('attachment://template.png')
+		return message.channel.send({embeds: [DiscordEmbed], files: [attachment]})
+	}
+
+	if (command == 'removefood') {
+		const arg = message.content.slice(prefix.length).trim().split(/ +/);
+
+		if (!arg[1]) {
+			const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle(`${prefix}removefood`)
+				.setDescription(`(Args <Category> <Name>)\nIf you don't want your flavor to be there, I can make it gone.`)
+            message.channel.send({embeds: [DiscordEmbed]})
+            return false
+		}
+
+		if (message.mentions.roles.first() || message.mentions.users.first() || message.mentions.channels.first() || message.content.includes(`@everyone`) || message.content.includes(`@here`))
+		return message.channel.send(`You really gotta be mean, huh?`)
+
+		let input = message.content.slice(prefix.length).trim()
+		input = input.slice(command.length).trim()
+
+		const regex = new RegExp('"[^"]+"|[\\S]+', 'g');
+		let arguments = [];
+		input.match(regex).forEach(element => {
+			if (!element) return;
+			return arguments.push(element.replace(/"/g, ''));
+		});
+
+		if ((arguments[0] && arguments[0].toLowerCase() !== 'ic_flavor' && arguments[0].toLowerCase() !== 'pi_sauce' && arguments[0].toLowerCase() !== 'pi_cheese' && arguments[0].toLowerCase() !== 'pi_topping'
+		&& arguments[0].toLowerCase() !== 'pi_condiment') || !arguments[0]) {
+		const DiscordEmbed = new Discord.MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle(`Invalid`)
+			.setDescription(`This is not a valid food category. Please use:`)
+			.addFields(
+				{ name: `ic_flavor`, value: `This is for ice cream flavors.`, inline: true },
+				{ name: `pi_sauce`, value: `This is for pizza sauces.`, inline: true },
+				{ name: `pi_cheese`, value: `This is for pizza cheeses.`, inline: true },
+				{ name: `pi_topping`, value: `This is for pizza toppings.`, inline: true },
+				{ name: `pi_condiment`, value: `This is for pizza condiments.`, inline: true },
+			)
+        message.channel.send({embeds: [DiscordEmbed]})
+        return false
+		}
+
+		var name = arguments[1]
+		var category = arguments[0].toLowerCase()
+
+		var foodPath = dataPath+'/foodConfig.json'
+		var foodRead = fs.readFileSync(foodPath);
+		var foodFile = JSON.parse(foodRead);
+
+		var catText = ''
+
+		var begmean = ''
+		var midmean = ''
+
+		if (category.startsWith(`ic_`)) {
+			begmean = 'iceCream'
+
+			if (category.includes(`flavor`)) {
+				midmean = 'flavors'
+				catText = 'flavor'
+			}
+		}else if (category.startsWith(`pi_`)) {
+			begmean = 'pizza'
+
+			if (category.includes(`sauce`)) {
+				midmean = 'sauces'
+				catText = 'sauce'
+			} else if (category.includes(`cheese`)) {
+				midmean = 'cheeses'
+				catText = 'cheese'
+			} else if (category.includes(`topping`)) {
+				midmean = 'toppings'
+				catText = 'topping'
+			} else if (category.includes(`condiment`)) {
+				midmean = 'condiments'
+				catText = 'condiment'
+			}
+		}
+
+		if (!foodFile[message.author.id] || !foodFile[message.author.id][begmean] || !foodFile[message.author.id][begmean][midmean])
+		return message.channel.send(`You don't have any ${catText}s set.`)
+
+		if (!foodFile[message.author.id][begmean][midmean][name])
+		return message.channel.send(`The **${name}** ${catText} doesn't exist in your list.`)
+
+		var length = 0
+
+		for (const i in foodFile[message.author.id][begmean][midmean])
+		length++
+
+		if (length > 1) {
+			delete foodFile[message.author.id][begmean][midmean][name]
+			fs.writeFileSync(foodPath, JSON.stringify(foodFile, null, '    '));
+		} else {
+			delete foodFile[message.author.id][begmean][midmean]
+			fs.writeFileSync(foodPath, JSON.stringify(foodFile, null, '    '));
+		}
+
+		message.channel.send(`Removed the **${name}** ${catText}.`)
+	}
+
+	if (command == 'renamefood') {
+		const arg = message.content.slice(prefix.length).trim().split(/ +/);
+
+		if (!arg[1]) {
+			const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle(`${prefix}renamefood`)
+				.setDescription(`(Args <Category> <Name> <New Name>)\nI will change the name of your ice cream flavor from one to another.`)
+            message.channel.send({embeds: [DiscordEmbed]})
+            return false
+		}
+
+		if (message.mentions.roles.first() || message.mentions.users.first() || message.mentions.channels.first() || message.content.includes(`@everyone`) || message.content.includes(`@here`))
+		return message.channel.send(`You really gotta be mean, huh?`)
+
+		let input = message.content.slice(prefix.length).trim()
+		input = input.slice(command.length).trim()
+
+		const regex = new RegExp('"[^"]+"|[\\S]+', 'g');
+		let arguments = [];
+		input.match(regex).forEach(element => {
+			if (!element) return;
+			return arguments.push(element.replace(/"/g, ''));
+		});
+
+		if ((arguments[0] && arguments[0].toLowerCase() !== 'ic_flavor' && arguments[0].toLowerCase() !== 'pi_sauce' && arguments[0].toLowerCase() !== 'pi_cheese' && arguments[0].toLowerCase() !== 'pi_topping'
+		&& arguments[0].toLowerCase() !== 'pi_condiment') || !arguments[0]) {
+		const DiscordEmbed = new Discord.MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle(`Invalid`)
+			.setDescription(`This is not a valid food category. Please use:`)
+			.addFields(
+				{ name: `ic_flavor`, value: `This is for ice cream flavors.`, inline: true },
+				{ name: `pi_sauce`, value: `This is for pizza sauces.`, inline: true },
+				{ name: `pi_cheese`, value: `This is for pizza cheeses.`, inline: true },
+				{ name: `pi_topping`, value: `This is for pizza toppings.`, inline: true },
+				{ name: `pi_condiment`, value: `This is for pizza condiments.`, inline: true },
+			)
+        message.channel.send({embeds: [DiscordEmbed]})
+        return false
+		}
+
+		var category = arguments[0]
+		var name = arguments[1]
+		
+		if (!arguments[2])
+		return message.channel.send(`Please specify the new name for that flavor.`)
+
+		var newname = arguments[2]
+
+		var foodPath = dataPath+'/foodConfig.json'
+		var foodRead = fs.readFileSync(foodPath);
+		var foodFile = JSON.parse(foodRead);
+
+		var catText = ''
+
+		var begmean = ''
+		var midmean = ''
+
+		if (category.startsWith(`ic_`)) {
+			begmean = 'iceCream'
+
+			if (category.includes(`flavor`)) {
+				midmean = 'flavors'
+				catText = 'flavor'
+			}
+		}else if (category.startsWith(`pi_`)) {
+			begmean = 'pizza'
+
+			if (category.includes(`sauce`)) {
+				midmean = 'sauces'
+				catText = 'sauce'
+			} else if (category.includes(`cheese`)) {
+				midmean = 'cheeses'
+				catText = 'cheese'
+			} else if (category.includes(`topping`)) {
+				midmean = 'toppings'
+				catText = 'topping'
+			} else if (category.includes(`condiment`)) {
+				midmean = 'condiments'
+				catText = 'condiment'
+			}
+		}
+
+		if (!foodFile[message.author.id] || !foodFile[message.author.id][begmean] || !foodFile[message.author.id][begmean][midmean])
+		return message.channel.send(`You don't have any ${catText}s set.`)
+
+		if (!foodFile[message.author.id][begmean][midmean][name])
+		return message.channel.send(`**${name}** does not exist in your ${catText} list.`)
+
+		if (foodFile[message.author.id][begmean][midmean][newname])
+		return message.channel.send(`**${newname}** already exists. Please change it to another name.`)
+
+		foodFile[message.author.id][begmean][midmean][newname] = foodFile[message.author.id][begmean][midmean][name]
+		delete foodFile[message.author.id][begmean][midmean][name]
+
+		fs.writeFileSync(foodPath, JSON.stringify(foodFile, null, '    '));
+
+		message.channel.send(`Changed the name of the **${name}** ${catText} to **${newname}**`)
+	}
+
+	if (command == 'foodimage') {
+		const arg = message.content.slice(prefix.length).trim().split(/ +/);
+
+		if (!arg[1]) {
+			const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle(`${prefix}foodimage`)
+				.setDescription(`(Args <Category> <Name> <Image Link / Attachment>)\nI will change the look of your chosen ice cream flavor.`)
+            message.channel.send({embeds: [DiscordEmbed]})
+            return false
+		}
+
+		if (message.mentions.roles.first() || message.mentions.users.first() || message.mentions.channels.first() || message.content.includes(`@everyone`) || message.content.includes(`@here`))
+		return message.channel.send(`You really gotta be mean, huh?`)
+
+		let input = message.content.slice(prefix.length).trim()
+		input = input.slice(command.length).trim()
+
+		const regex = new RegExp('"[^"]+"|[\\S]+', 'g');
+		let arguments = [];
+		input.match(regex).forEach(element => {
+			if (!element) return;
+			return arguments.push(element.replace(/"/g, ''));
+		});
+
+		if ((arguments[0] && arguments[0].toLowerCase() !== 'ic_flavor' && arguments[0].toLowerCase() !== 'pi_sauce' && arguments[0].toLowerCase() !== 'pi_cheese' && arguments[0].toLowerCase() !== 'pi_topping'
+		&& arguments[0].toLowerCase() !== 'pi_condiment') || !arguments[0]) {
+		const DiscordEmbed = new Discord.MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle(`Invalid`)
+			.setDescription(`This is not a valid food category. Please use:`)
+			.addFields(
+				{ name: `ic_flavor`, value: `This is for ice cream flavors.`, inline: true },
+				{ name: `pi_sauce`, value: `This is for pizza sauces.`, inline: true },
+				{ name: `pi_cheese`, value: `This is for pizza cheeses.`, inline: true },
+				{ name: `pi_topping`, value: `This is for pizza toppings.`, inline: true },
+				{ name: `pi_condiment`, value: `This is for pizza condiments.`, inline: true },
+			)
+        message.channel.send({embeds: [DiscordEmbed]})
+        return false
+		}
+
+		var name = arguments[1]
+		var category = arguments[0]
+		var imageFile
+
+		if (message.attachments.first() && 
+		(   message.attachments.first().url.endsWith('.png') || message.attachments.first().url.endsWith('.jpg') || message.attachments.first().url.endsWith('.jpeg') ||
+			message.attachments.first().url.endsWith('.bmp') || message.attachments.first().url.endsWith('.gif') || message.attachments.first().url.endsWith('.apng') ||
+			message.attachments.first().url.endsWith('.tif') || message.attachments.first().url.endsWith('.tiff')   ))
+		imageFile = message.attachments.first().url;
+		else if (arguments[2]) {
+
+			if (arguments[2].startsWith('<'))
+			arguments[2] = arguments[2].slice(1, -1)
+
+			if ((arguments[2].startsWith('http') || arguments[2].startsWith('https')) && 
+			(   arguments[2].endsWith('.png') || arguments[2].endsWith('.jpg') || arguments[2].endsWith('.jpeg') ||
+				arguments[2].endsWith('.bmp') || arguments[2].endsWith('.gif') || arguments[2].endsWith('.apng') ||
+				arguments[2].endsWith('.tif') || arguments[2].endsWith('.tiff')   ))
+			imageFile = arguments[2];
+			else
+				return message.channel.send("Please send a valid URL or image.");
+		} else
+			return message.channel.send("Please send a valid URL or image.");
+
+		var foodPath = dataPath+'/foodConfig.json'
+		var foodRead = fs.readFileSync(foodPath);
+		var foodFile = JSON.parse(foodRead);
+
+		var catText = ''
+
+		var begmean = ''
+		var midmean = ''
+
+		if (category.startsWith(`ic_`)) {
+			begmean = 'iceCream'
+
+			if (category.includes(`flavor`)) {
+				midmean = 'flavors'
+				catText = 'flavor'
+			}
+		}else if (category.startsWith(`pi_`)) {
+			begmean = 'pizza'
+
+			if (category.includes(`sauce`)) {
+				midmean = 'sauces'
+				catText = 'sauce'
+			} else if (category.includes(`cheese`)) {
+				midmean = 'cheeses'
+				catText = 'cheese'
+			} else if (category.includes(`topping`)) {
+				midmean = 'toppings'
+				catText = 'topping'
+			} else if (category.includes(`condiment`)) {
+				midmean = 'condiments'
+				catText = 'condiment'
+			}
+		}
+
+		if (!foodFile[message.author.id] || !foodFile[message.author.id][begmean] || !foodFile[message.author.id][begmean][midmean])
+		return message.channel.send(`You don't have any ${catText}s set.`)
+
+		if (!foodFile[message.author.id][begmean][midmean][name])
+		return message.channel.send(`**${name}** does not exist in your ${catText} list.`)
+
+		foodFile[message.author.id][begmean][midmean][name].image = imageFile
+
+		fs.writeFileSync(foodPath, JSON.stringify(foodFile, null, '    '));
+
+		message.channel.send(`Changed the look of the **${name}** ${catText}.`)
+	}
+
+	if (command == 'pizza') {
+		const crusts = []
+		let crustIDs = []
+
+		const sauces = []
+		let sauceIDs = []
+			
+		const cheeses = []
+		let cheeseIDs = []
+			
+		const toppingTypes = []
+		let toppingIDs = []
+			
+		const condimentTypes = []
+		let condimentIDs = []
+
+		const arg = message.content.slice(prefix.length).trim().split(/ +/);
+
+		if (!arg[1]) {
+			const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle(`${prefix}pizza`)
+				.setDescription(`(Args <Amount Of Toppings> <Optional: Amount of Condiments> <Optional: Include Cheese> <Optional: Include Sauce> <Optional: Repeat Toppings> <Optional: Repeat Condiments>)\nI'll make a pizza of any amount of toppings and condiments. You can do up to 100 toppings and 20 condiments.\n\n Alternatively, you can also use:\n(Args <Crust> <Optional: Sauce> <Optional: Cheese>)\n to start making your very own pizza.`)
+            message.channel.send({embeds: [DiscordEmbed]})
+            return false
+		}
+
+		var foodPath = dataPath+'/foodConfig.json'
+		var foodRead = fs.readFileSync(foodPath);
+		var foodFile = JSON.parse(foodRead);
+
+		let users = await message.guild.members.fetch().catch(console.error);
+		let list = users.map(m => m.id)
+
+		//Official Pizza Shit
+		for (const flavor in foodFile['official']['pizza']['crusts']) {
+			crusts.push(flavor)
+			crustIDs.push('official')
+		}
+		for (const flavor in foodFile['official']['pizza']['sauces']) {
+			sauces.push(flavor)
+			sauceIDs.push('official')
+		}
+		for (const flavor in foodFile['official']['pizza']['cheeses']) {
+			cheeses.push(flavor)
+			cheeseIDs.push('official')
+		}
+		for (const flavor in foodFile['official']['pizza']['toppings']) {
+			toppingTypes.push(flavor)
+			toppingIDs.push('official')
+		}
+		for (const flavor in foodFile['official']['pizza']['condiments']) {
+			condimentTypes.push(flavor)
+			condimentIDs.push('official')
+		}
+		//User-Based
+		for (const i in list) {
+			if (foodFile[list[i]] && foodFile[list[i]]['pizza']) {
+				var user = list[i]
+				for (const flavor in foodFile[list[i]]['pizza']['crusts']) {
+					crusts.push(flavor)
+					crustIDs.push(user)
+				}
+				for (const flavor in foodFile[list[i]]['pizza']['sauces']) {
+					sauces.push(flavor)
+					sauceIDs.push(user)
+				}
+				for (const flavor in foodFile[list[i]]['pizza']['cheeses']) {
+					cheeses.push(flavor)
+					cheeseIDs.push(user)
+				}
+				for (const flavor in foodFile[list[i]]['pizza']['toppings']) {
+					toppingTypes.push(flavor)
+					toppingIDs.push(user)
+				}
+				for (const flavor in foodFile[list[i]]['pizza']['condiments']) {
+					condimentTypes.push(flavor)
+					condimentIDs.push(user)
+				}
+			}
+		}
+
+		let toppingNumber
+		let repeatToppings
+		let sauceNumber
+		let repeatSauces
+		let allowCheese
+		let allowSauce
+
+		if (isFinite(parseInt(arg[1]))) {
+			if (parseFloat(arg[1]) > 100) {
+				message.channel.send(`<:warning:878094052208296007>That's way too much. Please use a number of toppings below or equal to 100. Changing the value to 100`)
+				return false
+			} else if (parseFloat(arg[1]) < 0) {
+				arg[1] = 0
+			}
+
+			if (!arg[2])
+				arg[2] = 0
+
+			if (parseFloat(arg[2]) > 20) {
+				message.channel.send(`<:warning:878094052208296007>That's way too much. Please use a number of condiments below or equal to 20. Changing the value to 20.`)
+				arg[2] = 20
+			} else if (parseFloat(arg[2]) < 0) {
+				arg[2] = 0
+			}
+
+			toppingNumber = Math.round(parseInt(arg[1]))
+			repeatToppings = `true`
+			sauceNumber = Math.round(parseInt(arg[2]))
+			repeatSauces = `true`
+			allowCheese = 'true'
+			allowSauce = 'true'
+
+			if (arg[3] !== `false` || !arg[3])
+				allowCheese = `true`
+			else
+				allowCheese = 'false'
+
+			if (arg[4] !== `false` || !arg[4])
+				allowSauce = `true`
+			else
+				allowSauce = 'false'
+
+			if (arg[5] !== `false` || !arg[5])
+				repeatToppings = `true`
+			else
+				repeatToppings = 'false'
+
+			if (arg[6] !== `false` || !arg[6])
+				repeatSauces = `true`
+			else
+				repeatSauces = 'false'
+
+			if (toppingNumber > 10)
+				message.channel.send(`Please wait until your pizza is done.`)
+
+			getPizzaByNumber(toppingNumber, repeatToppings, sauceNumber, repeatSauces, allowCheese, allowSauce, message)
+		} else {
+			let input = message.content.slice(prefix.length).trim()
+			input = input.slice(command.length).trim()
+
+			const regex = new RegExp('"[^"]+"|[\\S]+', 'g');
+			let arguments = [];
+			input.match(regex).forEach(element => {
+				if (!element) return;
+				return arguments.push(element.replace(/"/g, ''));
+			});
+
+			//assigning variables
+			let crustPick = arguments[0]
+			let saucePick = arguments[1]
+			let cheesePick = arguments[2]
+
+			let toppingPick
+			let condimentPick
+
+			var whatwentwrong = ``
+
+			if (crusts.indexOf(crustPick) < 0 && crustPick !== 'None') {
+				whatwentwrong += (`\n-${crustPick} is not a valid crust. Defaulting to 'Standard'.`)
+				crustPick = 'None'
+			}
+
+			if (sauces.indexOf(saucePick) < 0 && saucePick !== 'None') {
+				whatwentwrong += (`\n-${saucePick} is not a valid sauce. Defaulting to 'None'.`)
+				saucePick = 'None'
+			}
+
+
+			if (cheeses.indexOf(cheesePick) < 0 && cheesePick !== 'None') {
+				whatwentwrong += (`\n-${cheesePick} is not a valid cheese. Defaulting to 'None'.`)
+				cheesePick = 'None'
+			}
+
+			if (whatwentwrong.length > 3)
+			message.channel.send(`<:warning:878094052208296007>What went wrong:${whatwentwrong}`)
+			.then(msg => {
+				setTimeout(() => msg.delete(), 5000)
+			})
+
+			var onetoListenTo = message.author.id
+			var contentOfMessage
+
+			message.channel.send(`👍 Now please, specify the toppings. You have 5 minutes.\nIf you don't want any toppigns, please type 'None'.`)
+			.then(msg => {
+				setTimeout(() => msg.delete(), 10000)
+			})
+
+			const filter = m => m.author.id === onetoListenTo && !m.content.startsWith(prefix)
+			const collectorTopping = message.channel.createMessageCollector({ filter, time: 300000, max: 1 });
+
+			collectorTopping.on('collect', m => {
+				console.log(`Collected ${m.content}`);
+				contentOfMessage = m.content.toString()
+			});
+
+			collectorTopping.on('end', collected => {
+				if (collected.size == 0) {
+					return message.channel.send(`I'm sorry, ${client.users.cache.get(onetoListenTo)}, but you didn't type in time. Please try again.`)
+					.then(msg => {
+						setTimeout(() => msg.delete(), 5000)
+					})
+				}
+
+				let input = contentOfMessage.trim()
+
+				const regex = new RegExp('"[^"]+"|[\\S]+', 'g');
+				let arguments = [];
+				input.match(regex).forEach(element => {
+					if (!element) return;
+					return arguments.push(element.replace(/"/g, ''));
+				});
+
+				toppingPick = [...arguments]
+
+				if (toppingPick[0] == 'None')
+				toppingPick = []
+
+				if (toppingPick.length > 100) {
+					message.channel.send(`<:warning:878094052208296007>That's way too much. Please make their amount below or equal to 100. Changing the amount to 100.`)
+					.then(msg => {
+						setTimeout(() => msg.delete(), 5000)
+					})
+					toppingPick.length = 100
+				}
+
+				let invalidToppings = ''
+
+				for (const i in toppingPick) {
+					if (toppingTypes.indexOf(toppingPick[i]) < 0) {
+						invalidToppings += `\n- ${toppingPick[i]}`
+						toppingPick[i] = ''
+					}
+				}
+				const filterArray=(a,b)=>{return a.filter((e)=>{return e!=b})}
+				toppingPick = filterArray(toppingPick,'')
+
+				if (invalidToppings.length > 0) {
+					message.channel.send(`<:warning:878094052208296007>**Your invalid toppings are:**${invalidToppings}`)
+					.then(msg => {
+						setTimeout(() => msg.delete(), 5000)
+					})
+				}
+
+				message.channel.send(`👍 Now please, specify the condiments. You have 5 minutes.\nIf you don't want any toppings, please type 'None'.`)
+				.then(msg => {
+					setTimeout(() => msg.delete(), 10000)
+				})
+
+				const collectorCondiment = message.channel.createMessageCollector({ filter, time: 300000, max: 1 });
+
+				collectorCondiment.on('collect', m => {
+					console.log(`Collected ${m.content}`);
+					contentOfMessage = m.content.toString()
+				});
+
+				collectorCondiment.on('end', collected => {
+					if (collected.size == 0) {
+						return message.channel.send(`I'm sorry, ${client.users.cache.get(onetoListenTo)}, but you didn't type in time. Please try again.`)
+						.then(msg => {
+							setTimeout(() => msg.delete(), 5000)
+						})
+					}
+
+					let input = contentOfMessage.trim()
+
+					const regex = new RegExp('"[^"]+"|[\\S]+', 'g');
+					let arguments = [];
+					input.match(regex).forEach(element => {
+						if (!element) return;
+						return arguments.push(element.replace(/"/g, ''));
+					});
+
+					condimentPick = [...arguments]
+
+					if (condimentPick[0] == 'None')
+					condimentPick = []
+
+					if (condimentPick.length > 20) {
+						message.channel.send(`<:warning:878094052208296007>That's way too much. Please make their amount below or equal to 20. Changing the amount to 20.`)
+						.then(msg => {
+							setTimeout(() => msg.delete(), 5000)
+						})
+						condimentPick.length = 20
+					}
+	
+					let invalidCondiments = ''
+	
+					for (const i in condimentPick) {
+						if (condimentTypes.indexOf(condimentPick[i]) < 0) {
+							invalidCondiments += `\n- ${condimentPick[i]}`
+							condimentPick[i] = ''
+						}
+					}
+					const filterArray=(a,b)=>{return a.filter((e)=>{return e!=b})}
+					condimentPick = filterArray(condimentPick,'')
+	
+					if (invalidCondiments.length > 0) {
+						message.channel.send(`<:warning:878094052208296007>**Your invalid condiments are:**${invalidCondiments}`)
+						.then(msg => {
+							setTimeout(() => msg.delete(), 5000)
+						})
+					}
+
+					if (toppingPick.length > 10)
+					message.channel.send(`Please wait until your pizza is done.`)
+
+					getPizzaByLetter(crustPick,saucePick,cheesePick,toppingPick,condimentPick,message)
+				});
+			});
+		}
+
+		async function getPizzaByNumber(toppings, repeatToppings, condiments, repeatCondiments, allowCheese, allowSauce, message) {
+			
+			var crustNumber = Math.floor(Math.random() * crusts.length)
+			var crust = crusts[crustNumber]
+			var crustID = crustIDs[crustNumber]
+			
+			if (allowSauce == 'true') {
+				var sauceNumber = Math.floor(Math.random() * sauces.length)
+				var sauce = sauces[sauceNumber]
+				var sauceID = sauceIDs[sauceNumber]
+			}
+			else
+				var sauce = "No Sauce"
+		
+			if (allowCheese == 'true') {
+				var cheeseNumber = Math.floor(Math.random() * cheeses.length)
+				var cheese = cheeses[cheeseNumber]
+				var cheeseID = cheeseIDs[cheeseNumber]
+			}
+			else
+				var cheese = "No Cheese"
+		
+			//Toppings
+			var toppingInput = [...toppingTypes]
+			let toppingIDList = []
+			var TIDInput = [...toppingIDs]
+			let toppingResults = []
+			var toppingList = ''
+		
+			for (var i = 1; i <= toppings; i++) {
+		
+				if (toppingInput.length < 1) {
+					toppingInput = [...toppingTypes]
+					TIDInput = [...toppingIDs]
+					console.log(`Oops. Ran out of pizza toppings. Repeating the list.`)
+				}
+		
+				var toppingNum = Math.floor(Math.random() * toppingInput.length)
+		
+				toppingResults.push(toppingInput[toppingNum])
+				toppingIDList.push(TIDInput[toppingNum])
+				toppingList += `\n- ${toppingInput[toppingNum]} *(${TIDInput[toppingNum] !== 'official' ? client.users.cache.get(TIDInput[toppingNum]) : 'Official'})*`
+		
+				if (repeatToppings == 'false') {
+					toppingInput.splice(toppingNum, 1)
+					TIDInput.splice(toppingNum, 1)
+				}
+			}
+		
+			console.log(`Toppings: ${toppingResults}\nIDs: ${toppingIDList}`)
+		
+			var filteredA = new Set(toppingResults);
+			var toppingsFilteres = [...filteredA]
+			var toppingName = toppingsFilteres.join(' ');
+		
+			//Condiments
+			var condimentInput = [...condimentTypes]
+			let condimentResults = []
+			let condimentIDList = []
+			var CIDInput = [...condimentIDs]
+			var condimentList = ''
+		
+			for (var i = 1; i <= condiments; i++) {
+		
+				if (condimentInput.length < 1) {
+					condimentInput = [...condimentTypes]
+					CIDInput = [...condimentIDs]
+					console.log(`Oops. Ran out of pizza condiments. Repeating the list.`)
+				}
+		
+				var condimentNum = Math.floor(Math.random() * condimentInput.length)
+		
+				condimentResults.push(condimentInput[condimentNum])
+				condimentIDList.push(CIDInput[condimentNum])
+				condimentList += `\n- ${condimentInput[condimentNum]} *(${CIDInput[condimentNum] !== 'official' ? client.users.cache.get(CIDInput[condimentNum]) : 'Official'})*`
+		
+				if (repeatCondiments == 'false') {
+					condimentInput.splice(condimentNum, 1)
+					CIDInput.splice(condimentNum, 1)
+				}
+			}
+		
+			console.log(`Condiments: ${condimentResults}\nIDs: ${condimentIDList}`)
+		
+			///////////
+			// IMAGE //
+			///////////
+		
+			const canvas = Canvas.createCanvas(180, 180);
+			const context = canvas.getContext('2d');
+		
+			function drawRotated(degrees, image){
+				context.save();
+			
+				context.translate(canvas.width/2,canvas.height/2);
+			
+				context.rotate(degrees*Math.PI/180);
+			
+				context.drawImage(image,-image.width/2,-image.width/2);
+			
+				context.restore();
+			}
+		
+			//crust
+			var crustDraw
+
+			if (crustID == 'official')
+				try {
+					crustDraw = await Canvas.loadImage(`./images/foodgenerators/pizza/crusts/${crust}.png`)
+				} catch (error) {
+					crustDraw = await Canvas.loadImage(`./images/foodgenerators/pizza/error_crust.png`)
+				}
+			else {
+				try {
+					crustDraw = await Canvas.loadImage(foodFile[crustID]['pizza']['crusts'][crust].image)
+				} catch (error) {
+					crustDraw = await Canvas.loadImage(`./images/foodgenerators/pizza/error_crust.png`)
+				}
+			}
+			drawRotated(0, crustDraw)
+			//sauce
+			if (allowSauce == 'true') {
+				var sauceDraw
+
+				if (sauceID == 'official')
+					try {
+						sauceDraw = await Canvas.loadImage(`./images/foodgenerators/pizza/sauces/${sauce}.png`)
+					} catch (error) {
+						sauceDraw = await Canvas.loadImage(`./images/foodgenerators/pizza/error_sauce.png`)
+					}
+				else {
+					try {
+						sauceDraw = await Canvas.loadImage(foodFile[sauceID]['pizza']['sauces'][sauce].image)
+					} catch (error) {
+						sauceDraw = await Canvas.loadImage(`./images/foodgenerators/pizza/error_sauce.png`)
+					}
+				}
+				drawRotated(Math.random() * 360, sauceDraw)
+			}
+			//cheese
+			if (allowCheese == 'true') {
+				var cheeseDraw
+
+				if (sauceID == 'official')
+					try {
+						cheeseDraw = await Canvas.loadImage(`./images/foodgenerators/pizza/cheeses/${cheese}.png`)
+					} catch (error) {
+						cheeseDraw = await Canvas.loadImage(`./images/foodgenerators/pizza/error_cheese.png`)
+					}
+				else {
+					try {
+						cheeseDraw = await Canvas.loadImage(foodFile[cheeseID]['pizza']['cheeses'][cheese].image)
+					} catch (error) {
+						cheeseDraw = await Canvas.loadImage(`./images/foodgenerators/pizza/error_cheese.png`)
+					}
+				}
+				drawRotated(Math.random() * 360, cheeseDraw)
+			}
+			//toppings
+			for (var i = 1; i <= toppings; i++) {
+				var toppingDraw
+
+				if (toppingIDList[toppingIDList.length - i] == 'official')
+					try {
+						toppingDraw = await Canvas.loadImage(`./images/foodgenerators/pizza/toppings/${toppingResults[toppingResults.length - i]}.png`)
+					} catch (error) {
+						toppingDraw = await Canvas.loadImage(`./images/foodgenerators/pizza/error_topping.png`)
+					}
+				else {
+					try {
+						toppingDraw = await Canvas.loadImage(foodFile[toppingIDList[toppingIDList.length - i]]['pizza']['toppings'][toppingResults[toppingResults.length - i]].image)
+					} catch (error) {
+						toppingDraw = await Canvas.loadImage(`./images/foodgenerators/pizza/error_topping.png`)
+					}
+				}
+				drawRotated(Math.random() * 360, toppingDraw)
+			}
+			//condiments
+			for (var i = 1; i <= condiments; i++) {
+				var condimentDraw
+
+				if (condimentIDList[condimentIDList.length - i] == 'official')
+					try {
+						condimentDraw = await Canvas.loadImage(`./images/foodgenerators/pizza/condiments/${condimentResults[condimentResults.length - i]}.png`)
+					} catch (error) {
+						condimentDraw = await Canvas.loadImage(`./images/foodgenerators/pizza/error_condiment.png`)
+					}
+				else {
+					try {
+						condimentDraw = await Canvas.loadImage(foodFile[condimentIDList[condimentIDList.length - i]]['pizza']['condiments'][condimentResults[condimentResults.length - i]].image)
+					} catch (error) {
+						condimentDraw = await Canvas.loadImage(`./images/foodgenerators/pizza/error_condiment.png`)
+					}
+				}
+				drawRotated(Math.random() * 360, condimentDraw)
+			}
+		
+			const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'pizza-result.png');
+		
+			//////////////////
+			// Last Touches //
+			//////////////////
+		
+			if (toppingResults.length > 8) {
+				embed = new Discord.MessageEmbed()
+					.setColor('#F0B2ED')
+					.setTitle(`Current Pizza Toppings:`)
+					.setDescription(`${toppingList}`)
+					.setFooter(`Pizza`);
+		
+				message.author.send({embeds: [embed]})
+				toppingList = `*Too many toppings in this field.\nYou should get a DM with the topping list.*`
+			}
+		
+			if (condimentResults.length > 8) {
+				embed = new Discord.MessageEmbed()
+					.setColor('#F0B2ED')
+					.setTitle(`Current Pizza Condiments:`)
+					.setDescription(`${condimentList}`)
+					.setFooter(`Pizza`);
+		
+				message.author.send({embeds: [embed]})
+				condimentList = `*Too many condiments in this field.\nYou should get a DM with the condiment list.*`
+			}
+		
+			if (toppings < 1) {
+				toppingList = `\nNone`
+				toppingName = `${cheese}`
+			}
+		
+			if (condiments < 1)
+				condimentList = `\nNone`
+		
+			if (toppingName.length > 128)
+				toppingName = "Title too long to process."
+		
+			embed = new Discord.MessageEmbed()
+					.setColor('#FF6100')
+					.setTitle(`${toppingName} ${toppingName == "Title too long to process." ? '' : 'Pizza'}`)
+					.addFields(
+						{ name: 'Crust', value: `${crust} ${crustID == undefined ? '' : (crustID == 'official' ? '*(Official)*' : `*(${client.users.cache.get(crustID)})*`)}`, inline: true },
+						{ name: 'Sauce', value: `${sauce} ${sauceID == undefined ? '' : (sauceID == 'official' ? '*(Official)*' : `*(${client.users.cache.get(sauceID)})*`)}`, inline: true },
+						{ name: 'Cheese', value: `${cheese} ${cheeseID == undefined ? '' : (cheeseID == 'official' ? '*(Official)*' : `*(${client.users.cache.get(cheeseID)})*`)}`, inline: true },
+						{ name: 'Topping Number', value: `${toppings}`, inline: false },
+						{ name: 'Toppings', value: `${toppingList}`, inline: true },
+						{ name: 'Condiment Number', value: `${condiments}`, inline: false },
+						{ name: 'Condiments', value: `${condimentList}`, inline: true },
+					)
+					.setImage(`attachment://pizza-result.png`)
+					.setFooter(`Pizza`);
+		
+			return message.channel.send({embeds: [embed], files: [attachment]})
+		}
+
+		async function getPizzaByLetter(crust, sauce, cheese, toppings, condiments, message) {
+
+			if (crust == 'None') {
+				crust = 'Standard'
+				var crustID = 'official'
+			} else {
+				var crustID
+				var failureLevelC = 0
+				var userRandTable = []
+
+				//if this flavor exists in your personal list
+				if (Math.round(Math.random() * 100) <= 40) { //which will look into 40% of the time
+					if (foodFile[message.author.id] && foodFile[message.author.id]['pizza'] && foodFile[message.author.id]['pizza']['crusts'] && foodFile[message.author.id]['pizza']['crusts'][crust])
+					crustID = message.author.id
+					else
+					failureLevelC = 1
+				} else
+				failureLevelC = 1
+					
+				//if not, then it will search through the user list first
+				if (failureLevelC == 1) {
+					for (const userID in foodFile) {
+						for (const a in list) {
+							if (list[a] == userID && foodFile[userID]['pizza'] && foodFile[userID]['pizza']['crusts']) {
+								for (const flavor in foodFile[userID]['pizza']['crusts']) {
+									if (flavor == crust)
+									userRandTable.push(userID)
+								}
+							}
+						}
+					}
+
+					console.log(userRandTable)
+
+					//and pick a random ID
+					if (userRandTable.length > 0)
+					crustID = userRandTable[Math.floor(Math.random() * userRandTable.length)]
+					else	//and if that fails, we will resort to the official flavors
+					crustID = 'official'
+				}
+			}
+
+
+			if (sauce == 'None')
+				sauce = 'No Sauce'
+			else {
+				var sauceID
+				var failureLevelS = 0
+				var userRandTable = []
+
+				//if this flavor exists in your personal list
+				if (Math.round(Math.random() * 100) <= 40) { //which will look into 40% of the time
+					if (foodFile[message.author.id] && foodFile[message.author.id]['pizza'] && foodFile[message.author.id]['pizza']['sauces'] && foodFile[message.author.id]['pizza']['sauces'][sauce])
+					sauceID = message.author.id
+					else
+					failureLevelS = 1
+				} else
+				failureLevelS = 1
+					
+				//if not, then it will search through the user list first
+				if (failureLevelS == 1) {
+					for (const userID in foodFile) {
+						for (const a in list) {
+							if (list[a] == userID && foodFile[userID]['pizza'] && foodFile[userID]['pizza']['sauces']) {
+								for (const flavor in foodFile[userID]['pizza']['sauces']) {
+									if (flavor == sauce)
+									userRandTable.push(userID)
+								}
+							}
+						}
+					}
+
+					console.log(userRandTable)
+
+					//and pick a random ID
+					if (userRandTable.length > 0)
+					sauceID = userRandTable[Math.floor(Math.random() * userRandTable.length)]
+					else	//and if that fails, we will resort to the official flavors
+					sauceID = 'official'
+				}
+			}
+
+			if (cheese == 'None')
+				cheese = 'No Cheese'
+			else {
+				var cheeseID
+				var failureLevel = 0
+				var userRandTable = []
+
+				//if this flavor exists in your personal list
+				if (Math.round(Math.random() * 100) <= 40) { //which will look into 40% of the time
+					if (foodFile[message.author.id] && foodFile[message.author.id]['pizza'] && foodFile[message.author.id]['pizza']['cheeses'] && foodFile[message.author.id]['pizza']['cheeses'][cheese])
+					cheeseID = message.author.id
+					else
+					failureLevel = 1
+				} else
+				failureLevel = 1
+					
+				//if not, then it will search through the user list first
+				if (failureLevel == 1) {
+					for (const userID in foodFile) {
+						for (const a in list) {
+							if (list[a] == userID && foodFile[userID]['pizza'] && foodFile[userID]['pizza']['cheeses']) {
+								for (const flavor in foodFile[userID]['pizza']['cheeses']) {
+									if (flavor == cheese)
+									userRandTable.push(userID)
+								}
+							}
+						}
+					}
+
+					console.log(userRandTable)
+
+					//and pick a random ID
+					if (userRandTable.length > 0)
+					cheeseID = userRandTable[Math.floor(Math.random() * userRandTable.length)]
+					else	//and if that fails, we will resort to the official flavors
+					cheeseID = 'official'
+				}
+			}
+
+			let toppingResults = []
+			let toppingIDList = []
+			var toppingList = ''
+			
+			for (const i in toppings) {
+				toppings[i].slice(1,toppings[i].length - 1)
+
+				toppingResults.push(toppings[i])
+
+				var failureLevelT = 0
+				var userRandTable = []
+
+				//if this flavor exists in your personal list
+				if (Math.round(Math.random() * 100) <= 40) { //which will look into 40% of the time
+					if (foodFile[message.author.id] && foodFile[message.author.id]['pizza'] && foodFile[message.author.id]['pizza']['toppings'] && foodFile[message.author.id]['pizza']['toppings'][toppings[i]])
+					toppingIDList.push(message.author.id)
+					else
+					failureLevelT = 1
+				} else
+				failureLevelT = 1
+					
+				//if not, then it will search through the user list first
+				if (failureLevelT == 1) {
+					for (const userID in foodFile) {
+						for (const a in list) {
+							if (list[a] == userID && foodFile[userID]['pizza'] && foodFile[userID]['pizza']['toppings']) {
+								for (const flavor in foodFile[userID]['pizza']['toppings']) {
+									if (flavor == toppings[i])
+									userRandTable.push(userID)
+								}
+							}
+						}
+					}
+
+					console.log(userRandTable)
+
+					//and pick a random ID
+					if (userRandTable.length > 0)
+					toppingIDList.push(userRandTable[Math.floor(Math.random() * userRandTable.length)])
+					else	//and if that fails, we will resort to the official flavors
+					toppingIDList.push('official')
+				}
+
+				toppingList += `\n- ${toppings[i]} *(${toppingIDList[i] !== 'official' ? client.users.cache.get(toppingIDList[i]) : 'Official'})*`
+			}
+			toppings = toppings.length
+
+			console.log(`Toppings: ${toppingResults}\nIDs: ${toppingIDList}`)
+		
+			var filteredA = new Set(toppingResults);
+			var toppingsFilteres = [...filteredA]
+			var toppingName = toppingsFilteres.join(' ');
+		
+			//Condiments
+			let condimentResults = []
+			let condimentIDList = []
+			var condimentList = ''
+			
+			for (const i in condiments) {
+				condiments[i].slice(1,condiments[i].length - 1)
+
+				condimentResults.push(condiments[i])
+
+				var failureLevelC = 0
+				var userRandTable = []
+
+				//if this flavor exists in your personal list
+				if (Math.round(Math.random() * 100) <= 40) { //which will look into 40% of the time
+					if (foodFile[message.author.id] && foodFile[message.author.id]['pizza'] && foodFile[message.author.id]['pizza']['condiments'] && foodFile[message.author.id]['pizza']['condiments'][condiments[i]])
+					condimentIDList.push(message.author.id)
+					else
+					failureLevelC = 1
+				} else
+				failureLevelC = 1
+					
+				//if not, then it will search through the user list first
+				if (failureLevelC == 1) {
+					for (const userID in foodFile) {
+						for (const a in list) {
+							if (list[a] == userID && foodFile[userID]['pizza'] && foodFile[userID]['pizza']['condiments']) {
+								for (const flavor in foodFile[userID]['pizza']['condiments']) {
+									if (flavor == condiments[i])
+									userRandTable.push(userID)
+								}
+							}
+						}
+					}
+
+					console.log(userRandTable)
+
+					//and pick a random ID
+					if (userRandTable.length > 0)
+					condimentIDList.push(userRandTable[Math.floor(Math.random() * userRandTable.length)])
+					else	//and if that fails, we will resort to the official flavors
+					condimentIDList.push('official')
+				}
+
+				condimentList += `\n- ${condiments[i]} *(${toppingIDList[i] !== 'official' ? client.users.cache.get(toppingIDList[i]) : 'Official'})*`
+			}
+			condiments = condiments.length
+
+			console.log(`Condiments: ${condimentResults}\nIDs: ${condimentIDList}`)
+
+			///////////
+			// IMAGE //
+			///////////
+		
+			const canvas = Canvas.createCanvas(180, 180);
+			const context = canvas.getContext('2d');
+		
+			function drawRotated(degrees, image){
+				context.save();
+			
+				context.translate(canvas.width/2,canvas.height/2);
+			
+				context.rotate(degrees*Math.PI/180);
+			
+				context.drawImage(image,-image.width/2,-image.width/2);
+			
+				context.restore();
+			}
+		
+			//crust
+			var crustDraw
+
+			if (crustID == 'official')
+				try {
+					crustDraw = await Canvas.loadImage(`./images/foodgenerators/pizza/crusts/${crust}.png`)
+				} catch (error) {
+					crustDraw = await Canvas.loadImage(`./images/foodgenerators/pizza/error_crust.png`)
+				}
+			else {
+				try {
+					crustDraw = await Canvas.loadImage(foodFile[crustID]['pizza']['crusts'][crust].image)
+				} catch (error) {
+					crustDraw = await Canvas.loadImage(`./images/foodgenerators/pizza/error_crust.png`)
+				}
+			}
+			drawRotated(0, crustDraw)
+			//sauce
+			if (sauce !== 'No Sauce') {
+				var sauceDraw
+
+				if (sauceID == 'official')
+					try {
+						sauceDraw = await Canvas.loadImage(`./images/foodgenerators/pizza/sauces/${sauce}.png`)
+					} catch (error) {
+						sauceDraw = await Canvas.loadImage(`./images/foodgenerators/pizza/error_sauce.png`)
+					}
+				else {
+					try {
+						sauceDraw = await Canvas.loadImage(foodFile[sauceID]['pizza']['sauces'][sauce].image)
+					} catch (error) {
+						sauceDraw = await Canvas.loadImage(`./images/foodgenerators/pizza/error_sauce.png`)
+					}
+				}
+				drawRotated(Math.random() * 360, sauceDraw)
+			}
+			//cheese
+			if (cheese !== 'No Cheese') {
+				var cheeseDraw
+
+				if (cheeseID == 'official')
+					try {
+						cheeseDraw = await Canvas.loadImage(`./images/foodgenerators/pizza/cheeses/${cheese}.png`)
+					} catch (error) {
+						cheeseDraw = await Canvas.loadImage(`./images/foodgenerators/pizza/error_cheese.png`)
+					}
+				else {
+					try {
+						cheeseDraw = await Canvas.loadImage(foodFile[cheeseID]['pizza']['cheeses'][cheese].image)
+					} catch (error) {
+						cheeseDraw = await Canvas.loadImage(`./images/foodgenerators/pizza/error_cheese.png`)
+					}
+				}
+				drawRotated(Math.random() * 360, cheeseDraw)
+			}
+			//toppings
+			for (var i = 1; i <= toppings; i++) {
+				var toppingDraw
+
+				if (toppingIDList[toppingIDList.length - i] == 'official')
+					try {
+						toppingDraw = await Canvas.loadImage(`./images/foodgenerators/pizza/toppings/${toppingResults[toppingResults.length - i]}.png`)
+					} catch (error) {
+						toppingDraw = await Canvas.loadImage(`./images/foodgenerators/pizza/error_topping.png`)
+					}
+				else {
+					try {
+						toppingDraw = await Canvas.loadImage(foodFile[toppingIDList[toppingIDList.length - i]]['pizza']['toppings'][toppingResults[toppingResults.length - i]].image)
+					} catch (error) {
+						toppingDraw = await Canvas.loadImage(`./images/foodgenerators/pizza/error_topping.png`)
+					}
+				}
+				drawRotated(Math.random() * 360, toppingDraw)
+			}
+			//condiments
+			for (var i = 1; i <= condiments; i++) {
+				var condimentDraw
+
+				if (condimentIDList[condimentIDList.length - i] == 'official')
+					try {
+						condimentDraw = await Canvas.loadImage(`./images/foodgenerators/pizza/condiments/${condimentResults[condimentResults.length - i]}.png`)
+					} catch (error) {
+						condimentDraw = await Canvas.loadImage(`./images/foodgenerators/pizza/error_condiment.png`)
+					}
+				else {
+					try {
+						condimentDraw = await Canvas.loadImage(foodFile[condimentIDList[condimentIDList.length - i]]['pizza']['condiments'][condimentResults[condimentResults.length - i]].image)
+					} catch (error) {
+						condimentDraw = await Canvas.loadImage(`./images/foodgenerators/pizza/error_condiment.png`)
+					}
+				}
+				drawRotated(Math.random() * 360, condimentDraw)
+			}
+		
+			const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'pizza-result.png');
+
+			//////////////////
+			// Last Touches //
+			//////////////////
+		
+			if (toppingResults.length > 8) {
+				embed = new Discord.MessageEmbed()
+					.setColor('#F0B2ED')
+					.setTitle(`Current Pizza Toppings:`)
+					.setDescription(`${toppingList}`)
+					.setFooter(`Pizza`);
+		
+				message.author.send({embeds: [embed]})
+				toppingList = `*Too many toppings in this field.\nYou should get a DM with the topping list.*`
+			}
+		
+			if (condimentResults.length > 8) {
+				embed = new Discord.MessageEmbed()
+					.setColor('#F0B2ED')
+					.setTitle(`Current Pizza Condiments:`)
+					.setDescription(`${condimentList}`)
+					.setFooter(`Pizza`);
+		
+				message.author.send({embeds: [embed]})
+				condimentList = `*Too many condiments in this field.\nYou should get a DM with the condiment list.*`
+			}
+		
+			if (toppings < 1) {
+				toppingList = `\nNone`
+				toppingName = `${cheese}`
+			}
+		
+			if (condiments < 1)
+				condimentList = `\nNone`
+		
+			if (toppingName.length > 128)
+				toppingName = "Title too long to process."
+		
+			embed = new Discord.MessageEmbed()
+					.setColor('#FF6100')
+					.setTitle(`${toppingName} ${toppingName == "Title too long to process." ? '' : 'Pizza'}`)
+					.addFields(
+						{ name: 'Crust', value: `${crust} ${crustID == undefined ? '' : (crustID == 'official' ? '*(Official)*' : `*(${client.users.cache.get(crustID)})*`)}`, inline: true },
+						{ name: 'Sauce', value: `${sauce} ${sauceID == undefined ? '' : (sauceID == 'official' ? '*(Official)*' : `*(${client.users.cache.get(sauceID)})*`)}`, inline: true },
+						{ name: 'Cheese', value: `${cheese} ${cheeseID == undefined ? '' : (cheeseID == 'official' ? '*(Official)*' : `*(${client.users.cache.get(cheeseID)})*`)}`, inline: true },
+						{ name: 'Topping Number', value: `${toppings}`, inline: false },
+						{ name: 'Toppings', value: `${toppingList}`, inline: true },
+						{ name: 'Condiment Number', value: `${condiments}`, inline: false },
+						{ name: 'Condiments', value: `${condimentList}`, inline: true },
+					)
+					.setImage(`attachment://pizza-result.png`)
+					.setFooter(`Pizza`);
+		
+			return message.channel.send({embeds: [embed], files: [attachment]})
+		}
 	}
 
     ///////////////////
@@ -4507,7 +6971,7 @@ client.on('messageCreate', async message => {
             })
 
             relicFight[message.channel.id].fighters.push({
-                name: "RPGBot",
+                name: "Bloom Battler",
                 bot: true,
                 id: "none",
                 hp: 500,
@@ -4813,7 +7277,7 @@ client.on('messageCreate', async message => {
 				limitbreaks: false,
 				showtimes: false,
 				onemores: false,
-				currency: "RPGBot Token",
+				currency: "Bloom Token",
 				xprate: 1,
 				pvpstuff: {
 					none: {},
@@ -5020,6 +7484,1500 @@ client.on('messageCreate', async message => {
 		fs.writeFileSync(btlPath, JSON.stringify(btl, null, '    '));
 	}
 
+	//////////
+	// Loot //
+	//////////
+
+	if (command === 'makeloot')
+		makeLoot.initialize(message, prefix);
+
+	if (command === 'assignloot')
+		assignLoot.initialize(message, prefix);
+
+	if (command === 'getloot')
+		getLoot.initialize(message, prefix);
+
+	if (command === 'searchloots')
+		searchLoot.initialize(message, prefix);
+
+	if (command === 'listloots')
+		listLoot.initialize(message, prefix);
+
+	if (command === 'deassignloot')
+		deassignLoot.initialize(message, prefix);
+
+	if (command === 'removeloot')
+		removeLoot.initialize(message, prefix);
+
+	////////////
+	// Chests //
+	////////////
+
+	if (command == 'makechest') {
+		if (utilityFuncs.isBanned(message.author.id, message.guild.id) && !utilityFuncs.RPGBotAdmin(message.author.id)) {
+			message.channel.send("I've been told you were banned from using the RPG sections of the bot, sorry!")
+			return false
+		}
+		
+        if (!message.member.permissions.serialize().ADMINISTRATOR) {
+            message.channel.send("You lack sufficient permissions, I'm so sorry!");
+            return
+        }
+
+        const arg = message.content.slice(prefix.length).trim().split(/ +/);
+        if (!arg[1]) {
+            const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle(`${prefix}makechest`)
+				.setDescription('(Args <Name> <Channel> <Spoiler> <Optional: Loot Table, Items...>)\nCreates a chest that characters can open, gather items from and put them in.')
+            message.channel.send({embeds: [DiscordEmbed]})
+            return false
+        }
+
+		if (!arg[2] || !client.channels.cache.get(arg[2])) {
+			message.channel.send("Please specify a valid channel.")
+			return false
+		}
+
+		if (!arg[3]) {
+			message.channel.send("Please specify if this chest should be left as a spoiler or not.")
+			return false
+		}
+
+		var chestPath = dataPath+'/chests.json'
+		var chestRead = fs.readFileSync(chestPath);
+		var chestFile = JSON.parse(chestRead);
+        var itemPath = dataPath+'/items.json'
+        var itemRead = fs.readFileSync(itemPath);
+        var itemFile = JSON.parse(itemRead);
+		var lootPath = dataPath+'/Loot/lootTables.json'
+		var lootRead = fs.readFileSync(lootPath);
+		var lootFile = JSON.parse(lootRead);
+
+		const chestName = arg[1]
+		const chestChannel = client.channels.cache.get(arg[2])
+		const underSpoiler = arg[3]
+		let chosenLoot = ''
+		let chosenItems = []
+
+		if (!chestChannel.isText() && !chestChannel.isThread()) {
+			message.channel.send(`${chestChannel.name} is not a text channel. Please change the location.`)
+			return false
+		}
+
+		for (const i in arg) {
+			if (i > 3) {
+				if (!lootFile[arg[i]]) {
+					if (!itemFile[arg[i]]) {
+						message.channel.send(`<:warning:878094052208296007>${arg[i]} is not a valid item, neither is it a valid loot table`)
+					} else {
+						chosenItems.push(itemFile[arg[i]].name)
+					}
+				} else {
+					chosenLoot = lootFile[arg[i]].name
+				}
+			}
+		}
+
+		if (!chestFile[message.guild.id]) {
+			chestFile[message.guild.id] = {}
+		}
+
+		if (!chestFile[message.guild.id][chestChannel.id]) {
+			chestFile[message.guild.id][chestChannel.id] = {}
+		}
+
+		chestFile[message.guild.id][chestChannel.id][chestName] = {
+			name: chestName,
+			inputLoot: chosenLoot,
+			inputItems: chosenItems,
+			itemsFromLoot: {},
+			items: {},
+			party: "",
+			locked: false,
+			lockOpener: "",
+			spoiler: (underSpoiler == 'true'?true:false),
+			encountered: false
+		}
+
+		////////putting items inside
+		//Loot
+
+		let currentItems = {}
+
+		if (chosenLoot !== '') {
+			let itemInput = lootFile[chosenLoot].items
+			let chanceInput = lootFile[chosenLoot].itemChances
+
+			for (const loot in itemInput) {
+				if (Math.random() * 100 < chanceInput[loot]) {
+					console.log(`Successfully put ${itemInput[loot]} inside of a chest`)
+
+					if (!chestFile[message.guild.id][chestChannel.id][chestName].items[itemInput[loot]]) {
+						chestFile[message.guild.id][chestChannel.id][chestName].items[itemInput[loot]] = 0
+					}
+						
+					chestFile[message.guild.id][chestChannel.id][chestName].items[itemInput[loot]] += 1
+
+					if (!chestFile[message.guild.id][chestChannel.id][chestName].itemsFromLoot[itemInput[loot]]) {
+						chestFile[message.guild.id][chestChannel.id][chestName].itemsFromLoot[itemInput[loot]] = 0
+					}
+						
+					chestFile[message.guild.id][chestChannel.id][chestName].itemsFromLoot[itemInput[loot]] += 1
+
+					if (!currentItems[itemInput[loot]]) {
+						currentItems[itemInput[loot]] = 0
+					}
+
+					currentItems[itemInput[loot]] += 1
+				}
+			}
+		}	
+		//real items
+		let pickedItems = 'None'
+
+		if (chosenItems !== [])
+			pickedItems = ''
+
+		for (const i in chosenItems) {
+			pickedItems += `\n- ${chosenItems[i]}`
+
+			if (!chestFile[message.guild.id][chestChannel.id][chestName].items[chosenItems[i]]) {
+				chestFile[message.guild.id][chestChannel.id][chestName].items[chosenItems[i]] = 0
+			}
+
+			chestFile[message.guild.id][chestChannel.id][chestName].items[chosenItems[i]] += 1
+
+			if (!currentItems[chosenItems[i]]) {
+				currentItems[chosenItems[i]] = 0
+			}
+
+			currentItems[chosenItems[i]] += 1
+		}
+
+		fs.writeFileSync(chestPath, JSON.stringify(chestFile, null, '    '));
+
+		//embed
+
+		console.log(currentItems)
+
+		let spoilerText = 'No'
+		let lootText = 'None'
+		let itemText = ''
+
+		for (const i in currentItems)
+			itemText += `\n- ${i}: ${currentItems[i]}`
+
+		if (underSpoiler == 'true')
+			spoilerText = 'Yes'
+
+		if (chosenLoot !== '')
+			lootText = chosenLoot
+
+		if (pickedItems == '')
+			pickedItems = `None`
+
+		if (itemText == '')
+			itemText = `None`
+
+		if (underSpoiler == 'true') {
+			message.delete()
+			var chestEmbed = new Discord.MessageEmbed()
+			.setColor('#c2907e')
+			.setTitle(`Contents of ${chestName}!`)
+			.setFields(
+				{name: `Loot Table`, value: lootText, inline: false},
+				{name: `Base Items`, value: pickedItems, inline: false},
+				{name: `Current Items`, value: itemText, inline: false}
+			)
+			message.author.send({embeds: [chestEmbed]})
+
+			lootText = '*Spoilered. You should get a DM with the chest contents.*'
+			pickedItems = '*Spoilered. You should get a DM with the chest contents.*'
+			itemText = '*Spoilered. You should get a DM with the chest contents.*'
+		}
+
+		var chestEmbed = new Discord.MessageEmbed()
+			.setColor('#c2907e')
+			.setTitle(`A new chest has been created!`)
+			.setFields(
+				{name: `Name`, value: chestName, inline: true},
+				{name: `Channel`, value: chestChannel.name, inline: true},
+				{name: `Spoiler`, value: spoilerText, inline: true},
+				{name: `Loot Table`, value: lootText, inline: false},
+				{name: `Chosen Items`, value: pickedItems, inline: false},
+				{name: `Current Items`, value: itemText, inline: false}
+			)
+		message.channel.send({embeds: [chestEmbed]})
+	}
+
+	if (command == 'spoilerchest') {
+		if (utilityFuncs.isBanned(message.author.id, message.guild.id) && !utilityFuncs.RPGBotAdmin(message.author.id)) {
+			message.channel.send("I've been told you were banned from using the RPG sections of the bot, sorry!")
+			return false
+		}
+		
+        if (!message.member.permissions.serialize().ADMINISTRATOR) {
+            message.channel.send("You lack sufficient permissions, I'm so sorry!");
+            return
+        }
+
+        const arg = message.content.slice(prefix.length).trim().split(/ +/);
+        if (!arg[1]) {
+            const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle(`${prefix}spoilerchest`)
+				.setDescription('(Args <Name>)\nWill change if a chest is spoilered or not.')
+            message.channel.send({embeds: [DiscordEmbed]})
+            return false
+        }
+
+		const success = utilityFuncs.getChest(arg[1],message)
+		if (success == false) {
+			message.channel.send(`${arg[1]} is not a valid chest.`)
+			return false
+		}
+
+		var chestPath = dataPath+'/chests.json'
+		var chestRead = fs.readFileSync(chestPath);
+		var chestFile = JSON.parse(chestRead);
+
+		for (const channelID in chestFile[message.guild.id]) {
+			for (const chest in chestFile[message.guild.id][channelID]) {
+				if (chestFile[message.guild.id][channelID][arg[1]]) {
+					chestFile[message.guild.id][channelID][arg[1]].spoiler = !chestFile[message.guild.id][channelID][arg[1]].spoiler
+
+					if (chestFile[message.guild.id][channelID][arg[1]].spoiler !== true)
+						message.channel.send(`${arg[1]} is **no longer spoilered**. Everyone is free to see the chest without opening it for the first time.`)
+					else
+						message.channel.send(`${arg[1]} is **now spoilered**. Only ones with permissions are free to see the chest without opening it for the first time.`)
+				}
+			}
+		}
+		fs.writeFileSync(chestPath, JSON.stringify(chestFile, null, '    '));
+	}
+
+	if (command == 'encounterchest') {
+		if (utilityFuncs.isBanned(message.author.id, message.guild.id) && !utilityFuncs.RPGBotAdmin(message.author.id)) {
+			message.channel.send("I've been told you were banned from using the RPG sections of the bot, sorry!")
+			return false
+		}
+		
+        if (!message.member.permissions.serialize().ADMINISTRATOR) {
+            message.channel.send("You lack sufficient permissions, I'm so sorry!");
+            return
+        }
+
+        const arg = message.content.slice(prefix.length).trim().split(/ +/);
+        if (!arg[1]) {
+            const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle(`${prefix}encounterchest`)
+				.setDescription('(Args <Name>)\nWill make a chest opened for the first time.')
+            message.channel.send({embeds: [DiscordEmbed]})
+            return false
+        }
+
+		const success = utilityFuncs.getChest(arg[1],message)
+		if (success == false) {
+			message.channel.send(`${arg[1]} is not a valid chest.`)
+			return false
+		}
+
+		var chestPath = dataPath+'/chests.json'
+		var chestRead = fs.readFileSync(chestPath);
+		var chestFile = JSON.parse(chestRead);
+
+		for (const channelID in chestFile[message.guild.id]) {
+			for (const chest in chestFile[message.guild.id][channelID]) {
+				if (chestFile[message.guild.id][channelID][arg[1]]) {
+					chestFile[message.guild.id][channelID][arg[1]].encountered = true
+
+					message.react('👍')
+				}
+			}
+		}
+		fs.writeFileSync(chestPath, JSON.stringify(chestFile, null, '    '));
+	}
+
+	if (command == 'removechest') {
+		if (utilityFuncs.isBanned(message.author.id, message.guild.id) && !utilityFuncs.RPGBotAdmin(message.author.id)) {
+			message.channel.send("I've been told you were banned from using the RPG sections of the bot, sorry!")
+			return false
+		}
+		
+        if (!message.member.permissions.serialize().ADMINISTRATOR) {
+            message.channel.send("You lack sufficient permissions, I'm so sorry!");
+            return
+        }
+
+        const arg = message.content.slice(prefix.length).trim().split(/ +/);
+        if (!arg[1]) {
+            const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle(`${prefix}removechest`)
+				.setDescription('(Args <Name>)\nWill remove a chest and delete every item inside of it.')
+            message.channel.send({embeds: [DiscordEmbed]})
+            return false
+        }
+
+		const success = utilityFuncs.getChest(arg[1],message)
+		if (success == false) {
+			message.channel.send(`${arg[1]} is not a valid chest.`)
+			return false
+		}
+
+		var chestPath = dataPath+'/chests.json'
+		var chestRead = fs.readFileSync(chestPath);
+		var chestFile = JSON.parse(chestRead);
+
+		for (const channelID in chestFile[message.guild.id]) {
+			for (const chest in chestFile[message.guild.id][channelID]) {
+				if (chestFile[message.guild.id][channelID][arg[1]]) {
+					delete chestFile[message.guild.id][channelID][arg[1]]
+
+					message.react('👍')
+				}
+			}
+		}
+		fs.writeFileSync(chestPath, JSON.stringify(chestFile, null, '    '));
+	}
+
+	if (command == 'chestlocation') {
+		if (utilityFuncs.isBanned(message.author.id, message.guild.id) && !utilityFuncs.RPGBotAdmin(message.author.id)) {
+			message.channel.send("I've been told you were banned from using the RPG sections of the bot, sorry!")
+			return false
+		}
+		
+        if (!message.member.permissions.serialize().ADMINISTRATOR) {
+            message.channel.send("You lack sufficient permissions, I'm so sorry!");
+            return
+        }
+
+        const arg = message.content.slice(prefix.length).trim().split(/ +/);
+        if (!arg[1]) {
+            const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle(`${prefix}chestlocation`)
+				.setDescription("(Args <Name> <Channel>)\nWill change a chest's location.")
+            message.channel.send({embeds: [DiscordEmbed]})
+            return false
+        }
+
+		if (!arg[2] || !client.channels.cache.get(arg[2])) {
+			message.channel.send("Please specify a valid channel.")
+			return false
+		}
+
+		const chestChannel = client.channels.cache.get(arg[2])
+		const success = utilityFuncs.getChest(arg[1],message)
+
+		if (success == false) {
+			message.channel.send(`${arg[1]} is not a valid chest.`)
+			return false
+		}
+
+		if (!chestChannel.isText() && !chestChannel.isThread()) {
+			message.channel.send(`${chestChannel.name} is not a text channel. Please change the location.`)
+			return false
+		}
+
+		var chestPath = dataPath+'/chests.json'
+		var chestRead = fs.readFileSync(chestPath);
+		var chestFile = JSON.parse(chestRead);
+
+		if (!chestFile[message.guild.id][chestChannel.id])
+			chestFile[message.guild.id][chestChannel.id] = {}
+
+		for (const channelID in chestFile[message.guild.id]) {
+			for (const chest in chestFile[message.guild.id][channelID]) {
+				if (chestFile[message.guild.id][channelID][arg[1]]) {
+					if (channelID == chestChannel.id) {
+						message.channel.send(`The new location shouldn't be the same location. Please choose a different location.`)
+						return false
+					}
+
+					chestFile[message.guild.id][chestChannel.id][arg[1]] = chestFile[message.guild.id][channelID][arg[1]]
+					delete chestFile[message.guild.id][channelID][arg[1]]
+
+					message.channel.send(`${chest} has successfully switched location to ${chestChannel.name}.`)
+					fs.writeFileSync(chestPath, JSON.stringify(chestFile, null, '    '));
+					return true
+				}
+			}
+		}
+	}
+
+	if (command == 'renamechest') {
+		if (utilityFuncs.isBanned(message.author.id, message.guild.id) && !utilityFuncs.RPGBotAdmin(message.author.id)) {
+			message.channel.send("I've been told you were banned from using the RPG sections of the bot, sorry!")
+			return false
+		}
+		
+        if (!message.member.permissions.serialize().ADMINISTRATOR) {
+            message.channel.send("You lack sufficient permissions, I'm so sorry!");
+            return
+        }
+
+        const arg = message.content.slice(prefix.length).trim().split(/ +/);
+        if (!arg[1]) {
+            const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle(`${prefix}renamechest`)
+				.setDescription("(Args <Name> <New Name>)\nWill change a chest's name to what you want it to be.")
+            message.channel.send({embeds: [DiscordEmbed]})
+            return false
+        }
+
+		if (!arg[2]) {
+			message.channel.send("Please specify a new name for this chest.")
+			return false
+		}
+
+		const success = utilityFuncs.getChest(arg[1],message)
+
+		if (success == false) {
+			message.channel.send(`${arg[1]} is not a valid chest.`)
+			return false
+		}
+
+		if (arg[2] == arg[1]) {
+			message.channel.send(`You can't rename a chest to the same thing. Please change the new name.`)
+			return false
+		}
+
+		var chestPath = dataPath+'/chests.json'
+		var chestRead = fs.readFileSync(chestPath);
+		var chestFile = JSON.parse(chestRead);
+
+		for (const channelID in chestFile[message.guild.id]) {
+			for (const chest in chestFile[message.guild.id][channelID]) {
+				if (chestFile[message.guild.id][channelID][arg[1]]) {
+					chestFile[message.guild.id][channelID][arg[2]] = chestFile[message.guild.id][channelID][arg[1]]
+					delete chestFile[message.guild.id][channelID][arg[1]]
+
+					message.channel.send(`${arg[1]} has been successfully renamed to ${arg[2]}`)
+					fs.writeFileSync(chestPath, JSON.stringify(chestFile, null, '    '));
+					return true
+				}
+			}
+		}
+	}
+
+	if (command == 'chestloot') {
+		if (utilityFuncs.isBanned(message.author.id, message.guild.id) && !utilityFuncs.RPGBotAdmin(message.author.id)) {
+			message.channel.send("I've been told you were banned from using the RPG sections of the bot, sorry!")
+			return false
+		}
+		
+        if (!message.member.permissions.serialize().ADMINISTRATOR) {
+            message.channel.send("You lack sufficient permissions, I'm so sorry!");
+            return
+        }
+
+        const arg = message.content.slice(prefix.length).trim().split(/ +/);
+        if (!arg[1]) {
+            const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle(`${prefix}chestloot`)
+				.setDescription("(Args <Name> <New Name>)\nWill change a chest's loot table and items within.")
+            message.channel.send({embeds: [DiscordEmbed]})
+            return false
+        }
+
+		if (!arg[2]) {
+			message.channel.send("Please specify a valid loot table.")
+			return false
+		}
+
+		const success = utilityFuncs.getChest(arg[1],message)
+
+		if (success == false) {
+			message.channel.send(`${arg[1]} is not a valid chest.`)
+			return false
+		}
+
+		var lootPath = dataPath+'/Loot/lootTables.json'
+		var lootRead = fs.readFileSync(lootPath);
+		var lootFile = JSON.parse(lootRead);
+		var chestPath = dataPath+'/chests.json'
+		var chestRead = fs.readFileSync(chestPath);
+		var chestFile = JSON.parse(chestRead);
+	
+		if (!lootFile[arg[2]]) {
+			message.channel.send(`${arg[2]} is not a loot table.`)
+			return false
+		}
+
+		for (const channelID in chestFile[message.guild.id]) {
+			for (const chest in chestFile[message.guild.id][channelID]) {
+				if (chestFile[message.guild.id][channelID][arg[1]]) {
+					for (const item in chestFile[message.guild.id][channelID][arg[1]].itemsFromLoot) {
+
+						console.log(item)
+						if (chestFile[message.guild.id][channelID][arg[1]].items[item] > 0) {
+							chestFile[message.guild.id][channelID][arg[1]].items[item] -= chestFile[message.guild.id][channelID][arg[1]].itemsFromLoot[item]
+						}
+						
+						if (chestFile[message.guild.id][channelID][arg[1]].items[item] <= 0) {
+							delete chestFile[message.guild.id][channelID][arg[1]].items[item]
+						}
+					}
+
+					chestFile[message.guild.id][channelID][arg[1]].itemsFromLoot = {}
+					
+					chestFile[message.guild.id][channelID][arg[1]].inputLoot = lootFile[arg[2]].name
+
+					let itemInput = lootFile[arg[2]].items
+					let chanceInput = lootFile[arg[2]].itemChances
+
+					for (const loot in itemInput) {
+						if (Math.random() * 100 < chanceInput[loot]) {
+							console.log(`Successfully put ${itemInput[loot]} inside of a chest`)
+
+							if (!chestFile[message.guild.id][channelID][arg[1]].items[itemInput[loot]]) {
+								chestFile[message.guild.id][channelID][arg[1]].items[itemInput[loot]] = 0
+							}
+								
+							chestFile[message.guild.id][channelID][arg[1]].items[itemInput[loot]] += 1
+
+							if (!chestFile[message.guild.id][channelID][arg[1]].itemsFromLoot[itemInput[loot]]) {
+								chestFile[message.guild.id][channelID][arg[1]].itemsFromLoot[itemInput[loot]] = 0
+							}
+								
+							chestFile[message.guild.id][channelID][arg[1]].itemsFromLoot[itemInput[loot]] += 1
+						}
+					}
+
+					let newItems = ''
+					for (const i in chestFile[message.guild.id][channelID][arg[1]].items) {
+						newItems += `\n- ${i}: ${chestFile[message.guild.id][channelID][arg[1]].items[i]}`
+					}
+
+					if (newItems.length < 1)
+						newItems = '\nNone'
+
+					var chestEmbed = new Discord.MessageEmbed()
+						.setColor('#c2907e')
+						.setTitle(`The loot table has changed for ${arg[1]}!`)
+						.setDescription(`Items:${newItems}`)
+
+					if (chestFile[message.guild.id][channelID][arg[1]].spoiler == false)
+						message.channel.send({embeds: [chestEmbed]})
+					else {
+						message.delete()
+						message.author.send({embeds: [chestEmbed]})
+					}
+
+					fs.writeFileSync(chestPath, JSON.stringify(chestFile, null, '    '));
+					return true
+				}
+			}
+		}
+	}
+
+	if (command == 'removechestloot') {
+		if (utilityFuncs.isBanned(message.author.id, message.guild.id) && !utilityFuncs.RPGBotAdmin(message.author.id)) {
+			message.channel.send("I've been told you were banned from using the RPG sections of the bot, sorry!")
+			return false
+		}
+		
+        if (!message.member.permissions.serialize().ADMINISTRATOR) {
+            message.channel.send("You lack sufficient permissions, I'm so sorry!");
+            return
+        }
+
+        const arg = message.content.slice(prefix.length).trim().split(/ +/);
+        if (!arg[1]) {
+            const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle(`${prefix}removechestloot`)
+				.setDescription("(Args <Name>)\nWill remove a chest's loot table, and items related to it within.")
+            message.channel.send({embeds: [DiscordEmbed]})
+            return false
+        }
+
+		const success = utilityFuncs.getChest(arg[1],message)
+
+		if (success == false) {
+			message.channel.send(`${arg[1]} is not a valid chest.`)
+			return false
+		}
+
+		var chestPath = dataPath+'/chests.json'
+		var chestRead = fs.readFileSync(chestPath);
+		var chestFile = JSON.parse(chestRead);
+
+		for (const channelID in chestFile[message.guild.id]) {
+			for (const chest in chestFile[message.guild.id][channelID]) {
+				if (chestFile[message.guild.id][channelID][arg[1]]) {
+					if (chestFile[message.guild.id][channelID][arg[1]].inputLoot == "") {
+						message.channel.send(`${arg[1]} does not have a chest loot specified.`)
+						return false
+					}
+
+					for (const item in chestFile[message.guild.id][channelID][arg[1]].itemsFromLoot) {
+
+						console.log(item)
+						if (chestFile[message.guild.id][channelID][arg[1]].items[item] > 0) {
+							chestFile[message.guild.id][channelID][arg[1]].items[item] -= chestFile[message.guild.id][channelID][arg[1]].itemsFromLoot[item]
+						}
+						
+						if (chestFile[message.guild.id][channelID][arg[1]].items[item] <= 0) {
+							delete chestFile[message.guild.id][channelID][arg[1]].items[item]
+						}
+					}
+
+					chestFile[message.guild.id][channelID][arg[1]].itemsFromLoot = {}
+					chestFile[message.guild.id][channelID][arg[1]].inputLoot = ""
+
+					let newItems = ''
+					for (const i in chestFile[message.guild.id][channelID][arg[1]].items) {
+						newItems += `\n- ${i}: ${chestFile[message.guild.id][channelID][arg[1]].items[i]}`
+					}
+
+					if (newItems.length < 1)
+						newItems = '\nNone'
+
+					var chestEmbed = new Discord.MessageEmbed()
+						.setColor('#c2907e')
+						.setTitle(`The loot table has been removed for ${arg[1]}!`)
+						.setDescription(`Items:${newItems}`)
+
+					if (chestFile[message.guild.id][channelID][arg[1]].spoiler == false)
+						message.channel.send({embeds: [chestEmbed]})
+					else {
+						message.delete()
+						message.author.send({embeds: [chestEmbed]})
+					}
+
+					fs.writeFileSync(chestPath, JSON.stringify(chestFile, null, '    '));
+					return true
+				}
+			}
+		}
+	}
+
+	if (command == 'chestitems') {
+		if (utilityFuncs.isBanned(message.author.id, message.guild.id) && !utilityFuncs.RPGBotAdmin(message.author.id)) {
+			message.channel.send("I've been told you were banned from using the RPG sections of the bot, sorry!")
+			return false
+		}
+		
+        if (!message.member.permissions.serialize().ADMINISTRATOR) {
+            message.channel.send("You lack sufficient permissions, I'm so sorry!");
+            return
+        }
+
+        const arg = message.content.slice(prefix.length).trim().split(/ +/);
+        if (!arg[1]) {
+            const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle(`${prefix}chestitems`)
+				.setDescription("(Args <Name> <Optional: Items>)\nWill set a chest's base items to put into a chest.")
+            message.channel.send({embeds: [DiscordEmbed]})
+            return false
+        }
+
+		const success = utilityFuncs.getChest(arg[1],message)
+
+		if (success == false) {
+			message.channel.send(`${arg[1]} is not a valid chest.`)
+			return false
+		}
+
+		var chestPath = dataPath+'/chests.json'
+		var chestRead = fs.readFileSync(chestPath);
+		var chestFile = JSON.parse(chestRead);
+		var itemPath = dataPath+'/items.json'
+        var itemRead = fs.readFileSync(itemPath);
+        var itemFile = JSON.parse(itemRead);
+
+		let incorrectItems = ""
+		let chosenItems = []
+
+		for (const i in arg) {
+			if (i > 1) {
+				if (!itemFile[arg[i]]) {
+					incorrectItems += `\n- ${[arg[i]]}`
+				} else {
+					chosenItems.push(itemFile[arg[i]].name)
+				}
+			}
+		}
+
+		if (incorrectItems.length > 0)
+			message.channel.send(`<:warning:878094052208296007>**Your invalid items are:**${incorrectItems}`);
+
+			for (const channelID in chestFile[message.guild.id]) {
+				for (const chest in chestFile[message.guild.id][channelID]) {
+					if (chestFile[message.guild.id][channelID][arg[1]]) {
+	
+						for (const i in chestFile[message.guild.id][channelID][arg[1]].inputItems) {
+							var item = chestFile[message.guild.id][channelID][arg[1]].inputItems[i]
+
+							if (chestFile[message.guild.id][channelID][arg[1]].items[item] > 0)
+								chestFile[message.guild.id][channelID][arg[1]].items[item]--
+							
+							if (chestFile[message.guild.id][channelID][arg[1]].items[item] <= 0)
+								delete chestFile[message.guild.id][channelID][arg[1]].items[item]
+						}
+	
+						chestFile[message.guild.id][channelID][arg[1]].inputItems = chosenItems
+
+						for (const i in chosenItems) {
+							if (!chestFile[message.guild.id][channelID][arg[1]].items[chosenItems[i]]) {
+								chestFile[message.guild.id][channelID][arg[1]].items[chosenItems[i]] = 0
+							}
+									
+							chestFile[message.guild.id][channelID][arg[1]].items[chosenItems[i]] += 1
+						}
+
+						let newItems = ''
+						for (const i in chestFile[message.guild.id][channelID][arg[1]].items) {
+							newItems += `\n- ${i}: ${chestFile[message.guild.id][channelID][arg[1]].items[i]}`
+						}
+
+						if (newItems.length < 1)
+						newItems = '\nNone'
+	
+						var chestEmbed = new Discord.MessageEmbed()
+							.setColor('#c2907e')
+							.setTitle(`The base items have been changed for ${arg[1]}!`)
+							.setDescription(`Items:${newItems}`)
+	
+						if (chestFile[message.guild.id][channelID][arg[1]].spoiler == false)
+							message.channel.send({embeds: [chestEmbed]})
+						else {
+							message.delete()
+							message.author.send({embeds: [chestEmbed]})
+						}
+	
+						fs.writeFileSync(chestPath, JSON.stringify(chestFile, null, '    '));
+						return true
+					}
+				}
+			}
+	}
+
+	if (command == 'removechestitems') {
+		if (utilityFuncs.isBanned(message.author.id, message.guild.id) && !utilityFuncs.RPGBotAdmin(message.author.id)) {
+			message.channel.send("I've been told you were banned from using the RPG sections of the bot, sorry!")
+			return false
+		}
+		
+        if (!message.member.permissions.serialize().ADMINISTRATOR) {
+            message.channel.send("You lack sufficient permissions, I'm so sorry!");
+            return
+        }
+
+        const arg = message.content.slice(prefix.length).trim().split(/ +/);
+        if (!arg[1]) {
+            const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle(`${prefix}removechestitems`)
+				.setDescription("(Args <Name>)\nWill remove a chest's base items.")
+            message.channel.send({embeds: [DiscordEmbed]})
+            return false
+        }
+
+		const success = utilityFuncs.getChest(arg[1],message)
+
+		if (success == false) {
+			message.channel.send(`${arg[1]} is not a valid chest.`)
+			return false
+		}
+
+		var chestPath = dataPath+'/chests.json'
+		var chestRead = fs.readFileSync(chestPath);
+		var chestFile = JSON.parse(chestRead);
+
+		for (const channelID in chestFile[message.guild.id]) {
+			for (const chest in chestFile[message.guild.id][channelID]) {
+				if (chestFile[message.guild.id][channelID][arg[1]]) {
+
+					if (chestFile[message.guild.id][channelID][arg[1]].inputItems == []) {
+						message.channel.send(`${arg[1]} already doesn't have base items to begin with.`)
+						return false
+					}
+
+					for (const i in chestFile[message.guild.id][channelID][arg[1]].inputItems) {
+						var item = chestFile[message.guild.id][channelID][arg[1]].inputItems[i]
+
+						if (chestFile[message.guild.id][channelID][arg[1]].items[item] > 0)
+							chestFile[message.guild.id][channelID][arg[1]].items[item]--
+						
+						if (chestFile[message.guild.id][channelID][arg[1]].items[item] <= 0)
+							delete chestFile[message.guild.id][channelID][arg[1]].items[item]
+					}
+
+					chestFile[message.guild.id][channelID][arg[1]].inputItems = []
+
+					let newItems = ''
+					for (const i in chestFile[message.guild.id][channelID][arg[1]].items) {
+						newItems += `\n- ${i}: ${chestFile[message.guild.id][channelID][arg[1]].items[i]}`
+					}
+
+					if (newItems.length < 1)
+					newItems = '\nNone'
+
+					var chestEmbed = new Discord.MessageEmbed()
+						.setColor('#c2907e')
+						.setTitle(`The base items have been removed for ${arg[1]}!`)
+						.setDescription(`Items:${newItems}`)
+
+					if (chestFile[message.guild.id][channelID][arg[1]].spoiler == false)
+						message.channel.send({embeds: [chestEmbed]})
+					else {
+						message.delete()
+						message.author.send({embeds: [chestEmbed]})
+					}
+
+					fs.writeFileSync(chestPath, JSON.stringify(chestFile, null, '    '));
+					return true
+				}
+			}
+		}
+	}
+
+	if (command == 'lockchest') {
+		if (utilityFuncs.isBanned(message.author.id, message.guild.id) && !utilityFuncs.RPGBotAdmin(message.author.id)) {
+			message.channel.send("I've been told you were banned from using the RPG sections of the bot, sorry!")
+			return false
+		}
+		
+        if (!message.member.permissions.serialize().ADMINISTRATOR) {
+            message.channel.send("You lack sufficient permissions, I'm so sorry!");
+            return
+        }
+
+        const arg = message.content.slice(prefix.length).trim().split(/ +/);
+        if (!arg[1]) {
+            const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle(`${prefix}lockchest`)
+				.setDescription("(Args <Name> <Item>)\nWill lock a chest with an item.")
+            message.channel.send({embeds: [DiscordEmbed]})
+            return false
+        }
+
+		if (!arg[2]) {
+			message.channel.send(`Please specify an item to lock your chest with.`)
+			return false
+		}
+
+		const success = utilityFuncs.getChest(arg[1],message)
+
+		if (success == false) {
+			message.channel.send(`${arg[1]} is not a valid chest.`)
+			return false
+		}
+
+		var chestPath = dataPath+'/chests.json'
+		var chestRead = fs.readFileSync(chestPath);
+		var chestFile = JSON.parse(chestRead);
+		var itemPath = dataPath+'/items.json'
+        var itemRead = fs.readFileSync(itemPath);
+        var itemFile = JSON.parse(itemRead);
+
+		if (!itemFile[arg[2]]) {
+			message.channel.send(`${arg[2]} is not a valid item.`)
+			return false
+		}
+
+		for (const channelID in chestFile[message.guild.id]) {
+			for (const chest in chestFile[message.guild.id][channelID]) {
+				if (chestFile[message.guild.id][channelID][arg[1]]) {
+
+					chestFile[message.guild.id][channelID][arg[1]].locked = true
+					chestFile[message.guild.id][channelID][arg[1]].lockOpener = arg[2]
+
+					fs.writeFileSync(chestPath, JSON.stringify(chestFile, null, '    '));
+
+					if (chestFile[message.guild.id][channelID][arg[1]].spoiler = true)
+						message.delete()
+
+					message.channel.send(`${arg[1]} has been locked${chestFile[message.guild.id][channelID][arg[1]].spoiler !== true ? ` with a ${arg[2]}` : `.`}`)
+
+					return true
+				}
+			}
+		}
+	}
+
+	if (command == 'removelock') {
+		if (utilityFuncs.isBanned(message.author.id, message.guild.id) && !utilityFuncs.RPGBotAdmin(message.author.id)) {
+			message.channel.send("I've been told you were banned from using the RPG sections of the bot, sorry!")
+			return false
+		}
+		
+        if (!message.member.permissions.serialize().ADMINISTRATOR) {
+            message.channel.send("You lack sufficient permissions, I'm so sorry!");
+            return
+        }
+
+        const arg = message.content.slice(prefix.length).trim().split(/ +/);
+        if (!arg[1]) {
+            const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle(`${prefix}removelock`)
+				.setDescription("(Args <Name>)\nWill remove a chest's lock.")
+            message.channel.send({embeds: [DiscordEmbed]})
+            return false
+        }
+
+		const success = utilityFuncs.getChest(arg[1],message)
+
+		if (success == false) {
+			message.channel.send(`${arg[1]} is not a valid chest.`)
+			return false
+		}
+
+		var chestPath = dataPath+'/chests.json'
+		var chestRead = fs.readFileSync(chestPath);
+		var chestFile = JSON.parse(chestRead);
+
+		for (const channelID in chestFile[message.guild.id]) {
+			for (const chest in chestFile[message.guild.id][channelID]) {
+				if (chestFile[message.guild.id][channelID][arg[1]]) {
+					if (chestFile[message.guild.id][channelID][arg[1]].lockOpener == "") {
+						message.channel.send(`${arg[1]} doesn't have a lock.`)
+						return false
+					}
+
+					chestFile[message.guild.id][channelID][arg[1]].locked = false
+					chestFile[message.guild.id][channelID][arg[1]].lockOpener = ""
+
+					fs.writeFileSync(chestPath, JSON.stringify(chestFile, null, '    '));
+
+					if (chestFile[message.guild.id][channelID][arg[1]].spoiler = true)
+						message.delete()
+
+					message.channel.send(`${arg[1]} is no longer locked.`)
+
+					return true
+				}
+			}
+		}
+	}
+
+	if (command == 'getchest') {
+		const arg = message.content.slice(prefix.length).trim().split(/ +/);
+        if (!arg[1]) {
+            const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle(`${prefix}getchest`)
+				.setDescription("(Args <Name>)\nWill display some information about a specific chest.")
+            message.channel.send({embeds: [DiscordEmbed]})
+            return false
+        }
+
+		const success = utilityFuncs.getChest(arg[1],message)
+
+		if (success == false) {
+			message.channel.send(`${arg[1]} is not a valid chest.`)
+			return false
+		}
+
+		var chestPath = dataPath+'/chests.json'
+		var chestRead = fs.readFileSync(chestPath);
+		var chestFile = JSON.parse(chestRead);
+
+		var canSkip = false
+		if (message.member.permissions.serialize().ADMINISTRATOR || utilityFuncs.RPGBotAdmin(message.author.id))
+			canSkip = true
+
+		for (const channelID in chestFile[message.guild.id]) {
+			for (const chest in chestFile[message.guild.id][channelID]) {
+				if (chestFile[message.guild.id][channelID][arg[1]]) {
+					if (chestFile[message.guild.id][channelID][arg[1]].spoiler == true && chestFile[message.guild.id][channelID][arg[1]].encountered == false && canSkip == false) {
+						var DiscordEmbed = new Discord.MessageEmbed()
+						.setColor('#c2907e')
+						.setTitle(`${arg[1]}`)
+						.setDescription("You can't look in there yet. Please open it first before you can access the information.")
+	
+					return message.channel.send({embeds: [DiscordEmbed]})
+					}
+
+					var chestChannel = client.channels.cache.get(channelID)
+					let spoilerText = (chestFile[message.guild.id][channelID][arg[1]].spoiler == true ? `Yes` : `No`)
+					let lootText = chestFile[message.guild.id][channelID][arg[1]].inputLoot
+					if (lootText == "")
+						lootText = 'None'
+					let pickedItems = ''
+					for (const i in chestFile[message.guild.id][channelID][arg[1]].inputItems) {
+						pickedItems += `\n- ${chestFile[message.guild.id][channelID][arg[1]].inputItems[i]}`
+					}
+					if (pickedItems == '')
+					pickedItems = `None`
+
+					let itemText = ''
+					for (const i in chestFile[message.guild.id][channelID][arg[1]].items) {
+						itemText += `\n- ${i}: ${chestFile[message.guild.id][channelID][arg[1]].items[i]}`
+					}
+					if (itemText == '')
+						itemText = `None`
+					
+					let lockText = (chestFile[message.guild.id][channelID][arg[1]].locked == true ? `Yes` : `No`)
+					let keyText = (chestFile[message.guild.id][channelID][arg[1]].lockOpener !== "" ? chestFile[message.guild.id][channelID][arg[1]].lockOpener : `None`)
+
+					var chestEmbed = new Discord.MessageEmbed()
+					.setColor('#c2907e')
+					.setTitle(`${arg[1]}`)
+					.setFields(
+						{name: `Channel`, value: chestChannel.name, inline: true},
+						{name: `Spoiler`, value: spoilerText, inline: true},
+						{name: `Locked`, value: lockText, inline: false},
+						{name: `Lock Key`, value: keyText, inline: false},
+						{name: `Loot Table`, value: lootText, inline: false},
+						{name: `Base Items`, value: pickedItems, inline: false},
+						{name: `Current Items`, value: itemText, inline: false}
+					)
+					if (chestFile[message.guild.id][channelID][arg[1]].spoiler == true && chestFile[message.guild.id][channelID][arg[1]].encountered == false && (message.member.permissions.serialize().ADMINISTRATOR || utilityFuncs.RPGBotAdmin(message.author.id))) {
+						message.react(`👍`)
+						message.author.send({embeds: [chestEmbed]})
+					} else
+						message.channel.send({embeds: [chestEmbed]})
+				}
+			}
+		}
+	}
+
+	if (command == 'searchchests') {
+		const arg = message.content.slice(prefix.length).trim().split(/ +/);
+        if (!arg[1]) {
+            const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle(`${prefix}searchchests`)
+				.setDescription("(Args <Search Parameter>)\nWill search for chests based on the word specified, in a server you type into.")
+            message.channel.send({embeds: [DiscordEmbed]})
+            return false
+        }
+
+		var chestPath = dataPath+'/chests.json'
+		var chestRead = fs.readFileSync(chestPath);
+		var chestFile = JSON.parse(chestRead);
+
+		var skillTxt = []
+		for (const channelID in chestFile[message.guild.id]) {
+			for (const chest in chestFile[message.guild.id][channelID]) {
+				if (chest.includes(arg[1])) {
+					skillTxt.push(chestFile[message.guild.id][channelID][chest])
+				}
+			}
+		}
+
+		sendBasicArray(message.channel, skillTxt)
+	}
+
+	if (command == 'listchests') {
+		var chestPath = dataPath+'/chests.json'
+		var chestRead = fs.readFileSync(chestPath);
+		var chestFile = JSON.parse(chestRead);
+		
+		var skillTxt = []
+		for (const channelID in chestFile[message.guild.id]) {
+			for (const chest in chestFile[message.guild.id][channelID]) {
+				skillTxt.push(chestFile[message.guild.id][channelID][chest])
+			}
+		}
+		
+		sendBasicArray(message.channel, skillTxt)
+	}
+
+	if (command == 'openchest') {
+		message.delete()
+
+		if (utilityFuncs.isBanned(message.author.id, message.guild.id) && !utilityFuncs.RPGBotAdmin(message.author.id)) {
+			message.channel.send("I've been told you were banned from using the RPG sections of the bot, sorry!")
+			return false
+		}
+		
+        if (!message.member.permissions.serialize().ADMINISTRATOR) {
+            message.channel.send("You lack sufficient permissions, I'm so sorry!");
+            return
+        }
+
+        const arg = message.content.slice(prefix.length).trim().split(/ +/);
+        if (!arg[1]) {
+            const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle(`${prefix}openchest`)
+				.setDescription('(Args <Chest Name> <Party>)\nOpens a created chest with the specified party.')
+            message.channel.send({embeds: [DiscordEmbed]})
+            return false
+        }
+
+		if (!arg[2]) {
+            message.channel.send("Please specify a correct party.");
+            return
+        }
+
+		var chestPath = dataPath+'/chests.json'
+		var chestRead = fs.readFileSync(chestPath);
+		var chestFile = JSON.parse(chestRead);
+		var btlPath = dataPath+'/battle.json'
+		var btlRead = fs.readFileSync(btlPath);
+		var btl = JSON.parse(btlRead);
+
+		if (!chestFile[message.guild.id][message.channel.id][arg[1]]) {
+			message.channel.send(`${arg[1]} does not exist in this channel. Please try somewhere else.`);
+            return
+		}
+
+		if (!btl[message.guild.id].parties[arg[2]]) {
+			message.channel.send("Invalid Party!")
+			return false
+		}
+
+		var chestInput = chestFile[message.guild.id][message.channel.id][arg[1]]
+		var partyInput = btl[message.guild.id].parties[arg[2]]
+
+		let canOpen = false
+
+		if (chestInput.locked == false) {
+			canOpen = true
+		} else if (chestInput.locked == true) {
+			for (const i in partyInput.items) {
+				if (chestInput.lockOpener == i) {
+					canOpen = true
+				}
+			}
+		}
+
+		if (canOpen == false) {
+			message.channel.send("You can't open this chest because you don't have the right item to open it with.")
+			return false
+		}
+
+		chestInput.party = arg[2]
+		chestInput.encountered = true
+		fs.writeFileSync(chestPath, JSON.stringify(chestFile, null, '    '));
+
+		let itemText = ''
+		for (const i in chestInput.items) {
+			itemText += `\n- ${i}: ${chestInput.items[i]}`
+		}
+		if (itemText == '')
+			itemText = `None`
+
+		var chestEmbed = new Discord.MessageEmbed()
+			.setColor('#c2907e')
+			.setTitle(`${arg[2]} has successfully opened ${arg[1]}`)
+			.setFields(
+				{name: `Items`, value: itemText, inline: false}
+			)
+		message.channel.send({embeds: [chestEmbed]})
+	}
+
+	if (command == 'closechest') {
+		message.delete()
+
+		if (utilityFuncs.isBanned(message.author.id, message.guild.id) && !utilityFuncs.RPGBotAdmin(message.author.id)) {
+			message.channel.send("I've been told you were banned from using the RPG sections of the bot, sorry!")
+			return false
+		}
+		
+        if (!message.member.permissions.serialize().ADMINISTRATOR) {
+            message.channel.send("You lack sufficient permissions, I'm so sorry!");
+            return
+        }
+
+		const arg = message.content.slice(prefix.length).trim().split(/ +/);
+        if (!arg[1]) {
+            const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle(`${prefix}openchest`)
+				.setDescription('(Args <Chest Name>)\nCloses a created chest if it is open.')
+            message.channel.send({embeds: [DiscordEmbed]})
+            return false
+        }
+
+		var chestPath = dataPath+'/chests.json'
+		var chestRead = fs.readFileSync(chestPath);
+		var chestFile = JSON.parse(chestRead);
+		var btlPath = dataPath+'/battle.json'
+		var btlRead = fs.readFileSync(btlPath);
+		var btl = JSON.parse(btlRead);
+
+		if (!chestFile[message.guild.id][message.channel.id][arg[1]]) {
+			message.channel.send(`${arg[1]} does not exist in this channel. Please try somewhere else.`);
+            return
+		}
+
+		var chestInput = chestFile[message.guild.id][message.channel.id][arg[1]]
+
+		if (chestInput.party == "") {
+			message.channel.send(`${arg[1]} is not open yet. Please open it first.`);
+            return
+		}
+
+		message.channel.send(`${chestInput.party} has closed ${arg[1]}.`)
+		chestInput.party = ""
+		fs.writeFileSync(chestPath, JSON.stringify(chestFile, null, '    '));
+	}
+
+	if (command == 'takeitem') {
+		message.delete()
+
+		if (utilityFuncs.isBanned(message.author.id, message.guild.id) && !utilityFuncs.RPGBotAdmin(message.author.id)) {
+			message.channel.send("I've been told you were banned from using the RPG sections of the bot, sorry!")
+			return false
+		}
+
+		const arg = message.content.slice(prefix.length).trim().split(/ +/);
+        if (!arg[1]) {
+            const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle(`${prefix}takeitem`)
+				.setDescription(`(Args <Chest Name> <Item> <Optional: Quantity>)\nTake items from a chest, should it be open.\n\nYou can also do:\n${prefix}takeitem all to take all the items from the chest.`)
+            message.channel.send({embeds: [DiscordEmbed]})
+            return false
+        }
+
+		if (!arg[2]) {
+			message.channel.send("Please specify what item you want to take, or if you want to take all of them.")
+			return false
+		}
+
+		var chestPath = dataPath+'/chests.json'
+		var chestRead = fs.readFileSync(chestPath);
+		var chestFile = JSON.parse(chestRead);
+		var itemPath = dataPath+'/items.json'
+		var itemRead = fs.readFileSync(itemPath);
+		var itemFile = JSON.parse(itemRead);
+		var btlPath = dataPath+'/battle.json'
+		var btlRead = fs.readFileSync(btlPath);
+		var btl = JSON.parse(btlRead);
+
+		if (!chestFile[message.guild.id][message.channel.id][arg[1]]) {
+			message.channel.send(`${arg[1]} does not exist in this channel. Please try somewhere else.`);
+            return
+		}
+
+		var chestInput = chestFile[message.guild.id][message.channel.id][arg[1]]
+
+		if (chestInput.party == "") {
+			message.channel.send(`${arg[1]} is not open yet. Please open it first.`);
+            return
+		}
+
+		var partyInput = btl[message.guild.id].parties[chestInput.party]
+
+		if (arg[2] == 'All') {
+			for (const item in itemFile) {
+				for (const chestItem in chestInput.items) {
+					if (chestItem == itemFile[item].name) {
+						if (!partyInput.items[item]) {
+							partyInput.items[item] = 0
+						}
+
+						partyInput.items[item] += chestInput.items[chestItem]
+					}
+				}
+			}
+			fs.writeFileSync(btlPath, JSON.stringify(btl, null, '    '));
+
+			chestInput.items = {}
+
+			fs.writeFileSync(chestPath, JSON.stringify(chestFile, null, '    '));
+		} else {
+			let quantity = 1
+
+			if (!arg[3])
+			quantity = 1
+
+			quantity = parseInt(arg[3])
+
+			if (!isFinite(parseInt(arg[3])))
+			quantity = 1
+
+			if (parseInt(arg[3]) < 1)
+			quantity = 1
+
+			if (!itemFile[arg[2]]) {
+				message.channel.send(`${arg[2]} is not a valid item.`);
+            	return
+			}
+
+			let canTake = false
+
+			for (i in chestInput.items) {
+				if (itemFile[arg[2]].name == i)
+				canTake = true
+			}
+
+			if (canTake == false) {
+				message.channel.send(`${arg[2]} is not in this chest yet.`);
+            	return
+			}
+
+			if (quantity > chestInput.items[itemFile[arg[2]].name])
+			quantity = chestInput.items[itemFile[arg[2]].name]
+
+			chestInput.items[itemFile[arg[2]].name] -= quantity
+
+			if (chestInput.items[itemFile[arg[2]].name] < 1)
+			delete chestInput.items[itemFile[arg[2]].name]
+
+			fs.writeFileSync(chestPath, JSON.stringify(chestFile, null, '    '));
+
+			if (!partyInput.items[arg[2]]) {
+				partyInput.items[arg[2]] = 0
+			}
+
+			partyInput.items[arg[2]] += quantity
+
+			fs.writeFileSync(btlPath, JSON.stringify(btl, null, '    '));
+		}
+
+		let itemText = ''
+		for (const i in chestInput.items) {
+			itemText += `\n- ${i}: ${chestInput.items[i]}`
+		}
+		if (itemText == '')
+			itemText = `None`
+
+		var chestEmbed = new Discord.MessageEmbed()
+			.setColor('#c2907e')
+			.setTitle(`${chestInput.party} has successfully taken items from ${chestInput.name}`)
+			.setFields(
+				{name: `Items`, value: itemText, inline: false}
+			)
+		message.channel.send({embeds: [chestEmbed]})
+	}
+
+	if (command == 'putitem') {
+		message.delete()
+
+		if (utilityFuncs.isBanned(message.author.id, message.guild.id) && !utilityFuncs.RPGBotAdmin(message.author.id)) {
+			message.channel.send("I've been told you were banned from using the RPG sections of the bot, sorry!")
+			return false
+		}
+
+		const arg = message.content.slice(prefix.length).trim().split(/ +/);
+        if (!arg[1]) {
+            const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle(`${prefix}putitem`)
+				.setDescription(`(Args <Chest Name> <Item> <Optional: Quantity>)\nTake items from a party, and put them inside of a chest, should it be open.\n\nYou can also do:\n${prefix}putitem all to put all the items from the party into a chest.`)
+            message.channel.send({embeds: [DiscordEmbed]})
+            return false
+        }
+
+		if (!arg[2]) {
+			message.channel.send("Please specify what item you want to take, or if you want to take all of them.")
+			return false
+		}
+
+		var chestPath = dataPath+'/chests.json'
+		var chestRead = fs.readFileSync(chestPath);
+		var chestFile = JSON.parse(chestRead);
+		var itemPath = dataPath+'/items.json'
+		var itemRead = fs.readFileSync(itemPath);
+		var itemFile = JSON.parse(itemRead);
+		var btlPath = dataPath+'/battle.json'
+		var btlRead = fs.readFileSync(btlPath);
+		var btl = JSON.parse(btlRead);
+
+		if (!chestFile[message.guild.id][message.channel.id][arg[1]]) {
+			message.channel.send(`${arg[1]} does not exist in this channel. Please try somewhere else.`);
+            return
+		}
+
+		var chestInput = chestFile[message.guild.id][message.channel.id][arg[1]]
+
+		if (chestInput.party == "") {
+			message.channel.send(`${arg[1]} is not open yet. Please open it first.`);
+            return
+		}
+
+		var partyInput = btl[message.guild.id].parties[chestInput.party]
+
+		if (arg[2] == 'All') {
+			for (const item in itemFile) {
+				for (const partyItem in partyInput.items) {
+					if (item == partyItem) {
+						if (!chestInput.items[itemFile[item].name]) {
+							chestInput.items[itemFile[item].name] = 0
+						}
+
+						chestInput.items[itemFile[item].name] += partyInput.items[partyItem]
+					}
+				}
+			}
+
+			fs.writeFileSync(chestPath, JSON.stringify(chestFile, null, '    '));
+
+			partyInput.items = {}
+
+			fs.writeFileSync(btlPath, JSON.stringify(btl, null, '    '));
+		} else {
+			let quantity = 1
+
+			if (!arg[3])
+			quantity = 1
+
+			quantity = parseInt(arg[3])
+
+			if (!isFinite(parseInt(arg[3])))
+			quantity = 1
+
+			if (parseInt(arg[3]) < 1)
+			quantity = 1
+
+			if (!itemFile[arg[2]]) {
+				message.channel.send(`${arg[2]} is not a valid item.`);
+            	return
+			}
+
+			let canPut = false
+
+			for (i in partyInput.items) {
+				if (arg[2] == i)
+				canPut = true
+			}
+
+			if (canPut == false) {
+				message.channel.send(`${arg[2]} is not an item in ${chestInput.party}'s inventory.`);
+            	return
+			}
+
+			if (quantity > partyInput.items[arg[2]])
+			quantity = partyInput.items[arg[2]]
+
+			partyInput.items[arg[2]] -= quantity
+
+			if (partyInput.items[arg[2]] < 1)
+			delete partyInput.items[arg[2]]
+
+			fs.writeFileSync(btlPath, JSON.stringify(btl, null, '    '));
+
+			if (!chestInput.items[itemFile[arg[2]].name]) {
+				chestInput.items[itemFile[arg[2]].name] = 0
+			}
+
+			chestInput.items[itemFile[arg[2]].name] += quantity
+
+			fs.writeFileSync(chestPath, JSON.stringify(chestFile, null, '    '));
+		}
+
+		let itemText = ''
+		for (const i in chestInput.items) {
+			itemText += `\n- ${i}: ${chestInput.items[i]}`
+		}
+		if (itemText == '')
+			itemText = `None`
+
+		var chestEmbed = new Discord.MessageEmbed()
+			.setColor('#c2907e')
+			.setTitle(`${chestInput.party} has successfully put items from ${chestInput.name}`)
+			.setFields(
+				{name: `Items`, value: itemText, inline: false}
+			)
+		message.channel.send({embeds: [chestEmbed]})
+	}
+
 	/////////////////////
     // Battle Commands //
     /////////////////////
@@ -5092,16 +9050,12 @@ client.on('messageCreate', async message => {
             return false
         }
 		
-        if (message.content.includes("@everyone") || message.content.includes("@here") || message.mentions.users.first()) {
-            message.channel.send(`You're really mean, you know that?`);
-            return false
-        }
+        if (message.content.includes("@everyone") || message.content.includes("@here") || message.mentions.users.first())
+            return message.channel.send(`You're really mean, you know that?`);
 
         if (!utilityFuncs.RPGBotAdmin(message.author.id)) {
-            if (readSkill(arg[1])) {
-                message.channel.send("This skill exists already. You have insufficient permissions to overwrite it.")
-                return
-            }
+            if (readSkill(arg[1]))
+                return message.channel.send("This skill exists already. You have insufficient permissions to overwrite it.");
         }
 			
 		if (!arg[7]) {
@@ -5229,35 +9183,29 @@ client.on('messageCreate', async message => {
 
 				if (skillDefs.atktype) {
 					var attackArray = skillDefs.atktype.split('');
-					attackArray[0].toUpperCase()
+					attackArray[0] = attackArray[0].toUpperCase()
 					
 					var attackString = attackArray.join('');
 					finalText += `**${attackString}** attack.\n`;
 				}
 
-				if (skillDefs.mimic) {				
+				if (skillDefs.mimic)
 					finalText += `\nMimics **one ally/foe**.`;
-				}
 
-				if (skillDefs.copyskill) {				
+				if (skillDefs.copyskill)
 					finalText += `\nUses a **randomly known ally skill**.`;
-				}
 
-				if (skillDefs.sketch) {				
+				if (skillDefs.sketch)
 					finalText += "\nCopies a **random skill of the opponent's**.";
-				}
 
-				if (skillDefs.metronome) {				
+				if (skillDefs.metronome)
 					finalText += `\nUses a **randomly defined skill**.`;
-				}
 				
-				if (skillDefs.futuresight) {				
+				if (skillDefs.futuresight)
 					finalText += `\nWill deal damage in **${skillDefs.futuresight.turns} turns**.`;
-				}
 				
-				if (skillDefs.desc) {				
+				if (skillDefs.desc)
 					finalText += `\n*${skillDefs.desc}*`;
-				}
 
 				const DiscordEmbed = new Discord.MessageEmbed()
 					.setColor('#4b02c9')
@@ -5287,7 +9235,7 @@ client.on('messageCreate', async message => {
                     { name: `${prefix}registerskill`, value: `(Args <Name> <Cost> <CostType> <Status Type> <Extra Value 1> <Extra Value 2> "<Desc>")\nCreates a skill to be used in battle. \nThese skills have certain properties that can change how they're used.\n\nAllow me to explain`, inline: false },
                     { name: 'Cost', value: "To be used in combination with the next one.", inline: true },
                     { name: 'CostType', value: "HP, MP, HP% or MP%. For example, if I set cost to 5, and costtype to MP%, it would take 5% of my MP.", inline: true },
-                    { name: 'Status Type', value: "This is the thing this status skill will do. Input things such as 'buff', 'debuff', 'mimic', 'status' & 'clone' for this. The value of this will change how Extra Value 1 and Extra Value 2 are used.", inline: true },
+                    { name: 'Status Type', value: "This is the thing this status skill will do. Input things such as 'buff', 'debuff', 'mimic', 'status', 'clone', 'makarakarn', 'tetrakarn', 'shield' & 'trap' for this. The value of this will change how Extra Value 1 and Extra Value 2 are used.", inline: true },
                     { name: 'Extra Value 1', value: "A value that affects the usage of the skill. For example, if 'Status Type' is 'status', this would be the status effect to inflict.", inline: true },
 					{ name: 'Extra Value 2', value: "A value that affects the usage of the skill. For example, if 'Status Type' is 'status', this would be the chance the status is inflicted.", inline: true },
                     { name: 'Description', value: "This Skills's description. Try to explain what the move does, so your friends can imagine it! Enclose this value in quotation marks.", inline: true },
@@ -5703,6 +9651,96 @@ client.on('messageCreate', async message => {
         }
     }
 
+    if (command === 'registeritem') {
+		if (utilityFuncs.isBanned(message.author.id, message.guild.id) && !utilityFuncs.RPGBotAdmin(message.author.id))
+			return message.channel.send("I've been told you were banned from using the RPG sections of the bot, sorry!");
+
+        const arg = message.content.slice(prefix.length).trim().split(/ +/);
+        if (!arg[1]) {
+            const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+				.setTitle(`${prefix}registeritem`)
+				.setDescription(`(Args <Name> <Currency Cost> <Item Type> <Extra Value 1> <Extra Value 2> <Extra Value 3> <Extra Value 4> <Description>)\nCreates an item to be used in battle. They can be used in battle to grant certain effects or restore health.\n\nAllow me to explain`)
+                .addFields(
+                    { name: 'Currency Cost', value: "How much of this server's currency this item costs in **shops**.", inline: true },
+                    { name: 'Item Type', value: `The effect this item has. Right now, there's "weapon", "heal", "healmp", "healhpmp" & "revive".`, inline: true },
+                    { name: 'Extra Value 1', value: 'The value of this should change depending on Item Type. For example, this value should be the ATK buff for "weapon" or the restore amount for the heal types.', inline: true },
+                    { name: 'Extra Value 2', value: 'The value of this should change depending on Item Type. For example, this value should be the MAG buff for "weapon".', inline: true },
+                    { name: 'Extra Value 3', value: 'The value of this should change depending on Item Type. For example, this value should be the END buff for "weapon".', inline: true },
+                    { name: 'Extra Value 4', value: 'The value of this should change depending on Item Type. For example, this value should be the skill granted for "weapon".', inline: true },
+                    { name: 'Description', value: "This Item's description. Try to explain what the item does and how it is used, so your friends can imagine it! Enclose this value in quotation marks.", inline: true },
+                )
+
+			return message.channel.send({embeds: [DiscordEmbed]})
+        }
+		
+        if (message.content.includes("@everyone") || message.content.includes("@here") || message.mentions.users.first())
+            return message.channel.send(`You're really mean, you know that?`);
+		
+        var itemPath = dataPath+'/items.json'
+        var itemRead = fs.readFileSync(itemPath);
+        var itemFile = JSON.parse(itemRead);
+
+        if (!utilityFuncs.RPGBotAdmin(message.author.id)) {
+            if (itemFile[arg[1]])
+                return message.channel.send("This skill exists already. You have insufficient permissions to overwrite it.");
+        }
+			
+		if (!arg[2])
+			message.channel.send('Please specify the cost.');
+		else if (!arg[3])
+			message.channel.send('Please specify the item type.');
+			
+		var splicedTxt = message.content.slice(prefix.length).trim().split('"')
+		var itemDesc = splicedTxt ? splicedTxt[1] : ''
+
+        itemFile[arg[1]] = {
+			name: arg[1],
+			cost: parseInt(arg[2]),
+			type: arg[3].toLowerCase(),
+			desc: itemDesc
+		}
+		
+		if (arg[3].toLowerCase() === "weapon") {
+			if (arg[4] && parseInt(arg[4]))
+				itemFile[arg[1]].atk = parseInt(arg[4])
+			if (arg[5] && parseInt(arg[5]))
+				itemFile[arg[1]].mag = parseInt(arg[5])
+			if (arg[6] && parseInt(arg[6]))
+				itemFile[arg[1]].def = parseInt(arg[6])
+			if (arg[7])
+				itemFile[arg[1]].atk = arg[7]
+		} else if (arg[3].toLowerCase() === "heal" || arg[3].toLowerCase() === "healmp") {
+			if (arg[4] && parseInt(arg[4]))
+				itemFile[arg[1]].heal = parseInt(arg[4])
+			else
+				itemFile[arg[1]].heal = 60
+		} else if (arg[3].toLowerCase() === "healhpmp") {
+			if (arg[4] && parseInt(arg[4]))
+				itemFile[arg[1]].healhp = parseInt(arg[4])
+			else
+				itemFile[arg[1]].healhp = 60
+			
+			if (arg[5] && parseInt(arg[5]))
+				itemFile[arg[1]].healmp = parseInt(arg[5])
+			else
+				itemFile[arg[1]].healmp = 40
+		} else if (arg[3].toLowerCase() === "revive") {
+			if (arg[4] && parseInt(arg[4]))
+				itemFile[arg[1]].revive = parseInt(arg[4])
+			else
+				itemFile[arg[1]].revive = 2
+		}
+		
+		fs.writeFileSync(itemPath, JSON.stringify(itemFile, null, '    '));
+		
+		const DiscordEmbed = new Discord.MessageEmbed()
+			.setColor('#4b02c9')
+			.setTitle(`${itemFile[arg[1]].name ? itemFile[arg[1]].name : arg[1]}`)
+			.setDescription(`*${itemFile[arg[1]].desc}*`)
+		message.channel.send({content: `${arg[1]} is ready to go!`, embeds: [DiscordEmbed]});
+    }
+
     if (command === 'getitem') {
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
         var itemPath = dataPath+'/items.json'
@@ -5819,7 +9857,7 @@ client.on('messageCreate', async message => {
                 return false
             }
         }
-		
+
 		// Balance Checks
 		if (parseInt(arg[2]) > 50) {
 			message.channel.send('This is too much base HP.')
@@ -5840,13 +9878,13 @@ client.on('messageCreate', async message => {
 					BST += parseInt(arg[i])
 				}
 			}
-			
+
 			if (BST > 45)
-				return message.channel.send(`<:warning:878094052208296007>${BST} is more than 45. 45 is the Maximum for Base Stat Total.`);
+				return message.channel.send(`<:warning:878094052208296007>${BST} is more than 45. Use 45 and below.`);
 			else if (BST < 23)
 				message.channel.send(`<:warning:878094052208296007>You're asking for pain. (${BST} BST)`);
-			else if (BST < 38)
-				message.channel.send(`<:warning:878094052208296007>Your Base Stat Total is wayy below 45. (${BST})\nYou may be underpowered!`);
+			else if (BST < 40)
+				message.channel.send(`<:warning:878094052208296007>Your Base Stat Total is below 40! (${BST})\nYou may be underpowered!`)
 		}
 
         charFuncs.writeChar(message.author, arg[1], parseInt(arg[2]), parseInt(arg[3]), parseInt(arg[4]), parseInt(arg[5]), parseInt(arg[6]), parseInt(arg[7]), parseInt(arg[8]), parseInt(arg[9]), parseInt(arg[10]), parseInt(arg[11]))
@@ -5952,6 +9990,99 @@ client.on('messageCreate', async message => {
 		}, 1000)
 	}
 
+    if (command === 'settransformation' || command === 'transformation') {
+		if (utilityFuncs.isBanned(message.author.id, message.guild.id) && !utilityFuncs.RPGBotAdmin(message.author.id)) {
+			message.channel.send("I've been told you were banned from using the RPG sections of the bot, sorry!")
+			return false
+		}
+
+        const arg = message.content.slice(prefix.length).trim().split(/ +/);
+        if (arg[1] == null) {
+            const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+				.setTitle(`${prefix}${command}`)
+				.setDescription(`(Args <Character Name> <Transformaton Name> <Requirement> <Automatic?> <HP Buff> <Strength Buff> <Magic Buff> <Perception Buff> <Endurance Buff> <Charisma Buff> <Inteligence Buff> <Agility Buff> <Luck Buff>)\nAllows the specified character to transform mid-battle! Usually, there's a requirement for the transformation.\n\nOh right! I should explain what each new stat does, huh. Essentially, it's the same as a character, except... less BST. There are multible requirement IDs, including but not limited to:\n"allydown"\n"onlystanding"\n"belowhalfhp"\n"outofmp"\n"leaderdown"\n"trusteddown"`)
+                .setFooter(`${prefix}${command}`);
+            message.channel.send({embeds: [DiscordEmbed]})
+            return false
+        }
+	
+        if (message.content.includes("@everyone") || message.content.includes("@here") || message.mentions.users.first()) {
+            message.channel.send(`You're really mean, you know that?`);
+            return false
+        }
+		
+		// Balance Checks
+		if (parseInt(arg[5]) > 20) {
+			message.channel.send('This is too much of a HP buff. Try below 20.')
+			return false
+		} else {
+			var BST = 0;
+			for (i = 6; i <= 12; i++)
+				BST += parseInt(arg[i]);
+			if (BST > 15)
+				return message.channel.send(`<:warning:878094052208296007>${BST} is more than 15. 15 is the Maximum for Transformations.`);
+		}
+		
+		var charPath = dataPath+'/characters.json'
+		var charRead = fs.readFileSync(charPath);
+		var charFile = JSON.parse(charRead);
+		
+		if (!charFile[arg[1]])
+			return message.channel.send(`${arg[1]} is an invalid character.`);
+		
+		var charDefs = charFile[arg[1]]
+
+		var reqTable = ['allydown', 'onlystanding', 'belowhalfhp', 'outofmp', 'leaderdown', 'trusteddown']
+
+		if (!arg[3])
+			return message.channel.send('Please specify a requirement value (See with no arguments)')
+		
+		if (arg[3].toLowerCase()) {
+			var validArg;
+			var argument = arg[3].toLowerCase()
+		
+			for (const i in reqTable) {
+				if (reqTable[i] && argument == reqTable[i].toLowerCase()) {
+					validArg = true;
+					break
+				}
+			}
+			
+			if (!validArg)
+				return message.channel.send('Please specify a valid requirement value (See with no arguments)');
+		}
+		
+		var auto = false;
+		if (!arg[4])
+			return message.channel.send('Please specify an automatic value (true or false)');
+		
+		if (arg[4].toLowerCase() == 'true' || arg[4].toLowerCase() == 'yes')
+			auto = true;
+
+		/*
+		var name = message.content.slice(prefix.length).trim().split('"');
+		if (!name[1])
+			return message.channel.send('Please surround the transformation name in Quotation Marks ("")');
+		*/
+
+        charFuncs.makeTransformation(charDefs, arg[2], arg[3].toLowerCase(), auto, parseInt(arg[5]), parseInt(arg[6]), parseInt(arg[7]), parseInt(arg[8]), parseInt(arg[9]), parseInt(arg[10]), parseInt(arg[11]), parseInt(arg[12]), parseInt(arg[13]))
+        fs.writeFileSync(charPath, JSON.stringify(charFile, null, '    '));
+
+		if (charDefs.transformations[arg[2]]) {
+			var transDefs = charDefs.transformations[arg[2]]
+
+            const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#f2c055')
+				.setTitle(`${charDefs.name}'s ${transDefs.name} Transformation's Stats:`)
+                .setDescription(`${transDefs.hp}HP++\n\n${transDefs.atk}ATK++\n${transDefs.mag}MAG++\n${transDefs.prc}PRC++\n${transDefs.end}END++\n${transDefs.chr}CHR++\n${transDefs.int}INT++\n${transDefs.agl}AGL++\n${transDefs.luk}LUK++`)
+            message.channel.send({content: `👍 ${charDefs.name}'s ${transDefs.name} transformation has been registered!`, embeds: [DiscordEmbed]});
+        } else {
+            message.channel.send(`${arg[1]} isn't a valid character.`);
+            return
+        }
+    }
+
     if (command === 'setaffinity') {
 		if (utilityFuncs.isBanned(message.author.id, message.guild.id) && !utilityFuncs.RPGBotAdmin(message.author.id)) {
 			message.channel.send("I've been told you were banned from using the RPG sections of the bot, sorry!")
@@ -5968,8 +10099,14 @@ client.on('messageCreate', async message => {
                     return false
                 }
             }
+			
+			if (!utilityFuncs.validType(arg[2].toLowerCase()))
+				return message.channel.send(`${arg[2].toLowerCase()} isn't a valid type.`);
 
-            if (arg[3].toLowerCase() == "weak" || arg[3].toLowerCase() == "resist" || arg[3].toLowerCase() == "block" || arg[3].toLowerCase() == "repel" || arg[3].toLowerCase() == "drain") {
+			if (!arg[3])
+				return message.channel.send('Specify the affinity.\nTry one of the following:```diff\n- Weak\n- Resist\n- Block\n- Repel\n- Drain\n- None```');
+
+            if (arg[3].toLowerCase() == "normal" || arg[3].toLowerCase() == "weak" || arg[3].toLowerCase() == "resist" || arg[3].toLowerCase() == "block" || arg[3].toLowerCase() == "repel" || arg[3].toLowerCase() == "drain") {
                 writeAffinity(arg[1], arg[2].toLowerCase(), arg[3].toLowerCase())
                 message.channel.send(`👍 ${arg[1]}'s affinity towards ${arg[2]} is now ${arg[3]}`);
             } else {
@@ -6037,12 +10174,12 @@ client.on('messageCreate', async message => {
 			}
 			
 			if (BST > 45) {
-				message.channel.send('Your Base Stat Total should be 45.')
+				message.channel.send('Your Base Stat Total should be 45 or under.')
 				return false
 			} else if (BST < 25) {
 				message.channel.send(`<:warning:878094052208296007>You're asking for pain. (${BST} BST)`)
-			} else if (BST < 45) {
-				message.channel.send(`<:warning:878094052208296007>Your Base Stat Total is below 45. (${BST})\nYou may be underpowered!`)
+			} else if (BST < 40) {
+				message.channel.send(`<:warning:878094052208296007>Your Base Stat Total is below 40! (${BST})\nYou may be underpowered!`)
 			}
 		}
 		
@@ -6157,7 +10294,6 @@ client.on('messageCreate', async message => {
 		}
 
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
-		
 		var charPath = dataPath+'/characters.json'
 		var charRead = fs.readFileSync(charPath);
 		var charFile = JSON.parse(charRead);
@@ -6198,7 +10334,7 @@ client.on('messageCreate', async message => {
 					.setDescription(`${lvlQuote}Level ${charDefs.level}\n${charDefs.maxhp}HP\n${charDefs.maxmp}MP\n\n${charDefs.atk}ATK\n${charDefs.mag}MAG\n${charDefs.prc}PRC\n${charDefs.end}END\n${charDefs.chr}CHR\n${charDefs.int}INT\n${charDefs.agl}AGL\n${charDefs.luk}LUK`)
 				message.channel.send({embeds: [DiscordEmbed]})
             }
-			
+
 			fs.writeFileSync(charPath, JSON.stringify(charFile, null, '    '));
         } else {
             message.channel.send(`${arg[1]} isn't a valid character.`);
@@ -6213,6 +10349,10 @@ client.on('messageCreate', async message => {
 		}
 
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
+		var charPath = dataPath+'/characters.json'
+		var charRead = fs.readFileSync(charPath);
+		var charFile = JSON.parse(charRead);
+
         if (readChar(arg[1])) {
             if (!utilityFuncs.RPGBotAdmin(message.author.id)) {
                 const charDefs = readChar(arg[1])
@@ -6243,39 +10383,54 @@ client.on('messageCreate', async message => {
         if (arg[1] == null) {
             const DiscordEmbed = new Discord.MessageEmbed()
                 .setColor('#4b02c9')
-                .addFields(
-                    { name: 'rpg!learnskill', value: `(Args <Name> <Skill>)\nAllow characters to learn new skills.`, inline: false },
-                )
-                .setFooter('rpg!learnskill');
-            message.channel.send({embeds: [DiscordEmbed]})
-            return false
+				.setTitle(`${prefix}learnskill`)
+				.setDescription('(Args <Name> <Skill> <Skill 2> <...>)\nAllow characters to learn new skills.')
+            return message.channel.send({embeds: [DiscordEmbed]})
         }
 
-        if (readChar(arg[1])) {
-			const charDefs = readChar(arg[1])
+		var charPath = dataPath+'/characters.json'
+		var charRead = fs.readFileSync(charPath);
+		var charFile = JSON.parse(charRead);
+        if (charFile[arg[1]]) {
+			const charDefs = charFile[arg[1]]
             if (!utilityFuncs.RPGBotAdmin(message.author.id)) {
                 if (message.author.id != charDefs.owner) {
                     message.channel.send("You can't edit someone else's character!")
                     return false
                 }
             }
-			
-			if (charDefs.skills.length > 8) {
-				message.channel.send("You cannot have more than 8 skills.")
-				return false
-			}
 
-            if (readSkill(arg[2])) {
-                learnSkill(arg[1], arg[2]);
-                message.channel.send(`👍 ${arg[1]} learned ${arg[2]}!`);
-            } else {
-                message.channel.send(`${arg[2]} isn't a valid skill.`);
-                return
+			var skillPath = dataPath+'/skills.json'
+			var skillRead = fs.readFileSync(skillPath);
+			var skillFile = JSON.parse(skillRead);
+			var learnString = `👍 ${arg[1]} learned `
+			for (let i = 2; i < arg.length; i++) {
+				if (i > 1) {
+					if (charFuncs.knowsSkill(charDefs, arg[i]))
+						return message.channel.send(`${arg[1]} already knows ${arg[i]}!`);
+
+					if (skillFile[arg[i]]) {
+						learnString += (skillFile[arg[i]].name ? skillFile[arg[i]].name : arg[i])
+						charDefs.skills.push(arg[i])
+
+						if (i == arg.length-2)
+							learnString += ' and '
+						else if (i >= arg.length-1)
+							learnString += '!'
+						else
+							learnString += ', '
+					} else
+						return message.channel.send(`${arg[i]} isn't a valid skill.`);
+				}
             }
-        } else {
-            message.channel.send(`${arg[1]} isn't a valid character.`);
-            return
-        }
+
+			if (charDefs.skills.length > 8)
+				return message.channel.send("You cannot have more than 8 skills!");
+
+			message.channel.send(learnString);
+			fs.writeFileSync(charPath, JSON.stringify(charFile, null, '    '));
+        } else
+            return message.channel.send(`${arg[1]} isn't a valid character.`);
     }
 	
     if (command === 'replaceskill') {
@@ -6292,13 +10447,7 @@ client.on('messageCreate', async message => {
 		if (!charFile[arg[1]])
 			return message.channel.send(`${arg[1]} is an invalid character.`)
 		
-		var knowsSkill = false
-		for (const i in charFile[arg[1]].skills) {
-			if (arg[2] == charFile[arg[1]].skills[i])
-				knowsSkill = true;
-		}
-		
-		if (!knowsSkill)
+		if (!charFuncs.knowsSkill(charFile[arg[1]], arg[2]))
 			return message.channel.send(`${arg[1]} doesn't know this skill!`);
 		
 		if (!readSkill(arg[3]))
@@ -6402,7 +10551,7 @@ client.on('messageCreate', async message => {
                     { name: 'LB%', value: "All non-melee attacks build up your Limit Break Meter. This meter is required for this attack.", inline: true },
                     { name: 'Status Effect', value: `Can be set to "none" if you don't want a status effect.`, inline: true },
                     { name: 'Status Effect Chance', value: "Can be set to 0 if you don't want a status effect.", inline: true },
-                    { name: 'Limit Break Level', value: "1-5, idealy should progressively get stronger. LB% MUST be higher than the last level.", inline: true },
+                    { name: 'Limit Break Level', value: "1-4, idealy should progressively get stronger. LB% MUST be higher than the last level.", inline: true },
                     { name: 'Limit Break Class', value: "The class of Limit Break Skill. Right now, there's 'atk' & 'heal'. Stick to one class.", inline: true },
                 )
                 .setFooter(`${prefix}setlb`);
@@ -7136,18 +11285,34 @@ client.on('messageCreate', async message => {
         var charPath = dataPath+'/characters.json'
         var charRead = fs.readFileSync(charPath);
         var charFile = JSON.parse(charRead);
+		
+		var user = message.mentions.users.first() ? message.mentions.users.first() : null
 
 		var charArray = []
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
         if (!arg[1] || arg[1] === ' ' || arg[1] === 'null') {
-			for (const i in charFile)
-				charArray.push(charFile[i]);
+			for (const i in charFile) {
+				if (user) {
+					if (charFile[i].id == user.id) {
+						charArray.push(charFile[i]);
+					}
+				} else {
+					charArray.push(charFile[i]);
+				}
+			}
 
 			sendCharArray(message.channel, charArray);
         } else {
 			for (const i in charFile) {
-				if (charFile[i].name && charFile[i].name.includes(arg[1]))
-					charArray.push(charFile[i]);
+				if (charFile[i].name && charFile[i].name.includes(arg[1])) {
+					if (user) {
+						if (charFile[i].id == user.id) {
+							charArray.push(charFile[i]);
+						}
+					} else {
+						charArray.push(charFile[i]);
+					}
+				}
 			}
 			
 			if (charArray.length <= 0)
@@ -7160,17 +11325,25 @@ client.on('messageCreate', async message => {
     if (command === 'getchar') {
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
 		
-        var charPath = dataPath+'/characters.json'
+        var charPath = dataPath+'/characters.json';
         var charRead = fs.readFileSync(charPath);
         var charFile = JSON.parse(charRead);
+		var skillPath = dataPath+'/skills.json';
+		var skillRead = fs.readFileSync(skillPath);
+		var skillFile = JSON.parse(skillRead);
+
         if (charFile[arg[1]]) {
             const charName = arg[1]
             const charDefs = charFile[arg[1]]
 
             var i;
             var charSkills = ``;
-            for (i = 0; i < charDefs.skills.length; i++)
-                charSkills += `${elementEmoji[readSkill(charDefs.skills[i]).type]}${charDefs.skills[i]}\n`;
+            for (i = 0; i < charDefs.skills.length; i++) {
+				if (skillFile[charDefs.skills[i]])
+					charSkills += `${elementEmoji[skillFile[charDefs.skills[i]].type]}${skillFile[charDefs.skills[i]].name ? skillFile[charDefs.skills[i]].name : charDefs.skills[i]}\n`;
+				else
+					charSkills += '🛑Invalid Skill\n'
+			}
 
             if (charSkills === ``)
 				charSkills = "none";
@@ -7369,6 +11542,23 @@ client.on('messageCreate', async message => {
 			for (const i in enmDefs.drain) {charAffs += `${elementEmoji[enmDefs.drain[i]]} <:drain:879801979138895904>\n`}
 			if (charAffs === ``) {charAffs = "None."}
 
+			var enmLoot = ``
+			if (!enmDefs.loot || enmDefs.loot == '' || enmDefs.loot == undefined)
+				enmLoot = `No possible loot.`
+			
+			if (enmDefs.loot) {
+				var lootPath = dataPath+'/Loot/lootTables.json'
+				var lootRead = fs.readFileSync(lootPath);
+				var lootFile = JSON.parse(lootRead);
+
+				let lootVar=0;
+				
+				do {
+					enmLoot += `- ${lootFile[enmDefs.loot].items[lootVar]}\n`
+					lootVar++
+				} while (lootVar < lootFile[enmDefs.loot].items.length) //how tf did a for loop not work with it????????
+			}
+
             var DiscordEmbed = new Discord.MessageEmbed()
                 .setColor('#12de6a')
                 .setTitle(`${enmName}`)
@@ -7377,10 +11567,12 @@ client.on('messageCreate', async message => {
                     { name: `${enmName}'s Stats:`, value: `Level ${enmDefs.level}\nWorth ${enmDefs.awardxp}XP\n\n${enmDefs.hp} Max HP\n${enmDefs.mp} Max MP\n\n${enmDefs.atk}ATK\n${enmDefs.mag}MAG\n${enmDefs.prc}PRC\n${enmDefs.end}END\n${enmDefs.chr}CHR\n${enmDefs.int}INT\n${enmDefs.agl}AGL\n${enmDefs.luk}LUK`, inline: true },
                     { name: `${enmName}'s Skills:`, value: `${enmSkills}`, inline: true },
 					{ name: `${enmName}'s Affinities:`, value: `${charAffs}`, inline: true },
-                    { name: `${enmName}'s Limit Break Capability:`, value: `${enmLB}`, inline: true }
+					{ name: `${enmName}'s Possible Loot:`, value: `${enmLoot}`, inline: true },
                 )
-
-
+			
+			if (enmLB != "No Limit Break Skill.")
+				DiscordEmbed.fields.push({ name: `${enmName}'s Limit Break Capability:`, value: `${enmLB}`, inline: true });
+			
             if (enmDefs.image) {
 				const file = new Discord.MessageAttachment(`./images/enemies/${enmDefs.image}`);
                 DiscordEmbed.setThumbnail(`attachment://${enmDefs.image}`)
@@ -7427,7 +11619,7 @@ client.on('messageCreate', async message => {
 				},
                 enemies: {
                     members: [],
-                    items: [],
+                    items: {},
                     rings: 0
                 },
                 battleteam: "none",
@@ -7615,7 +11807,7 @@ client.on('messageCreate', async message => {
 				},
                 enemies: {
                     members: [],
-                    items: [],
+                    items: {},
                     rings: 0
                 },
                 battleteam: "none",
@@ -7792,7 +11984,7 @@ client.on('messageCreate', async message => {
 				},
                 enemies: {
                     members: [],
-                    items: [],
+                    items: {},
                     rings: 0
                 },
                 battleteam: "none",
@@ -7914,7 +12106,7 @@ client.on('messageCreate', async message => {
 			for (const i in btl[message.guild.id].enemies.members) {
 				battlers.push(btl[message.guild.id].enemies.members[i])
 			}
-			
+
 			// for certain skillbased gamemodes
 			var skillPath = dataPath+'/skills.json'
 			var skillRead = fs.readFileSync(skillPath);
@@ -8157,9 +12349,9 @@ client.on('messageCreate', async message => {
 			if (charFile[arg[1]]) {
 				var skillDefs = skillFile[arg[2]]
 				if (!skillDefs.name) {skillDefs.name = arg[2]}
-				
+
 				var charDefs = charFile[arg[1]]
-				
+
 				if (skillDefs.cost) {
 					if (skillDefs.costtype && skillDefs.costtype === "hp") {
 						if (charDefs.hp <= skillDefs.cost) {
@@ -8195,13 +12387,13 @@ client.on('messageCreate', async message => {
 					}
 				} else {
 					if (!skillDefs.target || skillDefs.target === "one") {
-						finalText = `${arg[1]} used ${arg[2]} to help traverse their surroundings.`;
+						finalText = `${arg[1]} used ${arg[2]}.`;
 					} else if (!skillDefs.target || skillDefs.target === "caster") {
-						finalText = `${arg[1]} used ${arg[2]} on themselves`;
+						finalText = `${arg[1]} used ${arg[2]} on themselves.`;
 					} else if (skillDefs.target === "allopposing" || skillDefs.target === "allallies") {
 						finalText = `${arg[1]} used ${arg[2]} directly infront of them.`;
 					} else if (skillDefs.target === "everyone") {
-						finalText = `${arg[1]} used ${arg[2]} to cover themselves.`;
+						finalText = `${arg[1]} used ${arg[2]} on their surroundings.`;
 					}
 				}
 				
@@ -8282,12 +12474,7 @@ client.on('messageCreate', async message => {
             var skillName = arg[3]
             var skillDefs = skillFile[skillName]
 			
-			var knowsSkill = false
-			for (const i in charDefs.skills) {
-				if (skillName == charDefs.skills[i]) {knowsSkill = true}
-			}
-			
-			if (knowsSkill == false) {
+			if (!charFuncs.knowsSkill(charDefs, skillName)) {
 				message.channel.send(`${charName} doesn't know this skill!`)
 				message.delete()
 				return false
@@ -8396,6 +12583,8 @@ client.on('messageCreate', async message => {
 						}
 				}
 			}
+			
+			var DiscordEmbed;
 
 			btl[message.guild.id].canshowtime = false
 
@@ -8428,12 +12617,11 @@ client.on('messageCreate', async message => {
                             }
                         }
 
-                        const DiscordEmbed = new Discord.MessageEmbed()
+                        DiscordEmbed = new Discord.MessageEmbed()
                             .setColor('#e36b2b')
 							.setTitle(`${charName} => Party`)
 							.setDescription(`${healQuote}${charName} used ${skillName}!\nThe Party's HP was fully restored.${healedQuote} ${affinityMessage}`)
                             .setFooter(`${charName}'s turn`);
-                        message.channel.send({embeds: [DiscordEmbed]});
                     } else if (skillDefs.statusheal) {
                         for (const i in allySide) {
                             var partyDef = allySide[i]
@@ -8452,25 +12640,31 @@ client.on('messageCreate', async message => {
                             }
                         }
 
-                        const DiscordEmbed = new Discord.MessageEmbed()
+						DiscordEmbed = new Discord.MessageEmbed()
                             .setColor('#e36b2b')
 							.setTitle(`${charName} => Party`)
 							.setDescription(`${healQuote}${charName} used ${skillName}!\nThe Party was cured of their status ailments.${healedQuote} ${affinityMessage}`)
                             .setFooter(`${charName}'s turn`);
-                        message.channel.send({embeds: [DiscordEmbed]});
                     } else if (skillDefs.healmp) {
                         var txt = ``
                         for (const i in allySide) {
                             var partyDef = allySide[i]								
+
+							var heal = skillDefs.pow
 							
 							// Trust Level 10+ will have 10% increased healing.
-							var heal = skillDefs.pow
 							if (!btl[message.guild.id].pvp) {
 								if (charDefs.id != partyDef.id && charDefs.trust[partyDef.truename] && charDefs.trust[partyDef.truename].level >= 10) {
 									heal *= 1.1
 								}
 							}
-							
+
+							// Magic Buffs incease/decrease healing.
+							if (charDefs.buffs.mag) {
+								var aff = 1+parseFloat(charDefs.buffs.mag/10)
+								heal *= aff
+							}
+
                             partyDef.mp = Math.round(Math.min(partyDef.maxmp, partyDef.mp + heal))
                             txt += `\n${partyDef.name}'s MP was restored by ${Math.round(heal)}. (${partyDef.mp}/${partyDef.maxmp}MP)`
 							
@@ -8484,12 +12678,11 @@ client.on('messageCreate', async message => {
 							charFuncs.trustUp(partyDef, charDefs, 5, message.guild.id)
                         }
 
-                        const DiscordEmbed = new Discord.MessageEmbed()
+						DiscordEmbed = new Discord.MessageEmbed()
                             .setColor('#e36b2b')
 							.setTitle(`${charName} => Party`)
 							.setDescription(`${healQuote}${charName} used ${skillName}!\nThe Party's MP was restored by ${skillDefs.pow}!\n${txt}`)
                             .setFooter(`${charName}'s turn`);
-                        message.channel.send({embeds: [DiscordEmbed]});
                     } else {
                         var txt = ``;
                         for (const i in allySide) {
@@ -8501,6 +12694,12 @@ client.on('messageCreate', async message => {
 									if (charDefs.id != partyDef.id && charDefs.trust[partyDef.truename] && charDefs.trust[partyDef.truename].level >= 10) {
 										heal *= 1.1
 									}
+								}
+
+								// Magic Buffs incease/decrease healing.
+								if (charDefs.buffs.mag) {
+									var aff = 1+parseFloat(charDefs.buffs.mag/10)
+									heal *= aff
 								}
 		
 								partyDef.hp = Math.round(Math.min(partyDef.maxhp, partyDef.hp + heal))
@@ -8517,12 +12716,11 @@ client.on('messageCreate', async message => {
                             }
                         }
 
-                        const DiscordEmbed = new Discord.MessageEmbed()
+                        DiscordEmbed = new Discord.MessageEmbed()
                             .setColor('#e36b2b')
 							.setTitle(`${charName} => Party`)
 							.setDescription(`${healQuote}${charName} used ${skillName}!\nThe Party's HP!\n${txt}`)
                             .setFooter(`${charName}'s turn`);
-                        message.channel.send({embeds: [DiscordEmbed]});
                     }
                 } else {
 //					var closerQuote = ''
@@ -8557,12 +12755,11 @@ client.on('messageCreate', async message => {
 						// Trust Levels
 						charFuncs.trustUp(charDefs2, charDefs, 20, message.guild.id)
 
-						const DiscordEmbed = new Discord.MessageEmbed()
+						DiscordEmbed = new Discord.MessageEmbed()
 							.setColor('#e36b2b')
 							.setTitle(`${charName} => ${charName2}`)
 							.setDescription(`${healQuote}${charName} used ${skillName}!\n${charName2} was revived by ${charName}!${healedQuote}`)
 							.setFooter(`${charName}'s turn`);
-						message.channel.send({embeds: [DiscordEmbed]});
 					} else if (skillDefs.fullheal) {
 						if (charDefs2.hp < 0) {
 							message.channel.send(`You can't heal a dead character!`)
@@ -8581,12 +12778,11 @@ client.on('messageCreate', async message => {
 						// Trust Levels
 						charFuncs.trustUp(charDefs2, charDefs, 15, message.guild.id)
 
-						const DiscordEmbed = new Discord.MessageEmbed()
+						DiscordEmbed = new Discord.MessageEmbed()
 							.setColor('#e36b2b')
 							.setTitle(`${charName} => ${charName2}`)
 							.setDescription(`${healQuote}${charName} used ${skillName}!\n${charName2}'s HP was fully restored!\n${passives}${healedQuote}`)
 							.setFooter(`${charName}'s turn`);
-						message.channel.send({embeds: [DiscordEmbed]});
 					} else if (skillDefs.statusheal) {
 						if (charDefs2.hp < 0) {
 							message.channel.send(`You can't cure a dead character!`)
@@ -8606,12 +12802,11 @@ client.on('messageCreate', async message => {
 						// Trust Levels
 						charFuncs.trustUp(charDefs2, charDefs, 15, message.guild.id)
 
-						const DiscordEmbed = new Discord.MessageEmbed()
+						DiscordEmbed = new Discord.MessageEmbed()
 							.setColor('#e36b2b')
 							.setTitle(`${charName} => ${charName2}`)
 							.setDescription(`${healQuote}${charName} used ${skillName}!\n${charName2} was cured of their status!\n${passives}${healedQuote}`)
 							.setFooter(`${charName}'s turn`);
-						message.channel.send({embeds: [DiscordEmbed]});
 					} else if (skillDefs.healmp) {
 						// Trust Level 10+ will have 10% increased healing.
 						var heal = skillDefs.pow
@@ -8619,6 +12814,12 @@ client.on('messageCreate', async message => {
 							if (charDefs.id != charDefs2.id && charDefs.trust[charDefs2.truename] && charDefs.trust[charDefs2.truename].level >= 10) {
 								heal *= 1.1
 							}
+						}
+
+						// Magic Buffs incease/decrease healing.
+						if (charDefs.buffs.mag) {
+							var aff = 1+parseFloat(charDefs.buffs.mag/10)
+							heal *= aff
 						}
 
 						charDefs2.mp = Math.min(charDefs2.maxmp, charDefs2.mp + Math.round(heal))
@@ -8632,12 +12833,11 @@ client.on('messageCreate', async message => {
 						// Trust Levels
 						charFuncs.trustUp(charDefs2, charDefs, 15)
 
-						const DiscordEmbed = new Discord.MessageEmbed()
+						DiscordEmbed = new Discord.MessageEmbed()
 							.setColor('#e36b2b')
 							.setTitle(`${charName} => ${charName2}`)
 							.setDescription(`${healQuote}${charName} used ${skillName}!\n${charName2}'s MP was restored by ${Math.round(heal)}! ${passives}${healedQuote}`)
 							.setFooter(`${charName}'s turn`);
-						message.channel.send({embeds: [DiscordEmbed]});
 					} else if (skillDefs.mptohp) {
 						charDefs2.hp = Math.min(charDefs2.maxhp, charDefs2.hp + charDefs.mp)
 						charDefs2.mp = 0
@@ -8652,12 +12852,11 @@ client.on('messageCreate', async message => {
 						// Trust Levels
 						charFuncs.trustUp(charDefs2, charDefs, 15)
 
-						const DiscordEmbed = new Discord.MessageEmbed()
+						DiscordEmbed = new Discord.MessageEmbed()
 							.setColor('#e36b2b')
 							.setTitle(`${charName} => ${charName2}`)
 							.setDescription(`${healQuote}${charName} used ${skillName}!\n${charName2}'s remaining MP was converted into HP. ${passives}${healedQuote}`)
 							.setFooter(`${charName}'s turn`);
-						message.channel.send({embeds: [DiscordEmbed]});
 					} else {
 						if (charDefs2.hp <= 0) {
 							message.channel.send(`You can't heal a dead character!`)
@@ -8673,6 +12872,12 @@ client.on('messageCreate', async message => {
 							}
 						}
 
+						// Magic Buffs incease/decrease healing.
+						if (charDefs.buffs.mag) {
+							var aff = 1+parseFloat(charDefs.buffs.mag/10)
+							heal *= aff
+						}
+
 						charDefs2.hp = Math.min(charDefs2.maxhp, charDefs2.hp + Math.round(heal))
 						var passivesMsg = turnFuncs.healPassives(charDefs2)
 						
@@ -8684,12 +12889,11 @@ client.on('messageCreate', async message => {
 						// Trust Levels
 						charFuncs.trustUp(charDefs2, charDefs, 15, message.guild.id)
 
-						const DiscordEmbed = new Discord.MessageEmbed()
+						DiscordEmbed = new Discord.MessageEmbed()
 							.setColor('#e36b2b')
 							.setTitle(`${charName} => ${charName2}`)
 							.setDescription(`${charName} used ${skillName}!\n${charName2}'s HP was restored by ${Math.round(heal)}! ${passivesMsg}${healedQuote}`)
 							.setFooter(`${charName}'s turn`);
-						message.channel.send({embeds: [DiscordEmbed]});
 					}
                 }
 				
@@ -8704,44 +12908,90 @@ client.on('messageCreate', async message => {
 						
 						if (readEnm(enmName)) {
 							const enmDefs = readEnm(enmName)
-							const DiscordEmbed = new Discord.MessageEmbed()
+							DiscordEmbed = new Discord.MessageEmbed()
 								.setColor('#e36b2b')
 								.addFields(
 									{ name: `${charName} => ${enmName}`, value: `${charName} used ${skillName}!`, inline: false },
 									{ name: `${enmName} was analysed!`, value: `${enmDefs.hp} Max HP\n${enmDefs.atk} Strength\n${enmDefs.mag} Magic\n${enmDefs.prc} Perception\n${enmDefs.end} Endurance\n${enmDefs.chr} Charisma\n${enmDefs.int} Intelligence\n${enmDefs.agl} Agility\n${enmDefs.luk} Luck\n*"${enmDefs.journal}"*`, inline: false },
 								)
 								.setFooter(`${charName}'s turn`);
-							message.channel.send({embeds: [DiscordEmbed]})
 						} else {
-							const DiscordEmbed = new Discord.MessageEmbed()
+							DiscordEmbed = new Discord.MessageEmbed()
 								.setColor('#e36b2b')
 								.addFields(
 									{ name: `${charName} => ${enmName}`, value: `${charName} used ${skillName}!`, inline: false },
 									{ name: `${enmName} was analysed!`, value: `${enmStats.maxhp} Max HP\n${enmStats.atk} Strength\n${enmStats.mag} Magic\n${enmStats.prc} Perception\n${enmStats.end} Endurance\n${enmStats.chr} Charisma\n${enmStats.int} Intelligence\n${enmStats.agl} Agility\n${enmStats.luk} Luck\n*"${enmDefs.bio.info}"*`, inline: false },
 								)
 								.setFooter(`${charName}'s turn`);
-							message.channel.send({embeds: [DiscordEmbed]})
 						}
                     } else {
                         message.channel.send("This enemy isn't in battle!")
                     }
-                } else if (skillDefs.shield) {
+                } else if (skillDefs.shield || skillDefs.makarakarn || skillDefs.tetrakarn || skillDefs.trap) {
 					var healedQuote = ""
-					
-					if (skillDefs.target === "caster") {
-                        charDefs.shield = skillDefs.shield.toLowerCase()
-	
-                        const DiscordEmbed = new Discord.MessageEmbed()
+
+					var effect = 'shield'
+					if (skillDefs.makarakarn)
+						effect = 'makarakarn';
+					else if (skillDefs.tetrakarn)
+						effect = 'tetrakarn';
+					else if (skillDefs.trap)
+						effect = 'trap';
+
+					if (skillDefs.target === "caster" || !arg[2]) {
+                        charDefs[effect] = skillName
+
+						if (effect === 'trap') {
+							delete charDefs[effect]
+							charDefs.trapType = {
+								name: skillName,
+								effect: skillDefs.effect
+							}
+						}
+
+                        DiscordEmbed = new Discord.MessageEmbed()
                             .setColor('#e36b2b')
 							.setTitle(`${charName} => Self`)
-							.setDescription(`${charName} used ${skillName}!\n${charName} was protected by a ${skillDefs.shield}.`)
+							.setDescription(`${charName} used ${skillName}!\n${charName} was protected by ${skillName}.`)
                             .setFooter(`${charName}'s turn`);
-                        message.channel.send({embeds: [DiscordEmbed]})
 					} else {
-						if (allySide[arg[2]]) {
-							allySide[arg[2]].shield = skillDefs.shield.toLowerCase()
+						if (skillDefs.target == 'allallies') {
+							for (const i in allySide) {
+								allySide[i][effect] = skillName
+								if (effect === 'trap') {
+									delete allySide[i][effect]
+									allySide[i].trapType = {
+										name: skillName,
+										effect: skillDefs.effect
+									}
+								}
+
+								var charName2 = allySide[i].name
+									
+								if (allySide[i].helpedquote && allySide[i].helpedquote.length > 0) {
+									var possibleQuote = Math.round(Math.random() * (allySide[i].helpedquote.length-1))
+									healedQuote += `\n*${charName2}: "${allySide[i].helpedquote[possibleQuote]}"*`
+								}
+
+								charFuncs.trustUp(allySide[i], charDefs, 5, message.guild.id)
+							}
+
+							DiscordEmbed = new Discord.MessageEmbed()
+								.setColor('#e36b2b')
+								.setTitle(`${charName} => Allies`)
+								.setDescription(`${charName} used ${skillName}!\nTheir allies were protected by ${skillName}.\n${healedQuote}`)
+								.setFooter(`${charName}'s turn`);
+						} else if (allySide[arg[2]]) {
+							allySide[arg[2]][effect] = skillName
+							if (effect === 'trap') {
+								delete allySide[arg[2]][effect]
+								allySide[arg[2]].trapType = {
+									name: skillName,
+									effect: skillDefs.effect
+								}
+							}
+
 							var charName2 = allySide[arg[2]].name
-								
 							if (allySide[arg[2]].helpedquote && allySide[arg[2]].helpedquote.length > 0) {
 								var possibleQuote = Math.round(Math.random() * (allySide[arg[2]].helpedquote.length-1))
 								healedQuote += `\n*${charName2}: "${allySide[arg[2]].helpedquote[possibleQuote]}"*`
@@ -8749,12 +12999,11 @@ client.on('messageCreate', async message => {
 
 							charFuncs.trustUp(allySide[arg[2]], charDefs, 15, message.guild.id)
 
-							const DiscordEmbed = new Discord.MessageEmbed()
+							DiscordEmbed = new Discord.MessageEmbed()
 								.setColor('#e36b2b')
 								.setTitle(`${charName} => ${charName2}`)
-								.setDescription(`${charName} used ${skillName}!\n${charName2} was protected by a ${skillDefs.shield}.${healedQuote}`)
+								.setDescription(`${charName} used ${skillName}!\n${charName2} was protected by ${skillName}.${healedQuote}`)
 								.setFooter(`${charName}'s turn`);
-							message.channel.send({embeds: [DiscordEmbed]})
 						} else {
 							message.channel.send("Invalid Ally Position")
 							message.delete()
@@ -8762,41 +13011,46 @@ client.on('messageCreate', async message => {
 						}
 					}
                 } else if (skillDefs.status && skillDefs.statuschance) {
-                    var enmStats = opposingSide[parseInt(arg[2])]
-                    const enmName = enmStats.name
-                    const enmDefs = readEnm(enmName)
-
-                    if (skillDefs.statuschance > 0) {
-                        var targ = (skillDefs.statuschance + (charDefs.chr - enmStats.luk)) / 100;
+                    var enmDefs = opposingSide[parseInt(arg[2])]
+                    if (skillDefs.statuschance > 0 || enmDefs.status === "none") {
+                        var targ = (skillDefs.statuschance + (charDefs.chr - enmDefs.luk)) / 100;
                         var chance = Math.random();
 
 						const movestatus = skillDefs.status
-		
-                        var finaltext = `${charName} used ${skillName} on ${enmName}!`;
-                        if (chance <= targ || skillDefs.statuschance >= 100) {
-                            finaltext += ' ' + attackFuncs.inflictStatus(enmStats, skillDefs)
-                        } else {
-                            finaltext = finaltext + " But they dodged it!"
+
+                        var finaltext = `${charName} used ${skillName} on ${enmDefs.name}!\n`;
+                        if (chance <= targ || skillDefs.statuschance >= 100)
+                            finaltext += attackFuncs.inflictStatus(enmDefs, skillDefs);
+							if (charDefs.critquote && charDefs.critquote.length > 0) {
+								var possibleQuote = utilityFuncs.randInt(charDefs.critquote.length-1)
+								finaltext += `\n*${charName}: "${charDefs.critquote[possibleQuote]}"*`
+							}
+							if (enmDefs.hitquote && enmDefs.hitquote.length > 0) {
+								var possibleQuote = utilityFuncs.randInt(enmDefs.hitquote.length-1)
+								finaltext += `\n*${enmName}: "${enmDefs.hitquote[possibleQuote]}"*`
+							}
+                        else {
+                            finaltext += " But they dodged it!"
 
 							if (charDefs.missquote && charDefs.missquote.length > 0) {
 								var possibleQuote = Math.round(Math.random() * (charDefs.missquote.length-1))
 								finaltext += `\n*${charName}: "${charDefs.missquote[possibleQuote]}"*`
 							}
-							if (enmStats.dodgequote && enmStats.dodgequote.length > 0) {
-								var possibleQuote = Math.round(Math.random() * (enmStats.dodgequote.length-1))
-								finaltext += `\n*${enmName}: "${enmStats.dodgequote[possibleQuote]}"*`
+							if (enmDefs.dodgequote && enmDefs.dodgequote.length > 0) {
+								var possibleQuote = Math.round(Math.random() * (enmDefs.dodgequote.length-1))
+								finaltext += `\n*${enmName}: "${enmDefs.dodgequote[possibleQuote]}"*`
 							}
 						}
 
-                        const DiscordEmbed = new Discord.MessageEmbed()
+                        DiscordEmbed = new Discord.MessageEmbed()
                             .setColor('#e36b2b')
-                            .addFields(
-                                { name: `${charName} => ${enmName}`, value: `${finaltext}`, inline: false },
-                            )
+                            .setTitle(`${charName} => ${enmName}`)
+							.setDescription(`${finaltext}`)
                             .setFooter(`${charName}'s turn`);
-                        message.channel.send({embeds: [DiscordEmbed]})
                     } else {
-                        message.channel.send("This skill doesn't have a StatusChance value!")           
+                        message.channel.send("This move will fail, don't use it!")
+						message.delete()
+						return false
 					}
 				} else if (skillDefs.buff) {
 					if (skillDefs.target == "allallies") {
@@ -8813,12 +13067,11 @@ client.on('messageCreate', async message => {
 							}
 						}
 			
-						const DiscordEmbed = new Discord.MessageEmbed()
+						DiscordEmbed = new Discord.MessageEmbed()
 							.setColor('#e36b2b')
 							.setTitle(`${charName} => All Allies`)
 							.setDescription(`${charName} buffed their allies' ${(skillDefs.buff == "all") ? "Stats" : skillDefs.buff.toUpperCase()}!`)
 							.setFooter(`${charName}'s turn`);
-						message.channel.send({embeds: [DiscordEmbed]})
 					} else {
 						var charDefs2 = allySide[arg[2]]
 						if (skillDefs.buff == "all") {
@@ -8831,12 +13084,11 @@ client.on('messageCreate', async message => {
 							charDefs2.buffs[skillDefs.buff] = Math.min(3, charDefs2.buffs[skillDefs.buff]+1)
 						}
 			
-						const DiscordEmbed = new Discord.MessageEmbed()
+						DiscordEmbed = new Discord.MessageEmbed()
 							.setColor('#e36b2b')
 							.setTitle(`${charName} => ${charDefs2.name}`)
 							.setDescription(`${charName} buffed ${charDefs2.name}'s ${(skillDefs.buff == "all") ? "Stats" : skillDefs.buff.toUpperCase()}!`)
 							.setFooter(`${charName}'s turn`);
-						message.channel.send({embeds: [DiscordEmbed]})
 					}
 				} else if (skillDefs.debuff) {
 					if (skillDefs.target == "allopposing") {
@@ -8853,12 +13105,11 @@ client.on('messageCreate', async message => {
 							}
 						}
 			
-						const DiscordEmbed = new Discord.MessageEmbed()
+						DiscordEmbed = new Discord.MessageEmbed()
 							.setColor('#e36b2b')
 							.setTitle(`${charName} => All Opposing`)
 							.setDescription(`${charName} debuffed the opposing side's ${(skillDefs.debuff == "all") ? "Stats" : skillDefs.debuff.toUpperCase()}!`)
 							.setFooter(`${charName}'s turn`);
-						message.channel.send({embeds: [DiscordEmbed]})
 					} else {
 						var charDefs2 = opposingSide[arg[2]]
 						if (skillDefs.debuff == "all") {
@@ -8867,18 +13118,22 @@ client.on('messageCreate', async message => {
 							charDefs2.buffs.end = Math.max(-3, charDefs2.buffs.end-1)
 							charDefs2.buffs.prc = Math.max(-3, charDefs2.buffs.prc-1)
 							charDefs2.buffs.agl = Math.max(-3, charDefs2.buffs.agl-1)
-						} else {
-							charDefs2.buffs[skillDefs.debuff] = Math.max(3, charDefs2.buffs[skillDefs.debuff]-1)
-						}
+						} else
+							charDefs2.buffs[skillDefs.debuff] = Math.max(3, charDefs2.buffs[skillDefs.debuff]-1);
 			
-						const DiscordEmbed = new Discord.MessageEmbed()
+						DiscordEmbed = new Discord.MessageEmbed()
 							.setColor('#e36b2b')
 							.setTitle(`${charName} => ${charDefs2.name}`)
 							.setDescription(`${charName} debuffed ${charDefs2.name}'s ${(skillDefs.debuff == "all") ? "Stats" : skillDefs.debuff.toUpperCase()}!`)
 							.setFooter(`${charName}'s turn`);
-						message.channel.send({embeds: [DiscordEmbed]})
 					}
 				} else if (skillDefs.mimic) {
+					if (charDefs.transformation){
+						message.channel.send("This skill will fail! Don't use it! (Unable to mimic during transformation)")
+						message.delete()
+						return false
+					}
+
 					if (arg[4]) {
 						var copyDefs
 						if (arg[4].toLowerCase() == "ally" || arg[4].toLowerCase() == "allies" || arg[4].toLowerCase() == "friends") {
@@ -8911,11 +13166,10 @@ client.on('messageCreate', async message => {
 							return false
 						}
 
-						const DiscordEmbed = new Discord.MessageEmbed()
+						DiscordEmbed = new Discord.MessageEmbed()
 							.setColor('#e36b2b')
 							.setTitle(`${charName} => ${copyDefs.name}`)
 							.setDescription(`${charName} transformed into ${copyDefs.name}!`)
-						message.channel.send({embeds: [DiscordEmbed]})
 
 						charDefs.oldDefs = utilityFuncs.cloneObj(charDefs)
 						charFuncs.mimic(charDefs, copyDefs, 2)
@@ -8931,11 +13185,10 @@ client.on('messageCreate', async message => {
 					if (charDefs.mimic) {
 						charFuncs.resetMimic(charDefs)
 
-						const DiscordEmbed = new Discord.MessageEmbed()
+						DiscordEmbed = new Discord.MessageEmbed()
 							.setColor('#e36b2b')
 							.setTitle(`${charName} => Self`)
 							.setDescription(`${charName} is no-longer mimicking their target.`)
-						message.channel.send({embeds: [DiscordEmbed]})
 					} else {
 						message.channel.send("This character isn't mimicking anything.")
 						message.delete()
@@ -8948,11 +13201,10 @@ client.on('messageCreate', async message => {
 						oppDefs.futureSightSkill = skillDefs.futuresight
 						oppDefs.futureSightSkill.user = charDefs
 
-						const DiscordEmbed = new Discord.MessageEmbed()
+						DiscordEmbed = new Discord.MessageEmbed()
 							.setColor('#e36b2b')
 							.setTitle(`${charName} => ${oppDefs.name}`)
 							.setDescription(`${charName} used ${skillDefs.name}!\n${oppDefs.name} is going to be affected by ${charName}'s future attack.`)
-						message.channel.send({embeds: [DiscordEmbed]})
 					} else {
 						message.channel.send("Invalid enemy.")
 						message.delete()
@@ -8991,11 +13243,10 @@ client.on('messageCreate', async message => {
 					delete cloneDefs.lb4
 					
 					allySide.push(cloneDefs)
-					const DiscordEmbed = new Discord.MessageEmbed()
+					DiscordEmbed = new Discord.MessageEmbed()
 						.setColor('#e36b2b')
 						.setTitle(`${charName} => Self`)
 						.setDescription(`${charName} used ${skillDefs.name}!\n${charName} cloned themselves!`)
-					message.channel.send({embeds: [DiscordEmbed]})
 				} else if (skillDefs.heartswap) {
 					var oppDefs = opposingSide[arg[2]]
 					
@@ -9008,11 +13259,10 @@ client.on('messageCreate', async message => {
 						oppDefs[stats[i]] = stat1
 					}
 					
-					const DiscordEmbed = new Discord.MessageEmbed()
+					DiscordEmbed = new Discord.MessageEmbed()
 						.setColor('#e36b2b')
 						.setTitle(`${charName} => ${oppDefs.name}`)
 						.setDescription(`${charName} used ${skillDefs.name}!\n${charName} swapped stat buffs with ${oppDefs.name}!`)
-					message.channel.send({embeds: [DiscordEmbed]})
 				} else if (skillDefs.weather) {
 					var weatherMessage = {
 						rain: 'It begun to rain!',
@@ -9026,26 +13276,20 @@ client.on('messageCreate', async message => {
 					if (weatherMessage[skillDefs.weather]) {
 						btl[message.guild.id].weather = skillDefs.weather
 
-						const DiscordEmbed = new Discord.MessageEmbed()
+						DiscordEmbed = new Discord.MessageEmbed()
 							.setColor('#e36b2b')
 							.setTitle(`${charName} => Battlefield`)
 							.setDescription(`${charName} used ${skillName}!\n${weatherMessage[skillDefs.weather]}`)
-						message.channel.send({embeds: [DiscordEmbed]})
 					} else {
-						const DiscordEmbed = new Discord.MessageEmbed()
-							.setColor('#e36b2b')
-							.setTitle(`${charName} => Battlefield`)
-							.setDescription(`${charName} used ${skillName}!\nBut it failed.`)
-						message.channel.send({embeds: [DiscordEmbed]})
+						return message.channel.send("This move will fail! Don't use it!")
 					}
 				} else if (skillDefs.terrain) {
 					btl[message.guild.id].terrain = skillDefs.terrain
 
-					const DiscordEmbed = new Discord.MessageEmbed()
+					DiscordEmbed = new Discord.MessageEmbed()
 						.setColor('#e36b2b')
 						.setTitle(`${charName} => Battlefield`)
 						.setDescription(`${charName} used ${skillName}!\n*${skillDefs.terrain.toUpperCase()}* terrain has begun!`)
-					message.channel.send({embeds: [DiscordEmbed]})
                 } else {
                     message.channel.send(`This doesn't work yet!`)
 					message.delete()
@@ -9053,8 +13297,7 @@ client.on('messageCreate', async message => {
                 }
             } else {
 				var server = message.guild.id
-				var DiscordEmbed = attackFuncs.attackWithSkill(charDefs, arg[2], allySide, opposingSide, btl, skillDefs, server)
-				message.channel.send({embeds: [DiscordEmbed]});
+				DiscordEmbed = attackFuncs.attackWithSkill(charDefs, arg[2], allySide, opposingSide, btl, skillDefs, server)
 			}
 			
 			// Leader Skill
@@ -9062,13 +13305,15 @@ client.on('messageCreate', async message => {
 			console.log(`used ${skillCost}${skillDefs.costtype}`);
 
 			for (const i in allySide) {
-				if (allySide[i].leader && allySide[i].leaderSkill && allySide[i].leaderSkill.type == "discount") {
-					if (allySide[i].leaderSkill.target === skillDefs.type ||
-						allySide[i].leaderSkill.target === "all" ||
-						allySide[i].leaderSkill.target === "magic" && skillDefs.atktype === "magic" ||
-						allySide[i].leaderSkill.target === "physical" && skillDefs.atktype === "physical") {
-							skillCost -= Math.round((skillCost/100)*allySide[i].leaderSkill.percent)
-							console.log(`leaderskill reduced to ${skillCost}${skillDefs.costtype}`)
+				if (allySide[i].leader) {
+					if (allySide[i].leaderSkill && allySide[i].leaderSkill.type == "discount") {
+						if (allySide[i].leaderSkill.target === skillDefs.type ||
+							allySide[i].leaderSkill.target === "all" ||
+							allySide[i].leaderSkill.target === "magic" && skillDefs.atktype === "magic" ||
+							allySide[i].leaderSkill.target === "physical" && skillDefs.atktype === "physical") {
+								skillCost -= Math.round((skillCost/100)*allySide[i].leaderSkill.percent)
+								console.log(`leaderskill reduced to ${skillCost}${skillDefs.costtype}`)
+						}
 					}
 				}
 			}
@@ -9102,6 +13347,11 @@ client.on('messageCreate', async message => {
 				}
 			}
 			
+			if (DiscordEmbed)
+				message.channel.send({embeds: [DiscordEmbed]});
+			else
+				return message.channel.send('Something went wrong, so I stopped your movement. Try something else.');
+			
 			// Pets
 			if (charDefs.pet && charDefs.pet != null && charFile[charDefs.pet]) {
 				var targChance = 0.1
@@ -9121,7 +13371,7 @@ client.on('messageCreate', async message => {
 					for (const i in charFile[charDefs.pet].skills) {
 						var skillDefs = skillFile[charFile[charDefs.pet].skills[i]]
 						
-						if (!skillDefs.passive && skillDefs.type != "passive" && skillDefs.target === "one")
+						if (skillDefs && !skillDefs.passive && skillDefs.type != "passive" && skillDefs.target === "one")
 							possibleSkills.push(charFile[charDefs.pet].skills[i]);
 					}
 					
@@ -9596,9 +13846,10 @@ client.on('messageCreate', async message => {
                 }
             }
 
-            if (!charDefs.weapon) {
-                charDefs.weapon = "none"
-            }
+			charFuncs.resetMimic(charDefs);
+
+            if (!charDefs.weapon)
+                charDefs.weapon = "none";
 
             const weaponDefs = itemFile[charDefs.weapon] ? itemFile[charDefs.weapon] : itemFile["none"]
 
@@ -9971,7 +14222,7 @@ client.on('messageCreate', async message => {
 				limitbreaks: false,
 				showtimes: false,
 				onemores: false,
-				currency: "RPGBot Token",
+				currency: "Bloom Token",
 				xprate: 1,
 				pvpstuff: {
 					none: {},
@@ -10039,7 +14290,7 @@ client.on('messageCreate', async message => {
 				limitbreaks: false,
 				showtimes: false,
 				onemores: false,
-				currency: "RPGBot Token",
+				currency: "Bloom Token",
 				xprate: 1,
 				pvpstuff: {
 					none: {},
@@ -10134,7 +14385,7 @@ client.on('messageCreate', async message => {
 				},
                 enemies: {
                     members: [],
-                    items: [],
+                    items: {},
                     rings: 0
                 },
                 battleteam: "none",
@@ -10150,7 +14401,7 @@ client.on('messageCreate', async message => {
 
         btl[message.guild.id].parties[arg[1]] = {
             members: [],
-            items: [],
+            items: {},
             rings: 0
         }
 
@@ -10193,7 +14444,7 @@ client.on('messageCreate', async message => {
 				},
                 enemies: {
                     members: [],
-                    items: [],
+                    items: {},
                     rings: 0
                 },
                 battleteam: "none",
@@ -10247,7 +14498,7 @@ client.on('messageCreate', async message => {
 				},
                 enemies: {
                     members: [],
-                    items: [],
+                    items: {},
                     rings: 0
                 },
                 battleteam: "none",
@@ -10304,7 +14555,7 @@ client.on('messageCreate', async message => {
 				},
                 enemies: {
                     members: [],
-                    items: [],
+                    items: {},
                     rings: 0
                 },
                 battleteam: "none",
@@ -10321,7 +14572,7 @@ client.on('messageCreate', async message => {
         if (btl[message.guild.id].parties[arg[1]]) {
 			btl[message.guild.id].parties[arg[2]] = {
 				members: [],
-				items: [],
+				items: {},
 				rings: 0
 			}
 
@@ -10338,7 +14589,7 @@ client.on('messageCreate', async message => {
 		}
 	}
 
-    if (command === 'getparty') {
+    if (command === 'getparty' || command === 'getteam') {
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
 
         const btl = readBattle(message.guild.id);
@@ -10358,7 +14609,7 @@ client.on('messageCreate', async message => {
 				},
                 enemies: {
                     members: [],
-                    items: [],
+                    items: {},
                     rings: 0
                 },
                 battleteam: "none",
@@ -10373,17 +14624,35 @@ client.on('messageCreate', async message => {
         }
 
         if (btl[message.guild.id].parties[arg[1]]) {
-            var m = ``;
-            for (const i in btl[message.guild.id].parties[arg[1]].members) {
-                m += `\n${btl[message.guild.id].parties[arg[1]].members[i]}`
-            }
+			var party = btl[message.guild.id].parties[arg[1]]
+
+            var m = '';
+            for (const i in btl[message.guild.id].parties[arg[1]].members)
+                m += `\n${btl[message.guild.id].parties[arg[1]].members[i]}`;
+			
+			if (m == '')
+				m = 'Empty.';
+			
+			var itemPath = dataPath+'/items.json'
+			var itemRead = fs.readFileSync(itemPath);
+			var itemFile = JSON.parse(itemRead);
+
+			var items = '';
+			if (party.items) {
+				for (const i in party.items)
+					items += `${itemFile[i].name}: ${party.items[i]}\n`;
+			}
+			
+			if (items == '')
+				items = 'No items.';
 
             const DiscordEmbed = new Discord.MessageEmbed()
                 .setColor('#e36b2b')
+				.setTitle(`Team ${arg[1]}`)
                 .addFields(
-                    { name: `Team ${arg[1]}`, value: `${m}`, inline: false }
+                    { name: 'Members', value: m, inline: true },
+                    { name: 'Items', value: items, inline: true }
                 )
-                .setFooter(`Team ${arg[1]}`);
             message.channel.send({embeds: [DiscordEmbed]})
         } else {
             message.channel.send("Invalid Party.")
@@ -10510,7 +14779,7 @@ client.on('messageCreate', async message => {
 				limitbreaks: false,
 				showtimes: false,
 				onemores: false,
-				currency: "RPGBot Token",
+				currency: "Bloom Token",
 				xprate: 1,
 				pvpstuff: {
 					none: {},
@@ -10561,7 +14830,7 @@ client.on('messageCreate', async message => {
 				limitbreaks: false,
 				showtimes: false,
 				onemores: false,
-				currency: "RPGBot Token",
+				currency: "Bloom Token",
 				xprate: 1,
 				pvpstuff: {
 					none: {},
@@ -10611,7 +14880,7 @@ client.on('messageCreate', async message => {
 				limitbreaks: false,
 				showtimes: false,
 				onemores: false,
-				currency: "RPGBot Token",
+				currency: "Bloom Token",
 				xprate: 1,
 				pvpstuff: {
 					none: {},
@@ -10661,7 +14930,7 @@ client.on('messageCreate', async message => {
 				limitbreaks: false,
 				showtimes: false,
 				onemores: false,
-				currency: "RPGBot Token",
+				currency: "Bloom Token",
 				xprate: 1,
 				pvpstuff: {
 					none: {},
@@ -10711,7 +14980,7 @@ client.on('messageCreate', async message => {
 				limitbreaks: false,
 				showtimes: false,
 				onemores: false,
-				currency: "RPGBot Token",
+				currency: "Bloom Token",
 				xprate: 1,
 				pvpstuff: {
 					none: {},
@@ -10752,7 +15021,7 @@ client.on('messageCreate', async message => {
             message.channel.send("Not funny enough to let you do this, you clown.");
             return
         } else if (arg[1].toLowerCase() == 'balls') {
-            message.channel.send("You're either ballin', playing with balls, or being stopped by RPGBot... you sick human being.");
+            message.channel.send("You're either ballin', playing with balls, or being stopped by Bloom Battler... you sick human being.");
             return
         } else if (arg[1].toLowerCase() == 'vagina') {
             message.channel.send("Yeah okay.");
@@ -10800,7 +15069,7 @@ client.on('messageCreate', async message => {
 				limitbreaks: false,
 				showtimes: false,
 				onemores: false,
-				currency: "RPGBot Token",
+				currency: "Bloom Token",
 				xprate: 1,
 				pvpstuff: {
 					none: {},
@@ -10867,7 +15136,7 @@ client.on('messageCreate', async message => {
 				limitbreaks: false,
 				showtimes: false,
 				onemores: false,
-				currency: "RPGBot Token",
+				currency: "Bloom Token",
 				xprate: 1,
 				pvpstuff: {
 					none: {},
@@ -10933,7 +15202,7 @@ client.on('messageCreate', async message => {
 				limitbreaks: false,
 				showtimes: false,
 				onemores: false,
-				currency: "RPGBot Token",
+				currency: "Bloom Token",
 				xprate: 1,
 				pvpstuff: {
 					none: {},
@@ -10995,7 +15264,7 @@ client.on('messageCreate', async message => {
 				limitbreaks: false,
 				showtimes: false,
 				onemores: false,
-				currency: "RPGBot Token",
+				currency: "Bloom Token",
 				xprate: 1,
 				pvpstuff: {
 					none: {},
@@ -11219,30 +15488,6 @@ client.on('messageReactionAdd', async (reaction, user) => {
     }
 });
 
-client.on('messageCreate', async message => {
-    if (message.embeds[0]) {
-        if (message.embeds[0].footer && message.embeds[0].footer.text === 'Relic Battle!') {
-			var relicPath = dataPath+'/RelicSearch/relicFight.json';
-			var relicRead = fs.readFileSync(relicPath);
-			var relicFight = JSON.parse(relicRead);
-
-            relicFight[message.channel.id].message = message.id
-            message.react("👊")
-            message.react("✨")
-            message.react("🛡️")
-            message.react("💨")
-
-            fs.writeFile(relicPath, JSON.stringify(relicFight, null, '    '), function (err) {
-                if (err) throw err;
-            });
-        } else if (message.embeds[0].footer && message.embeds[0].footer.text === "Werewolf/Mafia") {
-            message.react("🔪")
-        } else if (message.embeds[0].footer && message.embeds[0].footer.text === "Uno") {
-            message.react("🃏")
-        }
-    }
-})
-
 client.on('threadCreate', async thread => {
 	if (thread.joinable) await thread.join();
 })
@@ -11251,4 +15496,4 @@ process.on('unhandledRejection', error => {
 	console.error('Unhandled promise rejection:', error);
 });
 
-client.login('user-id');
+client.login('client-token');

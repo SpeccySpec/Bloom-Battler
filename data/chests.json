@@ -1,0 +1,32 @@
+{
+    "819616171086577667": {
+        "846122218608918549": {
+            "Storage": {
+                "name": "Storage",
+                "inputLoot": "",
+                "inputItems": [],
+                "itemsFromLoot": {},
+                "items": {},
+                "party": "",
+                "locked": false,
+                "lockOpener": "",
+                "spoiler": false,
+                "encountered": false
+            }
+        },
+        "893978927104671785": {
+            "TrainStorage": {
+                "name": "TrainStorage",
+                "inputLoot": "",
+                "inputItems": [],
+                "itemsFromLoot": {},
+                "items": {},
+                "party": "",
+                "locked": false,
+                "lockOpener": "",
+                "spoiler": false,
+                "encountered": false
+            }
+        }
+    }
+}
