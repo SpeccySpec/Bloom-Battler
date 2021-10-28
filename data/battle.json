@@ -38,7 +38,6 @@
                     "Nymbulous"
                 ],
                 [
-                    "MasterMiniscle",
                     "MasterMiniscle"
                 ],
                 [
@@ -83,27 +82,57 @@
             ]
         },
         "parties": {
+            "1": {
+                "members": [
+                    "Dusk",
+                    "Firestorm"
+                ],
+                "items": {},
+                "rings": 0
+            },
+            "2": {
+                "members": [
+                    "Harcvuk",
+                    "Miles"
+                ],
+                "items": {},
+                "rings": 0
+            },
             "Explorers": {
                 "members": [
+                    "Nate",
                     "Sky",
                     "Spectra",
-                    "Ramia",
-                    "Sparky",
-                    "Lena"
+                    "Brainfreeze"
+                ],
+                "backup": [],
+                "subs": [
+                    "Permic",
+                    "Rattle",
+                    "Rainbow"
                 ],
                 "items": {
-                    "WoodenShield": 1,
+                    "RoboticFlamethrower": 1,
+                    "GrassGem": 1,
+                    "SparkleBerry": 9,
                     "RoboticFist": 1,
-                    "SparkleBerry": 4,
-                    "ShineBerry": 3,
-                    "PlumpBerry": 3,
-                    "BerryBlend": 1,
+                    "ShineBerry": 4,
+                    "PlumpBerry": 4,
                     "Potion": 7,
-                    "MPPotion": 5,
+                    "MPPotion": 4,
                     "RevivalSpray": 4,
-                    "SuperPotion": 2
+                    "SuperPotion": 2,
+                    "FrozenFist": 0,
+                    "IcyFang": 1,
+                    "NukeLaunch": 0
                 },
-                "rings": 5587
+                "rings": 5875,
+                "negotiates": {
+                    "Robat": 4,
+                    "FrostTunneler": 1,
+                    "Mechanium": 1
+                },
+                "negotiateAllies": {}
             },
             "Trials": {
                 "members": [
@@ -111,120 +140,6 @@
                 ],
                 "items": {},
                 "rings": 439
-            },
-            "Amigos": {
-                "members": [
-                    "Spectra",
-                    "Euphorica",
-                    "Ramia",
-                    "Sky"
-                ],
-                "items": {},
-                "rings": 125
-            },
-            "DJ": {
-                "members": [
-                    "DJ"
-                ],
-                "items": [],
-                "rings": 0
-            },
-            "Dusk": {
-                "members": [
-                    "Dusk"
-                ],
-                "items": [],
-                "rings": 81
-            },
-            "Flara": {
-                "members": [
-                    "Flara"
-                ],
-                "items": [],
-                "rings": 0
-            },
-            "Harcvuk": {
-                "members": [
-                    "Harcvuk"
-                ],
-                "items": [],
-                "rings": 0
-            },
-            "Sparky": {
-                "members": [
-                    "Sparky"
-                ],
-                "items": [],
-                "rings": 0
-            },
-            "Ramia": {
-                "members": [
-                    "Ramia"
-                ],
-                "items": [],
-                "rings": 0
-            },
-            "Euphorica": {
-                "members": [
-                    "Euphorica"
-                ],
-                "items": [],
-                "rings": 207
-            },
-            "Permic": {
-                "members": [
-                    "Permic"
-                ],
-                "items": [],
-                "rings": 0
-            },
-            "h": {
-                "members": [
-                    "Spectra",
-                    "Sky",
-                    "Lena",
-                    "Ira"
-                ],
-                "items": [],
-                "rings": 0
-            },
-            "Gameing": {
-                "members": [
-                    "Sky(H)",
-                    "Euphorica",
-                    "Dusk",
-                    "Nate"
-                ],
-                "items": [],
-                "rings": 0
-            },
-            "TesterLan": {
-                "members": [
-                    "TesterLan"
-                ],
-                "items": [],
-                "rings": 0
-            },
-            "Sky(H)": {
-                "members": [
-                    "Sky(H)"
-                ],
-                "items": [],
-                "rings": 0
-            },
-            "Tsuki": {
-                "members": [
-                    "Tsuki"
-                ],
-                "items": [],
-                "rings": 0
-            },
-            "Sulba": {
-                "members": [
-                    "Sulba"
-                ],
-                "items": [],
-                "rings": 95
             },
             "FreezeflameShadows": {
                 "members": [
@@ -235,40 +150,54 @@
                 "items": {},
                 "rings": 20
             },
+            "Sky": {
+                "members": [
+                    "Sky",
+                    "Firestorm",
+                    "Sky(H)"
+                ],
+                "items": {},
+                "rings": 0
+            },
+            "Sky(H)": {
+                "members": [
+                    "Sky(H)"
+                ],
+                "items": {},
+                "rings": 0
+            },
+            "Hurricane": {
+                "members": [
+                    "Hurricane"
+                ],
+                "items": {},
+                "rings": 0
+            },
+            "CursedIce": {
+                "members": [
+                    "Flara",
+                    "Lanagu",
+                    "Karma",
+                    "Nyamo"
+                ],
+                "items": {},
+                "rings": 0
+            },
             "Firestorm": {
                 "members": [
                     "Firestorm"
                 ],
                 "items": {},
                 "rings": 0
-            },
-            "Rainbow": {
-                "members": [
-                    "Rainbow"
-                ],
-                "items": {},
-                "rings": 0
-            },
-            "Trap": {
-                "members": [
-                    "Trap"
-                ],
-                "items": {},
-                "rings": 0
-            },
-            "Rattle": {
-                "members": [
-                    "Rattle"
-                ],
-                "items": {},
-                "rings": 0
             }
         },
         "allies": {
-            "members": []
+            "members": [],
+            "backup": []
         },
         "enemies": {
-            "members": []
+            "members": [],
+            "backup": []
         },
         "battleteam": "none",
         "battleteam2": "none",
@@ -315,7 +244,7 @@
             "1": {
                 "members": [
                     "Sutela",
-                    "Nate"
+                    "Rainbow"
                 ],
                 "items": {},
                 "rings": 0
@@ -323,20 +252,24 @@
             "2": {
                 "members": [
                     "Spectra",
-                    "DJ"
+                    "Ramia",
+                    "Rattle"
+                ],
+                "backup": [
+                    "Sky"
                 ],
                 "items": {},
-                "rings": 0
+                "rings": 174
             },
             "CursedIce": {
                 "members": [
                     "Lanagu",
                     "Flara",
-                    "Ralako",
-                    "Taretle"
+                    "Karma",
+                    "Nyamo"
                 ],
                 "items": {},
-                "rings": 0
+                "rings": 732
             },
             "Vibers": {
                 "members": [
@@ -383,12 +316,10 @@
             "Spectra": {
                 "members": [
                     "Spectra",
-                    "Ramia",
-                    "Euphorica",
-                    "Dusk"
+                    "Sky"
                 ],
-                "items": [],
-                "rings": 0
+                "items": {},
+                "rings": 221
             },
             "DJ": {
                 "members": [
@@ -418,15 +349,32 @@
                 ],
                 "items": {},
                 "rings": 43
+            },
+            "Axel": {
+                "members": [
+                    "Axel",
+                    "Melarue"
+                ],
+                "items": {},
+                "rings": 0
+            },
+            "Ramia": {
+                "members": [
+                    "Ramia"
+                ],
+                "items": {},
+                "rings": 0
             }
         },
         "allies": {
-            "members": []
+            "members": [],
+            "backup": []
         },
         "enemies": {
             "members": [],
             "items": [],
-            "rings": 0
+            "rings": 0,
+            "backup": []
         },
         "battleteam": "none",
         "battleteam2": "none",

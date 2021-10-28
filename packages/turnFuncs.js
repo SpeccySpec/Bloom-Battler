@@ -45,7 +45,7 @@ const elementEmoji = {
 	poison: "☠️",
 	metal: "🔩",
 	curse: "👻",
-	bless: "⭐",
+	bless: "<:bless:903369721980813322>",
 	nuclear: "☢",
 	
 	almighty: "💫",
@@ -117,6 +117,11 @@ const enmHabitats = [
 // Functions //
 ///////////////
 function setUpBattleVars(btl) {
+	if (!btl.allies.backup)
+		btl.allies.backup = [];
+	if (!btl.enemies.backup)
+		btl.allies.backup = [];
+
 	btl.battling = true;
 	btl.battleteam = "none";
 	btl.battleteam2 = "none";
@@ -137,7 +142,9 @@ function setUpBattleVars(btl) {
 
 function clearBTL(btl) {
 	btl.enemies.members = [];
+	btl.enemies.backup = [];
     btl.allies.members = [];
+    btl.allies.backup = [];
     btl.battlechannel = "none";
 	btl.battleteam = "none";
 	btl.battleteam2 = "none";

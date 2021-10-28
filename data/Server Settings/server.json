@@ -6,6 +6,7 @@
         "onemores": false,
         "currency": "Ring",
         "xprate": 1,
+        "damageFormula": "persona",
         "pvpstuff": {
             "none": {
                 "544290248734015488": {
@@ -15,13 +16,13 @@
                     "points": 3
                 },
                 "516359709779820544": {
-                    "points": 16
+                    "points": 18
                 },
                 "532291526634635285": {
                     "points": 3
                 },
                 "461050360832720904": {
-                    "points": 8
+                    "points": 10
                 },
                 "441198920668938260": {
                     "points": 1
@@ -96,19 +97,27 @@
                 "https://www.youtube.com/watch?v=uQHm8PYBres"
             ],
             "advantage": [],
-            "disadvantage": [],
+            "disadvantage": [
+                "https://www.youtube.com/watch?v=bkyPuTZ_53g"
+            ],
             "bossfight": [
                 "https://www.youtube.com/watch?v=QC50ABNVexg",
-                "https://www.youtube.com/watch?v=1B0q3Ld7IEw"
+                "https://www.youtube.com/watch?v=1B0q3Ld7IEw",
+                "https://www.youtube.com/watch?v=_5K6CtnvXfc",
+                "https://www.youtube.com/watch?v=AXK-5C92GBo"
             ],
             "miniboss": [
                 "https://www.youtube.com/watch?v=BVDJOtWuQYE",
-                "https://www.youtube.com/watch?v=5c6q642-p68"
+                "https://www.youtube.com/watch?v=5c6q642-p68",
+                "https://www.youtube.com/watch?v=lkJyU4PTJwQ"
             ],
-            "strongfoe": [],
+            "strongfoe": [
+                "https://www.youtube.com/watch?v=bkyPuTZ_53g"
+            ],
             "finalboss": [
                 "https://www.youtube.com/watch?v=EBfz1Edo9-Q",
-                "https://www.youtube.com/watch?v=1e27wGQaAB0"
+                "https://www.youtube.com/watch?v=1e27wGQaAB0",
+                "https://www.youtube.com/watch?v=bkyPuTZ_53g"
             ],
             "colosseum": [
                 "https://www.youtube.com/watch?v=UjBTtNU27Ec"
@@ -125,7 +134,11 @@
                 "https://www.youtube.com/watch?v=QEmbOL3AAEs"
             ],
             "victorycolosseum": [],
-            "loss": []
+            "loss": [
+                "https://youtu.be/x17ehvXLq9s",
+                "https://youtu.be/fuSDk8Cnj_I",
+                "https://youtu.be/2SjUi7UY3fg"
+            ]
         },
         "encountered": [
             "Moltescle",
@@ -162,34 +175,35 @@
             "RestoredFlare",
             "Miniscle",
             "Sacriful",
-            "Sacriful",
-            "Sacriful",
-            "Sacriful",
             "ReignitedFlare",
             "Minet",
             "Eleku",
-            "Eleku",
-            "Eleku",
-            "Hitten",
             "Hitten",
             "BigStriker",
-            "Grassage",
-            "Grassage",
-            "Grassage",
             "Grassage",
             "MassiveMossimp",
             "Lazerite",
             "Windite",
-            "Windite",
-            "Frostite",
             "Frostite",
             "Aquatite",
             "Mossite",
             "Aquatite",
             "Melarue",
             "Axel",
-            "RechargedLightning"
-        ]
+            "RechargedLightning",
+            "Frostimp",
+            "Icifli",
+            "Snowamor",
+            "Howlice",
+            "FrostTunneler",
+            "Robotibat",
+            "Robat",
+            "Mechanium",
+            "Barista",
+            "Foxbot",
+            "Foxbot"
+        ],
+        "goldChance": 0.1
     },
     "808462313262415893": {
         "prefix": "rpg!",
@@ -216,8 +230,9 @@
         "limitbreaks": true,
         "showtimes": false,
         "onemores": false,
-        "currency": "Token",
+        "currency": "Kromer",
         "xprate": 0,
+        "damageFormula": "persona",
         "pvpstuff": {
             "none": {
                 "516359709779820544": {
@@ -283,13 +298,16 @@
                     "points": 39
                 },
                 "441198920668938260": {
-                    "points": 22
+                    "points": 24
                 },
                 "498041248616153098": {
                     "points": 20
                 },
                 "412328234198237189": {
                     "points": 14
+                },
+                "642841151484985365": {
+                    "points": 2
                 }
             }
         },
@@ -314,13 +332,16 @@
             "Nyamem",
             "InfectedNyamem",
             "Grassimp",
-            "Grassimp",
-            "Grassimp",
             "Eleku",
             "BigStriker",
-            "Eleku",
-            "god"
-        ]
+            "god",
+            "Arftic",
+            "Nyamo",
+            "Miniscle",
+            "Moltescle",
+            "TheLuminosity"
+        ],
+        "goldChance": 0.1
     },
     "763858631836958771": {
         "prefix": "rpg!",
@@ -329,6 +350,7 @@
         "onemores": false,
         "currency": "_sex",
         "xprate": 1,
+        "damageFormula": "persona",
         "pvpstuff": {
             "none": {},
             "metronome": {},
@@ -346,7 +368,8 @@
             "pvp": [
                 "https://www.youtube.com/watch?v=l97FWN9fDrg"
             ]
-        }
+        },
+        "encountered": []
     },
     "728307995901034546": {
         "prefix": "rpg!",
@@ -354,6 +377,7 @@
         "showtimes": false,
         "onemores": false,
         "currency": "Ring",
+        "damageFormula": "persona",
         "pvpstuff": {
             "none": {},
             "metronome": {},
@@ -369,6 +393,7 @@
         "showtimes": false,
         "onemores": false,
         "currency": "RPGBot Token",
+        "damageFormula": "persona",
         "xprate": 1,
         "pvpstuff": {
             "none": {},
@@ -384,8 +409,9 @@
         "limitbreaks": false,
         "showtimes": false,
         "onemores": false,
-        "currency": "Arrow_Introduction_Token",
+        "currency": "Arrow Introduction Token",
         "xprate": 0,
+        "damageFormula": "persona",
         "pvpstuff": {
             "none": {},
             "metronome": {},
@@ -417,6 +443,7 @@
         "onemores": false,
         "currency": "RPGBot Token",
         "xprate": 1,
+        "damageFormula": "persona",
         "pvpstuff": {
             "none": {},
             "metronome": {},
@@ -443,5 +470,37 @@
         "encountered": [
             "god"
         ]
+    },
+    "856551013660885024": {
+        "prefix": "$",
+        "limitbreaks": false,
+        "showtimes": false,
+        "onemores": false,
+        "currency": "Bloom Token",
+        "xprate": 1,
+        "damageFormula": "pokemon",
+        "pvpstuff": {
+            "none": {},
+            "metronome": {},
+            "randskills": {},
+            "randstats": {},
+            "charfuck": {}
+        },
+        "themes": {
+            "battle": [],
+            "advantage": [],
+            "disadvantage": [],
+            "bossfight": [],
+            "miniboss": [],
+            "strongfoe": [],
+            "finalboss": [],
+            "colosseum": [],
+            "colosseumstrong": [],
+            "pvp": [],
+            "victory": [],
+            "colosseumvictory": [],
+            "loss": []
+        },
+        "banned": []
     }
 }

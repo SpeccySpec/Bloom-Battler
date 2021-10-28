@@ -51,7 +51,7 @@ const elementEmoji = {
 	poison: "☠️",
 	metal: "🔩",
 	curse: "👻",
-	bless: "⭐",
+	bless: "<:bless:903369721980813322>",
 	nuclear: "☢",
 	
 	almighty: "💫",
@@ -577,6 +577,42 @@ function trustLevel(charDefs, targName) {
 	charDefs.trust[targName].nextLevel += 50;
 }
 
+function buffStat(charDefs, stat, amount) {
+	var statBuff = stat.toLowerCase()
+	charDefs.buffs[statBuff] += amount
+
+	if (charDefs.buffs[statBuff] > 3)
+		charDefs.buffs[statBuff] = 3
+	if (charDefs.buffs[statBuff] < -3)
+		charDefs.buffs[statBuff] = -3
+}
+
+function leaderSkillsAtBattleStart(allySide) {
+	var leaderDefs = {}
+	for (const i in allySide) {
+		if (allySide[i].leader)
+			leaderDefs = allySide[i]
+	}
+	
+	if (!leaderDefs.leaderSkill)
+		return false;
+	
+	if (leaderDefs.leaderSkill.type.toLowerCase() == 'buff') {
+		for (const i in allySide) {
+			if (leaderDefs.leaderSkill.target == 'all') {
+				buffStat(allySide[i], 'atk', leaderDefs.leaderSkill.percent)
+				buffStat(allySide[i], 'mag', leaderDefs.leaderSkill.percent)
+				buffStat(allySide[i], 'end', leaderDefs.leaderSkill.percent)
+				buffStat(allySide[i], 'agl', leaderDefs.leaderSkill.percent)
+				buffStat(allySide[i], 'prc', leaderDefs.leaderSkill.percent)
+			} else
+				buffStat(allySide[i], leaderDefs.leaderSkill.target.toLowerCase(), leaderDefs.leaderSkill.percent)
+		}
+		
+		return true;
+	}
+}
+
 // Export Functions
 module.exports = {
 	writeChar: function(creator, name, health, magicpoints, attack, magic, perception, endurance, charisma, inteligence, agility, luck) {
@@ -645,6 +681,7 @@ module.exports = {
 			helpedquote: charDefs.helpedquote ? charDefs.helpedquote : [],
 			killquote: charDefs.killquote ? charDefs.killquote : [],
 			deathquote: charDefs.deathquote ? charDefs.deathquote : [],
+			allydeathquote: charDefs.allydeathquote ? charDefs.allydeathquote : [],
 			lbquote: charDefs.lbquote ? charDefs.lbquote : [],
 			lvlquote: charDefs.lvlquote ? charDefs.lvlquote : [],
 			
@@ -772,5 +809,13 @@ module.exports = {
 		
 		// we'll get here if its pvp mode
 		return false
+	},
+	
+	buffStat: function(char, stat, am) {
+		buffStat(char, stat, am)
+	},
+	
+	startBattleLeaderSkill: function(allySide) {
+		return leaderSkillsAtBattleStart(allySide);
 	}
 }

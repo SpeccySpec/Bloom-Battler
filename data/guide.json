@@ -59,7 +59,7 @@
 			},
 			{
 				"title": "Using a Skill",
-				"text": "Use the command when it is your turn: **''rpg!useskill <User> <Target> <Skill Name>''**\nThis will use the specified skill if the character knows it. You'll know if they know the skill because it'll be listed on the right side of the embed like this: \n\n                      <:fire:877132709934301216>Ember\n\n Each skill has an element, and the opponent may be weak to, resist, block, repel or drain it.",
+				"text": "Use the command when it is your turn: **''rpg!usemove <User> <Target> <Skill Name>''**\nThis will use the specified skill if the character knows it. You'll know if they know the skill because it'll be listed on the right side of the embed like this: \n\n                      %RANDOMSKILL%\n\n Each skill has an element, and the opponent may be weak to, resist, block, repel or drain it.",
 				"inline": false
 			},
 			{
@@ -69,7 +69,24 @@
 			},
 			{
 				"title": "Guarding",
-				"text": "Use the command when it is your turn: **''rpg!guard <User>''**\nSimply guards from the next attack.",
+				"text": "Use the command when it is your turn: **''rpg!guard <User>''**\nSimply guards from the next attack. This halves the damage recieved and removes weakness affinities from the attack.",
+				"inline": false
+			},
+			{
+				"title": "Tactics",
+				"text": "Use the command when it is your turn: **''rpg!tactics <User> <Type> <Target>''**\nYou can either run, negotiate or tweak your party here.\nRunning away has a chance to fail if your speed stat is lower than the enemies' average. You cannot run from bosses.\nYou can have backup party members to switch around with regular party members mid-battle. Only the leader of the party can do it, and it counts as their turn.\nAnd negotiation... this is explained on the next page.",
+				"inline": false
+			}
+		]
+	},
+	
+	"4": {
+		"title": "Page 4 - Negotiation",
+		"desc": "You can negotiate with enemies to befriend and pacify them! Pacifying enough of the same enemy will allow you to keep them as an ally.",
+		"fields": [
+			{
+				"title": "The Command",
+				"text": "To negotiate with an enemy, use the command **''rpg!tactics <User> Negotiate <Target>''**. It is part of the tactics menu.",
 				"inline": false
 			}
 		]

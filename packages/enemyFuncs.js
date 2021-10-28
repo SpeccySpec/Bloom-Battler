@@ -45,7 +45,7 @@ const elementEmoji = {
 	poison: "☠️",
 	metal: "🔩",
 	curse: "👻",
-	bless: "⭐",
+	bless: "<:bless:903369721980813322>",
 	nuclear: "☢",
 	
 	almighty: "💫",
@@ -189,7 +189,7 @@ function enemyThinker(userDefs, allySide, oppSide) {
 
 // Export Functions
 module.exports = {
-	genEnm: function(enemy) {
+	genEnm: function(enemy, server) {
 		if (!enemy) {
 			console.log(`Invalid enemy: ${enemy}.`)
 			return undefined
@@ -269,7 +269,22 @@ module.exports = {
 			deathquote: enm.deathquote ? enm.deathquote : [],
 			lbquote: enm.lbquote ? enm.lbquote : [],
 			
-			trust: {}
+			trust: {},
+			
+			negotiateOptions: enm.negotiate ? enm.negotiate : null,
+			negotiateDefs: enm.negotiateDefs ? enm.negotiateDefs : {}
+		}
+		
+		if (!enm.boss && !enm.miniboss && !enm.finalboss && !enm.bigboss && !enm.diety) {
+			var servPath = dataPath+'/Server Settings/server.json'
+			var servRead = fs.readFileSync(servPath);
+			var servFile = JSON.parse(servRead);
+			
+			if (!servFile[server].goldChance)
+				servFile[server].goldChance = 0.1
+			
+			if (Math.random() <= servFile[server].goldChance/100)
+				enemyDefs.golden = true;
 		}
 		
 		return enemyDefs
@@ -287,6 +302,7 @@ module.exports = {
 		if (!servFile[server].encountered) {
 			servFile[server].encountered = []
 			fs.writeFileSync(servPath, JSON.stringify(servFile, null, '    '));
+			return false
 		}
 		
 		for (const i in servFile[server].encountered) {

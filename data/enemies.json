@@ -44,47 +44,51 @@
         ],
         "awardxp": 6823943
     },
-    "god": {
-        "level": 999,
+    "Barista": {
+        "level": 99,
         "boss": true,
         "diety": true,
         "hp": 9999,
-        "mp": 9999,
-        "atk": 10,
-        "mag": 10,
-        "prc": 10,
+        "mp": 2000,
+        "atk": 99,
+        "mag": 99,
+        "prc": 99,
         "end": 99,
-        "chr": 10,
-        "int": 10,
-        "agl": 10,
-        "luk": 10,
+        "chr": 99,
+        "int": 99,
+        "agl": 99,
+        "luk": 99,
         "melee": [
-            "Trident",
-            "pierce"
+            "Lick",
+            "slash"
         ],
         "skills": [
-            "Maragi",
-            "Mabufu",
-            "Malaqua",
-            "Mazio",
-            "Magaru",
-            "Matera",
-            "Mahana",
-            "Mapsi",
-            "Madoku",
-            "Majino",
-            "Mafrei",
-            "Maeiha",
-            "Makouha"
+            "DieForMe",
+			"Samsara",
+			"MorningStar",
+			"BlackViper",
+			"MindStrike",
+			"God'sHand",
+			"Maragidyne",
+			"Mabufudyne",
+			"Maziodyne",
+			"Magarudyne",
+			"Malaquadyne",
+			"Materadyne",
+			"Mahanamadyne",
+			"Mapsiodyne",
+			"Majinodyne",
+			"Maeigaon",
+			"Makougaon"
         ],
         "weak": [],
         "resist": [],
         "block": [],
         "repel": [],
         "drain": [],
-        "journal": "He's definitely holding back.",
+        "journal": "A usually calm doggo that runs the ask cafe.",
         "dreams": [],
-        "awardxp": 1
+        "awardxp": 86392053
     },
     "EggmanNega": {
         "level": 20,
@@ -131,37 +135,32 @@
         "awardxp": 900
     },
     "Miniscle": {
-        "level": 5,
-        "hp": 100,
-        "mp": 30,
-        "atk": 5,
-        "mag": 4,
-        "prc": 10,
-        "end": 5,
-        "chr": 3,
-        "int": 2,
-        "agl": 3,
-        "luk": 7,
+        "level": 46,
+        "hp": 340,
+        "mp": 294,
+        "atk": 30,
+        "mag": 60,
+        "prc": 42,
+        "end": 53,
+        "chr": 10,
+        "int": 23,
+        "agl": 32,
+        "luk": 40,
         "melee": [
             "Strike Attack",
             "strike"
         ],
         "skills": [
-            "Garu",
-            "Bufu",
-            "FreezingAir"
+            "Bufudyne",
+            "Garudyne",
+			"Magarula",
+			"Mabufula",
+            "FreezingAir",
+			"IcyShield"
         ],
-        "weak": [
-            "fire",
-            "slash",
-            "earth"
-        ],
-        "resist": [
-            "water"
-        ],
-        "block": [
-            "ice"
-        ],
+        "weak": ["fire", "earth"],
+        "resist": ["water"],
+        "block": ["ice"],
         "repel": [],
         "drain": [],
         "image": "miniscle.png",
@@ -172,7 +171,7 @@
             "...Stand... ground...",
             "...Can't... run..."
         ],
-        "awardxp": 30
+        "awardxp": 5423
     },
     "Moltescle": {
         "level": 5,
@@ -500,7 +499,28 @@
             "...Find... Shelter..."
         ],
         "awardxp": 1252,
-        "loot": "Grassimp"
+        "loot": "Grassimp",
+		"negotiate": [
+			{
+				"name": "Pet",
+				"desc": "Pet the Grassimp.",
+				"action": "PLAYER pets the Grassimp! It's satisfied.",
+				"convince": 100
+			}
+		],
+		"negotiateDefs": {
+			"required": 4,
+			"defs": {
+				"atk": 0,
+				"mag": 5,
+				"prc": 0,
+				"end": 1,
+				"chr": 0,
+				"int": 0,
+				"agl": 0,
+				"luk": 0
+			}
+		}
     },
     "Mossimp": {
         "level": 26,
@@ -1030,24 +1050,26 @@
         "awardxp": 2000
     },
     "Enigstone": {
-        "level": 13,
-        "hp": 164,
-        "mp": 99,
-        "atk": 18,
-        "mag": 18,
-        "prc": 13,
-        "end": 22,
-        "chr": 9,
-        "int": 10,
-        "agl": 10,
-        "luk": 19,
+        "level": 49,
+        "hp": 235,
+        "mp": 123,
+        "atk": 20,
+        "mag": 64,
+        "prc": 20,
+        "end": 50,
+        "chr": 40,
+        "int": 30,
+        "agl": 5,
+        "luk": 49,
         "melee": [
             "Strike Attack",
             "strike"
         ],
         "skills": [
             "RockThrow",
-            "AssaultDive"
+            "GiganticFist",
+			"Tarukaja",
+			"RockyShield"
         ],
         "weak": [
             "water",
@@ -2069,7 +2091,21 @@
             "...Scared...",
             "...Lonely..."
         ],
-        "awardxp": 34302
+        "awardxp": 34302,
+		"negotiate": [
+			{
+				"name": "Snarl",
+				"desc": "Growl at Nyamem. Enrage it, and make it lose focus.",
+				"action": "PLAYER growls at Nyamem. It did not like that.",
+				"convince": 3
+			},
+			{
+				"name": "Tip",
+				"desc": "Tip Nyamem's crown. Enrage it, and make it lose focus.",
+				"action": "PLAYER attacks Nyamem's crown. It did not like that.",
+				"convince": 7
+			}
+		]
     },
     "InfectedNyamem": {
         "level": 32,
@@ -2697,7 +2733,7 @@
         "dreams": [
             "..."
         ],
-        "awardxp": 4450,
+        "awardxp": 5000,
         "loot": "Metalic"
     },
     "Mossite": {
@@ -2813,89 +2849,400 @@
         "awardxp": 29532,
         "loot": "Metalic"
     },
-    "Melarue": {
-        "level": 55,
-        "miniboss": true,
-        "hp": 3500,
-        "mp": 900,
-        "atk": 45,
-        "mag": 45,
-        "prc": 35,
-        "end": 35,
-        "chr": 21,
+    "Frostimp": {
+        "level": 46,
+        "hp": 232,
+        "mp": 210,
+        "atk": 43,
+        "mag": 54,
+        "prc": 23,
+        "end": 43,
+        "chr": 46,
         "int": 20,
-        "agl": 14,
-        "luk": 32,
+        "agl": 40,
+        "luk": 23,
         "melee": [
             "Strike Attack",
             "strike"
         ],
         "skills": [
-            "Twineedle",
-            "Discharge",
-            "ElectricLaser",
-			"Psy-Strike",
-			"Tarukaja"
+            "Bufudyne",
+            "Hanamadyne",
+            "Magnadyne",
+            "GiganticFist"
         ],
-        "weak": [
-            "fire",
-            "electric"
-        ],
-        "resist": [
-            "metal",
-			"poison"
-        ],
+        "weak": ["fire"],
+        "resist": ["ice", "grass"],
         "block": [],
         "repel": [],
         "drain": [],
-        "journal": "A faulty bot. It was made with the intention to be more ''trendy'', but that didn't end well.",
+        "image": "frostimp.png",
+        "journal": "This Grassimp's leaves froze over, and it now uses this as a better method of defense. Unfortunately, it's a worse method of defense.",
         "dreams": [
-            "..."
+            "...Food... Food...",
+            "...Scary... Scary...",
+            "...Run... Run...",
+            "...Find... Shelter..."
         ],
-        "awardxp": 30343,
-        "loot": "Metalic"
+        "awardxp": 5965,
+        "loot": "Grassimp"
     },
-    "Axel": {
-        "level": 55,
-        "miniboss": true,
-        "hp": 3500,
-        "mp": 900,
-        "atk": 45,
-        "mag": 45,
-        "prc": 35,
-        "end": 35,
-        "chr": 21,
+    "Icifli": {
+        "level": 40,
+        "hp": 200,
+        "mp": 50,
+        "atk": 50,
+        "mag": 50,
+        "prc": 30,
+        "end": 40,
+        "chr": 20,
         "int": 20,
-        "agl": 14,
-        "luk": 32,
+        "agl": 40,
+        "luk": 20,
         "melee": [
             "Strike Attack",
             "strike"
         ],
         "skills": [
-            "SharpParry",
-			"SwipesOfMany",
-			"RapidSlashes",
-			"3ProngedThrust",
-			"Psiodyne"
+            "FrostTrap",
+			"IcyShield",
+			"Makakaja",
+			"Hail"
         ],
-        "weak": [
-            "ice",
-            "electric"
-        ],
-        "resist": [
-            "metal",
-			"psychic"
-        ],
+        "weak": ["fire", "wind"],
+        "resist": ["ice"],
         "block": [],
         "repel": [],
         "drain": [],
-        "journal": "A faulty bot. It was made with the intention to be more smart, but that didn't end well.",
+        "journal": "An icy fly. Physically unable to attack.",
         "dreams": [
-            "..."
+            "...Food... Food...",
+            "...Scary... Scary...",
+            "...Run... Run...",
+            "...Find... Shelter..."
         ],
-        "awardxp": 31004,
-        "loot": "Metalic"
+        "awardxp": 5965,
+        "loot": "Ice"
+    },
+    "Snowamor": {
+        "level": 60,
+		"miniboss": true,
+        "hp": 3000,
+        "mp": 942,
+        "atk": 50,
+        "mag": 60,
+        "prc": 40,
+        "end": 30,
+        "chr": 30,
+        "int": 20,
+        "agl": 40,
+        "luk": 40,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "skills": [
+            "FrostTrap",
+			"IcyShield",
+			"Bufudyne",
+			"Magnara",
+			"FreezerBurn",
+			"GiganticFist"
+        ],
+        "weak": ["fire", "slash"],
+        "resist": ["ice", "wind", "water"],
+        "block": ["grass"],
+        "repel": [],
+        "drain": [],
+        "journal": "A huge statue made of snow. It guards the Freeing Peaks and it's surroundings.",
+        "dreams": [],
+        "awardxp": 65350,
+        "loot": "IcyBoss",
+		"negotiate": [
+			{
+				"name": "Throw Snowball",
+				"desc": "Throw a snowball at the Snowamor.",
+				"action": "PLAYER throws a snowball at the Snowamor! It seems offended.",
+				"convince": 1
+			},
+			{
+				"name": "Pun",
+				"desc": "Say a pun.",
+				"action": "PLAYER makes a bad ice pun. Snowamor seems amused.",
+				"convince": 2
+			},
+			{
+				"name": "Hack at Legs",
+				"desc": "Hack at the Snowamor's legs to make it less durable.",
+				"action": "PLAYER hacks at Snowamor's legs. It seems enraged.",
+				"convince": 2
+			},
+			{
+				"name": "Lullaby",
+				"desc": "Sing a lullaby to pacify it.",
+				"action": "PLAYER sung a quick lullaby.",
+				"convince": 7
+			}
+		]
+    },
+    "Howlice": {
+        "level": 40,
+        "hp": 240,
+        "mp": 196,
+        "atk": 60,
+        "mag": 40,
+        "prc": 39,
+        "end": 39,
+        "chr": 9,
+        "int": 12,
+        "agl": 56,
+        "luk": 22,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "skills": [
+			"MegatonRaid",
+            "IceFang"
+        ],
+        "weak": ["fire", "grass", "water"],
+        "resist": ["ice", "pierce", "strike"],
+        "block": ["slash"],
+        "repel": [],
+        "drain": [],
+        "journal": "A powerful wolf-like creature with the power to destroy a rock with one strike.",
+        "dreams": ["rawr"],
+        "awardxp": 10001,
+        "loot": "Ice",
+		"negotiate": [
+			{
+				"name": "Snarl",
+				"desc": "Growl at the Howlice to relate to it.",
+				"action": "PLAYER growls with Howlice. It seems happier.",
+				"convince": 50
+			}
+		]
+    },
+    "Arftic": {
+        "level": 1,
+        "hp": 20,
+        "mp": 20,
+        "atk": 5,
+        "mag": 5,
+        "prc": 5,
+        "end": 5,
+        "chr": 5,
+        "int": 5,
+        "agl": 5,
+        "luk": 5,
+        "melee": ["Strike Attack", "strike"],
+        "skills": ["MegatonRaid", "IceFang"],
+        "weak": ["strike"],
+        "resist": [],
+        "block": [],
+        "repel": [],
+        "drain": [],
+        "journal": "A fluffy doggo that should NOT be killed.",
+        "dreams": ["rawr"],
+        "awardxp": 1,
+        "loot": "Ice",
+		"negotiate": [
+			{
+				"name": "Pet",
+				"desc": "Pet the doggo just pet the doggo",
+				"action": "PLAYER pets the Arftic! It's satisfied.",
+				"convince": 100
+			}
+		]
+    },
+    "FrostTunneler": {
+        "level": 50,
+		"miniboss": true,
+        "hp": 900,
+        "mp": 400,
+        "atk": 40,
+        "mag": 40,
+        "prc": 14,
+        "end": 30,
+        "chr": 30,
+        "int": 15,
+        "agl": 40,
+        "luk": 40,
+        "melee": ["Slash Attack", "slash"],
+        "skills": ["Clawshread", "FrostBreath", "FreezingMist", "SandTomb", "EarthPower"],
+        "weak": ["fire", "grass"],
+        "resist": [],
+        "block": ["ice"],
+        "repel": [],
+        "drain": [],
+        "journal": "Guardians of a foreign land.",
+        "dreams": ["rawr"],
+        "awardxp": 53232,
+        "loot": "Ice",
+		"negotiateDefs": {
+			"required": 3
+		},
+		"negotiate": [
+			{
+				"name": "Apologise",
+				"desc": "Apologise for disturbing the Frost Tunneler.",
+				"action": "PLAYER apologises to the Frost Tunneler. It doesn't seem very convinced.",
+				"convince": 0
+			},
+			{
+				"name": "Refrain",
+				"desc": "Refrain from attacking the Frost Tunneler.",
+				"action": "PLAYER shows mercy. The Frost Tunneler seems to acknowledge this.",
+				"convince": 5
+			}
+		]
+    },
+    "Robat": {
+        "level": 45,
+        "hp": 245,
+        "mp": 100,
+        "atk": 50,
+        "mag": 45,
+        "prc": 50,
+        "end": 35,
+        "chr": 55,
+        "int": 30,
+        "agl": 60,
+        "luk": 43,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "skills": [
+			"Freidyne",
+			"Eigaon",
+			"Maeiga",
+			"PoisonFang"
+        ],
+        "weak": ["fire"],
+        "resist": ["earth", "ice"],
+        "block": [],
+        "repel": [],
+        "drain": [],
+        "journal": "A small robotic bat. It sucks on others' blood to use as energy as it is rich in oxygen (usually.)",
+        "dreams": ["..."],
+        "awardxp": 6001,
+        "loot": "Metalic",
+		"negotiateDefs": {
+			"required": 5
+		},
+		"negotiate": [
+			{
+				"name": "Debug",
+				"desc": "Debug and restore it's passive behavior.",
+				"action": "PLAYER debugs the Robotibat and tries to restore it's behaviour.",
+				"convince": 50
+			}
+		]
+    },
+    "Mechanium": {
+        "level": 55,
+		"miniboss": true,
+        "hp": 900,
+        "mp": 867,
+        "atk": 60,
+        "mag": 56,
+        "prc": 46,
+        "end": 20,
+        "chr": 20,
+        "int": 20,
+        "agl": 43,
+        "luk": 30,
+        "melee": [
+            "Pierce Attack",
+            "pierce"
+        ],
+        "skills": [
+			"Freidyne",
+			"Eigaon",
+			"Mafreila",
+			"Maeiga",
+			"DoubleCrunch",
+			"Matarunda",
+			"Mamakanda",
+			"Marakunda",
+			"Debilitate"
+        ],
+        "weak": ["water", "ice"],
+        "resist": ["bless"],
+        "block": ["strike"],
+        "repel": [],
+        "drain": [],
+        "journal": "A small robotic creature that yells at it's foes to intimidate them.",
+        "dreams": ["..."],
+        "awardxp": 95824,
+        "loot": "Metalic",
+		"negotiateDefs": {
+			"required": 2
+		},
+		"negotiate": [
+			{
+				"name": "Yell",
+				"desc": "Yell in responce to it's yelling.",
+				"action": "PLAYER's yells enrage it more!",
+				"convince": -5
+			},
+			{
+				"name": "Soothe",
+				"desc": "Softly speak in responce to it's yelling.",
+				"action": "PLAYER attempts to soothe the Mechanium.",
+				"convince": 7
+			},
+			{
+				"name": "Watch",
+				"desc": "Stare at the Mechanium.",
+				"action": "PLAYER stares at Mechanium... yet, it feels calmed, because you're not attacking it.",
+				"convince": 3
+			}
+		]
+    },
+    "Foxbot": {
+        "level": 50,
+        "hp": 321,
+        "mp": 46,
+        "atk": 49,
+        "mag": 32,
+        "prc": 43,
+        "end": 50,
+        "chr": 32,
+        "int": 10,
+        "agl": 32,
+        "luk": 24,
+        "melee": [
+            "Pierce Attack",
+            "pierce"
+        ],
+        "skills": [
+            "Clawswipe",
+			"TripleCrunch",
+			"ClawPierce",
+			"Eiga"
+        ],
+        "weak": ["nuclear"],
+        "resist": ["strike"],
+        "block": [],
+        "repel": [],
+        "drain": [],
+        "journal": "A strong fox-like robot that prefers to strike with their claws.",
+        "dreams": [],
+        "awardxp": 8543,
+        "loot": "Metalic",
+		"negotiateDefs": {
+			"required": 7
+		},
+		"negotiate": [
+			{
+				"name": "Pet",
+				"desc": "Pet it.",
+				"action": "PLAYER's pets calm the Foxbot.",
+				"convince": 33
+			}
+		]
     },
     "ReignitedFlare": {
         "level": 58,
@@ -2940,7 +3287,15 @@
         "drain": [],
         "journal": "One of the weapons of mass destruction sealed away to protect the world from the ''The Destroyer''. This one focused on boiling hot attacks and was the most destructive.",
         "dreams": [],
-        "awardxp": 194235
+        "awardxp": 215244,
+		"negotiate": [
+			{
+				"name": "Cut",
+				"desc": "Cuts a wire and loosens it's durability.",
+				"action": "PLAYER snaps one of Reignited Flare's wires!",
+				"convince": 5
+			}
+		]
     },
     "RechargedLightning": {
         "level": 60,
@@ -2985,6 +3340,58 @@
         "drain": [],
         "journal": "One of the weapons of mass destruction sealed away to protect the world from the ''The Destroyer''. This one focused on electrical attacks and usually stayed back to assist.",
         "dreams": [],
-        "awardxp": 201425
+        "awardxp": 253322,
+		"negotiate": [
+			{
+				"name": "Cut",
+				"desc": "Cuts a wire and loosens it's durability.",
+				"action": "PLAYER snaps one of Reignited Flare's wires!",
+				"convince": 5
+			}
+		]
+    },
+    "RefinedFrost": {
+        "level": 60,
+        "boss": true,
+        "hp": 6000,
+        "mp": 5969,
+        "atk": 49,
+        "mag": 54,
+        "prc": 48,
+        "end": 30,
+        "chr": 20,
+        "int": 39,
+        "agl": 30,
+        "luk": 10,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "skills": [
+            "Bufudyne",
+			"FreezerBurn",
+            "TwinIcicle",
+            "Magnadyne",
+			"Avalanche",
+            "Sandstorm",
+			"GiganticFist",
+            "FreezingAir"
+        ],
+        "weak": ["fire", "water"],
+        "resist": ["earth", "grass", "poison"],
+        "block": ["ice"],
+        "repel": [],
+        "drain": [],
+        "journal": "One of the weapons of mass destruction sealed away to protect the world from the ''The Destroyer''. This one focused on electrical attacks and usually stayed back to assist.",
+        "dreams": [],
+        "awardxp": 354323,
+		"negotiate": [
+			{
+				"name": "Cut",
+				"desc": "Cuts a wire and loosens it's durability.",
+				"action": "PLAYER snaps one of Reignited Flare's wires!",
+				"convince": 5
+			}
+		]
     }
 }

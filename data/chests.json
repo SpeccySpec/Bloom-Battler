@@ -20,12 +20,15 @@
                 "inputLoot": "",
                 "inputItems": [],
                 "itemsFromLoot": {},
-                "items": {},
+                "items": {
+                    "Wooden Shield": 1,
+                    "Berry Blend": 1
+                },
                 "party": "",
                 "locked": false,
                 "lockOpener": "",
                 "spoiler": false,
-                "encountered": false
+                "encountered": true
             }
         }
     }

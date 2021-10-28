@@ -511,5 +511,14 @@
         "mag": 25,
         "def": 5,
         "img": "https://static.wikia.nocookie.net/meme/images/2/2d/ShoopPNG.png/revision/latest?cb=20161029171011"
+    },
+    "Socks": {
+        "name": "A pair of Socks",
+        "rarity": 1,
+        "series": "?",
+        "atk": 3,
+        "mag": 10,
+        "def": 2,
+        "img": "https://cdn.shopify.com/s/files/1/1646/4445/products/OLDPORT1.jpg"
     }
 }

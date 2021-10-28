@@ -248,6 +248,27 @@ module.exports = {
 
 		console.log("Ordered skills.json.")
 		fs.writeFileSync(skillPath, JSON.stringify(skillFile, null, '    '));
+		
+		// Now order character skills
+		var charPath = dataPath+'/characters.json'
+		
+		try {
+			var charRead = fs.readFileSync(charPath);
+		} catch(err) {
+			console.error(err);
+		}
+
+		var charFile = JSON.parse(charRead);
+		for (const i in charFile) {
+			if (charFile[i].skills && charFile[i].skills.length) {
+				charFile[i].skills.sort(function(a, b) {return skillFile[b].pow - skillFile[a].pow});
+				charFile[i].skills.sort(function(a, b) {return elementOrder[skillFile[a].type] - elementOrder[skillFile[b].type]});
+				console.log(`Ordered ${i}'s skills.`)
+			}
+		}
+
+		console.log("Ordered characters.json skills.")
+		fs.writeFileSync(charPath, JSON.stringify(charFile, null, '    '));
 	},
 	
 	isBanned: function(id, server) {
@@ -286,7 +307,7 @@ module.exports = {
 	},
 
 	randNum: function(max) {
-		return Math.round(Math.random() * (max-1))
+		return Math.round(Math.random() * max)
 	},
 	
 	getChannel: function(channel) {
@@ -313,8 +334,23 @@ module.exports = {
 		}
 
 		return false;
-	}
+	},
 	
+	setDamageFormula: function(server, type) {
+		var servPath = dataPath+'/Server Settings/server.json'
+		var servRead = fs.readFileSync(servPath);
+		var servFile = JSON.parse(servRead);
+
+		switch(type.toLowerCase()) {
+			case 'persona':
+				servFile[server].damageFormula = 'persona'
+			
+			case 'pokemon':
+			case 'pkmn':
+				servFile[server].damageFormula = 'pkmn'
+		}
+	}
+
 	/*
 	random: function(max) {
 		return random(max)

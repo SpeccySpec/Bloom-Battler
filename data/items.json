@@ -91,15 +91,41 @@
         "skill": "Scald",
         "desc": "A part of a robot that was broken off. It can be used to raise magic stat by 15, and use Scald."
     },
+    "FrozenFist": {
+        "name": "Frozen Fist",
+        "type": "weapon",
+        "cost": 400,
+        "atk": 18,
+        "skill": "GiganticFist",
+        "desc": "A frozen fist of some sort of animal. It can be used to raise attack stat by 18, and use Gigantic Fist."
+    },
+    "IcyFang": {
+        "name": "Icy Fang",
+        "type": "weapon",
+        "cost": 400,
+        "atk": 15,
+        "skill": "IceFang",
+        "desc": "A frozen fang of some sort of animal. It can be used to raise attack stat by 15, and use Ice Fang."
+    },
     "GrassGem": {
         "name": "Grass Gem",
         "type": "weapon",
         "cost": 400,
-		"atk": 4,
+        "atk": 4,
         "mag": 4,
-		"def": 4,
+        "def": 4,
         "skill": "GrassyTerrain",
         "desc": "One of the various elemental crystals. It can be used to raise all stats by 4, and use Grassy Terrain."
+    },
+    "FrostGem": {
+        "name": "Frost Gem",
+        "type": "weapon",
+        "cost": 400,
+        "atk": 4,
+        "mag": 4,
+        "def": 4,
+        "skill": "GrassyTerrain",
+        "desc": "One of the various elemental crystals. It can be used to raise all stats by 4, and use Blizzard."
     },
     "God'sBlessing": {
         "name": "God's Blessing",
@@ -191,5 +217,13 @@
         "type": "heal",
         "desc": "If one were to drink this, their HP would be restored by 160.",
         "heal": 160
+    },
+    "NukeLaunch": {
+        "name": "NukeLaunch",
+        "cost": 0,
+        "type": "weapon",
+        "desc": "A rare weapon that is possible to launch radiation at a foe without needing ammo",
+        "mag": 10,
+        "skill": "Freila"
     }
 }

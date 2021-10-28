@@ -2,35 +2,35 @@
     "Spectra": {
         "name": "Spectra",
         "owner": "516359709779820544",
-        "level": 52,
-        "hp": 285,
-        "mp": 341,
-        "maxhp": 285,
-        "maxmp": 341,
+        "level": 54,
+        "hp": 236,
+        "mp": 274,
+        "maxhp": 295,
+        "maxmp": 353,
         "basehp": 30,
         "basemp": 35,
         "melee": [
             "Psychic Bash",
             "strike"
         ],
-        "atk": 19,
-        "mag": 61,
-        "prc": 28,
-        "end": 30,
-        "chr": 61,
-        "int": 30,
-        "agl": 19,
-        "luk": 59,
-        "baseatk": 2,
+        "atk": 18,
+        "mag": 63,
+        "prc": 20,
+        "end": 31,
+        "chr": 62,
+        "int": 31,
+        "agl": 30,
+        "luk": 61,
+        "baseatk": 1,
         "basemag": 10,
         "baseprc": 3,
         "baseend": 5,
-        "basechr": 10,
+        "basechr": 9,
         "baseint": 5,
-        "baseagl": 2,
+        "baseagl": 4,
         "baseluk": 8,
-        "xp": 33207,
-        "maxxp": 149403,
+        "xp": 17086,
+        "maxxp": 203338,
         "weak": [
             "curse"
         ],
@@ -43,13 +43,13 @@
         ],
         "drain": [],
         "skills": [
+            "PsyCannon",
+            "CopySkill",
+            "Makarakarn",
             "HealMelody",
             "CuringAura",
             "Recarm",
             "Diarahan",
-            "Makarakarn",
-            "PsyCannon",
-            "CopySkill",
             "InvigII"
         ],
         "meleequote": [
@@ -61,9 +61,12 @@
         ],
         "physquote": [
             "Here I come...!",
-            "I absolutely must... hey... wait... what is this script?"
+            "I absolutely must... hey... wait... what is this script?",
+            "Let's try %SKILL%..."
         ],
-        "magquote": [],
+        "magquote": [
+            "Let's try %SKILL%..."
+        ],
         "lbquote": [],
         "healquote": [
             "Tough Spot?",
@@ -105,7 +108,7 @@
             "If you want... I can help check your eyesight...",
             "Come on, I stick out like a sore thumb!"
         ],
-        "weapon": "RoboticFlamethrower",
+        "weapon": "NukeLaunch",
         "missquote": [
             "Stand still... will you...?",
             "Y-You saw n-nothing..."
@@ -131,7 +134,9 @@
             "likes": "",
             "dislikes": "",
             "fears": "",
-            "appearance": "https://media.discordapp.net/attachments/658823768839421981/780550163961085973/unknown.png"
+            "appearance": "https://media.discordapp.net/attachments/658823768839421981/780550163961085973/unknown.png",
+            "height": "3'6",
+            "weight": "99lb (Pounds)"
         },
         "critquote": [
             "Did... I do that...??"
@@ -151,12 +156,12 @@
         ],
         "trust": {
             "Sky": {
-                "value": 111,
+                "value": 336,
                 "nextLevel": 950,
                 "level": 17
             },
             "Euphorica": {
-                "value": 20,
+                "value": 40,
                 "nextLevel": 100,
                 "level": 1
             },
@@ -166,7 +171,7 @@
                 "level": 17
             },
             "Dusk": {
-                "value": 30,
+                "value": 50,
                 "nextLevel": 150,
                 "level": 2
             },
@@ -176,7 +181,7 @@
                 "level": 3
             },
             "Ramia": {
-                "value": 30,
+                "value": 70,
                 "nextLevel": 150,
                 "level": 2
             },
@@ -191,12 +196,37 @@
                 "level": 2
             },
             "Rainbow": {
-                "value": 50,
+                "value": 75,
                 "nextLevel": 100,
                 "level": 1
             },
             "Karma": {
                 "value": 60,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Nate": {
+                "value": 70,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Rattle": {
+                "value": 55,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Brainfreeze": {
+                "value": 70,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Permic": {
+                "value": 40,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Sutela": {
+                "value": 20,
                 "nextLevel": 100,
                 "level": 1
             }
@@ -226,42 +256,48 @@
             "statuschance": 0
         },
         "leaderSkill": {
-            "name": "Supress",
-            "type": "discount",
-            "target": "heal",
-            "percent": 15
-        }
+            "name": "Perseverance",
+            "type": "buff",
+            "target": "mag",
+            "percent": 1
+        },
+        "allydeathquote": [
+            "%ALLY%...",
+            "%ALLY%...! Nooo!",
+            "%ALLY%! %ENEMY% will pay for this...",
+            "It seems"
+        ]
     },
     "Lanagu": {
         "name": "Lanagu",
         "owner": "532291526634635285",
         "level": 51,
-        "hp": 325,
+        "hp": 330,
         "mp": 330,
-        "maxhp": 325,
+        "maxhp": 330,
         "maxmp": 330,
-        "basehp": 25,
+        "basehp": 30,
         "basemp": 30,
         "melee": [
             "DivePress",
             "strike"
         ],
-        "atk": 30,
-        "mag": 58,
+        "atk": 57,
+        "mag": 57,
         "prc": 30,
-        "end": 57,
-        "chr": 19,
+        "end": 31,
+        "chr": 18,
         "int": 31,
-        "agl": 59,
-        "luk": 18,
-        "baseatk": 5,
-        "basemag": 8,
+        "agl": 58,
+        "luk": 19,
+        "baseatk": 7,
+        "basemag": 7,
         "baseprc": 5,
-        "baseend": 7,
-        "basechr": 3,
+        "baseend": 6,
+        "basechr": 2,
         "baseint": 6,
-        "baseagl": 9,
-        "baseluk": 2,
+        "baseagl": 8,
+        "baseluk": 3,
         "xp": 89382,
         "maxxp": 109785,
         "weak": [
@@ -279,14 +315,14 @@
         ],
         "drain": [],
         "skills": [
+            "GiantSlice",
+            "Majino",
+            "Jino",
+            "Eigaon",
             "ShadowyBlast",
             "Maeiga",
-            "CurseBoost",
-            "Eigaon",
-            "GiantSlice",
-            "InvigI",
-            "Jino",
-            "Rakunda"
+            "Rakunda",
+            "InvigI"
         ],
         "meleequote": [],
         "physquote": [
@@ -352,7 +388,9 @@
             "fears": "Death of a Trusted ally, being forcibly cut off, Claustrophobia (Minor), Being forced out by those trusted, Scientists in Biological Sciences",
             "voice": "Pavel (Metro: Last Light) + Goro Akechi",
             "theme": "<https://youtu.be/Kbw6hF7tHns> (Tense/Tough Battle/Boss) <https://youtu.be/GiJmy9UtJKg> (Facing PVP people) <https://youtu.be/acP7YhN8r1s> (Final Bosses/Extreme difficulty fights) <https://www.youtube.com/watch?v=01skyPMeeoc> (Normal Battle theme)",
-            "appearance": "https://cdn.discordapp.com/attachments/820036937791438859/883755899464863835/Lanagu-1.png"
+            "appearance": "https://cdn.discordapp.com/attachments/820036937791438859/883755899464863835/Lanagu-1.png",
+            "height": "3'6",
+            "weight": "97 lbs"
         },
         "trust": {
             "Sky": {
@@ -361,25 +399,26 @@
                 "level": 3
             },
             "Flara": {
-                "value": 85,
-                "nextLevel": 200,
-                "level": 3
+                "value": 110,
+                "nextLevel": 250,
+                "level": 4
             },
             "Karma": {
-                "value": 85,
+                "value": 130,
                 "nextLevel": 150,
                 "level": 2
             },
             "Nyamo": {
-                "value": 30,
-                "nextLevel": 100,
-                "level": 1
+                "value": 10,
+                "nextLevel": 200,
+                "level": 3
             }
         },
         "dodgequote": [
             "https://youtu.be/lhckuhUxcgA",
             "....did you even aim?",
-            "Oh hohoho, you thought that would work?"
+            "Oh hohoho, you thought that would work?",
+            "What? Did you expect another result?"
         ],
         "lvlquote": [
             "Finally, a step forward",
@@ -387,10 +426,10 @@
         ],
         "weapon": "RoboticFlamethrower",
         "leaderSkill": {
-            "name": "StregCurse",
-            "type": "boost",
-            "target": "curse",
-            "percent": 4
+            "name": "ShadowEyes",
+            "type": "buff",
+            "target": "prc",
+            "percent": 1
         }
     },
     "Permic": {
@@ -423,7 +462,7 @@
         "baseint": 5,
         "baseagl": 7,
         "baseluk": 5,
-        "xp": 850,
+        "xp": 89538.45679012345,
         "maxxp": 109777,
         "weak": [
             "ice"
@@ -436,13 +475,13 @@
         "repel": [],
         "drain": [],
         "skills": [
+            "MegaKick",
             "AssaultDive",
             "Agidyne",
-            "FlareCharge",
-            "Tarukaja",
             "FlarePunch",
-            "Matarukaja",
-            "MegaKick"
+            "Maragion",
+            "Tarukaja",
+            "Matarukaja"
         ],
         "meleequote": [
             "Here I go."
@@ -517,7 +556,9 @@
             "age": 18,
             "likes": "Training, Hot areas.",
             "dislikes": "Power-hungry people, Water.",
-            "fears": "Fairies... for some reason..."
+            "fears": "Fairies... for some reason...",
+            "height": "5'4",
+            "weight": "125.9 lbs"
         },
         "strikequote": [
             "Found a weak spot."
@@ -536,7 +577,7 @@
         ],
         "trust": {
             "Nate": {
-                "value": 0,
+                "value": 35,
                 "nextLevel": 300,
                 "level": 5
             },
@@ -544,6 +585,31 @@
                 "value": 0,
                 "nextLevel": 300,
                 "level": 5
+            },
+            "Sky": {
+                "value": 35,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Spectra": {
+                "value": 40,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Rattle": {
+                "value": 35,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Brainfreeze": {
+                "value": 35,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Rainbow": {
+                "value": 20,
+                "nextLevel": 100,
+                "level": 1
             }
         },
         "lb2": {
@@ -555,11 +621,12 @@
             "statuschance": 10
         },
         "leaderSkill": {
-            "name": "Fighter'sPride",
+            "name": "EternalFire",
             "type": "discount",
-            "target": "physical",
+            "target": "fire",
             "percent": 10
-        }
+        },
+        "weapon": "none"
     },
     "Dusk": {
         "name": "Dusk",
@@ -591,7 +658,7 @@
         "baseint": 2,
         "baseagl": 7,
         "baseluk": 7,
-        "xp": 116387,
+        "xp": 188135,
         "maxxp": 249602,
         "weak": [
             "strike",
@@ -608,14 +675,14 @@
         ],
         "drain": [],
         "skills": [
-            "TornadoSlash",
             "UnseenSlashes",
-            "ShadowStrike",
-            "YowlingSpirits",
+            "TornadoSlash",
             "RapierStrike",
             "BurningSpirit",
-            "ShadowCounter",
-            "Swordbreaker"
+            "ShadowStrike",
+            "YowlingSpirits",
+            "Swordbreaker",
+            "ShadowCounter"
         ],
         "weapon": "SteelSword",
         "bio": {
@@ -627,7 +694,9 @@
             "age": "N/A",
             "likes": "",
             "dislikes": "",
-            "fears": ""
+            "fears": "",
+            "height": "",
+            "weight": "0lb (Pounds)"
         },
         "lb1": {
             "name": "Rapier Arts",
@@ -660,7 +729,7 @@
                 "level": 12
             },
             "Spectra": {
-                "value": 30,
+                "value": 50,
                 "nextLevel": 150,
                 "level": 2
             },
@@ -685,7 +754,7 @@
                 "level": 1
             },
             "Ramia": {
-                "value": 5,
+                "value": 10,
                 "nextLevel": 100,
                 "level": 1
             },
@@ -696,6 +765,11 @@
             },
             "Brainfreeze": {
                 "value": 40,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Euphorica": {
+                "value": 5,
                 "nextLevel": 100,
                 "level": 1
             }
@@ -730,11 +804,14 @@
         ],
         "lvlquote": [],
         "leaderSkill": {
-            "name": "Confidence",
-            "type": "boost",
-            "target": "physical",
-            "percent": 8
-        }
+            "name": "Courage",
+            "type": "buff",
+            "target": "atk",
+            "percent": 1
+        },
+        "allydeathquote": [
+            "..."
+        ]
     },
     "Euphorica": {
         "name": "Euphorica",
@@ -766,7 +843,7 @@
         "baseint": 4,
         "baseagl": 7,
         "baseluk": 6,
-        "xp": 0,
+        "xp": 71748,
         "maxxp": 125489,
         "weak": [
             "curse",
@@ -781,14 +858,14 @@
         ],
         "drain": [],
         "skills": [
+            "Bufula",
+            "Mabufula",
             "Psiodyne",
             "Mapsiodyne",
-            "Mamakakaja",
             "Mimic",
-            "Bufula",
+            "Mamakakaja",
             "Teleport",
-            "PsyBoost",
-            "Mabufu"
+            "PsyBoost"
         ],
         "lb1": {
             "name": "Psy-Struction",
@@ -815,7 +892,9 @@
             "likes": "",
             "dislikes": "",
             "fears": "",
-            "appearance": "https://media.discordapp.net/attachments/525031181616545818/728963333734268968/euph.png"
+            "appearance": "https://media.discordapp.net/attachments/525031181616545818/728963333734268968/euph.png",
+            "height": "1'3",
+            "weight": "85lb (Pounds)"
         },
         "meleequote": [],
         "physquote": [],
@@ -844,16 +923,21 @@
         "lvlquote": [],
         "trust": {
             "Spectra": {
-                "value": 20,
+                "value": 40,
                 "nextLevel": 100,
                 "level": 1
             },
             "Ramia": {
-                "value": 5,
+                "value": 10,
                 "nextLevel": 100,
                 "level": 1
             },
             "Sky": {
+                "value": 5,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Dusk": {
                 "value": 5,
                 "nextLevel": 100,
                 "level": 1
@@ -896,7 +980,7 @@
         "baseint": 3,
         "baseagl": 5,
         "baseluk": 5,
-        "xp": 4881,
+        "xp": 76629,
         "maxxp": 222481,
         "weak": [
             "earth",
@@ -912,21 +996,23 @@
             "poison"
         ],
         "skills": [
-            "Dokudyne",
-            "Madokusei",
-            "PoisonOoze",
-            "Sting",
-            "SpiderFang",
             "BrainBite",
+            "SpiderFang",
             "Trickery",
+            "Dokudyne",
+            "PoisonOoze",
+            "Madokusei",
+            "Sting",
             "WebTrap"
         ],
         "meleequote": [],
         "physquote": [
-            "Check this out!"
+            "Check this out!",
+            "Take this, %ENEMY%!"
         ],
         "magquote": [
-            "Haah! Take this!"
+            "Haah! Take this!",
+            "Can you take my %SKILL%, %ENEMY%???"
         ],
         "lbquote": [],
         "healquote": [],
@@ -992,7 +1078,9 @@
             "likes": "",
             "dislikes": "",
             "fears": "",
-            "appearance": "https://media.discordapp.net/attachments/686313572975771648/789201984732528640/image0.png"
+            "appearance": "https://media.discordapp.net/attachments/686313572975771648/789201984732528640/image0.png",
+            "height": "3'2",
+            "weight": "69lb (Pounds)"
         },
         "lb3": {
             "name": "ConvoluteGossamer",
@@ -1009,7 +1097,9 @@
             "Your first mistake was encountering us, your second was standing in our way!"
         ],
         "critquote": [
-            "Ayo, da pizza here!"
+            "Ayo, da pizza here!",
+            "Yeah, take that, %ENEMY%!",
+            "I hope %ALLY% saw that!"
         ],
         "weakquote": [
             "It isn't my day, is it?"
@@ -1021,17 +1111,17 @@
                 "level": 1
             },
             "Sky": {
-                "value": 65,
+                "value": 70,
                 "nextLevel": 200,
                 "level": 2
             },
             "Spectra": {
-                "value": 30,
+                "value": 70,
                 "nextLevel": 150,
                 "level": 2
             },
             "Euphorica": {
-                "value": 5,
+                "value": 10,
                 "nextLevel": 100,
                 "level": 1
             },
@@ -1046,7 +1136,7 @@
                 "level": 1
             },
             "Dusk": {
-                "value": 5,
+                "value": 10,
                 "nextLevel": 100,
                 "level": 1
             },
@@ -1066,16 +1156,19 @@
                 "level": 1
             }
         },
-        "weapon": "RoboticFist"
+        "weapon": "RoboticFist",
+        "allydeathquote": [
+            "It seems"
+        ]
     },
     "Nate": {
         "name": "Nate",
         "owner": "544290248734015488",
-        "level": 47,
-        "hp": 459,
-        "mp": 245,
-        "maxhp": 459,
-        "maxmp": 245,
+        "level": 49,
+        "hp": 477,
+        "mp": 255,
+        "maxhp": 477,
+        "maxmp": 255,
         "basehp": 45,
         "basemp": 15,
         "melee": [
@@ -1083,14 +1176,14 @@
             "strike"
         ],
         "atk": 26,
-        "mag": 30,
-        "prc": 56,
-        "end": 55,
-        "chr": 16,
-        "int": 53,
-        "agl": 16,
-        "luk": 29,
-        "baseatk": 3,
+        "mag": 31,
+        "prc": 58,
+        "end": 57,
+        "chr": 17,
+        "int": 55,
+        "agl": 17,
+        "luk": 30,
+        "baseatk": 2,
         "basemag": 7,
         "baseprc": 10,
         "baseend": 9,
@@ -1098,8 +1191,8 @@
         "baseint": 7,
         "baseagl": 1,
         "baseluk": 6,
-        "xp": 18067,
-        "maxxp": 49810,
+        "xp": 17086,
+        "maxxp": 67776,
         "weak": [
             "poison",
             "electric",
@@ -1115,20 +1208,20 @@
             "water"
         ],
         "skills": [
-            "Aques",
-            "Malaques",
-            "Malaqua",
             "Aquadyne",
+            "Surf",
+            "Malaques",
             "Garula",
+            "Magarula",
             "Rakukaja",
             "Marakukaja",
             "InvigI"
         ],
         "meleequote": [],
-        "physquote": [],
-        "magquote": [
+        "physquote": [
             "I ABSOLUTE- Wait shit I'm not supposed to say anything-"
         ],
+        "magquote": [],
         "dodgequote": [],
         "killquote": [],
         "deathquote": [],
@@ -1150,14 +1243,16 @@
         "bio": {
             "info": "Nate is a Wolf that's pretty smart. (or atleast he thinks so lmao) He has light blue fur, orange shoes, and wears a dark blue headband with waves on it.",
             "backstory": "Most people believe that Nate was originally a fox, but then got turned into a wolf by some magic. However, this backstory was confirmed false, thus his complete backstory is unknown and there are many other theories as to what his backstory could've been.",
-            "voice": "Klug (Puyo Puyo)",
+            "voice": "Ai (Puyo Puyo)",
             "theme": "",
             "species": "Wolf",
             "age": 14,
             "likes": "Adventuring, Reading, Drawing",
             "dislikes": "Electricity, Bugs",
             "fears": "Lightning (sometimes)",
-            "appearance": "https://cdn.discordapp.com/attachments/820036937791438859/883761361199439952/giphy.png"
+            "appearance": "https://cdn.discordapp.com/attachments/820036937791438859/883761361199439952/giphy.png",
+            "height": "3'7",
+            "weight": "95 lbs"
         },
         "trust": {
             "Sparky": {
@@ -1166,9 +1261,34 @@
                 "level": 5
             },
             "Permic": {
-                "value": 0,
+                "value": 35,
                 "nextLevel": 300,
                 "level": 5
+            },
+            "Sky": {
+                "value": 45,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Spectra": {
+                "value": 70,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Rattle": {
+                "value": 35,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Brainfreeze": {
+                "value": 45,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Rainbow": {
+                "value": 20,
+                "nextLevel": 100,
+                "level": 1
             }
         },
         "strongquote": [],
@@ -1188,7 +1308,13 @@
             "statuschance": 0
         },
         "resistquote": [],
-        "weapon": "none"
+        "weapon": "RoboticFlamethrower",
+        "leaderSkill": {
+            "name": "Persistence",
+            "type": "buff",
+            "target": "end",
+            "percent": 1
+        }
     },
     "Flara": {
         "name": "Flara",
@@ -1242,11 +1368,11 @@
             "CruelAttack",
             "Bufudyne",
             "Mabufudyne",
+            "IceFang",
             "Magnara",
-            "IceBoost",
-            "Dia",
+            "Rakunda",
             "InvigI",
-            "Rakunda"
+            "IceBoost"
         ],
         "meleequote": [
             "Here's something special!",
@@ -1264,7 +1390,8 @@
             "Feel the power of a dragon!",
             "Chill out and have a cold one!",
             "Pizza time",
-            "I ABSOLUTELY MUST FUCK AROUND, AND ADDITIONALLY FIND OUT!"
+            "I ABSOLUTELY MUST FUCK AROUND, AND ADDITIONALLY FIND OUT!",
+            "Time to get you stoned"
         ],
         "lbquote": [
             "Time to put you on ice",
@@ -1353,7 +1480,9 @@
             "likes": "",
             "dislikes": "",
             "fears": "",
-            "appearance": "https://cdn.discordapp.com/attachments/820036937791438859/883759405542285412/itwasyou1.mp4"
+            "appearance": "https://cdn.discordapp.com/attachments/820036937791438859/883759405542285412/itwasyou1.mp4",
+            "height": "5 Feet 5 Inches",
+            "weight": "245 lbs"
         },
         "weapon": "RoboticFlamethrower",
         "lb3": {
@@ -1370,7 +1499,8 @@
             "Time to put you in the freezer!"
         ],
         "critquote": [
-            "You've pissed off the wrong dragon!"
+            "You've pissed off the wrong dragon!",
+            "What? Feeling blue already?"
         ],
         "weakquote": [
             "Ow, that hurts!",
@@ -1398,12 +1528,12 @@
                 "level": 1
             },
             "Lanagu": {
-                "value": 85,
-                "nextLevel": 200,
-                "level": 3
+                "value": 110,
+                "nextLevel": 250,
+                "level": 4
             },
             "Nyamo": {
-                "value": 521,
+                "value": 771,
                 "nextLevel": 950,
                 "level": 18
             },
@@ -1413,7 +1543,7 @@
                 "level": 3
             },
             "Karma": {
-                "value": 65,
+                "value": 110,
                 "nextLevel": 150,
                 "level": 2
             },
@@ -1434,6 +1564,11 @@
             },
             "Rainbow": {
                 "value": 40,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Firestorm": {
+                "value": 80,
                 "nextLevel": 100,
                 "level": 1
             }
@@ -1493,10 +1628,10 @@
         "repel": [],
         "drain": [],
         "skills": [
-            "PhantomShip",
+            "BurningSpirit",
             "SpiritHorns",
             "Maeiga",
-            "BurningSpirit",
+            "PhantomShip",
             "Makanda",
             "Masukukaja"
         ],
@@ -1542,7 +1677,9 @@
             "likes": "",
             "dislikes": "",
             "fears": "",
-            "appearance": "https://media.discordapp.net/attachments/868140063102500954/884895753162592326/image0.png"
+            "appearance": "https://media.discordapp.net/attachments/868140063102500954/884895753162592326/image0.png",
+            "height": "",
+            "weight": ""
         },
         "trust": {},
         "strongquote": [
@@ -1596,13 +1733,13 @@
         "repel": [],
         "drain": [],
         "skills": [
+            "Ziodyne",
+            "ThunderFang",
+            "VoltLunge",
             "Mazionga",
             "Sukukaja",
-            "ElectroBash",
-            "VoltLunge",
             "Masukukaja",
-            "ElectroBoost",
-            "Ziodyne"
+            "ThunderWave"
         ],
         "meleequote": [
             "Wa-pow!",
@@ -1660,7 +1797,7 @@
             "Just not my day..."
         ],
         "dodgequote": [
-            "Not even close!",
+            "What? Did you seriously think I was just gonna stand there and take the hit?",
             "Simply aim for the yellow chihuahua."
         ],
         "lvlquote": [
@@ -1673,10 +1810,12 @@
             "voice": "Morgana (Persona 5)",
             "theme": "",
             "species": "Tamoan Chihuahua",
-            "age": 10,
+            "age": 11,
             "likes": "Battling, Cuddling, Cool Breezes",
             "dislikes": "Promise-breakers",
-            "fears": "Earthquakes"
+            "fears": "Earthquakes",
+            "height": "2'5",
+            "weight": "56 lbs"
         },
         "lb1": {
             "name": "ChaoticLightning",
@@ -1763,44 +1902,44 @@
         },
         "weapon": "RoboticFist",
         "leaderSkill": {
-            "name": "Recharge",
-            "type": "discount",
-            "target": "electric",
-            "percent": 12
+            "name": "SpeedSpark",
+            "type": "buff",
+            "target": "agl",
+            "percent": 1
         }
     },
     "Brainfreeze": {
         "name": "Brainfreeze",
         "owner": "461050360832720904",
-        "level": 49,
-        "hp": 366,
-        "mp": 419,
-        "maxhp": 366,
-        "maxmp": 419,
+        "level": 52,
+        "hp": 153,
+        "mp": 310,
+        "maxhp": 336,
+        "maxmp": 443,
         "basehp": 30,
         "basemp": 35,
         "melee": [
             "Strike Attack",
             "strike"
         ],
-        "atk": 19,
-        "mag": 30,
-        "prc": 57,
-        "end": 56,
-        "chr": 19,
-        "int": 58,
-        "agl": 27,
-        "luk": 27,
+        "atk": 20,
+        "mag": 59,
+        "prc": 60,
+        "end": 31,
+        "chr": 20,
+        "int": 61,
+        "agl": 28,
+        "luk": 28,
         "baseatk": 3,
-        "basemag": 6,
+        "basemag": 8,
         "baseprc": 9,
-        "baseend": 8,
+        "baseend": 6,
         "basechr": 3,
         "baseint": 10,
         "baseagl": 3,
         "baseluk": 3,
-        "xp": 1713,
-        "maxxp": 27713,
+        "xp": 17086,
+        "maxxp": 43959,
         "weak": [
             "fire"
         ],
@@ -1813,14 +1952,14 @@
         ],
         "drain": [],
         "skills": [
+            "IcicleCrash",
+            "FrozenShards",
             "IcyShield",
             "IcyGuard",
             "ElectricTrap",
             "Mamakakaja",
-            "CoolBreeze",
-            "IcicleCrash",
             "FlareTrap",
-            "FrozenShards"
+            "CoolBreeze"
         ],
         "meleequote": [
             "Take this.",
@@ -1871,7 +2010,8 @@
             "This wasn’t part of my calculations at all…",
             "I haven’t lost yet…I’m just….tired…",
             "How embarrassing…",
-            "I’m not worthy…"
+            "I’m not worthy…",
+            "It seems I have lost."
         ],
         "lbquote": [
             "**I will be the last face you see.**",
@@ -1906,16 +2046,18 @@
             "statuschance": 50
         },
         "bio": {
-            "info": "On the surface He seems like a boy who really doesn’t care for anything but his science and technology, he mostly prefers to work alone, He when getting to know the Icy Guy, he can be really protective and caring for his friends. He may have a snarky attitude, but that’s just him trying to sound tough.",
+            "info": "Brainfreeze is an Intelligent and mysterious Goat with a mysterious story. He masters in cryokinesis and even gives off a cold aura if one is too close. Despite of mastering cryokinesis, He only uses its real power in a lash strike out of anger. This Move is known as the Heaven Piercing Wall. Those who faced it were never heard from again.",
             "backstory": "",
             "theme": "",
-            "species": "Hedgehog",
-            "age": 14,
-            "likes": "",
-            "dislikes": "",
+            "species": "Mountain Goat ||Planetary Element||",
+            "age": 15,
+            "likes": "Studying, Spending time with his friends and/or family, Trying new things,  Technology, his inventions, messing around with science, Self-improvement.",
+            "dislikes": "When someone threatens his friends and/or family, when his technology fails, people in danger, ~~people who have very low iq~~, Being called Dumb and/or Stupid",
             "fears": "",
-            "voice": "Shoto Todoroki",
-            "appearance": "https://cdn.discordapp.com/attachments/820036937791438859/883761652305117224/image0.jpg"
+            "voice": "Tee *Alt Voice* (Puyo Puyo)",
+            "appearance": "https://cdn.discordapp.com/attachments/820036937791438859/899457761522376754/image0.png",
+            "height": "4’5",
+            "weight": "87lb"
         },
         "trust": {
             "Firestorm": {
@@ -1925,6 +2067,36 @@
             },
             "Dusk": {
                 "value": 40,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Nate": {
+                "value": 45,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Sky": {
+                "value": 95,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Spectra": {
+                "value": 70,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Rattle": {
+                "value": 35,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Permic": {
+                "value": 35,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Rainbow": {
+                "value": 20,
                 "nextLevel": 100,
                 "level": 1
             }
@@ -2018,12 +2190,12 @@
         ],
         "drain": [],
         "skills": [
-            "AwayWithTheWave",
-            "FeedingOnYourDespair",
-            "WayOfMirroringYourself",
-            "WaterPulse",
             "Agilao",
-            "Hanama"
+            "WaterPulse",
+            "Hanama",
+            "AwayWithTheWave",
+            "WayOfMirroringYourself",
+            "FeedingOnYourDespair"
         ],
         "meleequote": [],
         "physquote": [],
@@ -2185,7 +2357,9 @@
             "likes": "",
             "dislikes": "",
             "fears": "",
-            "appearance": "https://cdn.discordapp.com/attachments/763858632319434792/885612999329611886/Sutela.png"
+            "appearance": "https://cdn.discordapp.com/attachments/763858632319434792/885612999329611886/Sutela.png",
+            "height": "3'9",
+            "weight": ""
         },
         "strikequote": [],
         "critquote": [],
@@ -2197,35 +2371,48 @@
                 "level": 3
             },
             "Nyamo": {
-                "value": 0,
+                "value": 70,
                 "nextLevel": 200,
                 "level": 3
+            },
+            "Spectra": {
+                "value": 20,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Sky": {
+                "value": 5,
+                "nextLevel": 100,
+                "level": 1
             }
         },
-        "strongquote": []
+        "strongquote": [],
+        "allydeathquote": [
+            "It seems"
+        ]
     },
     "Sky": {
         "name": "Sky",
         "owner": "412328234198237189",
-        "level": 54,
-        "hp": 358,
-        "mp": 290,
-        "maxhp": 358,
-        "maxmp": 290,
+        "level": 55,
+        "hp": 194,
+        "mp": 295,
+        "maxhp": 364,
+        "maxmp": 295,
         "basehp": 40,
         "basemp": 25,
         "melee": [
             "BackdashSlash",
             "slash"
         ],
-        "atk": 61,
-        "mag": 22,
-        "prc": 60,
-        "end": 31,
-        "chr": 18,
-        "int": 32,
-        "agl": 60,
-        "luk": 32,
+        "atk": 62,
+        "mag": 23,
+        "prc": 61,
+        "end": 32,
+        "chr": 19,
+        "int": 33,
+        "agl": 61,
+        "luk": 33,
         "baseatk": 8,
         "basemag": 5,
         "baseprc": 7,
@@ -2234,8 +2421,8 @@
         "baseint": 6,
         "baseagl": 7,
         "baseluk": 6,
-        "xp": 17782,
-        "maxxp": 174304,
+        "xp": 17086,
+        "maxxp": 203346,
         "weak": [
             "fire",
             "bless"
@@ -2250,14 +2437,14 @@
         "repel": [],
         "drain": [],
         "skills": [
-            "ThunderGodDance",
-            "CycloneSlash",
-            "2ProngedThrust",
             "TanukiFist",
+            "CycloneSlash",
+            "ThunderGodDance",
+            "2ProngedThrust",
             "Tanukimation",
             "ElusionCounterattack",
-            "Navinity",
-            "Swordbreaker"
+            "Swordbreaker",
+            "Navinity"
         ],
         "meleequote": [
             "Teyaat!",
@@ -2269,12 +2456,18 @@
             "Totsugeki!",
             "On a scale of one to ten, I'll give you a three.",
             "Spectra trusted you.",
-            "I ABSOLUTELY MUST FUCK AROUND, AND ADDITIONALLY FIND OUT!"
+            "I ABSOLUTELY MUST FUCK AROUND, AND ADDITIONALLY FIND OUT!",
+            "I'm about to whack you six ways from sunday!",
+            "Hey %ALLY%, watch this.",
+            "Watch yourself %ENEMY%, I'm coming full-force!",
+            "NO ONE CAN DEFLECT THE %SKILL%!",
+            "%ALLY%, ready to see a %SKILL% like no other?"
         ],
         "magquote": [
             "Dodge this!",
             "There!",
-            "Underestimating me will be your last mistake!"
+            "Underestimating me will be your last mistake!",
+            "You wanted a show %ALLY%? I'll give you one."
         ],
         "lbquote": [
             "Are you brave enough to take this one?!",
@@ -2296,7 +2489,8 @@
             "Thanks I needed that.",
             "Thanks for the help.",
             "Hooh, that was a close one.",
-            "Hooh yeah, HOH yeah oh yeah.."
+            "Hooh yeah, HOH yeah oh yeah..",
+            "Thanks %ALLY%."
         ],
         "killquote": [
             "Not even close!",
@@ -2323,7 +2517,8 @@
             "Can't... Continue....",
             "Couldn't it have been more... Climactic...?",
             "Chang da worl, my final message. *Goodbye.*",
-            "AGHHHHHHHHHHHHHHHH!!!"
+            "AGHHHHHHHHHHHHHHHH!!!",
+            "OUGH!"
         ],
         "lb1": {
             "name": "EtherealBlade",
@@ -2489,9 +2684,9 @@
             "**You better watch yourself before you wreck yourself.**",
             "How many times have I told you? Hands, OFF!"
         ],
-        "weapon": "RoboticFist",
+        "weapon": "FrozenFist",
         "bio": {
-            "info": "A cheerful Tanuki and somewhat egotistical, and has perfectionist tendencies. He wears a slightly loose, blue short-sleeved turtleneck to match his Brown fur with dark tan cargo shorts. And a utility belt where he keeps his shortsword around his waist. He may resemble Spectra in many ways, both being Tanukis, but Sky's tail is slightly larger, as well as being a bit fluffier.",
+            "info": "A cheerful Tanuki and somewhat egotistical, and has perfectionist tendencies. He wears a slightly loose, blue short-sleeved turtleneck to match his Brown fur with dark tan cargo shorts. And a utility belt where he keeps his shortsword around his waist. He may resemble Spectra in many ways, both being Tanukis, but Sky's tail is slightly larger, as well as being a bit fluffier. He also has an intense soft spot for all Grassimps.",
             "backstory": "As a traveling warrior, he's seen many places and people. Through these travels, he has gained battle experience by simply mimicking what others do. Sometimes you can spot him with a leaf on his head. Being a Tanuki, he gets rather lonely, as there is almost no fellow Tanuki in the world. Spectra is the only exception to this, but as she came from a different planet, it's a bit awkward for him to approach her.",
             "voice": "Vegeta (Dragon Ball Super)",
             "theme": "https://www.youtube.com/watch?v=8AYlJNELxIw | https://youtu.be/XmJD0MPBZoo",
@@ -2500,7 +2695,9 @@
             "dislikes": "The Heat, Making mistakes, Descrepancies",
             "fears": "Atychiphobia",
             "species": "Tanuki",
-            "appearance": "https://cdn.discordapp.com/attachments/820036937791438859/887059626170925056/20210913_153530.jpg"
+            "appearance": "https://cdn.discordapp.com/attachments/820036937791438859/887059626170925056/20210913_153530.jpg",
+            "height": "4'",
+            "weight": "113.41 lbs (Pounds)"
         },
         "strikequote": [],
         "critquote": [
@@ -2509,7 +2706,10 @@
             "I've only just BEGUN!",
             "You're finished!",
             "**I hope you were prepared for a beatdown.**",
-            "It ends NOW!"
+            "It ends NOW!",
+            "That was for %ALLY%!",
+            "Heh, wonder if %ALLY% saw that one.",
+            "Hey %ALLY% you see that?"
         ],
         "weakquote": [
             "Watch the fur WATCH THE FUR!",
@@ -2544,7 +2744,7 @@
         ],
         "trust": {
             "Spectra": {
-                "value": 111,
+                "value": 336,
                 "nextLevel": 950,
                 "level": 17
             },
@@ -2554,7 +2754,7 @@
                 "level": 3
             },
             "Ramia": {
-                "value": 65,
+                "value": 70,
                 "nextLevel": 200,
                 "level": 2
             },
@@ -2589,6 +2789,31 @@
                 "level": 1
             },
             "Rainbow": {
+                "value": 25,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Nate": {
+                "value": 45,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Rattle": {
+                "value": 35,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Brainfreeze": {
+                "value": 95,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Permic": {
+                "value": 35,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Sutela": {
                 "value": 5,
                 "nextLevel": 100,
                 "level": 1
@@ -2637,7 +2862,21 @@
                 "tpmax": 10,
                 "level": 1
             }
-        }
+        },
+        "allydeathquote": [
+            "Those bastards...",
+            "**I will break them.**",
+            "%ALLY%... %ENEMY%'s not getting out of this alive...",
+            "The one that got %ALLY%... **is mine.**",
+            "I was careless... Sorry %ALLY%....",
+            "Don't worry %ALLY%, **I won't make the same mistake twice.**",
+            "[Looks toward %ALLY% and immediately glares daggers of pure fury at %ENEMY%]",
+            "You... Are so... **Dead.**",
+            "Your first mistake was targeting %ALLY%... **Can you guess your second?**",
+            "[Sky reached his boiling point and aimed a hostile gaze at %ENEMY%]",
+            "It seems",
+            "%ALLY%! No...!"
+        ]
     },
     "Lena": {
         "name": "Lena",
@@ -2650,8 +2889,8 @@
         "basehp": 25,
         "basemp": 20,
         "melee": [
-            "Psychic Attack",
-            "psychic"
+            "GrassyBlade",
+            "slash"
         ],
         "atk": 20,
         "mag": 61,
@@ -2683,13 +2922,13 @@
             "water"
         ],
         "skills": [
-            "Mahanama",
-            "Hanamadyne",
             "Magnara",
             "Mamagna",
+            "Hanamadyne",
+            "Mahanama",
             "Makakaja",
-            "Media",
-            "Bloom"
+            "Bloom",
+            "Media"
         ],
         "lb1": {
             "name": "Leafstorm",
@@ -2732,7 +2971,9 @@
             "likes": "",
             "dislikes": "",
             "fears": "",
-            "appearance": "https://cdn.discordapp.com/attachments/820036937791438859/891058489802231858/grassage.png"
+            "appearance": "https://cdn.discordapp.com/attachments/820036937791438859/891058489802231858/grassage.png",
+            "height": "1'6",
+            "weight": "40lb (Pounds)"
         },
         "trust": {
             "Sky": {
@@ -2768,7 +3009,7 @@
         "basehp": 30,
         "basemp": 35,
         "melee": [
-            "Strike Attack",
+            "SuperPunch",
             "strike"
         ],
         "atk": 57,
@@ -2803,11 +3044,11 @@
         ],
         "skills": [
             "GiganticFist",
-            "WindmillKick",
             "ShadowChop",
+            "WindmillKick",
             "FlamingCyclone",
-            "Fireball",
             "Flamethrower",
+            "Fireball",
             "BurningTemps",
             "FireBoost"
         ],
@@ -2906,7 +3147,9 @@
             "That’s a Shame…",
             "What da dog doin’?",
             "How’d that happen…?",
-            "https://youtu.be/zJ3qtWOz9tE"
+            "https://youtu.be/zJ3qtWOz9tE",
+            "Biscuits….",
+            "Aw Biscuits…."
         ],
         "lbquote": [
             "The zenith of my mind, body, and my spirit! Become a raging fire and burn.",
@@ -3000,15 +3243,17 @@
         "weapon": "none",
         "bio": {
             "backstory": "",
-            "voice": "Eijiro Kirishima",
-            "species": "Chameleon",
-            "age": 15,
+            "voice": "Maguro (Puyo Puyo)",
+            "species": "3 Horned Chameleon ||Planetary Element||",
+            "age": 16,
             "likes": "Getting Stronger, Challenges, Making new friends, Training, His accessories, putting people in there place",
             "dislikes": "Being Weak and/or alone, Thieves, Evil Actions",
             "fears": "Autophobia and Asthenophobia",
             "theme": "https://youtu.be/78fFoIyYsIQ https://youtu.be/Ib1M51tvTmc",
-            "info": "Some people think when it comes to Firestorm, he’s just a hot head, but he’s not, Firestorm is a coolheaded chameleon, with tons of positive attitude to pass around. He loves to meet new people, but he dislikes large crowds. The place you’ll most likely find him chilling in a tree. He loves battling and having a challenge for himself. But he really dislikes being alone.",
-            "appearance": "https://cdn.discordapp.com/attachments/819617998934376459/891544666066026496/image0.png"
+            "info": "Firestorm is a easygoing Chameleon that loves to find himself any trouble he can get into. He masters in pryokinetic skills. No clear reason of why he has this ability, he was simply born with it. Ever since Firestorm was young he has been living in the Forest, Due to that he has very low knowledge of anything outside of it. He also lacks the ability to read due to his past.",
+            "appearance": "https://cdn.discordapp.com/attachments/819617998934376459/891544666066026496/image0.png",
+            "height": "4’7",
+            "weight": "92lb"
         },
         "trust": {
             "Dusk": {
@@ -3020,6 +3265,11 @@
                 "value": 25,
                 "nextLevel": 600,
                 "level": 11
+            },
+            "Flara": {
+                "value": 80,
+                "nextLevel": 100,
+                "level": 1
             }
         },
         "strongquote": [
@@ -3047,10 +3297,10 @@
         "name": "God",
         "owner": "516359709779820544",
         "level": 99,
-        "hp": 111753,
-        "mp": 111753,
-        "maxhp": 111753,
-        "maxmp": 111753,
+        "hp": 112802,
+        "mp": 108980,
+        "maxhp": 112802,
+        "maxmp": 108980,
         "basehp": 10000,
         "basemp": 10000,
         "melee": [
@@ -3062,7 +3312,7 @@
         "prc": 99,
         "end": 99,
         "chr": 99,
-        "int": 99,
+        "int": 52,
         "agl": 99,
         "luk": 99,
         "baseatk": 99,
@@ -3074,7 +3324,7 @@
         "baseagl": 99,
         "baseluk": 99,
         "xp": 0,
-        "maxxp": 1,
+        "maxxp": -224034387,
         "weak": [],
         "resist": [
             "curse",
@@ -3086,10 +3336,13 @@
         "drain": [],
         "skills": [
             "God'sHand",
-            "Megidolaon",
+            "SheerCold",
+            "DieForMe",
+            "Samsara",
             "EndlessLight",
-            "SidestepCounter-God",
-            "RegenIII"
+            "Megidolaon",
+            "RegenIII",
+            "SidestepCounter-God"
         ],
         "meleequote": [],
         "physquote": [],
@@ -3114,7 +3367,9 @@
             "age": "",
             "likes": "",
             "dislikes": "",
-            "fears": ""
+            "fears": "",
+            "height": "",
+            "weight": ""
         },
         "trust": {},
         "transformations": {
@@ -3130,13 +3385,14 @@
                 "end": 2,
                 "chr": 3,
                 "int": 2,
-                "agl": null,
-                "luk": null,
+                "agl": {},
+                "luk": {},
                 "tp": 0,
                 "tpmax": 10,
                 "level": 1
             }
-        }
+        },
+        "weapon": "none"
     },
     "Bow": {
         "name": "Bow",
@@ -3184,11 +3440,11 @@
         ],
         "skills": [
             "AssaultDive",
+            "Jin",
+            "Freila",
             "Self-Destruct",
             "Tarukaja",
-            "Freila",
-            "Tetrakarn",
-            "Jin"
+            "Tetrakarn"
         ],
         "meleequote": [
             "who knew all you needed to attack someone is to be made of metal? <:troll:690075870995808326>"
@@ -3299,7 +3555,9 @@
             "age": 15,
             "likes": "",
             "dislikes": "",
-            "fears": ""
+            "fears": "",
+            "height": "",
+            "weight": ""
         },
         "dodgequote": [
             "what? im not a training dummy, im not gonna stand around and let you hit me.",
@@ -3333,34 +3591,34 @@
         "name": "Nighthug",
         "owner": "441198920668938260",
         "level": 30,
-        "hp": 204,
-        "mp": 209,
-        "maxhp": 204,
-        "maxmp": 209,
-        "basehp": 30,
-        "basemp": 35,
+        "hp": 167,
+        "mp": 246,
+        "maxhp": 167,
+        "maxmp": 246,
+        "basehp": 22,
+        "basemp": 43,
         "status": "none",
         "statusturns": 0,
         "melee": [
             "Strike Attack",
             "strike"
         ],
-        "atk": 13,
-        "mag": 36,
+        "atk": 12,
+        "mag": 37,
         "prc": 36,
         "end": 20,
         "chr": 37,
         "int": 20,
-        "agl": 12,
-        "luk": 18,
-        "baseatk": 4,
-        "basemag": 7,
+        "agl": 11,
+        "luk": 19,
+        "baseatk": 3,
+        "basemag": 8,
         "baseprc": 7,
         "baseend": 6,
         "basechr": 8,
         "baseint": 6,
-        "baseagl": 3,
-        "baseluk": 4,
+        "baseagl": 2,
+        "baseluk": 5,
         "lb": 0,
         "xp": 0,
         "maxxp": 4360,
@@ -3402,12 +3660,28 @@
             "voice": "",
             "theme": "",
             "species": "",
-            "age": "",
+            "age": {},
             "likes": "",
             "dislikes": "",
-            "fears": ""
+            "fears": "",
+            "height": "",
+            "weight": ""
         },
-        "trust": {}
+        "trust": {},
+        "leaderSkill": {
+            "name": "TestingShit",
+            "type": "discount",
+            "target": "magic",
+            "percent": -1e+78
+        },
+        "lb1": {
+            "name": "testingShit",
+            "class": "heal",
+            "pow": -1000000,
+            "cost": 100,
+            "status": "none",
+            "statuschance": 0
+        }
     },
     "Patella": {
         "name": "Patella",
@@ -3456,13 +3730,13 @@
         ],
         "drain": [],
         "skills": [
-            "Undead-Like_(Teammates)",
-            "Undead-Like_(Newborn)",
+            "X-Scissor",
             "3CutShock",
             "Dokusei",
             "VoraciousLeech",
-            "X-Scissor",
-            "Glare"
+            "Glare",
+            "Undead-Like_(Teammates)",
+            "Undead-Like_(Newborn)"
         ],
         "meleequote": [],
         "physquote": [
@@ -3544,7 +3818,9 @@
             "fears": "",
             "name": "Patella Necrovi",
             "appearance": "https://cdn.discordapp.com/attachments/763858632319434792/882642391151046666/Patella_Canon.png",
-            "\"it's": "It's unknown. Not sure how, but something must've cut off his memories to a certain moment. But maybe there are some hints lying around. After all, a skull smashed massively must mean something, right?"
+            "\"it's": "It's unknown. Not sure how, but something must've cut off his memories to a certain moment. But maybe there are some hints lying around. After all, a skull smashed massively must mean something, right?",
+            "height": "5'8",
+            "weight": ""
         },
         "trust": {},
         "strongquote": [
@@ -3594,11 +3870,11 @@
     "Lacrimal": {
         "name": "Lacrimal",
         "owner": "441198920668938260",
-        "level": 30,
-        "hp": 249,
-        "mp": 69,
-        "maxhp": 249,
-        "maxmp": 69,
+        "level": 50,
+        "hp": 389,
+        "mp": 109,
+        "maxhp": 389,
+        "maxmp": 109,
         "basehp": 46,
         "basemp": 11,
         "status": "none",
@@ -3607,25 +3883,25 @@
             "Strike Attack",
             "strike"
         ],
-        "atk": 39,
-        "mag": 11,
-        "prc": 20,
-        "end": 20,
-        "chr": 11,
-        "int": 17,
-        "agl": 36,
-        "luk": 35,
+        "atk": 59,
+        "mag": 18,
+        "prc": 57,
+        "end": 29,
+        "chr": 17,
+        "int": 27,
+        "agl": 56,
+        "luk": 30,
         "baseatk": 10,
         "basemag": 2,
-        "baseprc": 6,
-        "baseend": 6,
-        "basechr": 2,
+        "baseprc": 8,
+        "baseend": 5,
+        "basechr": 1,
         "baseint": 3,
         "baseagl": 7,
         "baseluk": 6,
         "lb": 0,
         "xp": 0,
-        "maxxp": 6445,
+        "maxxp": 140115,
         "weak": [],
         "resist": [],
         "block": [],
@@ -3649,15 +3925,18 @@
         "killquote": [],
         "deathquote": [],
         "bio": {
-            "info": "",
+            "info": "M i d g e t (I'll think of smth soon)",
             "backstory": "",
             "voice": "",
             "theme": "",
-            "species": "",
-            "age": "",
+            "species": "Tamandua",
+            "age": 20,
             "likes": "",
             "dislikes": "",
-            "fears": ""
+            "fears": "",
+            "appearance": "https://cdn.discordapp.com/attachments/763858632319434792/901831662013407252/Lacrimal_Alone.png",
+            "height": "2'10",
+            "weight": ""
         },
         "dodgequote": [],
         "lvlquote": [],
@@ -3713,12 +3992,12 @@
         "repel": [],
         "drain": [],
         "skills": [
-            "Eiha",
-            "Magna",
             "Agilao",
+            "Aqua",
             "Bufu",
             "Garu",
-            "Aqua"
+            "Magna",
+            "Eiha"
         ],
         "meleequote": [],
         "physquote": [],
@@ -3746,7 +4025,9 @@
             "age": "",
             "likes": "",
             "dislikes": "",
-            "fears": ""
+            "fears": "",
+            "height": "",
+            "weight": ""
         },
         "trust": {}
     },
@@ -3800,12 +4081,12 @@
         ],
         "drain": [],
         "skills": [
-            "Cleave",
-            "Lunge",
-            "Tarukaja",
-            "Hana",
             "AssaultDive",
-            "CruelAttack"
+            "Lunge",
+            "Cleave",
+            "CruelAttack",
+            "Hana",
+            "Tarukaja"
         ],
         "meleequote": [],
         "physquote": [],
@@ -3833,7 +4114,9 @@
             "age": "",
             "likes": "",
             "dislikes": "",
-            "fears": ""
+            "fears": "",
+            "height": "",
+            "weight": ""
         },
         "trust": {}
     },
@@ -3867,7 +4150,7 @@
         "baseint": 3,
         "baseagl": 6,
         "baseluk": 5,
-        "xp": 0,
+        "xp": 88688.45679012345,
         "maxxp": 140115,
         "weak": [
             "bless",
@@ -3885,11 +4168,11 @@
         "skills": [
             "BoneRush",
             "BoneToss",
-            "MagicalLeaf",
             "MortemFlames",
+            "FlameCurse",
+            "Will-O-Wisp",
             "Matarukaja",
             "BurningCurse",
-            "Will-O-Wisp",
             "BoneShield"
         ],
         "meleequote": [],
@@ -3918,18 +4201,58 @@
             "age": "",
             "likes": "",
             "dislikes": "",
-            "fears": ""
+            "fears": "",
+            "height": "",
+            "weight": ""
         },
-        "trust": {}
+        "trust": {
+            "Nate": {
+                "value": 35,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Sky": {
+                "value": 35,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Spectra": {
+                "value": 55,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Brainfreeze": {
+                "value": 35,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Permic": {
+                "value": 35,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Rainbow": {
+                "value": 20,
+                "nextLevel": 100,
+                "level": 1
+            }
+        },
+        "leaderSkill": {
+            "name": "CursedAura",
+            "type": "boost",
+            "target": "fire",
+            "percent": 12
+        },
+        "weapon": "none"
     },
     "DJ": {
         "name": "DJ",
         "owner": "532291526634635285",
         "level": 99,
-        "hp": 816,
-        "mp": 602,
-        "maxhp": 816,
-        "maxmp": 602,
+        "hp": 824,
+        "mp": 608,
+        "maxhp": 824,
+        "maxmp": 608,
         "basehp": 40,
         "basemp": 20,
         "melee": [
@@ -3938,9 +4261,9 @@
         ],
         "atk": 40,
         "mag": 40,
-        "prc": 56,
-        "end": 56,
-        "chr": 56,
+        "prc": 57,
+        "end": 57,
+        "chr": 57,
         "int": 99,
         "agl": 99,
         "luk": 99,
@@ -3953,7 +4276,7 @@
         "baseagl": 8,
         "baseluk": 8,
         "xp": 106579181,
-        "maxxp": 106579182,
+        "maxxp": 124342368,
         "weak": [],
         "resist": [],
         "block": [
@@ -3962,11 +4285,11 @@
         "repel": [],
         "drain": [],
         "skills": [
-            "MorningStar",
-            "ThunderReign",
             "Maragidyne",
             "Mabufudyne",
+            "ThunderReign",
             "Maeigaon",
+            "MorningStar",
             "BlackViper"
         ],
         "meleequote": [],
@@ -4027,7 +4350,9 @@
             "age": "",
             "likes": "",
             "dislikes": "",
-            "fears": ""
+            "fears": "",
+            "height": "",
+            "weight": ""
         },
         "trust": {},
         "leaderSkill": {
@@ -4106,7 +4431,9 @@
             "fears": "",
             "voice": "",
             "theme": "",
-            "": ""
+            "": "",
+            "height": "",
+            "weight": ""
         },
         "trust": {}
     },
@@ -4159,10 +4486,10 @@
             "electric"
         ],
         "skills": [
-            "Harmonics",
             "Eiga",
-            "CurseBoost",
-            "Maeiga"
+            "Maeiga",
+            "Harmonics",
+            "CurseBoost"
         ],
         "meleequote": [],
         "physquote": [],
@@ -4191,7 +4518,9 @@
             "fears": "",
             "voice": "",
             "theme": "",
-            "": ""
+            "": "",
+            "height": "",
+            "weight": ""
         },
         "trust": {}
     },
@@ -4239,10 +4568,11 @@
         "repel": [],
         "drain": [],
         "skills": [
+            "Last-Resort",
             "AssaultDive",
-            "Sukukaja",
             "NeoWolfFangFist",
-            "Last-Resort"
+            "Psio",
+            "Sukukaja"
         ],
         "meleequote": [
             "HYAAAKEBDJSBEKSN"
@@ -4322,7 +4652,9 @@
             "voice": "His impression of a sonic voice.",
             "theme": "https://youtu.be/Je52EIU_xfs",
             "backstory": "Harcvuk's a wolf who had lived in his own town. Long story short, his god emeralds turned it to a void, but now he travels dimensions with his friends. Who are Miles, Frylo, Perdu, and Bob.",
-            "appearance": "https://cdn.discordapp.com/attachments/820036937791438859/883755609059655730/unknown.png"
+            "appearance": "https://cdn.discordapp.com/attachments/820036937791438859/883755609059655730/unknown.png",
+            "height": "",
+            "weight": ""
         },
         "trust": {
             "Ramia": {
@@ -4429,7 +4761,9 @@
             "dislikes": "",
             "fears": "",
             "voice": "",
-            "theme": ""
+            "theme": "",
+            "height": "",
+            "weight": ""
         },
         "trust": {}
     },
@@ -4482,13 +4816,13 @@
         ],
         "drain": [],
         "skills": [
-            "EnergyAria",
-            "Diarama",
+            "Garula",
             "Kougaon",
             "Makouga",
             "Mamakakaja",
-            "Garula",
-            "HealAria"
+            "HealAria",
+            "Diarama",
+            "EnergyAria"
         ],
         "meleequote": [],
         "physquote": [],
@@ -4527,28 +4861,30 @@
         ],
         "bio": {
             "species": "Blessful Spiritens",
-            "age": null,
+            "age": {},
             "info": "A happy-go-lucky spirit that enjoys to be a part of groups, but usually never sticks around much. She's only been with one group within her spiritual time, but time has a funny way of saying fuck you.",
             "backstory": "A different type of spirit that, unlike other spirits, actually chooses to stay in this plane of existence to supply blessings to people in their times of need. Her past before death is a mystery.",
             "likes": "",
             "dislikes": "",
             "fears": "",
-            "voice": "",
-            "theme": ""
+            "voice": "Reimu Hakurei",
+            "theme": "",
+            "height": "3'2",
+            "weight": "N/A"
         },
         "trust": {
             "Lanagu": {
-                "value": 85,
+                "value": 130,
                 "nextLevel": 150,
                 "level": 2
             },
             "Flara": {
-                "value": 65,
+                "value": 110,
                 "nextLevel": 150,
                 "level": 2
             },
             "Nyamo": {
-                "value": 0,
+                "value": 45,
                 "nextLevel": 150,
                 "level": 2
             },
@@ -4606,7 +4942,7 @@
         "baseint": 7,
         "baseagl": 5,
         "baseluk": 4,
-        "xp": 10469,
+        "xp": 57402.456790123455,
         "maxxp": 79062,
         "weak": [
             "fire",
@@ -4622,11 +4958,11 @@
             "ice"
         ],
         "skills": [
-            "AuraSpear",
-            "Psio",
             "WolfBite",
-            "SharpChomp-I",
+            "SharpChomp-III",
+            "AuraBarrage",
             "AuraSphere",
+            "AuraScythe",
             "Makakaja"
         ],
         "meleequote": [
@@ -4676,7 +5012,8 @@
             "Thanks for the heal, smartie.",
             "Oh, daring today aren't we? Nahh, that won't work.",
             "I feel like I'll win by just twiddling my thumbs...",
-            "[Yawn] Let me know when you give up trying to freeze me."
+            "[Yawn] Let me know when you give up trying to freeze me.",
+            "Aww, thanks!"
         ],
         "resistquote": [
             "Fighting fire with fire eh? ...Nevermind.",
@@ -4709,7 +5046,9 @@
             "Oh, go cry me a river. Sore loser.",
             "Just 'business', nothing personal.",
             "Finally, you shut the hell up!",
-            "Well, that was easy... Right?"
+            "Well, that was easy... Right?",
+            "Try again and you might lose more than just your dignity.",
+            "~~◊~~ Such a shame you couldn't hold on longer. ~~◊~~"
         ],
         "deathquote": [
             "Oh, you're kidding me...",
@@ -4728,7 +5067,9 @@
             "dislikes": "",
             "fears": "",
             "voice": "",
-            "theme": ""
+            "theme": "",
+            "height": "3'5",
+            "weight": "53lb I think"
         },
         "trust": {
             "Ramia": {
@@ -4737,7 +5078,7 @@
                 "level": 1
             },
             "Spectra": {
-                "value": 50,
+                "value": 75,
                 "nextLevel": 100,
                 "level": 1
             },
@@ -4757,7 +5098,7 @@
                 "level": 1
             },
             "Sky": {
-                "value": 5,
+                "value": 25,
                 "nextLevel": 100,
                 "level": 1
             },
@@ -4767,6 +5108,26 @@
                 "level": 1
             },
             "Karma": {
+                "value": 20,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Nate": {
+                "value": 20,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Rattle": {
+                "value": 20,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Brainfreeze": {
+                "value": 20,
+                "nextLevel": 100,
+                "level": 1
+            },
+            "Permic": {
                 "value": 20,
                 "nextLevel": 100,
                 "level": 1
@@ -4841,11 +5202,11 @@
         "repel": [],
         "drain": [],
         "skills": [
-            "Aques",
+            "Clawshread",
             "DoubleCrunch",
+            "Aques",
             "Current",
-            "Embers",
-            "Clawshread"
+            "Embers"
         ],
         "meleequote": [],
         "physquote": [],
@@ -4873,28 +5234,30 @@
             "dislikes": "",
             "fears": "",
             "voice": "",
-            "theme": ""
+            "theme": "",
+            "height": "2'1",
+            "weight": "73 lbs"
         },
         "trust": {
             "Flara": {
-                "value": 521,
+                "value": 771,
                 "nextLevel": 950,
                 "level": 18
             },
             "Sutela": {
-                "value": 0,
+                "value": 70,
                 "nextLevel": 200,
                 "level": 3
             },
             "Karma": {
-                "value": 0,
+                "value": 45,
                 "nextLevel": 150,
                 "level": 2
             },
             "Lanagu": {
-                "value": 30,
-                "nextLevel": 100,
-                "level": 1
+                "value": 10,
+                "nextLevel": 200,
+                "level": 3
             }
         }
     },
@@ -4945,12 +5308,12 @@
             "nuclear"
         ],
         "skills": [
+            "TheRail",
             "Garudyne",
             "Freila",
-            "NukeBoost",
-            "Mamakakaja",
             "FantasySeal",
-            "TheRail",
+            "Mamakakaja",
+            "NukeBoost",
             "InvigII"
         ],
         "meleequote": [],
@@ -4981,7 +5344,9 @@
             "dislikes": "",
             "fears": "",
             "voice": "",
-            "theme": ""
+            "theme": "",
+            "height": "",
+            "weight": ""
         },
         "trust": {},
         "lb1": {
@@ -5062,10 +5427,10 @@
             "fire"
         ],
         "skills": [
-            "RegenII",
             "GiganticFist",
-            "Rakukaja",
             "FireballVolley",
+            "Rakukaja",
+            "RegenII",
             "Counterstrike",
             "HardKnuckle"
         ],
@@ -5090,14 +5455,16 @@
         "deathquote": [],
         "bio": {
             "species": "Edgechidna (Clone)",
-            "age": null,
+            "age": {},
             "info": "A clone of a certain Edgechidna. It is but a hollow copy of it's real self, and therefore, lacks any thought process but pure battle instinct of the original's prowess and style.",
             "backstory": "",
             "likes": "",
             "dislikes": "",
             "fears": "",
             "voice": "",
-            "theme": ""
+            "theme": "",
+            "height": "",
+            "weight": ""
         },
         "trust": {},
         "dodgequote": [],
@@ -5171,7 +5538,9 @@
             "dislikes": "",
             "fears": "",
             "voice": "",
-            "theme": ""
+            "theme": "",
+            "height": "",
+            "weight": ""
         },
         "trust": {}
     },
@@ -5222,14 +5591,14 @@
         "repel": [],
         "drain": [],
         "skills": [
-            "WonderGuard",
-            "Eiga",
             "Agilao",
-            "Maeiga",
             "Maragion",
+            "Eiga",
+            "Maeiga",
             "Mamakakaja",
             "Rakunda",
-            "Tetrakarn"
+            "Tetrakarn",
+            "WonderGuard"
         ],
         "meleequote": [],
         "physquote": [],
@@ -5257,7 +5626,9 @@
             "dislikes": "",
             "fears": "",
             "voice": "",
-            "theme": ""
+            "theme": "",
+            "height": "",
+            "weight": ""
         },
         "trust": {}
     },
@@ -5295,7 +5666,8 @@
         "xp": 27628,
         "maxxp": 149403,
         "weak": [
-            "curse"
+            "curse",
+            "nuclear"
         ],
         "resist": [
             "bless"
@@ -5308,15 +5680,13 @@
         "skills": [
             "Psiodyne",
             "Mapsio",
-            "Diarahan",
             "Mediarama",
+            "Diarahan",
             "Recarm",
-            "PsyBoost",
-            "Patra"
+            "MePatra",
+            "PsyBoost"
         ],
-        "meleequote": [
-            "I'm sorry..."
-        ],
+        "meleequote": [],
         "physquote": [
             "I absolutely must... uhhhhhh...",
             "H-h-here I go..."
@@ -5346,8 +5716,8 @@
             "..."
         ],
         "repelquote": [
-            "...?",
-            "..Why would you do this to yourself...?"
+            "...U-uhh...",
+            "...W-why would you d-d-do this to yourself...?"
         ],
         "drainquote": [
             "...?",
@@ -5361,12 +5731,10 @@
             "Ow...",
             "H-Hey..."
         ],
-        "lbquote": [
-            "Will this do...?"
-        ],
+        "lbquote": [],
         "healquote": [
-            "I'm here to help!",
-            "Here you go..."
+            "I-I'm here to help!",
+            "Uh... H-here you go..."
         ],
         "helpedquote": [
             "Thank you...",
@@ -5389,7 +5757,9 @@
             "dislikes": "Loud Noises",
             "fears": "Nightmares.",
             "voice": "Lidelle (Puyo Puyo)",
-            "theme": ""
+            "theme": "",
+            "height": "1'5",
+            "weight": "37 lbs"
         },
         "trust": {
             "Spectra": {
@@ -5533,10 +5903,10 @@
         "skills": [
             "Fire-Tornado",
             "FlamingCyclone",
-            "DapMeUp",
             "ExplosiveMist",
             "ShadowSpirit",
-            "YowlingSpirits"
+            "YowlingSpirits",
+            "DapMeUp"
         ],
         "meleequote": [],
         "physquote": [],
@@ -5564,7 +5934,9 @@
             "dislikes": "",
             "fears": "",
             "voice": "Funtime Freddy 💀",
-            "theme": ""
+            "theme": "",
+            "height": "",
+            "weight": ""
         },
         "trust": {}
     },
@@ -5640,7 +6012,9 @@
             "dislikes": "",
             "fears": "",
             "voice": "Larry the Cable Guy",
-            "theme": "<https://youtu.be/GiJmy9UtJKg>"
+            "theme": "<https://youtu.be/GiJmy9UtJKg>",
+            "height": "",
+            "weight": ""
         },
         "trust": {}
     },
@@ -5690,8 +6064,8 @@
         "repel": [],
         "drain": [],
         "skills": [
-            "Kouha",
             "Psi",
+            "Kouha",
             "Makouha"
         ],
         "meleequote": [],
@@ -5726,7 +6100,9 @@
             "dislikes": "",
             "fears": "",
             "voice": "",
-            "theme": ""
+            "theme": "",
+            "height": "",
+            "weight": ""
         },
         "trust": {},
         "dodgequote": [],
@@ -5804,7 +6180,9 @@
             "dislikes": "",
             "fears": "",
             "voice": "",
-            "theme": ""
+            "theme": "",
+            "height": "",
+            "weight": ""
         },
         "trust": {}
     },
@@ -5882,7 +6260,9 @@
             "dislikes": "",
             "fears": "",
             "voice": "",
-            "theme": ""
+            "theme": "",
+            "height": "",
+            "weight": ""
         },
         "trust": {},
         "dodgequote": [],
@@ -5935,14 +6315,14 @@
         "repel": [],
         "drain": [],
         "skills": [
-            "Tanukimation",
-            "Diarahan",
             "HolyHandGrenade",
             "Hamadyne",
-            "CuringWall",
+            "Tanukimation",
             "Mavisukaja",
-            "InvigI",
-            "Mediarahan"
+            "Diarahan",
+            "CuringWall",
+            "Mediarahan",
+            "InvigI"
         ],
         "meleequote": [],
         "physquote": [],
@@ -5970,7 +6350,9 @@
             "dislikes": "",
             "fears": "",
             "voice": "",
-            "theme": ""
+            "theme": "",
+            "height": "",
+            "weight": ""
         },
         "trust": {},
         "leaderSkill": {
@@ -6088,7 +6470,9 @@
             "dislikes": "",
             "fears": "",
             "voice": "",
-            "theme": ""
+            "theme": "",
+            "height": "",
+            "weight": ""
         },
         "trust": {},
         "leaderSkill": {
@@ -6140,7 +6524,7 @@
         "repel": [],
         "drain": [],
         "skills": [
-            "Agi",
+            "SpinSlash",
             "Garu",
             "SexyDance"
         ],
@@ -6220,7 +6604,9 @@
             "dislikes": "",
             "fears": "",
             "voice": "",
-            "theme": "https://youtu.be/METea_rQLDY (Tense/Tough Battle/Boss) https://youtu.be/IOElO-GZ-2I (PVP) https://youtu.be/wahtkLPxOXA (Final Bosses/Extreme difficulty fights) https://youtu.be/SepIcjoSkwY (Normal Battle)"
+            "theme": "https://youtu.be/METea_rQLDY (Tense/Tough Battle/Boss) https://youtu.be/IOElO-GZ-2I (PVP) https://youtu.be/wahtkLPxOXA (Final Bosses/Extreme difficulty fights) https://youtu.be/SepIcjoSkwY (Normal Battle)",
+            "height": "",
+            "weight": ""
         },
         "trust": {},
         "dodgequote": [
@@ -6300,7 +6686,9 @@
             "dislikes": "",
             "fears": "",
             "voice": "",
-            "theme": ""
+            "theme": "",
+            "height": "",
+            "weight": ""
         },
         "trust": {}
     },
@@ -6372,7 +6760,9 @@
             "dislikes": "",
             "fears": "",
             "voice": "",
-            "theme": ""
+            "theme": "",
+            "height": "",
+            "weight": ""
         },
         "trust": {}
     },
@@ -6444,7 +6834,9 @@
             "dislikes": "",
             "fears": "",
             "voice": "",
-            "theme": ""
+            "theme": "",
+            "height": "",
+            "weight": ""
         },
         "trust": {}
     },
@@ -6452,36 +6844,33 @@
         "name": "Base",
         "owner": "642841151484985365",
         "level": 1,
-        "hp": 1,
-        "mp": 1,
-        "maxhp": 1,
-        "maxmp": 1,
-        "basehp": 1,
-        "basemp": 1,
-        "status": "none",
-        "statusturns": 0,
+        "hp": 35,
+        "mp": 30,
+        "maxhp": 35,
+        "maxmp": 30,
+        "basehp": 35,
+        "basemp": 30,
         "melee": [
             "Strike Attack",
             "strike"
         ],
         "weapon": "none",
-        "atk": 1,
-        "mag": 1,
-        "prc": 1,
-        "end": 1,
-        "chr": 1,
-        "int": 1,
-        "agl": 1,
-        "luk": 1,
-        "baseatk": 1,
-        "basemag": 1,
-        "baseprc": 1,
-        "baseend": 1,
-        "basechr": 1,
-        "baseint": 1,
-        "baseagl": 1,
-        "baseluk": 1,
-        "lb": 0,
+        "atk": -1e+49,
+        "mag": -1e+49,
+        "prc": -1e+49,
+        "end": -1e+49,
+        "chr": -1e+49,
+        "int": -1e+49,
+        "agl": -1e+49,
+        "luk": -1e+49,
+        "baseatk": -1e+49,
+        "basemag": -1e+49,
+        "baseprc": -1e+49,
+        "baseend": -1e+49,
+        "basechr": -1e+49,
+        "baseint": -1e+49,
+        "baseagl": -1e+49,
+        "baseluk": -1e+49,
         "xp": 0,
         "maxxp": 100,
         "weak": [
@@ -6497,7 +6886,10 @@
         "drain": [],
         "skills": [
             "BecauseWeMustKnow",
-            "Agidyne"
+            "Agidyne",
+            "Maragion",
+            "undefined",
+            "Masukukaja"
         ],
         "meleequote": [],
         "physquote": [],
@@ -6525,7 +6917,9 @@
             "dislikes": "",
             "fears": "",
             "voice": "",
-            "theme": ""
+            "theme": "",
+            "height": "",
+            "weight": ""
         },
         "trust": {},
         "leaderSkill": {
@@ -6547,38 +6941,38 @@
         "name": "Mike",
         "owner": "544290248734015488",
         "level": 50,
-        "hp": 272,
-        "mp": 329,
-        "maxhp": 272,
-        "maxmp": 329,
-        "basehp": 27,
+        "hp": 171,
+        "mp": 280,
+        "maxhp": 171,
+        "maxmp": 280,
+        "basehp": 24,
         "basemp": 35,
         "status": "none",
         "statusturns": 0,
         "melee": [
-            "Strike Attack",
-            "strike"
+            "TailStab",
+            "pierce"
         ],
         "weapon": "none",
-        "atk": 17,
-        "mag": 57,
+        "atk": 28,
+        "mag": 56,
         "prc": 17,
-        "end": 30,
+        "end": 19,
         "chr": 59,
-        "int": 29,
-        "agl": 29,
-        "luk": 58,
-        "baseatk": 1,
-        "basemag": 8,
+        "int": 28,
+        "agl": 30,
+        "luk": 57,
+        "baseatk": 4,
+        "basemag": 7,
         "baseprc": 1,
-        "baseend": 6,
+        "baseend": 3,
         "basechr": 10,
-        "baseint": 5,
-        "baseagl": 5,
-        "baseluk": 9,
+        "baseint": 4,
+        "baseagl": 6,
+        "baseluk": 8,
         "lb": 0,
         "xp": 0,
-        "maxxp": 109777,
+        "maxxp": 125489,
         "weak": [
             "psychic",
             "earth"
@@ -6593,41 +6987,99 @@
         "repel": [],
         "drain": [],
         "skills": [
+            "MiraclePunch",
             "Dokudyne",
             "Madokusei",
             "Poisma",
             "DapMeUp",
-            "Taunt"
+            "Pulinpa"
         ],
         "meleequote": [],
-        "physquote": [],
-        "magquote": [],
-        "strongquote": [],
-        "critquote": [],
-        "weakquote": [],
-        "missquote": [],
-        "blockquote": [],
-        "repelquote": [],
-        "drainquote": [],
-        "resistquote": [],
-        "hurtquote": [],
+        "physquote": [
+            "I ABSOLUTELY MUST- ...Wait, wrong script.",
+            "Punching time!",
+            "C'MERE YOU-"
+        ],
+        "magquote": [
+            "Try this one on for size.",
+            "Try not to get poisoned! [:)]"
+        ],
+        "strongquote": [
+            "Nice NICE!",
+            "Your chances of survival have severely decreased."
+        ],
+        "critquote": [
+            "As usual.",
+            "Nice NICE!"
+        ],
+        "weakquote": [
+            "OW MY HEAD-",
+            "Everything hurts and I'M DYING!!"
+        ],
+        "missquote": [
+            "Man.",
+            "Okay, hold still for juuust a moment?"
+        ],
+        "blockquote": [
+            "[._.]",
+            "This isn't even a bruh moment. What the actual fuck is wrong with you?"
+        ],
+        "repelquote": [
+            "Right back at ya, buckaroo.",
+            "You can have this back."
+        ],
+        "drainquote": [
+            "Delicious.",
+            "Wow. Great thinking."
+        ],
+        "resistquote": [
+            "Nope, idiot.",
+            "Let me know when you're gonna use something else. [Convenient tea sip]"
+        ],
+        "hurtquote": [
+            "Owowowow-",
+            "NOOO MY SCALES! How am I gonna impress the ladies now? [:(]"
+        ],
         "lbquote": [],
-        "healquote": [],
-        "helpedquote": [],
-        "killquote": [],
-        "deathquote": [],
+        "healquote": [
+            "Anyone need energy?",
+            "Free energy coming your way!"
+        ],
+        "helpedquote": [
+            "Thank you, though I probably didn't need it.",
+            "Feelin' better!"
+        ],
+        "killquote": [
+            "Welp, see you later, then... If I even get to see you later.",
+            "Guess that's about it."
+        ],
+        "deathquote": [
+            "Welp.",
+            "Did this satisfy... you...?"
+        ],
         "bio": {
-            "species": "",
-            "age": "",
-            "info": "",
+            "species": "Lizard",
+            "age": 17,
+            "info": "A lizard who is a friend and rival of Permic. Mike has purple scales, green boots, and a long tail. He's very passionate about battling, almost as much as Sparky, and wants to someday impress a reptilian girl.",
             "backstory": "",
-            "likes": "",
-            "dislikes": "",
-            "fears": "",
+            "likes": "Battling, the color purple, impressing reptilian ladies",
+            "dislikes": "Natural disasters",
+            "fears": "undefined",
             "voice": "",
-            "theme": ""
+            "theme": "",
+            "height": "4'",
+            "weight": "110 lbs",
+            "\"4'5\"": "4'5"
         },
-        "trust": {}
+        "trust": {},
+        "dodgequote": [
+            "HAHAHAHA, no.",
+            "Watch it, bud!"
+        ],
+        "lvlquote": [
+            "Alright.",
+            "Stronger and stronger!"
+        ]
     },
     "Tsuki": {
         "name": "Tsuki",
@@ -6676,13 +7128,13 @@
         "repel": [],
         "drain": [],
         "skills": [
-            "LeafBlade",
-            "WaterPulse",
-            "OriginPulse",
             "Last-Resort",
-            "SwordsDance",
+            "OriginPulse",
+            "WaterPulse",
+            "IceBeam",
+            "LeafBlade",
             "GigaDrain",
-            "IceBeam"
+            "SwordsDance"
         ],
         "meleequote": [
             "Leaf!"
@@ -6752,7 +7204,9 @@
             "fears": "",
             "voice": "Leafeon/Kyogre | Chie Satonaka",
             "theme": "",
-            "appearance": "https://cdn.discordapp.com/attachments/874697053421326377/887294244576976916/AntVee_Stance.gif"
+            "appearance": "https://cdn.discordapp.com/attachments/874697053421326377/887294244576976916/AntVee_Stance.gif",
+            "height": "",
+            "weight": ""
         },
         "trust": {},
         "leaderSkill": {
@@ -6869,12 +7323,12 @@
             "poison"
         ],
         "skills": [
+            "DragonAscent",
+            "EarthPower",
             "MagicalLeaf",
+            "BulletSeed",
             "PoisonPowder",
             "SleepPowder",
-            "BulletSeed",
-            "EarthPower",
-            "DragonAscent",
             "GrassyTerrain"
         ],
         "meleequote": [],
@@ -6903,7 +7357,9 @@
             "dislikes": "",
             "fears": "",
             "voice": "",
-            "theme": ""
+            "theme": "",
+            "height": "",
+            "weight": ""
         },
         "trust": {}
     },
@@ -6975,7 +7431,9 @@
             "dislikes": "",
             "fears": "",
             "voice": "",
-            "theme": ""
+            "theme": "",
+            "height": "",
+            "weight": ""
         },
         "trust": {},
         "transformations": {
@@ -7053,12 +7511,23 @@
         "lb": 0,
         "xp": 0,
         "maxxp": 94109,
-        "weak": [],
-        "resist": [],
+        "weak": [
+            "fire",
+            "ice",
+            "electric"
+        ],
+        "resist": [
+            "grass",
+            "earth",
+            "metal"
+        ],
         "block": [],
         "repel": [],
-        "drain": [],
+        "drain": [
+            "water"
+        ],
         "skills": [
+            "Aques",
             "Hanamadyne",
             "Mahanama",
             "Marakukaja",
@@ -7083,15 +7552,17 @@
         "killquote": [],
         "deathquote": [],
         "bio": {
-            "species": "",
-            "age": "",
-            "info": "",
+            "species": "Swamperiz",
+            "age": 26,
+            "info": "A Swamperiz dragon that lived in the swamps, being a creature that walks on 4 legs, or simply a quadpedal. He speaks Engish and the language of his own species, and can interchange between the languages. He likes to support his allies in combat with powerful buffs and attacking on an occasion.",
             "backstory": "",
             "likes": "",
             "dislikes": "",
             "fears": "",
             "voice": "",
-            "theme": ""
+            "theme": "",
+            "height": "",
+            "weight": ""
         },
         "trust": {}
     },
@@ -7105,8 +7576,6 @@
         "maxmp": 335,
         "basehp": 30,
         "basemp": 35,
-        "status": "none",
-        "statusturns": 0,
         "melee": [
             "ArmThrust",
             "pierce"
@@ -7128,23 +7597,30 @@
         "baseint": 5,
         "baseagl": 5,
         "baseluk": 4,
-        "lb": 0,
         "xp": 0,
         "maxxp": 128066,
-        "weak": [],
-        "resist": [],
+        "weak": [
+            "curse",
+            "earth"
+        ],
+        "resist": [
+            "ice",
+            "bless"
+        ],
         "block": [],
         "repel": [],
-        "drain": [],
+        "drain": [
+            "electric"
+        ],
         "skills": [
-            "Twineedle",
-            "Discharge",
             "ElectricLaser",
+            "Discharge",
             "Psy-Strike",
             "Mamakakaja",
             "ElectricalShield",
             "ThunderWave",
-            "ElectricTrap"
+            "ElectricTrap",
+            "HealAria"
         ],
         "meleequote": [
             "Executing Punch.exe.",
@@ -7212,7 +7688,7 @@
             "Running Shutdown.exe"
         ],
         "bio": {
-            "species": "",
+            "species": "Robot - Cat",
             "age": "",
             "info": "",
             "backstory": "",
@@ -7220,16 +7696,30 @@
             "dislikes": "",
             "fears": "",
             "voice": "",
-            "theme": ""
+            "theme": "",
+            "height": "",
+            "weight": ""
         },
-        "trust": {},
+        "trust": {
+            "SAUM-052": {
+                "value": 5,
+                "nextLevel": 100,
+                "level": 1
+            }
+        },
         "dodgequote": [
             "I Am Many Steps Ahead.",
             "I Only Make The Most Logical Move."
         ],
         "lvlquote": [
             "Power."
-        ]
+        ],
+        "leaderSkill": {
+            "name": "ArtificialKindness",
+            "type": "discount",
+            "target": "magic",
+            "percent": 6
+        }
     },
     "Axel": {
         "name": "Axel",
@@ -7241,8 +7731,6 @@
         "maxmp": 175,
         "basehp": 40,
         "basemp": 25,
-        "status": "none",
-        "statusturns": 0,
         "melee": [
             "SwordSlice",
             "slash"
@@ -7264,23 +7752,33 @@
         "baseint": 2,
         "baseagl": 6,
         "baseluk": 6,
-        "lb": 0,
         "xp": 0,
         "maxxp": 183386,
-        "weak": [],
-        "resist": [],
-        "block": [],
+        "weak": [
+            "water",
+            "grass",
+            "earth"
+        ],
+        "resist": [
+            "pierce",
+            "psychic"
+        ],
+        "block": [
+            "strike"
+        ],
         "repel": [],
-        "drain": [],
+        "drain": [
+            "electric"
+        ],
         "skills": [
-            "SwipesOfMany",
-            "RapidSlashes",
             "CycloneSlash",
-            "Psiodyne",
+            "RapidSlashes",
+            "SwipesOfMany",
             "Ziodyne",
-            "SharpParry",
+            "Psiodyne",
             "Matarukaja",
-            "Visukaja"
+            "Visukaja",
+            "SharpParry"
         ],
         "meleequote": [
             "I'll take pity on you for now.",
@@ -7323,6 +7821,680 @@
         "killquote": [],
         "deathquote": [],
         "bio": {
+            "species": "Robot - Ferret",
+            "age": "",
+            "info": "",
+            "backstory": "",
+            "likes": "",
+            "dislikes": "",
+            "fears": "",
+            "voice": "",
+            "theme": "",
+            "height": "",
+            "weight": "3 (Humans)"
+        },
+        "trust": {},
+        "dodgequote": [
+            "Nope.",
+            "You won't catch me falling to your pitiful attack!",
+            "I didn't even move that time-"
+        ],
+        "lvlquote": [],
+        "leaderSkill": {
+            "name": "ArtificialAssault",
+            "type": "boost",
+            "target": "psychic",
+            "percent": 10
+        }
+    },
+    "SAUM-052": {
+        "name": "SAUM-052",
+        "owner": "412328234198237189",
+        "level": 57,
+        "hp": 376,
+        "mp": 361,
+        "maxhp": 376,
+        "maxmp": 361,
+        "basehp": 40,
+        "basemp": 25,
+        "melee": [
+            "MetalBash",
+            "strike"
+        ],
+        "weapon": "none",
+        "atk": 62,
+        "mag": 33,
+        "prc": 65,
+        "end": 33,
+        "chr": 22,
+        "int": 64,
+        "agl": 22,
+        "luk": 32,
+        "baseatk": 6,
+        "basemag": 5,
+        "baseprc": 9,
+        "baseend": 5,
+        "basechr": 4,
+        "baseint": 8,
+        "baseagl": 4,
+        "baseluk": 4,
+        "xp": 0,
+        "maxxp": 191868,
+        "weak": [
+            "earth",
+            "fire",
+            "water"
+        ],
+        "resist": [
+            "metal",
+            "pierce",
+            "slash"
+        ],
+        "block": [
+            "poison"
+        ],
+        "repel": [],
+        "drain": [],
+        "skills": [
+            "GiganticFist",
+            "CruelAssault",
+            "Ziodyne",
+            "Maziodyne",
+            "Anti-MaterialZap",
+            "OrgiaMode",
+            "Glare",
+            "Anti-ContactZap"
+        ],
+        "meleequote": [
+            "[Their robotic pupils turn red]"
+        ],
+        "physquote": [
+            "[Their robotic pupils turn into a dark crimson]"
+        ],
+        "magquote": [
+            "[Their robotic pupils turn into a shining azure]"
+        ],
+        "strongquote": [
+            "Attack successful, continuing assault."
+        ],
+        "critquote": [
+            "A miscalculated result... Continuing attack."
+        ],
+        "weakquote": [
+            "Unexpected damage sustained."
+        ],
+        "missquote": [
+            "Recorded miscalculation, activating proper countermeasures."
+        ],
+        "blockquote": [
+            "...Your attempts are futile."
+        ],
+        "repelquote": [
+            "Attack confirmed to have been bounced back... Analyzing potential cause...."
+        ],
+        "drainquote": [
+            "Enemy attack... Intercepted? System recovery confirmed, I will analyze this later...."
+        ],
+        "resistquote": [
+            "...You won't stop me with just this."
+        ],
+        "hurtquote": [
+            "Damage sustained. Amount recorded as... Irrelevant."
+        ],
+        "lbquote": [
+            "Conditions met, commencing final strike. [Their robotic pupils turn into a crimson red and show a look of cold mercilessnes]"
+        ],
+        "healquote": [
+            "[Their robotic pupils turn green]"
+        ],
+        "helpedquote": [
+            "......I thank you."
+        ],
+        "killquote": [
+            "Kill confirmed, moving on."
+        ],
+        "deathquote": [
+            "Damage exceeds... Operating power.... I have failed.....",
+            "Mission... Failed...."
+        ],
+        "bio": {
+            "species": "Robot - Snow Leopard",
+            "age": 134,
+            "info": "Her name actually has a double meaning; it also stands for 'Specialized Augmentation Unique Model 052'. While the name itself is different, the meaning is technically the same.",
+            "backstory": "SAUM-052, is a serial number branded by her creators. It stands for 'Special Army Unit Model 052'. She is a cold calculated killer that has previously been used in [REDACTED], now reduced to a deactivated mech in a non-disclosed [REDACTED], awaiting her inevitable re-activation, **by friend or by foe**.",
+            "likes": "",
+            "dislikes": "",
+            "fears": "",
+            "voice": "Aigis (placeholder L)",
+            "theme": "",
+            "height": "4'2",
+            "weight": "2.5 (Humans)"
+        },
+        "trust": {
+            "Melarue": {
+                "value": 5,
+                "nextLevel": 100,
+                "level": 1
+            }
+        },
+        "leaderSkill": {
+            "name": "ColdJudgement",
+            "type": "boost",
+            "target": "strike",
+            "percent": 15
+        },
+        "lb1": {
+            "name": "OverBreaker",
+            "class": "atk",
+            "pow": 320,
+            "cost": 100,
+            "status": "fear",
+            "statuschance": 20
+        },
+        "dodgequote": [
+            "Evasion successful, initiating a counterattack."
+        ],
+        "lvlquote": [
+            "Systems nominal, combat prowess increased. Results are... satisfactory."
+        ]
+    },
+    "Yaragen": {
+        "name": "Yaragen",
+        "owner": "532291526634635285",
+        "level": 50,
+        "hp": 383,
+        "mp": 108,
+        "maxhp": 383,
+        "maxmp": 108,
+        "basehp": 40,
+        "basemp": 10,
+        "status": "none",
+        "statusturns": 0,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "weapon": "none",
+        "atk": 58,
+        "mag": 18,
+        "prc": 30,
+        "end": 56,
+        "chr": 29,
+        "int": 19,
+        "agl": 28,
+        "luk": 57,
+        "baseatk": 9,
+        "basemag": 2,
+        "baseprc": 6,
+        "baseend": 7,
+        "basechr": 5,
+        "baseint": 3,
+        "baseagl": 4,
+        "baseluk": 8,
+        "lb": 0,
+        "xp": 0,
+        "maxxp": 140115,
+        "weak": [
+            "water",
+            "earth"
+        ],
+        "resist": [
+            "ice"
+        ],
+        "block": [
+            "fire"
+        ],
+        "repel": [],
+        "drain": [],
+        "skills": [
+            "ConflagrationPummel"
+        ],
+        "meleequote": [],
+        "physquote": [],
+        "magquote": [],
+        "strongquote": [],
+        "critquote": [],
+        "weakquote": [],
+        "missquote": [],
+        "blockquote": [],
+        "repelquote": [],
+        "drainquote": [],
+        "resistquote": [],
+        "hurtquote": [],
+        "lbquote": [],
+        "healquote": [],
+        "helpedquote": [],
+        "killquote": [],
+        "deathquote": [],
+        "bio": {
+            "species": "",
+            "age": "",
+            "info": "",
+            "backstory": "",
+            "likes": "",
+            "dislikes": "",
+            "fears": "",
+            "voice": "",
+            "theme": "",
+            "height": "",
+            "weight": ""
+        },
+        "trust": {}
+    },
+    "Hurricane": {
+        "name": "Hurricane",
+        "owner": "461050360832720904",
+        "level": 51,
+        "hp": 385,
+        "mp": 280,
+        "maxhp": 385,
+        "maxmp": 280,
+        "basehp": 35,
+        "basemp": 30,
+        "melee": [
+            "KaratePunch",
+            "strike"
+        ],
+        "weapon": "none",
+        "atk": 58,
+        "mag": 31,
+        "prc": 57,
+        "end": 57,
+        "chr": 17,
+        "int": 20,
+        "agl": 31,
+        "luk": 30,
+        "baseatk": 8,
+        "basemag": 6,
+        "baseprc": 7,
+        "baseend": 7,
+        "basechr": 1,
+        "baseint": 4,
+        "baseagl": 6,
+        "baseluk": 5,
+        "xp": 0,
+        "maxxp": 146398,
+        "weak": [
+            "poison",
+            "psychic"
+        ],
+        "resist": [
+            "water",
+            "pierce"
+        ],
+        "block": [],
+        "repel": [
+            "grass"
+        ],
+        "drain": [],
+        "skills": [
+            "Shuriken",
+            "WindPunch",
+            "LeafCyclone",
+            "LeafyKunai",
+            "EvasiveLeaf",
+            "ShieldOfLeaves",
+            "AirSlash"
+        ],
+        "meleequote": [
+            "Karate Chop!",
+            "Take This!",
+            "Have a taste of my power!"
+        ],
+        "physquote": [
+            "HA!",
+            "Take this!",
+            "The Art of the Ninja!"
+        ],
+        "magquote": [
+            "I’ll let my leaves do the talking!",
+            "For the Grassimps!",
+            "Better LEAVE while you have the chance!",
+            "My leaves will cut you in half!"
+        ],
+        "strongquote": [],
+        "critquote": [],
+        "weakquote": [
+            "Shoot! My weakness! It’s been exposed!",
+            "My only weakness…"
+        ],
+        "missquote": [
+            "What?! How did I? You?",
+            "Wow! You’re fast!",
+            "I must have blinked….",
+            "Oops! Won’t happen again.",
+            "Stand still!"
+        ],
+        "blockquote": [],
+        "repelquote": [
+            "Don’t you know? The Leaves are on my side!",
+            "Making a U-Turn."
+        ],
+        "drainquote": [],
+        "resistquote": [
+            "Not even a scratch!",
+            "Not as strong as you thought, huh?",
+            "Im strong than you think!"
+        ],
+        "hurtquote": [
+            "Ah!",
+            "T-That hurts!",
+            "O-Ow!",
+            "Y-You’re s-strong!",
+            "Impossible!",
+            "THE PAIN-!",
+            "That wasn’t too rough…",
+            "Not bad…",
+            "NGH!",
+            "This is harsh!"
+        ],
+        "lbquote": [],
+        "healquote": [],
+        "helpedquote": [
+            "Why…Thank you."
+        ],
+        "killquote": [
+            "Me: 1, You: 0!",
+            "You didn’t stand a chance.~ 🍃",
+            "With the Art of Ninjutsu, I have defeated you!",
+            "Maybe my brother will see that I’m strong now…",
+            "For the GreenFlower Clan!",
+            "For the Grassimps!",
+            "That’s disappointing!~ 🍃",
+            "Yeah! I got you- Wait I’m supposed to be serious!",
+            "Away with the Wind you are.",
+            "The GreenFlower Clan is too powerful for you!",
+            "I pity you.",
+            "That was fun!"
+        ],
+        "deathquote": [
+            "Did I….fail?",
+            "No…This can’t be!",
+            "I’m sorry….Grassimps…",
+            "I failed my Clan….",
+            "How?! A Ninja…cannot…be…defeated…",
+            "I underestimated you…",
+            "My honor……is tarnished….for good….",
+            "Looks can deceive….",
+            "My brother was right….",
+            "How’d that happen…?",
+            "Seem I have to train a bit more…"
+        ],
+        "bio": {
+            "species": "Mink",
+            "age": 16,
+            "info": "Unlike Other Ninjas in the GreenFlower Clan, Hurricane is a clumsy, and somewhat childish Mink. Being expelled from their Clan, Hurricane wanted to follow their fathers legacy of being a great ninja, and protecting others. They took the liberty of protecting the Little Grassimps. As of currently they has claimed the Jade Forest as their territory.",
+            "backstory": "Hurricane, formally known as Windspeed, was the youngest child of the GreenFlower clan’s leader. Their father died when Hurricane was 10 years old, and their elder brother, Gustrange had taken the responsibility of leading the clan. Due to Hurricane’s clumsiness and childish personality, they was deemed not worthy enough to lead the clan. He was expelled from the clan, but Hurricane still had the determination to continue their father’s legacy, so they’ve been trying for 7 years to become a great Shinbi like their father and brother. ",
+            "likes": "Grassimps, Training, Challenges, Peaceful Environments, The GreenFlower Clan",
+            "dislikes": "Those who threaten the Grassimps, Those who claim to be all power, Shady People, Their brother",
+            "fears": "",
+            "voice": "",
+            "theme": "",
+            "appearance": "https://cdn.discordapp.com/attachments/820036937791438859/901510384433897533/image0.png",
+            "height": "4’6",
+            "weight": "88lb"
+        },
+        "trust": {},
+        "leaderSkill": {
+            "name": "NinjaSkills",
+            "type": "buff",
+            "target": "agl",
+            "percent": 1
+        },
+        "dodgequote": [
+            "Ha! I’m too fast for you!~ 🍃",
+            "Can’t hit me!",
+            "Need to be a bit quicker than that!",
+            "Pitiful…."
+        ],
+        "lvlquote": [
+            "Hey! I’m getting stronger!",
+            "WOO! Level Up!"
+        ]
+    },
+    "Morisonu": {
+        "name": "Morisonu",
+        "owner": "532291526634635285",
+        "level": 51,
+        "hp": 390,
+        "mp": 270,
+        "maxhp": 390,
+        "maxmp": 270,
+        "basehp": 40,
+        "basemp": 20,
+        "status": "none",
+        "statusturns": 0,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "weapon": "none",
+        "atk": 58,
+        "mag": 19,
+        "prc": 59,
+        "end": 32,
+        "chr": 29,
+        "int": 57,
+        "agl": 30,
+        "luk": 18,
+        "baseatk": 8,
+        "basemag": 3,
+        "baseprc": 9,
+        "baseend": 7,
+        "basechr": 4,
+        "baseint": 7,
+        "baseagl": 5,
+        "baseluk": 2,
+        "lb": 0,
+        "xp": 0,
+        "maxxp": 92229,
+        "weak": [
+            "psychic",
+            "water"
+        ],
+        "resist": [
+            "strike"
+        ],
+        "block": [],
+        "repel": [],
+        "drain": [
+            "nuclear"
+        ],
+        "skills": [
+            "SteelSlam",
+            "Colbalt-FusedCyclone",
+            "NuclearBash",
+            "Matarukaja",
+            "Marakukaja",
+            "DodgePhys"
+        ],
+        "meleequote": [],
+        "physquote": [],
+        "magquote": [],
+        "strongquote": [],
+        "critquote": [],
+        "weakquote": [],
+        "missquote": [],
+        "blockquote": [],
+        "repelquote": [],
+        "drainquote": [],
+        "resistquote": [],
+        "hurtquote": [],
+        "lbquote": [],
+        "healquote": [],
+        "helpedquote": [],
+        "killquote": [],
+        "deathquote": [],
+        "bio": {
+            "species": "Nukeriz",
+            "age": 20,
+            "info": "A semi-serious person that will do whatever he can do to get his allies to safety without endangerment. He seems somewhat serious, but that doesn't mean he will try to relax.",
+            "backstory": "[Temporary Backstory] Mori was a dragon trapped inside of a cave after a meteor fell from the sky. The worse news was that the cave had a lot of natural radiation, which had very adverse effects on his body, including the sudden loss of his legs. He was able to recover and get some robotic legs, but little did he know, he would have became a new species without even realizing. He would have later on get used to the legs and find a team of his own to try and help others, but in their own slightly destructive ways.",
+            "likes": "Sunsets, Group Activities, Chocolate",
+            "dislikes": "Losing his teammates, oranges, Darkeriz dragons",
+            "fears": "Bondage, Forced to make a Drastic choice, Minor Clausstrophobia",
+            "voice": "",
+            "theme": "",
+            "height": "",
+            "weight": ""
+        },
+        "trust": {},
+        "leaderSkill": {
+            "name": "CleverTeachings",
+            "type": "discount",
+            "target": "physical",
+            "percent": 10
+        }
+    },
+    "Karuma": {
+        "name": "Karuma",
+        "owner": "516359709779820544",
+        "level": 50,
+        "hp": 265,
+        "mp": 339,
+        "maxhp": 265,
+        "maxmp": 339,
+        "basehp": 20,
+        "basemp": 45,
+        "status": "none",
+        "statusturns": 0,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "weapon": "none",
+        "atk": 18,
+        "mag": 59,
+        "prc": 20,
+        "end": 55,
+        "chr": 59,
+        "int": 28,
+        "agl": 28,
+        "luk": 29,
+        "baseatk": 2,
+        "basemag": 10,
+        "baseprc": 4,
+        "baseend": 6,
+        "basechr": 10,
+        "baseint": 4,
+        "baseagl": 4,
+        "baseluk": 5,
+        "lb": 0,
+        "xp": 0,
+        "maxxp": 125489,
+        "weak": [
+            "curse",
+            "nuclear"
+        ],
+        "resist": [
+            "bless"
+        ],
+        "block": [
+            "psychic"
+        ],
+        "repel": [
+            "wind"
+        ],
+        "drain": [],
+        "skills": [
+            "MagicalBlast",
+            "TornadoCutter",
+            "Starfall",
+            "Starshower",
+            "Mamakakaja"
+        ],
+        "meleequote": [],
+        "physquote": [],
+        "magquote": [],
+        "strongquote": [],
+        "critquote": [],
+        "weakquote": [],
+        "missquote": [],
+        "blockquote": [],
+        "repelquote": [],
+        "drainquote": [],
+        "resistquote": [],
+        "hurtquote": [],
+        "lbquote": [],
+        "healquote": [],
+        "helpedquote": [],
+        "killquote": [],
+        "deathquote": [],
+        "bio": {
+            "species": "",
+            "age": "",
+            "info": "",
+            "backstory": "",
+            "likes": "",
+            "dislikes": "",
+            "fears": "",
+            "voice": "",
+            "theme": "",
+            "height": "",
+            "weight": ""
+        },
+        "trust": {}
+    },
+    "StatBalance": {
+        "name": "Stat Balance",
+        "owner": "642841151484985365",
+        "level": 1,
+        "hp": 30,
+        "mp": 25,
+        "maxhp": 30,
+        "maxmp": 25,
+        "basehp": 30,
+        "basemp": 25,
+        "status": "none",
+        "statusturns": 0,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "weapon": "none",
+        "atk": 6,
+        "mag": 6,
+        "prc": 6,
+        "end": 6,
+        "chr": 5,
+        "int": 6,
+        "agl": 5,
+        "luk": 5,
+        "baseatk": 6,
+        "basemag": 6,
+        "baseprc": 6,
+        "baseend": 6,
+        "basechr": 5,
+        "baseint": 6,
+        "baseagl": 5,
+        "baseluk": 5,
+        "lb": 0,
+        "xp": 0,
+        "maxxp": 100,
+        "weak": [],
+        "resist": [],
+        "block": [],
+        "repel": [],
+        "drain": [],
+        "skills": [],
+        "meleequote": [],
+        "physquote": [],
+        "magquote": [],
+        "strongquote": [],
+        "critquote": [],
+        "weakquote": [],
+        "missquote": [],
+        "blockquote": [],
+        "repelquote": [],
+        "drainquote": [],
+        "resistquote": [],
+        "hurtquote": [],
+        "lbquote": [],
+        "healquote": [],
+        "helpedquote": [],
+        "killquote": [],
+        "deathquote": [],
+        "bio": {
             "species": "",
             "age": "",
             "info": "",
@@ -7333,12 +8505,239 @@
             "voice": "",
             "theme": ""
         },
-        "trust": {},
-        "dodgequote": [
-            "Nope.",
-            "You won't catch me falling to your pitiful attack!",
-            "I didn't even move that time-"
+        "trust": {}
+    },
+    "TrueStatBalance": {
+        "name": "TrueStatBalance",
+        "owner": "544290248734015488",
+        "level": 1,
+        "hp": 30,
+        "mp": 30,
+        "maxhp": 30,
+        "maxmp": 30,
+        "basehp": 30,
+        "basemp": 30,
+        "status": "none",
+        "statusturns": 0,
+        "melee": [
+            "Strike Attack",
+            "strike"
         ],
-        "lvlquote": []
+        "weapon": "none",
+        "atk": 5,
+        "mag": 5,
+        "prc": 5,
+        "end": 5,
+        "chr": 5,
+        "int": 5,
+        "agl": 5,
+        "luk": 5,
+        "baseatk": 5,
+        "basemag": 5,
+        "baseprc": 5,
+        "baseend": 5,
+        "basechr": 5,
+        "baseint": 5,
+        "baseagl": 5,
+        "baseluk": 5,
+        "lb": 0,
+        "xp": 0,
+        "maxxp": 100,
+        "weak": [],
+        "resist": [],
+        "block": [],
+        "repel": [],
+        "drain": [],
+        "skills": [],
+        "meleequote": [],
+        "physquote": [],
+        "magquote": [],
+        "strongquote": [],
+        "critquote": [],
+        "weakquote": [],
+        "missquote": [],
+        "blockquote": [],
+        "repelquote": [],
+        "drainquote": [],
+        "resistquote": [],
+        "hurtquote": [],
+        "lbquote": [],
+        "healquote": [],
+        "helpedquote": [],
+        "killquote": [],
+        "deathquote": [],
+        "bio": {
+            "species": "",
+            "age": "",
+            "info": "",
+            "backstory": "",
+            "likes": "",
+            "dislikes": "",
+            "fears": "",
+            "voice": "",
+            "theme": ""
+        },
+        "trust": {}
+    },
+    "Miles": {
+        "name": "Miles",
+        "owner": "712602499823042620",
+        "level": 50,
+        "hp": 118,
+        "mp": 368,
+        "maxhp": 118,
+        "maxmp": 368,
+        "basehp": 20,
+        "basemp": 25,
+        "status": "none",
+        "statusturns": 0,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "weapon": "none",
+        "atk": 55,
+        "mag": 28,
+        "prc": 18,
+        "end": 17,
+        "chr": 53,
+        "int": 59,
+        "agl": 27,
+        "luk": 26,
+        "baseatk": 6,
+        "basemag": 4,
+        "baseprc": 2,
+        "baseend": 1,
+        "basechr": 4,
+        "baseint": 10,
+        "baseagl": 3,
+        "baseluk": 2,
+        "lb": 0,
+        "xp": 0,
+        "maxxp": 32318,
+        "weak": [],
+        "resist": [],
+        "block": [],
+        "repel": [],
+        "drain": [],
+        "skills": [
+            "DoubleHit",
+            "AwakenSlap",
+            "Diarahan",
+            "Mediarama"
+        ],
+        "meleequote": [],
+        "physquote": [],
+        "magquote": [],
+        "strongquote": [],
+        "critquote": [],
+        "weakquote": [],
+        "missquote": [],
+        "blockquote": [],
+        "repelquote": [],
+        "drainquote": [],
+        "resistquote": [],
+        "hurtquote": [],
+        "lbquote": [],
+        "healquote": [],
+        "helpedquote": [],
+        "killquote": [],
+        "deathquote": [],
+        "bio": {
+            "species": "Fox",
+            "age": "",
+            "info": "Originally from an alternate universe of Mobius, Miles is a Fox that likes to build, and smoke. he's also supportive to his teammates. and his partners, after getting Frylo to join him, they were off to dimensional exploring. then in a timeline, they met Harc and they became partners. now after a long time, they got together again and became a whole team. Knuckles Frylo and Harcvuk, travel dimensions together. discovering new things, and always sticking by eachother's side. John and Perduvuk is also with Harc.",
+            "backstory": "",
+            "likes": "Smoking, Building Stuff, Having fun",
+            "dislikes": "Stress, Failed inventions, Not smoking for a long time. (He's fine for several months though.)",
+            "fears": "losing loved ones, being unable to build. smoking ban.",
+            "voice": "",
+            "theme": "",
+            "\"fox\"": "Fox"
+        },
+        "trust": {}
+    },
+    "Frostimp": {
+        "name": "Frostimp",
+        "owner": "544290248734015488",
+        "level": 46,
+        "hp": 295,
+        "mp": 160,
+        "maxhp": 295,
+        "maxmp": 160,
+        "basehp": 25,
+        "basemp": 25,
+        "status": "none",
+        "statusturns": 0,
+        "melee": [
+            "Strike Attack",
+            "strike"
+        ],
+        "weapon": "none",
+        "atk": 28,
+        "mag": 55,
+        "prc": 26,
+        "end": 53,
+        "chr": 52,
+        "int": 16,
+        "agl": 17,
+        "luk": 24,
+        "baseatk": 6,
+        "basemag": 10,
+        "baseprc": 4,
+        "baseend": 8,
+        "basechr": 7,
+        "baseint": 1,
+        "baseagl": 2,
+        "baseluk": 2,
+        "lb": 0,
+        "xp": 0,
+        "maxxp": 92181,
+        "weak": [
+            "fire"
+        ],
+        "resist": [
+            "ice",
+            "grass"
+        ],
+        "block": [],
+        "repel": [],
+        "drain": [],
+        "skills": [
+            "AssaultDive",
+            "Bufudyne",
+            "Mabufula",
+            "Hanama",
+            "Mahanama"
+        ],
+        "meleequote": [],
+        "physquote": [],
+        "magquote": [],
+        "strongquote": [],
+        "critquote": [],
+        "weakquote": [],
+        "missquote": [],
+        "blockquote": [],
+        "repelquote": [],
+        "drainquote": [],
+        "resistquote": [],
+        "hurtquote": [],
+        "lbquote": [],
+        "healquote": [],
+        "helpedquote": [],
+        "killquote": [],
+        "deathquote": [],
+        "bio": {
+            "species": "",
+            "age": "",
+            "info": "",
+            "backstory": "",
+            "likes": "",
+            "dislikes": "",
+            "fears": "",
+            "voice": "",
+            "theme": ""
+        },
+        "trust": {}
     }
 }
