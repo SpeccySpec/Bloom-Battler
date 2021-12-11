@@ -50,8 +50,8 @@ function removeLoot(message, prefix) {
 	let enmList = ``
 
 	for (const i in enmFile) {
-		if (enmFile[i].loot == arg[1]) {
-			enmFile[i].loot = ''
+		if (enmFile[message.guild.id][i].loot == arg[1]) {
+			enmFile[message.guild.id][i].loot = ''
 
 			enmList += `\n- ${i}`
 		}

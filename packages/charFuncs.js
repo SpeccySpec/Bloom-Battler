@@ -28,6 +28,8 @@ const Elements = [
     "metal",
     "curse",
     "bless",
+	"gravity",
+	"sound",
     "almighty",
 
     "status",
@@ -48,17 +50,19 @@ const elementEmoji = {
 	earth: "<:earth:877140476409577482>",
 	grass: "<:grass:877140500036075580>",
 	psychic: "<:psychic:877140522530140171>",
-	poison: "☠️",
-	metal: "🔩",
-	curse: "👻",
+	poison: "<:poison:906759861742760016>",
+	metal: "<:metal:906748877955268638>",
+	curse: "<:curse:906748923354443856>",
 	bless: "<:bless:903369721980813322>",
-	nuclear: "☢",
+	nuclear: "<:nuclear:906877350447300648>",
+	gravity: "🌍",
+	sound: "🎵",
 	
-	almighty: "💫",
+	almighty: "<:almighty:906748842450509894>",
 	
-	status: "🔰",
-	heal: "➕",
-	passive: "⏎"
+	status: "<:status:906877331711344721>",
+	heal: "<:heal:906758309351161907>",
+	passive: "<:passive:906874477210648576>"
 }
 
 // Item
@@ -90,22 +94,27 @@ const statusEffects = [
     "brainwash",
 	"fear",
 	"rage",
-	"ego"
+	"ego",
+	"silence",
+	"hunger"
 ]
 
 const statusEmojis = {
     burn: "🔥",
-	bleed: "🩸",
+	bleed: "<:bleed:906903499462307870>",
     freeze: "❄",
     paralyze: "⚡",
-	sleep: "😴",
+	sleep: "💤",
+	dizzy: "💫",
 	despair: "💦",
-    poison: "☠️",
+    poison: "<:poison:906903499961434132>",
 	dizzy: "💫",
     brainwash: "🦆",
 	fear: "👁",
-	rage: "💥",
-	ego: "🎭"
+	rage: "<:rage:906903500053696532>",
+	ego: "🎭",
+	silence: '<:silence:905238069207240734>',
+	hunger: '🍪'
 }
 
 // Enemy Habitats
@@ -140,6 +149,8 @@ function writeChar(creator, name, health, magicpoints, attack, magic, perception
         maxmp: magicpoints,
 		basehp: health,
 		basemp: magicpoints,
+		
+		mpMeter: ['Magic Points', 'MP'],
 
         // Status Effect
         status: "none",
@@ -437,8 +448,17 @@ function hasShowTime(charDefs, targChar) {
 	return null
 }
 
+function equippedCharm(charDefs, charm) {
+	for (const i in charDefs.charms) {
+		if (charDefs.charms[i] == charm)
+			return true
+	}
+	
+	return false
+}
+
 function levelUp(charDefs) {
-	if (charDefs.level+1 > 99) {
+	if (charDefs.level >= 99) {
 		charDefs.xp = charDefs.maxxp - 1
 		console.log(`LevelUp: ${charDefs.name} cannot level up further.`)
 		return false
@@ -486,11 +506,42 @@ function levelUp(charDefs) {
 	}
 
 	charDefs.xp -= +charDefs.maxxp
-	charDefs.maxxp = Math.floor((charDefs.maxxp-charDefs.baseint) + ((charDefs.maxxp-charDefs.baseint*2) / 6))
+	charDefs.maxxp += Math.round(charDefs.maxxp/6.5)
+	
+	// Check Skills
+	if (charDefs.lvlUpQueue) {
+		for (const i in charDefs.lvlUpQueue) {
+			if (charDefs.lvlUpQueue[i][1] == charDefs.level) {
+				charDefs.skills.push(charDefs.lvlUpQueue[i][0])
+			}
+		}
+	}
+	
+	if (!charDefs.autoLearn) return;
+
+	var checkSkills = []
+	for (const i in charDefs.autoLearn) {
+		if (charDefs.skills[charDefs.autoLearn[i]]) {
+			checkSkills.push([charDefs.skills[charDefs.autoLearn[i]], charDefs.autoLearn[i]])
+		}
+	}
+	
+	const skillPath = dataPath+'/skills.json'
+	const skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+	const skillFile = JSON.parse(skillRead);
+
+	for (const i in checkSkills) {
+		if (skillFile[checkSkills[i][0]] && skillFile[checkSkills[i][0]].evoSkill) {
+			var skillDefs = skillFile[checkSkills[i][0]]
+			
+			if (charDefs.level == skillDefs.evoSkill[1])
+				charDefs.skills[checkSkills[i][1]] = skillDefs.evoSkill[0];
+		}
+	}
 }
 
 function levelDown(charDefs) {
-	if (charDefs.level-1 < 1) {
+	if (charDefs.level <= 1) {
 		charDefs.xp = 1
 		console.log(`LevelUp: ${charDefs.name} cannot level down further.`)
 		return false
@@ -538,7 +589,7 @@ function levelDown(charDefs) {
 	}
 
 	charDefs.xp = 0
-	charDefs.maxxp = Math.ceil((charDefs.maxxp-charDefs.baseint) - ((charDefs.maxxp-charDefs.baseint*2) / 5))
+	charDefs.maxxp -= Math.round(charDefs.maxxp/6.5)
 }
 
 // Trust
@@ -575,6 +626,21 @@ function trustLevel(charDefs, targName) {
 
 	// Next Level Poggers!
 	charDefs.trust[targName].nextLevel += 50;
+}
+
+function dislikeChar(charDefs, targName) {
+	if (!charDefs.trust)
+		charDefs.trust = {};
+
+	if (!charDefs.trust[targName]) {
+		charDefs.trust[targName] = {
+			value: 0,
+			nextLevel: 100,
+			level: 1
+		}
+	}
+
+	charDefs.trust[targName].dislike = 10;
 }
 
 function buffStat(charDefs, stat, amount) {
@@ -623,12 +689,14 @@ module.exports = {
 		writeTransformation(userDefs, trnsName, req, auto, hpBuff, atkBuff, magBuff, prcBuff, endBuff, chrBuff, intBuff, aglBuff, lukBuff)
 	},
 
-	genChar: function(charDefs, leader) {
+	genChar: function(charDefs, leader, petDefs) {
 		var battlerDefs = {
 			name: charDefs.name,
 			truename: charDefs.name,
 			team: "allies",
 			id: 0,
+			
+			mainElement: charDefs.mainElement,
 
 			melee: charDefs.melee,
 			level: charDefs.level,
@@ -637,8 +705,12 @@ module.exports = {
 			mp: charDefs.mp,
 			maxhp: charDefs.maxhp,
 			maxmp: charDefs.maxmp,
-			lb: 0,
+			basehp: charDefs.basehp,
+			basemp: charDefs.basemp,
+			
+			mpMeter: charDefs.mpMeter ? charDefs.mpMeter : ['Magic Points', 'MP'],
 
+			lb: 0,
 			xp: charDefs.xp,
 			maxxp: charDefs.maxxp,
 
@@ -653,6 +725,16 @@ module.exports = {
 			int: charDefs.int,
 			agl: charDefs.agl,
 			luk: charDefs.luk,
+
+			baseatk: charDefs.baseatk,
+			basemag: charDefs.basemag,
+			baseprc: charDefs.baseprc,
+			baseend: charDefs.baseend,
+			basechr: charDefs.basechr,
+			baseint: charDefs.baseint,
+			baseagl: charDefs.baseagl,
+			baseluk: charDefs.baseluk,
+
 			weapon: charDefs.weapon ? charDefs.weapon : "none",
 			guard: false,
 
@@ -663,7 +745,7 @@ module.exports = {
 				end: 0,
 				agl: 0
 			},
-			
+
 			meleequote: charDefs.meleequote ? charDefs.meleequote : [],
 			physquote: charDefs.physquote ? charDefs.physquote : [],
 			magquote: charDefs.magquote ? charDefs.magquote : [],
@@ -684,7 +766,7 @@ module.exports = {
 			allydeathquote: charDefs.allydeathquote ? charDefs.allydeathquote : [],
 			lbquote: charDefs.lbquote ? charDefs.lbquote : [],
 			lvlquote: charDefs.lvlquote ? charDefs.lvlquote : [],
-			
+
 			bio: charDefs.bio ? charDefs.bio : {info: "", backstory: "", voice: "", theme: ""},
 
 			weak: charDefs.weak,
@@ -693,8 +775,10 @@ module.exports = {
 			repel: charDefs.repel,
 			drain: charDefs.drain,
 			skills: charDefs.skills,
-			
-			trust: charDefs.trust ? charDefs.trust : {}
+
+			trust: charDefs.trust ? charDefs.trust : {},
+
+			charms: charDefs.charms ? charDefs.charms : []
 		}
 		
 		if (charDefs.owner)
@@ -709,9 +793,6 @@ module.exports = {
 				battlerDefs.leaderSkill = charDefs.leaderSkill;
 		}
 		
-		if (charDefs.pet)
-			battlerDefs.pet = charDefs.pet;
-		
 		// Insert Limit Breaks if they have them.
 		if (charDefs.lb1)
 			battlerDefs.lb1 = charDefs.lb1;
@@ -722,11 +803,20 @@ module.exports = {
 		if (charDefs.lb4)
 			battlerDefs.lb4 = charDefs.lb4;
 		
+		// Charm Stat Buffs
+		if (equippedCharm(charDefs, "GatheringSwarm"))
+			battlerDefs.endurance += 5;
+		
+		if (equippedCharm(charDefs, "FragileHeart") || equippedCharm(charDefs, "UnbreakableHeart")) {
+			battlerDefs.maxhp += 50;
+			battlerDefs.hp += 50;
+		}
+		
 		return battlerDefs
 	},
 
-	mimic: function(userDefs, targDefs) {
-		mimic(userDefs, targDefs)
+	mimic: function(userDefs, targDefs, turns) {
+		mimic(userDefs, targDefs, turns)
 	},
 
 	resetMimic: function(userDefs) {
@@ -775,7 +865,7 @@ module.exports = {
 		if (!targDefs.trust) 
 			targDefs.trust = {};
 
-		var btlPath = dataPath+'/battle.json'
+		var btlPath = dataPath+'/Battles/battle-' + server + '.json'
 		var btlRead = fs.readFileSync(btlPath);
 		var btl = JSON.parse(btlRead);
 		
@@ -817,5 +907,30 @@ module.exports = {
 	
 	startBattleLeaderSkill: function(allySide) {
 		return leaderSkillsAtBattleStart(allySide);
+	},
+	
+	needNotches: function(level) {
+		if (level < 15)
+			return 3
+		else if (level < 23)
+			return 4
+		else if (level < 30)
+			return 5
+		else if (level < 39)
+			return 6
+		else if (level < 45)
+			return 7
+		else if (level < 53)
+			return 8
+		else if (level < 60)
+			return 9
+		else if (level < 69)
+			return 10
+		else
+			return 11
+	},
+	
+	equippedCharm: function(charDefs, charm) {
+		return equippedCharm(charDefs, charm)
 	}
 }

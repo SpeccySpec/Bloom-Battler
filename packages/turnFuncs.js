@@ -22,6 +22,8 @@ const Elements = [
     "metal",
     "curse",
     "bless",
+	"gravity",
+	"sound",
     "almighty",
 
     "status",
@@ -42,17 +44,19 @@ const elementEmoji = {
 	earth: "<:earth:877140476409577482>",
 	grass: "<:grass:877140500036075580>",
 	psychic: "<:psychic:877140522530140171>",
-	poison: "☠️",
-	metal: "🔩",
-	curse: "👻",
+	poison: "<:poison:906759861742760016>",
+	metal: "<:metal:906748877955268638>",
+	curse: "<:curse:906748923354443856>",
 	bless: "<:bless:903369721980813322>",
-	nuclear: "☢",
+	nuclear: "<:nuclear:906877350447300648>",
+	gravity: "🌍",
+	sound: "🎵",
 	
-	almighty: "💫",
+	almighty: "<:almighty:906748842450509894>",
 	
-	status: "🔰",
-	heal: "➕",
-	passive: "⏎"
+	status: "<:status:906877331711344721>",
+	heal: "<:heal:906758309351161907>",
+	passive: "<:passive:906874477210648576>"
 }
 
 // Item
@@ -88,17 +92,19 @@ const statusEffects = [
 
 const statusEmojis = {
     burn: "🔥",
-	bleed: "🩸",
+	bleed: "<:bleed:906903499462307870>",
     freeze: "❄",
     paralyze: "⚡",
-	sleep: "😴",
+	sleep: "💤",
+	dizzy: "💫",
 	despair: "💦",
-    poison: "☠️",
+    poison: "<:poison:906903499961434132>",
 	dizzy: "💫",
     brainwash: "🦆",
 	fear: "👁",
-	rage: "💥",
-	ego: "🎭"
+	rage: "<:rage:906903500053696532>",
+	ego: "🎭",
+	silence: '<:silence:905238069207240734>'
 }
 
 // Enemy Habitats
@@ -136,6 +142,14 @@ function setUpBattleVars(btl) {
 	btl.colosseum[1] = 0;
 	btl.colosseum[2] = "none";
 	
+	// Reset Endless Mode
+	btl.colosseum[3] = {
+		curLvl: 1,
+		lvlLeft: 2,
+		upperBound: 0,
+		lowerBound: 0
+	}
+	
 	btl.weather = "clear";
 	btl.terrain = "normal"
 }
@@ -159,8 +173,20 @@ function clearBTL(btl) {
 	btl.colosseum[1] = 0;
 	btl.colosseum[2] = "none";
 	
+	// Reset Endless Mode
+	btl.colosseum[3] = {
+		curLvl: 1,
+		lvlLeft: 2,
+		upperBound: 0,
+		lowerBound: 0
+	}
+
+	// Reset Weather & Terrain
 	btl.weather = "clear";
 	btl.terrain = "normal"
+
+	delete btl.onemore	
+	delete btl.testing
 }
 
 function hasPassiveCopyLOL(userDefs, passivetype) {					
@@ -192,6 +218,24 @@ function healPassives(charDefs) {
 			passiveMsg += `\n${charDefs.name} got an affinity point!`
 			charDefs.affinitypoint = Math.min(10, charDefs.affinitypoint+1);
 			if (charDefs.affinitypoint >= 10) {
+				passiveMsg += ' (MAX)'
+			}
+		}
+	}
+	
+	return passiveMsg
+}
+
+function buffPassives(charDefs) {
+	var passiveMsg = ''
+	if (hasPassiveCopyLOL(charDefs, 'teamworkpoint')) {
+		if (!charDefs.affinitypoint)
+			charDefs.affinitypoint = 0;
+
+		if (charDefs.affinitypoint < 8) {
+			passiveMsg += `\n${charDefs.name} got a teamwork point!`
+			charDefs.affinitypoint = Math.min(8, charDefs.affinitypoint+1);
+			if (charDefs.affinitypoint >= 8) {
 				passiveMsg += ' (MAX)'
 			}
 		}
@@ -235,6 +279,10 @@ module.exports = {
 	
 	healPassives: function(charDefs) {
 		return healPassives(charDefs)
+	},
+	
+	buffPassives: function(charDefs) {
+		return buffPassives(charDefs)
 	},
 	
 	setUpBattleVars: function(servBtl) {

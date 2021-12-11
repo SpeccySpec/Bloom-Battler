@@ -22,6 +22,8 @@ const Elements = [
     "metal",
     "curse",
     "bless",
+	"gravity",
+	"sound",
     "almighty",
 
     "status",
@@ -42,19 +44,20 @@ const elementEmoji = {
 	earth: "<:earth:877140476409577482>",
 	grass: "<:grass:877140500036075580>",
 	psychic: "<:psychic:877140522530140171>",
-	poison: "☠️",
-	metal: "🔩",
-	curse: "👻",
+	poison: "<:poison:906759861742760016>",
+	metal: "<:metal:906748877955268638>",
+	curse: "<:curse:906748923354443856>",
 	bless: "<:bless:903369721980813322>",
-	nuclear: "☢",
+	nuclear: "<:nuclear:906877350447300648>",
+	gravity: "🌍",
+	sound: "🎵",
 	
-	almighty: "💫",
+	almighty: "<:almighty:906748842450509894>",
 	
-	status: "🔰",
-	heal: "➕",
-	passive: "⏎"
+	status: "<:status:906877331711344721>",
+	heal: "<:heal:906758309351161907>",
+	passive: "<:passive:906874477210648576>"
 }
-
 // Item
 const itemTypes = [
 	"weapon",
@@ -77,28 +80,34 @@ const statusEffects = [
 	"bleed",
     "freeze",
     "paralyze",
+	"dizzy",
 	"sleep",
 	"despair",
     "poison",
     "brainwash",
 	"fear",
 	"rage",
-	"ego"
+	"ego",
+	"silence",
+	"hunger"
 ]
 
 const statusEmojis = {
     burn: "🔥",
-	bleed: "🩸",
+	bleed: "<:bleed:906903499462307870>",
     freeze: "❄",
     paralyze: "⚡",
-	sleep: "😴",
+	sleep: "💤",
+	dizzy: "💫",
 	despair: "💦",
-    poison: "☠️",
+    poison: "<:poison:906903499961434132>",
 	dizzy: "💫",
     brainwash: "🦆",
 	fear: "👁",
-	rage: "💥",
-	ego: "🎭"
+	rage: "<:rage:906903500053696532>",
+	ego: "🎭",
+	silence: '<:silence:905238069207240734>',
+	hunger: '🍪'
 }
 
 // Enemy Habitats
@@ -112,6 +121,66 @@ const enmHabitats = [
 	"icy",
 	"unknown"
 ]
+
+// Write enemy
+function writeEnemy(author, server, name, lvl, hp, mp, xp, str, mag, prc, end, chr, int, agl, luk, boss, j) {
+    var enmPath = dataPath+'/enemies.json'
+    var enmRead = fs.readFileSync(enmPath);
+    var enmFile = JSON.parse(enmRead);
+
+	var enemyDefs = {
+		name: name ? name : "???",
+		creator: author.id,
+		level: lvl ? lvl : 1,
+		hp: hp ? hp : 60,
+		mp: mp ? mp : 50,
+		atk: str ? str : 6,
+		mag: mag ? mag : 6,
+		prc: prc ? prc : 6,
+		end: end ? end : 6,
+		chr: chr ? chr : 6,
+		int: int ? int : 6,
+		agl: agl ? agl : 6,
+		luk: luk ? luk : 6,
+		melee: ["Strike Attack", "strike"],
+		skills: [],
+		weak: [],
+		resist: [],
+		block: [],
+		repel: [],
+		drain: [],
+		journal: j ? j : "???",
+		dreams: [],
+		awardxp: xp ? xp : 100,
+		negotiate: [],
+		negotiateDefs: {
+			required: 5
+		}
+	}
+
+	if (boss === 'miniboss')
+		enemyDefs.miniboss = true
+	else if (boss === 'boss' || boss === 'true' || boss === 'yes')
+		enemyDefs.boss = true
+	else if (boss === 'finalboss' || boss === 'bigboss')
+		enemyDefs.bigboss = true
+	else if (boss === 'diety' || boss === 'god')
+		enemyDefs.diety = true
+
+	if (!enmFile[server])
+		enmFile[server] = {}
+
+	enmFile[server][name] = enemyDefs
+    fs.writeFileSync(enmPath, JSON.stringify(enmFile, null, '    '));
+
+	return enemyDefs
+}
+
+/*
+	BASIC ENEMY THINKERS
+	- Learn weaknesses
+	- Learn who is healer
+*/
 
 function enemyThinker(userDefs, allySide, oppSide) {
 	var skillPath = dataPath+'/skills.json'
@@ -159,6 +228,34 @@ function enemyThinker(userDefs, allySide, oppSide) {
 	}
 
 	// Finally, attack.
+	if (!userDefs.oppAff)
+		userDefs.oppAff = {}
+
+	var ignore = []
+	if (userDefs.oppAff) {
+		for (const i in userDefs.oppAff) {
+			// Target Weaknesses
+			if (oppSide[parseInt(i)] && oppSide[parseInt(i)].hp > 0 && userDefs.oppAff[i].weak && Math.random() < 0.8) {
+				for (const k in userDefs.skills) {
+					var skillDefs = skillFile[userDefs.skills[k]]
+
+					if (skillDefs.type == userDefs.oppAff[i].weak)
+						return [userDefs.skills[k], oppSide[parseInt(i)], parseInt(i)];
+				}
+			}
+
+			/*
+			var affinities = ['resist', 'block', 'repel', 'drain']
+			for (const k in affinities) {
+				if (userDefs.oppAff[i][affinities[k]]) {
+					ignore.push([i, affinities[k]])
+				}
+			}
+			*/
+		}
+	}
+			
+	// Since we know nothing else... might as well experiment
 	var targNum = Math.round(Math.random() * (oppSide.length-1))	
 	if (oppSide[targNum]) {
 		while (oppSide[targNum].hp <= 0) {
@@ -168,27 +265,53 @@ function enemyThinker(userDefs, allySide, oppSide) {
 
 	var oppDefs = oppSide[targNum];
 
-	var doneWeakCheck = false;
 	var chosenSkill = possibleSkills[Math.round(Math.random() * (possibleSkills.length-1))];
-	for (const i in userDefs.skills) {
-		var skillDefs = skillFile[userDefs.skills[i]]
-
-		// as not to make it unfair, don't ALWAYS go for weaknesses
-		if (oppDefs.weak == skillDefs.weak && !doneWeakCheck) { 
-			if (Math.random() < 0.55) {
-				chosenSkill = possibleSkills[i]
-			}
-			
-			doneWeakCheck = true
+	var skillDefs = skillFile[chosenSkill]
+	
+	if (skillDefs.type === 'status') {
+		// Target allies with shields
+		if (skillDefs.makarakarn || skillDefs.shield || skillDefs.tetrakarn || skillDefs.trap) {
+			var allyNum = Math.round(Math.random() * (allySide.length-1))
+			return [chosenSkill, oppSide[targNum], allyNum]
 		}
 	}
-	
+
+	if (!userDefs.oppAff[targNum]) {
+		userDefs.oppAff[targNum] = {
+			weak: [],
+			resist: [],
+			block: [],
+			repel: [],
+			drain: []
+		}
+	}
+
+	for (const k in oppDefs.weak) {
+		if (skillDefs.type == oppDefs.weak[k])
+			userDefs.oppAff[targNum].weak.push(skillDefs.type)
+	}
+
+	/*
+	var affinities = ['resist', 'block', 'repel', 'drain']
+	for (const k in affinities) {
+		for (const j in oppDefs[affinities[k]]) {
+			if (skillDefs.type == oppDefs[affinities[k]][j] && ) {
+				userDefs.oppAff[targNum][affinities[k]].push(skillDefs.type)
+			}
+		}
+	}
+	*/
+
 	console.log(`${chosenSkill} => ${oppDefs.name}`)
 	return [chosenSkill, oppDefs, targNum]
 }
 
 // Export Functions
 module.exports = {
+	writeEnemy: function(author, server, name, lvl, hp, mp, xp, str, mag, prc, end, chr, int, agl, luk, boss, j) {
+		return writeEnemy(author, server, name, lvl, hp, mp, xp, str, mag, prc, end, chr, int, agl, luk, boss, j)
+	},
+
 	genEnm: function(enemy, server) {
 		if (!enemy) {
 			console.log(`Invalid enemy: ${enemy}.`)
@@ -198,7 +321,7 @@ module.exports = {
 		var enmPath = dataPath+'/enemies.json'
 		var enmRead = fs.readFileSync(enmPath);
 		var enmFile = JSON.parse(enmRead);
-		const enm = enmFile[enemy]
+		const enm = enmFile[server][enemy]
 
 		var enemyDefs = {
 			name: enemy,
@@ -311,5 +434,32 @@ module.exports = {
 		}
 		
 		return false
-	}
+	},
+	
+	makePet: function(enm) {
+		var enemyDefs = {
+			name: enm.name,
+
+			atk: enm.atk,
+			mag: enm.mag,
+			prc: enm.prc,
+			end: enm.end,
+			chr: enm.chr,
+			int: enm.int,
+			agl: enm.agl,
+			luk: enm.luk,
+			
+			buffAtk: enm.negotiateDefs.qualities.atk,
+			buffMag: enm.negotiateDefs.qualities.mag,
+			buffEnd: enm.negotiateDefs.qualities.def,
+
+			melee: enm.melee,
+			skill: enm.negotiateDefs.qualities.skill
+		}
+		
+		if (enm.golden)
+			enemyDefs.golden = true;
+		
+		return enemyDefs
+	},
 }

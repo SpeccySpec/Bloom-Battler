@@ -22,6 +22,8 @@ const Elements = [
     "metal",
     "curse",
     "bless",
+	"gravity",
+	"sound",
     "almighty",
 
     "status",
@@ -42,17 +44,19 @@ const elementEmoji = {
 	earth: "<:earth:877140476409577482>",
 	grass: "<:grass:877140500036075580>",
 	psychic: "<:psychic:877140522530140171>",
-	poison: "☠️",
-	metal: "🔩",
-	curse: "👻",
-	bless: "⭐",
-	nuclear: "☢",
+	poison: "<:poison:906759861742760016>",
+	metal: "<:metal:906748877955268638>",
+	curse: "<:curse:906748923354443856>",
+	bless: "<:bless:903369721980813322>",
+	nuclear: "<:nuclear:906877350447300648>",
+	gravity: "🌍",
+	sound: "🎵",
 	
-	almighty: "💫",
+	almighty: "<:almighty:906748842450509894>",
 	
-	status: "🔰",
-	heal: "➕",
-	passive: "⏎"
+	status: "<:status:906877331711344721>",
+	heal: "<:heal:906758309351161907>",
+	passive: "<:passive:906874477210648576>"
 }
 
 // Item
@@ -77,28 +81,34 @@ const statusEffects = [
 	"bleed",
     "freeze",
     "paralyze",
+	"dizzy",
 	"sleep",
 	"despair",
     "poison",
     "brainwash",
 	"fear",
 	"rage",
-	"ego"
+	"ego",
+	"silence",
+	"hunger"
 ]
 
 const statusEmojis = {
     burn: "🔥",
-	bleed: "🩸",
+	bleed: "<:bleed:906903499462307870>",
     freeze: "❄",
     paralyze: "⚡",
-	sleep: "😴",
+	sleep: "💤",
+	dizzy: "💫",
 	despair: "💦",
-    poison: "☠️",
+    poison: "<:poison:906903499961434132>",
 	dizzy: "💫",
     brainwash: "🦆",
 	fear: "👁",
-	rage: "💥",
-	ego: "🎭"
+	rage: "<:rage:906903500053696532>",
+	ego: "🎭",
+	silence: '<:silence:905238069207240734>',
+	hunger: '🍪'
 }
 
 // Enemy Habitats
@@ -111,6 +121,16 @@ const enmHabitats = [
 	"volcanic",
 	"icy",
 	"unknown"
+]
+
+const Targets = [
+	'one',
+	'ally',
+	'allopposing',
+	'allallies',
+	'caster',
+	'everyone',
+	'random'
 ]
 
 const adminList = [
@@ -164,6 +184,16 @@ module.exports = {
 	validStatus: function(eff) {
 		for (const i in statusEffects) {
 			if (eff === statusEffects[i]) {
+				return true
+			}
+		}
+
+		return false
+	},
+
+	validTarg: function(type) {
+		for (const i in Targets) {
+			if (type === Targets[i]) {
 				return true
 			}
 		}
@@ -225,6 +255,8 @@ module.exports = {
 			status: 18,
 			heal: 19,
 			passive: 20,
+			
+			invalid: 21,
 		}
 		
 		/*
@@ -261,8 +293,16 @@ module.exports = {
 		var charFile = JSON.parse(charRead);
 		for (const i in charFile) {
 			if (charFile[i].skills && charFile[i].skills.length) {
-				charFile[i].skills.sort(function(a, b) {return skillFile[b].pow - skillFile[a].pow});
-				charFile[i].skills.sort(function(a, b) {return elementOrder[skillFile[a].type] - elementOrder[skillFile[b].type]});
+				charFile[i].skills.sort(function(a, b) {
+					var skillPows = [(skillFile[a] && skillFile[a].pow) ? skillFile[a].pow : 0, (skillFile[b] && skillFile[b].pow) ? skillFile[b].pow : 0]
+					return skillPows[1] - skillPows[0]
+				});
+
+				charFile[i].skills.sort(function(a, b) {
+					var skillTypes = [(skillFile[a] && skillFile[a].type) ? skillFile[a].type : 'invalid', (skillFile[b] && skillFile[b].type) ? skillFile[b].type : 'invalid']
+					return elementOrder[skillTypes[0]] - elementOrder[skillTypes[1]]
+				});
+
 				console.log(`Ordered ${i}'s skills.`)
 			}
 		}
@@ -308,6 +348,10 @@ module.exports = {
 
 	randNum: function(max) {
 		return Math.round(Math.random() * max)
+	},
+
+	randBetweenNums: function(min, max) {
+		return min + Math.round(Math.random() * (max-min))
 	},
 	
 	getChannel: function(channel) {

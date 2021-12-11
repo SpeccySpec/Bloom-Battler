@@ -36,7 +36,7 @@ function assignLoot(message, prefix) {
     var enmRead = fs.readFileSync(enmPath);
     var enmFile = JSON.parse(enmRead);
 
-    if (!enmFile[arg[1]]) {
+    if (!enmFile[message.guild.id][arg[1]]) {
         message.channel.send(`${arg[1]} is not an enemy.`)
         return false
     }
@@ -46,7 +46,7 @@ function assignLoot(message, prefix) {
         return false
     }
 
-    enmFile[arg[1]].loot = ''
+    enmFile[message.guild.id][arg[1]].loot = ''
     fs.writeFileSync(enmPath, JSON.stringify(enmFile, null, '    '));
 
     return message.channel.send(`**${arg[1]}** will no longer drop items at random.`);

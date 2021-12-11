@@ -63,8 +63,10 @@ function getLoot(message, prefix) {
     let ownedBy = ''
 
     for (const i in enmFile) {
-        if (enmFile[i].loot == lootName) {
-            if (ownedBy != "") {ownedBy += ", "}
+        if (enmFile[message.guild.id][i].loot == lootName) {
+            if (ownedBy != "") 
+				ownedBy += ", ";
+
             ownedBy += `${i}`
         }
     }
