@@ -13,7 +13,7 @@
                     "points": 4
                 },
                 "412328234198237189": {
-                    "points": 3
+                    "points": 6
                 },
                 "516359709779820544": {
                     "points": 18
@@ -22,7 +22,7 @@
                     "points": 3
                 },
                 "461050360832720904": {
-                    "points": 10
+                    "points": 11
                 },
                 "441198920668938260": {
                     "points": 1
@@ -30,7 +30,7 @@
             },
             "metronome": {
                 "532291526634635285": {
-                    "points": 7
+                    "points": 8
                 },
                 "441198920668938260": {
                     "points": 4
@@ -46,6 +46,9 @@
                 },
                 "544290248734015488": {
                     "points": 2
+                },
+                "712602499823042620": {
+                    "points": 1
                 }
             },
             "randskills": {
@@ -112,7 +115,8 @@
                 "https://www.youtube.com/watch?v=lkJyU4PTJwQ"
             ],
             "strongfoe": [
-                "https://www.youtube.com/watch?v=bkyPuTZ_53g"
+                "https://www.youtube.com/watch?v=bkyPuTZ_53g",
+                "\"https://www.youtube.com/watch?v=9OZ-yNdKw3o&list=PL5j80D9V7lqZK3aHOyyYaeUYuLa5vx48D&index=2"
             ],
             "finalboss": [
                 "https://www.youtube.com/watch?v=EBfz1Edo9-Q",
@@ -120,7 +124,8 @@
                 "https://www.youtube.com/watch?v=bkyPuTZ_53g"
             ],
             "colosseum": [
-                "https://www.youtube.com/watch?v=UjBTtNU27Ec"
+                "https://www.youtube.com/watch?v=UjBTtNU27Ec",
+                "\"https://www.youtube.com/watch?v=UjBTtNU27Ec"
             ],
             "colosseumstrong": [
                 "https://www.youtube.com/watch?v=4yxgEsS8ogM",
@@ -201,9 +206,36 @@
             "Mechanium",
             "Barista",
             "Foxbot",
-            "Foxbot"
+            "Nymbulous",
+            "Murk",
+            "SizeableBasher",
+            "AcuteGenerator",
+            "ShrewdGenerator",
+            "Frostsage",
+            "Frostsage",
+            "MasterSerpant",
+            "RefinedFrost",
+            "DJ_C",
+            "GrassyWarrior",
+            "EggmanNega",
+            "GrassyGeneral",
+            "Toxiplant",
+            "Noxiherb",
+            "Spiritual",
+            "Ghasty",
+            "Spiritual",
+            "Croconite",
+            "ViperWing",
+            "Patella(Enemy)",
+            "Psibo",
+            "Psibo",
+            "Psibo",
+            "Psiobo",
+            "Psiodynebo",
+            "Periphe"
         ],
-        "goldChance": 0.1
+        "goldChance": 0.2,
+        "desc": "On Yaretza, there are 17 main species of monster roaming the lands. One for each planetary element. The planet has lasted for quite a while, and is still going through disasters today. Can the rag-tag group of \"friends\" survive, and help others?"
     },
     "808462313262415893": {
         "prefix": "rpg!",
@@ -223,7 +255,11 @@
                 }
             }
         },
-        "banned": []
+        "banned": [],
+        "encountered": [
+            "Sandbag"
+        ],
+        "damageFormula": "persona"
     },
     "874635107300933682": {
         "prefix": "rpg!",
@@ -289,22 +325,22 @@
             },
             "charfuck": {
                 "532291526634635285": {
-                    "points": 20
+                    "points": 28
                 },
                 "544290248734015488": {
-                    "points": 20
+                    "points": 29
                 },
                 "516359709779820544": {
-                    "points": 39
+                    "points": 41
                 },
                 "441198920668938260": {
-                    "points": 24
+                    "points": 28
                 },
                 "498041248616153098": {
                     "points": 20
                 },
                 "412328234198237189": {
-                    "points": 14
+                    "points": 16
                 },
                 "642841151484985365": {
                     "points": 2
@@ -328,20 +364,11 @@
             "loss": []
         },
         "encountered": [
-            "ElderLuminosity",
-            "Nyamem",
-            "InfectedNyamem",
-            "Grassimp",
-            "Eleku",
-            "BigStriker",
-            "god",
-            "Arftic",
-            "Nyamo",
-            "Miniscle",
-            "Moltescle",
-            "TheLuminosity"
+            "Sandbag",
+            "Frostimp"
         ],
-        "goldChance": 0.1
+        "goldChance": 0.1,
+        "desc": ""
     },
     "763858631836958771": {
         "prefix": "rpg!",
@@ -349,7 +376,7 @@
         "showtimes": true,
         "onemores": false,
         "currency": "_sex",
-        "xprate": 1,
+        "xprate": 0,
         "damageFormula": "persona",
         "pvpstuff": {
             "none": {},
@@ -369,7 +396,14 @@
                 "https://www.youtube.com/watch?v=l97FWN9fDrg"
             ]
         },
-        "encountered": []
+        "encountered": [
+            "Shrivelimp",
+            "Patella(Enemy)",
+            "Necromancy",
+            "Patella"
+        ],
+        "goldChance": 0.1,
+        "desc": ""
     },
     "728307995901034546": {
         "prefix": "rpg!",
@@ -379,13 +413,32 @@
         "currency": "Ring",
         "damageFormula": "persona",
         "pvpstuff": {
-            "none": {},
+            "none": {
+                "461050360832720904": {
+                    "points": 2
+                }
+            },
             "metronome": {},
             "randskills": {},
             "randstats": {},
             "charfuck": {}
         },
-        "banned": []
+        "banned": [],
+        "themes": {
+            "battle": [],
+            "advantage": [],
+            "disadvantage": [],
+            "bossfight": [],
+            "miniboss": [],
+            "strongfoe": [],
+            "finalboss": [],
+            "colosseum": [],
+            "colosseumstrong": [],
+            "pvp": [],
+            "victory": [],
+            "colosseumvictory": [],
+            "loss": []
+        }
     },
     "836346842848428092": {
         "prefix": "rpg!",
@@ -441,8 +494,8 @@
         "limitbreaks": false,
         "showtimes": false,
         "onemores": false,
-        "currency": "RPGBot Token",
-        "xprate": 1,
+        "currency": "Zeni",
+        "xprate": 0,
         "damageFormula": "persona",
         "pvpstuff": {
             "none": {},
@@ -468,8 +521,11 @@
         },
         "banned": [],
         "encountered": [
-            "god"
-        ]
+            "god",
+            "FlareBandit"
+        ],
+        "goldChance": 0.1,
+        "desc": ""
     },
     "856551013660885024": {
         "prefix": "$",
@@ -502,5 +558,43 @@
             "loss": []
         },
         "banned": []
+    },
+    "487751823604711435": {
+        "prefix": "rpg!",
+        "limitbreaks": false,
+        "showtimes": false,
+        "onemores": false,
+        "currency": "Bloom Token",
+        "xprate": 1,
+        "damageFormula": "persona",
+        "pvpstuff": {
+            "none": {},
+            "metronome": {},
+            "randskills": {},
+            "randstats": {},
+            "charfuck": {}
+        },
+        "themes": {
+            "battle": [],
+            "advantage": [],
+            "disadvantage": [],
+            "bossfight": [],
+            "miniboss": [],
+            "strongfoe": [],
+            "finalboss": [],
+            "colosseum": [],
+            "colosseumstrong": [],
+            "pvp": [],
+            "victory": [],
+            "colosseumvictory": [],
+            "loss": []
+        },
+        "banned": [],
+        "encountered": [
+            "Sandbag",
+            "GreatGod"
+        ],
+        "goldChance": 0.1,
+        "desc": ""
     }
 }

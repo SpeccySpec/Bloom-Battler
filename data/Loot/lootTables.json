@@ -4,18 +4,72 @@
         "items": [
             "SparkleBerry",
             "ShineBerry",
-            "PlumpBerry"
+            "PlumpBerry",
+			"Ruby",
+			"Ruby"
         ],
         "itemChances": [
             50,
+            50,
             20,
-            5
+			5,
+			5
+        ]
+    },
+    "GrassyWarrior": {
+        "name": "GrassyWarrior",
+        "items": [
+            "SparkleBerry",
+            "ShineBerry",
+            "PlumpBerry",
+			"Wood",
+			"Ruby",
+			"Ruby",
+			"Ruby",
+			"Ruby"
+        ],
+        "itemChances": [
+            80,
+            80,
+            80,
+            50,
+            10,
+			10,
+			10,
+			10
+        ]
+    },
+    "Toxiplant": {
+        "name": "Toxiplant",
+        "items": [
+            "PoisonLeaf",
+            "SparkleBerry",
+            "ShineBerry",
+            "PlumpBerry",
+			"Emerald",
+			"Emerald",
+			"Ruby",
+			"Ruby",
+			"Ruby",
+			"Ruby"
+        ],
+        "itemChances": [
+			50,
+            33,
+            33,
+            33,
+            33,
+            33,
+			20,
+			20,
+			15,
+			10
         ]
     },
     "Ice": {
         "name": "Ice",
-        "items": ["SparkleBerry", "IcyFang", "FrostGem"],
-        "itemChances": [20, 9, 7]
+        "items": ["SparkleBerry", "IcyFang", "FrostGem", "Ruby", "Emerald"],
+        "itemChances": [20, 9, 7, 50, 50]
     },
     "IcyBoss": {
         "name": "IcyBoss",

@@ -1,10 +1,45 @@
 {
+    "Wood": {
+        "name": "Wood",
+        "type": "material",
+        "cost": 10,
+        "desc": "A plank of wood that can be used to create all sorts of things."
+    },
+    "Ruby": {
+        "name": "Ruby",
+        "type": "material",
+        "cost": 50,
+        "desc": "A small gem that can be used to create or enhance all sorts of things."
+    },
+    "Emerald": {
+        "name": "Emerald",
+        "type": "material",
+        "cost": 100,
+        "desc": "A small gem that can be used to create or enhance all sorts of things."
+    },
+    "Diamond": {
+        "name": "Diamond",
+        "type": "material",
+        "cost": 150,
+        "desc": "A small gem that can be used to create or enhance all sorts of things."
+    },
     "none": {
         "type": "weapon"
+    },
+    "Shovel": {
+        "name": "Shovel",
+        "type": "weapon",
+        "element": "earth",
+        "melee": 60,
+        "cost": 250,
+        "atk": 8,
+        "desc": "A shovel that can be picked up to raise attack stat by 8 and use Magnara."
     },
     "WornOutSword": {
         "name": "Worn-out Sword",
         "type": "weapon",
+        "element": "slash",
+        "melee": 60,
         "cost": 200,
         "atk": 5,
         "desc": "A worn out sword that can be equipped to raise atk stat by 5."
@@ -12,6 +47,8 @@
     "WornOutWand": {
         "name": "Worn-out Wand",
         "type": "weapon",
+        "element": "psychic",
+        "melee": 60,
         "cost": 200,
         "mag": 5,
         "desc": "A worn out want that can be equipped to raise mag stat by 5."
@@ -19,6 +56,8 @@
     "WornOutShield": {
         "name": "Worn-out Shield",
         "type": "weapon",
+        "element": "strike",
+        "melee": 60,
         "cost": 200,
         "def": 5,
         "desc": "A worn out shield that can be equipped to raise def stat by 5."
@@ -26,6 +65,8 @@
     "WoodenSword": {
         "name": "Wooden Sword",
         "type": "weapon",
+        "element": "slash",
+        "melee": 80,
         "cost": 400,
         "atk": 8,
         "desc": "An old sword made out of wood that can be equipped to raise atk stat by 8."
@@ -33,6 +74,8 @@
     "WoodenWand": {
         "name": "Wooden Wand",
         "type": "weapon",
+        "element": "psychic",
+        "melee": 80,
         "cost": 400,
         "mag": 8,
         "desc": "An old wand made out of wood that can be equipped to raise mag stat by 8."
@@ -40,13 +83,17 @@
     "WoodenShield": {
         "name": "Wooden Shield",
         "type": "weapon",
+        "element": "strike",
+        "melee": 80,
         "cost": 400,
         "def": 8,
-        "desc": "An old sword made out of shield that can be equipped to raise def stat by 8."
+        "desc": "An old shield made out of wood that can be equipped to raise def stat by 8."
     },
     "SteelSword": {
         "name": "Steel Sword",
         "type": "weapon",
+        "element": "slash",
+        "melee": 100,
         "cost": 200,
         "atk": 8,
         "def": 5,
@@ -55,67 +102,83 @@
     "SteelShield": {
         "name": "Steel Shield",
         "type": "weapon",
+        "element": "strike",
+        "melee": 100,
         "cost": 200,
         "def": 15,
-        "desc": "A steel shield used for defense that can be equipped to raise def stat by 15."
+        "desc": "A steel shield used for defense that can be equipped to raise def stat by 15. It also changes your melee attack to Strike Type, and raises it's power slightly."
     },
     "SteelWand": {
         "name": "Steel Wand",
         "type": "weapon",
+        "element": "bless",
+        "melee": 100,
         "cost": 200,
         "mag": 8,
         "def": 5,
-        "desc": "A steel wand used for both offense and defense that can be equipped to raise mag stat by 8 and def stat by 5."
+        "desc": "A steel wand used for both offense and defense that can be equipped to raise mag stat by 8 and def stat by 5. It also changes your melee attack to Bless Type, and raises it's power slightly."
     },
     "RoboticFist": {
         "name": "Robotic Fist",
         "type": "weapon",
+        "element": "strike",
+        "melee": 150,
         "cost": 400,
         "atk": 15,
         "skill": "GiganticFist",
-        "desc": "A part of a robot that was broken off. It can be used to raise attack stat by 15, and use Gigantic Fist."
+        "desc": "A part of a robot that was broken off. It can be used to raise attack stat by 15, and use Gigantic Fist. It also changes your melee attack to Strike Type, and raises it's power greatly."
     },
     "RoboticFlamethrower": {
         "name": "Robotic Flamethrower",
         "type": "weapon",
+        "element": "fire",
+        "melee": 100,
         "cost": 400,
         "mag": 15,
         "skill": "Flamethrower",
-        "desc": "A part of a robot that was broken off. It can be used to raise magic stat by 15, and use Flamethrower."
+        "desc": "A part of a robot that was broken off. It can be used to raise magic stat by 15, and use Flamethrower. It also changes your melee attack to Fire Type, and raises it's power slightly."
     },
     "WaterGun": {
         "name": "Water Gun",
         "type": "weapon",
+        "element": "water",
+        "melee": 150,
         "cost": 400,
         "mag": 15,
         "skill": "Scald",
-        "desc": "A part of a robot that was broken off. It can be used to raise magic stat by 15, and use Scald."
+        "desc": "A part of a robot that was broken off. It can be used to raise magic stat by 15, and use Scald. It also changes your melee attack to Water Type, and raises it's power greatly."
     },
     "FrozenFist": {
         "name": "Frozen Fist",
         "type": "weapon",
-        "cost": 400,
+        "element": "ice",
+        "melee": 180,
+        "cost": 950,
         "atk": 18,
-        "skill": "GiganticFist",
-        "desc": "A frozen fist of some sort of animal. It can be used to raise attack stat by 18, and use Gigantic Fist."
+        "skill": "MegatonRaid",
+        "desc": "A frozen fist of some sort of animal. It can be used to raise attack stat by 18, and use Megaton Raid. It also changes your melee attack to Ice Type, and raises it's power greatly."
     },
     "IcyFang": {
         "name": "Icy Fang",
         "type": "weapon",
+        "element": "ice",
+        "melee": 180,
         "cost": 400,
         "atk": 15,
         "skill": "IceFang",
-        "desc": "A frozen fang of some sort of animal. It can be used to raise attack stat by 15, and use Ice Fang."
+        "desc": "A frozen fang of some sort of animal. It can be used to raise attack stat by 15, and use Ice Fang. It also changes your melee attack to Ice Type, and raises it's power greatly."
     },
     "GrassGem": {
         "name": "Grass Gem",
         "type": "weapon",
+        "element": "grass",
+        "melee": 100,
         "cost": 400,
-        "atk": 4,
-        "mag": 4,
-        "def": 4,
+        "atk": 5,
+        "mag": 5,
+        "def": 5,
         "skill": "GrassyTerrain",
-        "desc": "One of the various elemental crystals. It can be used to raise all stats by 4, and use Grassy Terrain."
+        "desc": "One of the various elemental crystals. It can be used to raise all stats by 5, and use Grassy Terrain. It also changes your melee attack to Grass Type, and raises it's power slightly."
     },
     "FrostGem": {
         "name": "Frost Gem",
@@ -124,8 +187,18 @@
         "atk": 4,
         "mag": 4,
         "def": 4,
-        "skill": "GrassyTerrain",
+        "skill": "Blizzard",
         "desc": "One of the various elemental crystals. It can be used to raise all stats by 4, and use Blizzard."
+    },
+    "NukeLaunch": {
+        "name": "Nuke Launcher",
+        "cost": 0,
+        "element": "nuclear",
+        "melee": 180,
+        "type": "weapon",
+        "desc": "A rare weapon that is possible to launch radiation at a foe without needing ammo. It allows the user to use Freila. It also changes the user's melee attack to Nuclear Type, and raise it's power greatly.",
+        "mag": 10,
+        "skill": "Freila"
     },
     "God'sBlessing": {
         "name": "God's Blessing",
@@ -218,12 +291,168 @@
         "desc": "If one were to drink this, their HP would be restored by 160.",
         "heal": 160
     },
-    "NukeLaunch": {
-        "name": "NukeLaunch",
-        "cost": 0,
+    "AgiGem": {
+        "name": "Agi Gem",
+        "cost": 100,
+        "type": "skill",
+        "desc": "Cast Agi.",
+        "skill": "Agi"
+    },
+    "BufuGem": {
+        "name": "Bufu Gem",
+        "cost": 100,
+        "type": "skill",
+        "desc": "Cast Bufu.",
+        "skill": "Bufu"
+    },
+    "HanaGem": {
+        "name": "Hana Gem",
+        "cost": 100,
+        "type": "skill",
+        "desc": "Cast Hana.",
+        "skill": "Hana"
+    },
+    "ZioGem": {
+        "name": "Zio Gem",
+        "cost": 100,
+        "type": "skill",
+        "desc": "Single cast Zio",
+        "skill": "Zio"
+    },
+    "MegidolaonGem": {
+        "name": "Megidolaon Gem",
+        "cost": 69999999,
+        "type": "skill",
+        "desc": "Cast Megidolaon.",
+        "skill": "Megidolaon"
+    },
+    "FireStone": {
+        "name": "Fire Stone",
+        "cost": 120,
+        "type": "skill",
+        "desc": "Cast Fireball.",
+        "skill": "Fireball"
+    },
+    "AgilaoGem": {
+        "name": "Agilao Gem",
+        "cost": 200,
+        "type": "skill",
+        "desc": "Cast Agilao.",
+        "skill": "Agilao",
+        "fusion": {
+            "AgiGem": 4
+        }
+    },
+    "ZiongaGem": {
+        "name": "Zionga Gem",
+        "cost": 200,
+        "type": "skill",
+        "desc": "Single use Zionga",
+        "skill": "Zionga"
+    },
+    "Vase": {
+        "name": "Vase",
+        "cost": 20,
+        "type": "skill",
+        "desc": "A throwable vase.",
+        "skill": "VaseToss"
+    },
+    "MolotovCocktail": {
+        "name": "Molotov Cocktail",
+        "cost": 20,
+        "type": "skill",
+        "desc": "A throwable cocktail full of fire that explodes upon contact after a throw.",
+        "skill": "MolotovToss"
+    },
+    "Revitalizer": {
+        "name": "Revitalizer",
+        "cost": 599,
         "type": "weapon",
-        "desc": "A rare weapon that is possible to launch radiation at a foe without needing ammo",
-        "mag": 10,
-        "skill": "Freila"
+        "desc": "This item grants people to be able to heal each turn while equipped.",
+        "atk": 1,
+        "mag": 1,
+        "def": 8,
+        "skill": "RegenI"
+    },
+    "RailGun": {
+        "name": "Rail Gun",
+        "cost": 9000,
+        "type": "weapon",
+        "desc": "To use this gun, you'll probably need to lower your defenses.",
+        "atk": 10,
+        "def": -4,
+        "skill": "TheRail"
+    },
+    "InconspicuousCan": {
+        "name": "Inconspicuous Can",
+        "cost": 260,
+        "type": "weapon",
+        "desc": "A seemingly regular black soda can...?",
+        "atk": 1,
+        "mag": 3,
+        "def": 1,
+        "skill": "Bepsi"
+    },
+    "CookedTurkey": {
+        "name": "Cooked Turkey",
+        "cost": 500,
+        "type": "healhpmp",
+        "desc": "A whole Thanksgiving cooked turkey for the party to enjoy together. Pass the mashed potatoes! 😋",
+        "healhp": 200,
+        "healmp": 40
+    },
+    "AirFryer": {
+        "name": "AirFryer",
+        "cost": 2000,
+        "type": "weapon",
+        "desc": "Clearly you don't own this. ...Yet.",
+        "mag": 25,
+        "skill": "Garudyne"
+    },
+    "PoisonLeaf": {
+        "name": "Poison Leaf",
+        "cost": 222,
+        "type": "skill",
+        "desc": "Cover yourself with a Poison Leaf.",
+        "skill": "PoisonLeaf"
+    },
+    "BloomBattlerBreaker": {
+        "name": "BloomBattlerBreaker",
+        "cost": 2000,
+        "type": "weapon",
+        "desc": "A mysterious item that can break Bloom Battler. It's best not to ask why it exists.",
+        "mag": 23,
+        "def": 2,
+        "skill": "undefined"
+    },
+    "KillerPotion": {
+        "name": "Killer Potion",
+        "cost": 7050,
+        "type": "skill",
+        "desc": "Toss a killer potion to instantly down the foe.",
+        "skill": "KillerPotion"
+    },
+    "MagikaPoison": {
+        "name": "Magika Poison",
+        "cost": 1250,
+        "type": "weapon",
+        "desc": "This grants the use of Magika Poison, be aware there's no gain for this stat wise.",
+        "skill": "MagikaPoison"
+    },
+    "ConspicuousOldGun": {
+        "name": "Conspicuous Old Gun",
+        "cost": 1000,
+        "type": "weapon",
+        "desc": "An old weapon used to attack things from afar, remember to keep safety on unless fighting something. The best form of stress relief. It increases Strength by 9 because of how heavy it is...",
+        "atk": 9,
+        "skill": "ZaGan"
+    },
+    "ConspicuousOldRifle": {
+        "name": "Conspicuous Old Rifle",
+        "cost": 2000,
+        "type": "weapon",
+        "desc": "An old weapon used to attack things from up close, remember to keep safety on unless fighting something. Remember, no matter how bad your aim is, friendly fire is never permitted. It increases Strength by 18 because of how insanely heavy it is...",
+        "atk": 18,
+        "skill": "ZaMinigan"
     }
 }

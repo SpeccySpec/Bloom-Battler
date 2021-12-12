@@ -1,1 +1,36 @@
-{}
+{
+    "init": {
+        "id": "441198920668938260",
+        "bot": false,
+        "system": false,
+        "flags": 128,
+        "username": "Verwex",
+        "discriminator": "7283",
+        "avatar": "8b94b4a013f5e6ea2b76311949b2817a",
+        "createdTimestamp": 1525260419767,
+        "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/3.png",
+        "tag": "Verwex#7283",
+        "avatarURL": "https://cdn.discordapp.com/avatars/441198920668938260/8b94b4a013f5e6ea2b76311949b2817a.webp",
+        "displayAvatarURL": "https://cdn.discordapp.com/avatars/441198920668938260/8b94b4a013f5e6ea2b76311949b2817a.webp"
+    },
+    "challenger": {
+        "id": "712602499823042620",
+        "bot": false,
+        "system": false,
+        "flags": 0,
+        "username": "🎁Jolly!Harcvuk🎄",
+        "discriminator": "1225",
+        "avatar": "a_d8ca7a256e361d55db8d7cf9fe678628",
+        "createdTimestamp": 1589968075472,
+        "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/0.png",
+        "tag": "🎁Jolly!Harcvuk🎄#1225",
+        "avatarURL": "https://cdn.discordapp.com/avatars/712602499823042620/a_d8ca7a256e361d55db8d7cf9fe678628.webp",
+        "displayAvatarURL": "https://cdn.discordapp.com/avatars/712602499823042620/a_d8ca7a256e361d55db8d7cf9fe678628.webp"
+    },
+    "words": [
+        "Depressing",
+        "Path",
+        "Empty"
+    ],
+    "setword": null
+}

@@ -1,0 +1,32 @@
+{
+    "808462313262415893": {
+        "battling": false,
+        "colosseum": [
+            false,
+            0,
+            "none"
+        ],
+        "trials": {},
+        "parties": {},
+        "allies": {
+            "members": [],
+            "backup": []
+        },
+        "enemies": {
+            "members": [],
+            "items": {},
+            "rings": 0
+        },
+        "battleteam": "none",
+        "battleteam2": "none",
+        "battlechannel": "none",
+        "doturn": 0,
+        "turn": 1,
+        "turnorder": [],
+        "pvp": false,
+        "pvpmode": "none",
+        "weather": "clear",
+        "terrain": "normal",
+        "canshowtime": false
+    }
+}

@@ -1,0 +1,2548 @@
+{
+    "819616171086577667": {
+        "battling": true,
+        "colosseum": [
+            true,
+            28,
+            "EndlessCrystal",
+            {
+                "curLvl": 29,
+                "lvlLeft": 2,
+                "upperBound": 26,
+                "lowerBound": 14
+            }
+        ],
+        "trials": {
+            "Gods": {
+                "waves": [
+                    [
+                        "Monum"
+                    ],
+                    [
+                        "Nyamem"
+                    ],
+                    [
+                        "Evergreen"
+                    ],
+                    [
+                        "GravenIdol"
+                    ],
+                    [
+                        "InfectedVessel"
+                    ],
+                    [
+                        "TheLuminosity"
+                    ]
+                ]
+            },
+            "Crystal": {
+                "waves": [
+                    [
+                        "Murk",
+                        "Murk",
+                        "Murk"
+                    ],
+                    [
+                        "Nymbulous",
+                        "Nymbulous"
+                    ],
+                    [
+                        "MasterMiniscle"
+                    ],
+                    [
+                        "Memoiru"
+                    ],
+                    [
+                        "Monum"
+                    ],
+                    [
+                        "Topium"
+                    ],
+                    [
+                        "VolatileWarrior"
+                    ],
+                    [
+                        "GreatMossimp"
+                    ],
+                    [
+                        "Nyamem"
+                    ],
+                    [
+                        "GlowingCrystal"
+                    ],
+                    [
+                        "Hydruu"
+                    ],
+                    [
+                        "Evergreen"
+                    ],
+                    [
+                        "Mawler"
+                    ],
+                    [
+                        "GravenIdol"
+                    ],
+                    [
+                        "RefinedVessel"
+                    ],
+                    [
+                        "ElderLuminosity"
+                    ]
+                ]
+            },
+            "EndlessCrystal": {
+                "endless": true,
+                "waves": [
+                    [
+                        "Miniscle"
+                    ],
+                    [
+                        "Moltescle"
+                    ],
+                    [
+                        "Miniscle",
+                        "Moltescle"
+                    ],
+                    [
+                        "Moltescle",
+                        "Moltescle"
+                    ],
+                    [
+                        "Moltescle",
+                        "Moltescle",
+                        "Moltescle"
+                    ],
+                    [
+                        "Miniscle",
+                        "Moltescle",
+                        "Miniscle"
+                    ],
+                    [
+                        "Grassimp"
+                    ],
+                    [
+                        "Miniscle",
+                        "Grassimp",
+                        "Miniscle"
+                    ],
+                    [
+                        "Grassimp"
+                    ],
+                    [
+                        "Murk"
+                    ],
+                    [
+                        "Reactite",
+                        "Grassimp",
+                        "Reactite"
+                    ],
+                    [
+                        "Reactite",
+                        "Reactite",
+                        "Reactite"
+                    ],
+                    [
+                        "Moltescle",
+                        "Reactite",
+                        "Moltescle"
+                    ],
+                    [
+                        "Murk",
+                        "Reactite"
+                    ],
+                    [
+                        "Mosscreep"
+                    ],
+                    [
+                        "Mosscreep",
+                        "Reactite"
+                    ],
+                    [
+                        "Mosscreep",
+                        "Reactite",
+                        "Mosscreep"
+                    ],
+                    [
+                        "Mossknight"
+                    ],
+                    [
+                        "Folly",
+                        "Mossknight",
+                        "Folly"
+                    ],
+                    [
+                        "Folly",
+                        "Folly"
+                    ],
+                    [
+                        "Folly",
+                        "Folly",
+                        "Folly"
+                    ],
+                    [
+                        "Folly",
+                        "Folly",
+                        "Folly",
+                        "Folly"
+                    ],
+                    [
+                        "Folly",
+                        "Reactite",
+                        "Folly"
+                    ],
+                    [
+                        "Folly",
+                        "Mossknight",
+                        "Folly"
+                    ],
+                    [
+                        "Mossknight"
+                    ],
+                    [
+                        "Monum"
+                    ],
+                    [
+                        "Nyamo",
+                        "Nyamo",
+                        "Nyamo"
+                    ]
+                ]
+            }
+        },
+        "parties": {
+            "Explorers": {
+                "members": [
+                    "Spectra",
+                    "Sky",
+                    "Lanagu",
+                    "Sparky"
+                ],
+                "backup": [
+                    "Ira",
+                    "Sutela",
+                    "Harcvuk",
+                    "XCyan"
+                ],
+                "subs": [],
+                "items": {
+                    "RoboticFlamethrower": 1,
+                    "GrassGem": 1,
+                    "SparkleBerry": 12,
+                    "RoboticFist": 2,
+                    "ShineBerry": 10,
+                    "PlumpBerry": 15,
+                    "Potion": 10,
+                    "MPPotion": 4,
+                    "RevivalSpray": 2,
+                    "FrozenFist": 0,
+                    "IcyFang": 3,
+                    "NukeLaunch": 0,
+                    "SuperPotion": 4,
+                    "PoisonLeaf": 5,
+                    "Ruby": 3,
+                    "FrostGem": 1,
+                    "Emerald": 1
+                },
+                "rings": 36017,
+                "negotiates": {
+                    "Robat": 5,
+                    "FrostTunneler": 1,
+                    "Mechanium": 1,
+                    "Frostsage": 7,
+                    "Frostimp": 8,
+                    "Grassimp": 10,
+                    "Mossimp": 1,
+                    "Nyamush": 2,
+                    "Mosstone": 1,
+                    "GrassyWarrior": 7,
+                    "Grassage": 2,
+                    "GrassyGeneral": 1,
+                    "Toxiplant": 5,
+                    "Noxiherb": 2,
+                    "Miniscle": 4,
+                    "Nyamo": 1,
+                    "Agilitop": 1,
+                    "Psibo": 5,
+                    "Psiobo": 1,
+                    "Psiodynebo": 1
+                },
+                "negotiateAllies": {
+                    "Frostsage": {
+                        "name": "Frostsage",
+                        "atk": 30,
+                        "mag": 65,
+                        "prc": 40,
+                        "end": 12,
+                        "chr": 39,
+                        "int": 54,
+                        "agl": 32,
+                        "luk": 40,
+                        "buffAtk": 1,
+                        "buffMag": 16,
+                        "buffEnd": 0,
+                        "melee": [
+                            "Strike Attack",
+                            "strike"
+                        ],
+                        "skill": "Makarakarn"
+                    },
+                    "Frostimp": {
+                        "name": "Frostimp",
+                        "atk": 43,
+                        "mag": 54,
+                        "prc": 23,
+                        "end": 43,
+                        "chr": 46,
+                        "int": 20,
+                        "agl": 40,
+                        "luk": 23,
+                        "buffAtk": 3,
+                        "buffMag": 8,
+                        "buffEnd": 6,
+                        "melee": [
+                            "Strike Attack",
+                            "strike"
+                        ],
+                        "skill": "Bufudyne"
+                    },
+                    "GrassyWarrior": {
+                        "name": "GrassyWarrior",
+                        "atk": 55,
+                        "mag": 42,
+                        "prc": 46,
+                        "end": 32,
+                        "chr": 12,
+                        "int": 43,
+                        "agl": 21,
+                        "luk": 6,
+                        "buffAtk": 13,
+                        "buffMag": 0,
+                        "buffEnd": 6,
+                        "melee": [
+                            "Slash Attack",
+                            "slash"
+                        ],
+                        "skill": "FatalEnd"
+                    },
+                    "GrassyGeneral": {
+                        "name": "GrassyGeneral",
+                        "atk": 65,
+                        "mag": 55,
+                        "prc": 55,
+                        "end": 21,
+                        "chr": 42,
+                        "int": 32,
+                        "agl": 20,
+                        "luk": 30,
+                        "buffAtk": 16,
+                        "buffMag": 1,
+                        "buffEnd": 8,
+                        "melee": [
+                            "Slash Attack",
+                            "slash"
+                        ],
+                        "skill": "BraveBlade"
+                    },
+                    "Noxiherb": {
+                        "name": "Noxiherb",
+                        "atk": 30,
+                        "mag": 65,
+                        "prc": 50,
+                        "end": 25,
+                        "chr": 50,
+                        "int": 14,
+                        "agl": 44,
+                        "luk": 39,
+                        "buffAtk": 6,
+                        "buffMag": 6,
+                        "buffEnd": 6,
+                        "melee": [
+                            "Slash Attack",
+                            "slash"
+                        ],
+                        "skill": "GooWave"
+                    },
+                    "Psibo": {
+                        "name": "Psibo",
+                        "atk": 13,
+                        "mag": 60,
+                        "prc": 43,
+                        "end": 32,
+                        "chr": 40,
+                        "int": 50,
+                        "agl": 33,
+                        "luk": 48,
+                        "buffAtk": 2,
+                        "buffMag": 20,
+                        "buffEnd": 6,
+                        "melee": [
+                            "Pierce Attack",
+                            "pierce"
+                        ],
+                        "skill": "Psyshot"
+                    },
+                    "Psiodynebo": {
+                        "name": "Psiodynebo",
+                        "atk": 30,
+                        "mag": 65,
+                        "prc": 50,
+                        "end": 15,
+                        "chr": 55,
+                        "int": 43,
+                        "agl": 55,
+                        "luk": 20,
+                        "buffAtk": 4,
+                        "buffMag": 15,
+                        "buffEnd": 6,
+                        "melee": [
+                            "Pierce Attack",
+                            "pierce"
+                        ],
+                        "skill": "MarinKarin"
+                    }
+                },
+                "curPet": "Frostsage"
+            },
+            "Trials": {
+                "members": [
+                    "Spectra",
+                    "Ramia",
+                    "Euphorica",
+                    "Dusk"
+                ],
+                "items": {},
+                "rings": 119,
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {}
+            },
+            "FreezeflameShadows": {
+                "members": [
+                    "Dusk",
+                    "Firestorm",
+                    "Brainfreeze"
+                ],
+                "items": {},
+                "rings": 20
+            },
+            "Rain": {
+                "members": [
+                    "Rainbow"
+                ],
+                "items": {
+                    "ShineBerry": 7,
+                    "SparkleBerry": 7,
+                    "PlumpBerry": 5
+                },
+                "rings": 485,
+                "negotiates": {},
+                "negotiateAllies": {}
+            },
+            "Sky": {
+                "members": [
+                    "Sky"
+                ],
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {},
+                "items": {},
+                "rings": 0
+            },
+            "Sky(H)": {
+                "members": [
+                    "Sky(H)"
+                ],
+                "items": {},
+                "rings": 0
+            },
+            "Hurricane": {
+                "members": [
+                    "Hurricane"
+                ],
+                "items": {},
+                "rings": 90,
+                "negotiateAllies": {
+                    "Windspeed": {
+                        "name": "Windspeed",
+                        "atk": 55,
+                        "mag": 42,
+                        "prc": 46,
+                        "end": 32,
+                        "chr": 12,
+                        "int": 43,
+                        "agl": 21,
+                        "luk": 6,
+                        "buffAtk": 13,
+                        "buffMag": 0,
+                        "buffEnd": 6,
+                        "melee": [
+                            "Slash Attack",
+                            "slash"
+                        ],
+                        "skill": "FatalEnd"
+                    }
+                },
+                "negotiates": {
+                    "GrassyWarrior": 3
+                },
+                "backup": [],
+                "curPet": "GrassyWarrior"
+            },
+            "CursedIce": {
+                "members": [
+                    "Flara",
+                    "Lanagu",
+                    "Karma",
+                    "Nyamo"
+                ],
+                "items": {},
+                "rings": 0
+            },
+            "Firestorm": {
+                "members": [
+                    "Firestorm"
+                ],
+                "items": {},
+                "rings": 0
+            },
+            "Rivals": {
+                "members": [
+                    "Morisonu",
+                    "Hurricane",
+                    "Mike",
+                    "Lacrimal"
+                ],
+                "items": {
+                    "Potion": 4,
+                    "MPPotion": 4,
+                    "MolotovCocktail": 5,
+                    "RevivalSpray": 0
+                },
+                "rings": 0
+            },
+            "Dusk": {
+                "members": [
+                    "Dusk"
+                ],
+                "items": {},
+                "rings": 0
+            },
+            "Lanagu": {
+                "members": [
+                    "Lanagu",
+                    "Karma"
+                ],
+                "items": {
+                    "PlumpBerry": 1,
+                    "ShineBerry": 1,
+                    "SparkleBerry": 1
+                },
+                "rings": 641,
+                "negotiates": {
+                    "Frostimp": 3,
+                    "Frostsage": 2
+                },
+                "negotiateAllies": {}
+            },
+            "LeafyStorm": {
+                "members": [
+                    "Nyamo",
+                    "Lena"
+                ],
+                "items": {},
+                "rings": 0
+            },
+            "Trinity": {
+                "members": [
+                    "Sutela",
+                    "Patella",
+                    "Lacrimal"
+                ],
+                "items": {},
+                "rings": 0
+            },
+            "DemonicDesire": {
+                "members": [
+                    "DemonicDesire"
+                ],
+                "items": {},
+                "rings": 0
+            },
+            "RecolorNate": {
+                "members": [
+                    "RecolorNate"
+                ],
+                "items": {},
+                "rings": 0
+            },
+            "Barista": {
+                "members": [
+                    "Barista"
+                ],
+                "items": {},
+                "rings": 0
+            },
+            "Pointy": {
+                "members": [
+                    "Pointy"
+                ],
+                "items": {},
+                "rings": 0
+            },
+            "Void": {
+                "members": [
+                    "DJ",
+                    "OldSky",
+                    "Pointy",
+                    "RecolorNate"
+                ],
+                "items": {},
+                "rings": 0
+            },
+            "DJ": {
+                "members": [
+                    "OldSky",
+                    "DJ",
+                    "Pointy",
+                    "UltiHeal"
+                ],
+                "items": {},
+                "rings": 1308
+            },
+            "OldSky": {
+                "members": [
+                    "OldSky",
+                    "Pointy",
+                    "UltiHeal",
+                    "DJ"
+                ],
+                "items": {},
+                "rings": 682
+            },
+            "Sutela": {
+                "members": [
+                    "Sutela"
+                ],
+                "items": {},
+                "rings": 0,
+                "negotiateAllies": {}
+            },
+            "Patella": {
+                "members": [
+                    "Patella"
+                ],
+                "items": {},
+                "rings": 0
+            },
+            "TanukiProwess": {
+                "members": [
+                    "Spectra",
+                    "Sky"
+                ],
+                "items": {},
+                "rings": 367
+            },
+            "AwesomeSquad": {
+                "members": [
+                    "Nate",
+                    "Sparky",
+                    "Permic",
+                    "Ira"
+                ],
+                "items": {},
+                "rings": 0
+            },
+            "Deityslayers": {
+                "members": [
+                    "Spectra",
+                    "Flara",
+                    "SAUM-052",
+                    "Hurricane"
+                ],
+                "items": {},
+                "backup": [
+                    "Sky",
+                    "Firestorm",
+                    "Karma",
+                    "Euphorica"
+                ],
+                "subs": [],
+                "rings": 6405,
+                "negotiates": {
+                    "Robat": 5,
+                    "FrostTunneler": 1,
+                    "Mechanium": 1,
+                    "Frostsage": 7,
+                    "Frostimp": 8,
+                    "Grassimp": 10,
+                    "Mossimp": 1,
+                    "Nyamush": 2,
+                    "Mosstone": 1,
+                    "GrassyWarrior": 7,
+                    "Grassage": 2,
+                    "GrassyGeneral": 1,
+                    "Toxiplant": 5,
+                    "Noxiherb": 2,
+                    "Miniscle": 4,
+                    "Nyamo": 1,
+                    "Agilitop": 1,
+                    "Psibo": 5,
+                    "Psiobo": 1,
+                    "Psiodynebo": 1
+                },
+                "negotiateAllies": {
+                    "Frostsage": {
+                        "name": "Frostsage",
+                        "atk": 30,
+                        "mag": 65,
+                        "prc": 40,
+                        "end": 12,
+                        "chr": 39,
+                        "int": 54,
+                        "agl": 32,
+                        "luk": 40,
+                        "buffAtk": 1,
+                        "buffMag": 16,
+                        "buffEnd": 0,
+                        "melee": [
+                            "Strike Attack",
+                            "strike"
+                        ],
+                        "skill": "Makarakarn"
+                    },
+                    "Frostimp": {
+                        "name": "Frostimp",
+                        "atk": 43,
+                        "mag": 54,
+                        "prc": 23,
+                        "end": 43,
+                        "chr": 46,
+                        "int": 20,
+                        "agl": 40,
+                        "luk": 23,
+                        "buffAtk": 3,
+                        "buffMag": 8,
+                        "buffEnd": 6,
+                        "melee": [
+                            "Strike Attack",
+                            "strike"
+                        ],
+                        "skill": "Bufudyne"
+                    },
+                    "GrassyWarrior": {
+                        "name": "GrassyWarrior",
+                        "atk": 55,
+                        "mag": 42,
+                        "prc": 46,
+                        "end": 32,
+                        "chr": 12,
+                        "int": 43,
+                        "agl": 21,
+                        "luk": 6,
+                        "buffAtk": 13,
+                        "buffMag": 0,
+                        "buffEnd": 6,
+                        "melee": [
+                            "Slash Attack",
+                            "slash"
+                        ],
+                        "skill": "FatalEnd"
+                    },
+                    "GrassyGeneral": {
+                        "name": "GrassyGeneral",
+                        "atk": 65,
+                        "mag": 55,
+                        "prc": 55,
+                        "end": 21,
+                        "chr": 42,
+                        "int": 32,
+                        "agl": 20,
+                        "luk": 30,
+                        "buffAtk": 16,
+                        "buffMag": 1,
+                        "buffEnd": 8,
+                        "melee": [
+                            "Slash Attack",
+                            "slash"
+                        ],
+                        "skill": "BraveBlade"
+                    },
+                    "Noxiherb": {
+                        "name": "Noxiherb",
+                        "atk": 30,
+                        "mag": 65,
+                        "prc": 50,
+                        "end": 25,
+                        "chr": 50,
+                        "int": 14,
+                        "agl": 44,
+                        "luk": 39,
+                        "buffAtk": 6,
+                        "buffMag": 6,
+                        "buffEnd": 6,
+                        "melee": [
+                            "Slash Attack",
+                            "slash"
+                        ],
+                        "skill": "GooWave"
+                    },
+                    "Psibo": {
+                        "name": "Psibo",
+                        "atk": 13,
+                        "mag": 60,
+                        "prc": 43,
+                        "end": 32,
+                        "chr": 40,
+                        "int": 50,
+                        "agl": 33,
+                        "luk": 48,
+                        "buffAtk": 2,
+                        "buffMag": 20,
+                        "buffEnd": 6,
+                        "melee": [
+                            "Pierce Attack",
+                            "pierce"
+                        ],
+                        "skill": "Psyshot"
+                    },
+                    "Psiodynebo": {
+                        "name": "Psiodynebo",
+                        "atk": 30,
+                        "mag": 65,
+                        "prc": 50,
+                        "end": 15,
+                        "chr": 55,
+                        "int": 43,
+                        "agl": 55,
+                        "luk": 20,
+                        "buffAtk": 4,
+                        "buffMag": 15,
+                        "buffEnd": 6,
+                        "melee": [
+                            "Pierce Attack",
+                            "pierce"
+                        ],
+                        "skill": "MarinKarin"
+                    }
+                },
+                "curPet": "Frostsage"
+            },
+            "Lacrimal": {
+                "members": [
+                    "Lacrimal"
+                ],
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {},
+                "items": {},
+                "rings": 0
+            },
+            "Math": {
+                "members": [
+                    "Spectra"
+                ],
+                "items": {},
+                "rings": 882,
+                "backup": [],
+                "subs": [],
+                "negotiates": {
+                    "Periphe": 3
+                },
+                "negotiateAllies": {}
+            },
+            "Endless": {
+                "members": [
+                    "Spectra",
+                    "Euphorica",
+                    "Dusk",
+                    "Lena"
+                ],
+                "items": {},
+                "rings": 0,
+                "backup": [],
+                "subs": [],
+                "negotiates": {
+                    "Grassimp": 6
+                },
+                "negotiateAllies": {
+                    "Grassimp": {
+                        "name": "Grassimp",
+                        "atk": 18,
+                        "mag": 18,
+                        "prc": 16,
+                        "end": 19,
+                        "chr": 11,
+                        "int": 12,
+                        "agl": 12,
+                        "luk": 17,
+                        "buffAtk": 1,
+                        "buffMag": 7,
+                        "buffEnd": 1,
+                        "melee": [
+                            "Strike Attack",
+                            "strike"
+                        ],
+                        "skill": "Hanama"
+                    }
+                },
+                "curPet": "Grassimp"
+            },
+            "Endless-Sky": {
+                "members": [
+                    "Gura",
+                    "Sky",
+                    "SAUM-052",
+                    "Sky(H)"
+                ],
+                "items": {},
+                "rings": 0,
+                "backup": [],
+                "subs": [],
+                "negotiates": {
+                    "Miniscle": 6,
+                    "Grassimp": 6,
+                    "Nyamo": 2
+                },
+                "negotiateAllies": {
+                    "Miniscle": {
+                        "name": "Miniscle",
+                        "atk": 5,
+                        "mag": 10,
+                        "prc": 6,
+                        "end": 4,
+                        "chr": 8,
+                        "int": 2,
+                        "agl": 3,
+                        "luk": 6,
+                        "buffAtk": 1,
+                        "buffMag": 4,
+                        "buffEnd": 1,
+                        "melee": [
+                            "Strike Attack",
+                            "strike"
+                        ],
+                        "skill": "FreezingAir"
+                    },
+                    "Grassimp": {
+                        "name": "Grassimp",
+                        "atk": 18,
+                        "mag": 18,
+                        "prc": 16,
+                        "end": 19,
+                        "chr": 11,
+                        "int": 12,
+                        "agl": 12,
+                        "luk": 17,
+                        "buffAtk": 1,
+                        "buffMag": 7,
+                        "buffEnd": 1,
+                        "melee": [
+                            "Strike Attack",
+                            "strike"
+                        ],
+                        "skill": "Hanama"
+                    }
+                },
+                "curPet": "Grassimp"
+            }
+        },
+        "allies": {
+            "members": [
+                {
+                    "name": "Gura",
+                    "truename": "Gura",
+                    "team": "allies",
+                    "id": 0,
+                    "mainElement": "water",
+                    "melee": [
+                        "TridentJab",
+                        "pierce"
+                    ],
+                    "level": 29,
+                    "hp": 206,
+                    "mp": 63,
+                    "maxhp": 236,
+                    "maxmp": 137,
+                    "basehp": 40,
+                    "basemp": 25,
+                    "mpMeter": [
+                        "Magic Points",
+                        "MP"
+                    ],
+                    "lb": 313,
+                    "xp": -34923,
+                    "maxxp": 5472,
+                    "status": "none",
+                    "statusturns": 0,
+                    "atk": 36,
+                    "mag": 20,
+                    "prc": 19,
+                    "end": 35,
+                    "chr": 12,
+                    "int": 12,
+                    "agl": 36,
+                    "luk": 19,
+                    "baseatk": 8,
+                    "basemag": 6,
+                    "baseprc": 5,
+                    "baseend": 7,
+                    "basechr": 3,
+                    "baseint": 3,
+                    "baseagl": 8,
+                    "baseluk": 5,
+                    "weapon": "none",
+                    "guard": false,
+                    "buffs": {
+                        "atk": 3,
+                        "mag": 0,
+                        "prc": 2,
+                        "end": 0,
+                        "agl": 0
+                    },
+                    "meleequote": [
+                        "Yah!"
+                    ],
+                    "physquote": [
+                        "Hui-tcha!"
+                    ],
+                    "magquote": [
+                        "Feel the waves!"
+                    ],
+                    "strongquote": [
+                        "That's not all!"
+                    ],
+                    "critquote": [
+                        "Oops! Did that hurt?"
+                    ],
+                    "missquote": [
+                        "a"
+                    ],
+                    "weakquote": [
+                        "<:gogetapain:881377226413723658>"
+                    ],
+                    "dodgequote": [
+                        "Woah!"
+                    ],
+                    "resistquote": [
+                        "a"
+                    ],
+                    "blockquote": [
+                        "a"
+                    ],
+                    "repelquote": [
+                        "a"
+                    ],
+                    "drainquote": [
+                        "a"
+                    ],
+                    "hurtquote": [
+                        "a",
+                        "NOOOO, stop it!"
+                    ],
+                    "healquote": [
+                        "Do you know what you do in this predicament, when life hui-tcha's you? You go AGAIN!"
+                    ],
+                    "helpedquote": [
+                        "Thank you!"
+                    ],
+                    "killquote": [
+                        "Now that's what I'm talkin' about."
+                    ],
+                    "deathquote": [
+                        "Sometimes in life, you try to hit life with a 'hui-tcha', but then life decides to hit you with a 'hui-tcha."
+                    ],
+                    "allydeathquote": [
+                        "%ALLY%! NOOO!"
+                    ],
+                    "lbquote": [
+                        "Feel the wrath of Atlantis!"
+                    ],
+                    "lvlquote": [],
+                    "bio": {
+                        "species": "Ancient Shark",
+                        "age": 9000,
+                        "info": "A friendly and mischievous shark, Gawr Gura often plays around with her chumbuds and fellow team members. Best compared to a friend that exchanges back and forth teasing and encouragement. Despite being an over 9000 year old shark, she cleverly uses jokes and simple humor as she hangs out with friends.",
+                        "backstory": "A descendant of the Lost City of Atlantis, who swam to Earth while saying, ''It's so boring down there LOLOLOL!''\nShe bought her clothes (and her shark hat) in the human world and she really loves them. In her spare time, she enjoys talking to marine life.",
+                        "likes": "",
+                        "dislikes": "",
+                        "fears": "",
+                        "voice": "[Gawr Gura - HoloEN](https://www.youtube.com/watch?v=2Ov7xIgFeQ8)",
+                        "theme": "[REFLECT - Gawr Gura](https://www.youtube.com/watch?v=WGgEFoI9MhE)",
+                        "appearance": "https://cdn.discordapp.com/attachments/820036937791438859/912473473635467264/1000.png",
+                        "gender": "female",
+                        "height": "4'7",
+                        "weight": "???"
+                    },
+                    "weak": [
+                        "electric"
+                    ],
+                    "resist": [],
+                    "block": [
+                        "pierce"
+                    ],
+                    "repel": [
+                        "water"
+                    ],
+                    "drain": [],
+                    "skills": [
+                        "Snap",
+                        "BubbleJab",
+                        "Malaqua",
+                        "BubbleShield",
+                        "TwinSlash",
+                        "De-Tanukimation",
+                        "FreezingAir"
+                    ],
+                    "trust": {
+                        "Sky(H)": {
+                            "value": 40,
+                            "nextLevel": 150,
+                            "level": 2
+                        }
+                    },
+                    "charms": [],
+                    "owner": "412328234198237189",
+                    "leader": true,
+                    "leaderSkill": {
+                        "name": "TheAncients",
+                        "type": "boost",
+                        "target": "pierce",
+                        "percent": 20
+                    },
+                    "lb1": {
+                        "name": "Trident Wave",
+                        "class": "atk",
+                        "pow": 200,
+                        "cost": 100,
+                        "status": "bleed",
+                        "statuschance": 20,
+                        "level": 1
+                    },
+                    "lb2": {
+                        "name": "Sea Of Wrath",
+                        "class": "atk",
+                        "pow": 400,
+                        "cost": 200,
+                        "status": "bleed",
+                        "statuschance": 40,
+                        "level": 2
+                    },
+                    "lb3": {
+                        "name": "Megaton Shark Crunch",
+                        "class": "atk",
+                        "pow": 550,
+                        "cost": 300,
+                        "status": "bleed",
+                        "statuschance": 60
+                    },
+                    "lb4": {
+                        "name": "Wrath of the Ancients",
+                        "class": "atk",
+                        "pow": 840,
+                        "cost": 400,
+                        "status": "bleed",
+                        "statuschance": 80
+                    },
+                    "lvlUpQueue": [
+                        [
+                            "TwinSlash",
+                            21
+                        ],
+                        [
+                            "BubbleJab",
+                            12
+                        ],
+                        [
+                            "Malaqua",
+                            13
+                        ],
+                        [
+                            "FreezingAir",
+                            24
+                        ],
+                        [
+                            "BubbleShield",
+                            20
+                        ],
+                        [
+                            "DodgePhys",
+                            33
+                        ],
+                        [
+                            "RegenI",
+                            41
+                        ]
+                    ]
+                },
+                {
+                    "name": "Sky",
+                    "truename": "Sky",
+                    "team": "allies",
+                    "id": 1,
+                    "mainElement": "strike",
+                    "melee": [
+                        "BackdashSlash",
+                        "slash"
+                    ],
+                    "level": 29,
+                    "hp": 166,
+                    "mp": 98,
+                    "maxhp": 208,
+                    "maxmp": 165,
+                    "basehp": 40,
+                    "basemp": 25,
+                    "mpMeter": [
+                        "TanukiEnergy",
+                        "TE"
+                    ],
+                    "lb": 262,
+                    "xp": -34923,
+                    "maxxp": 5472,
+                    "status": "burn",
+                    "statusturns": 3,
+                    "atk": 34,
+                    "mag": 14,
+                    "prc": 33,
+                    "end": 18,
+                    "chr": 10,
+                    "int": 19,
+                    "agl": 33,
+                    "luk": 19,
+                    "baseatk": 8,
+                    "basemag": 5,
+                    "baseprc": 7,
+                    "baseend": 5,
+                    "basechr": 1,
+                    "baseint": 6,
+                    "baseagl": 7,
+                    "baseluk": 6,
+                    "weapon": "none",
+                    "guard": false,
+                    "buffs": {
+                        "atk": 2,
+                        "mag": 0,
+                        "prc": 3,
+                        "end": 0,
+                        "agl": 0
+                    },
+                    "meleequote": [
+                        "Teyaat!",
+                        "It's not over yet!",
+                        "Watch your head!",
+                        "Watch this.",
+                        "But wait, there's MORE!"
+                    ],
+                    "physquote": [
+                        "Take this!",
+                        "How about this?",
+                        "Totsugeki!",
+                        "On a scale of one to ten, I'll give you a three.",
+                        "Spectra trusted you.",
+                        "I ABSOLUTELY MUST FUCK AROUND, AND ADDITIONALLY FIND OUT!",
+                        "I'm about to whack you six ways from sunday!",
+                        "Hey %ALLY%, watch this.",
+                        "Watch yourself %ENEMY%, I'm coming full-force!",
+                        "NO ONE CAN DEFLECT THE %SKILL%!",
+                        "%ALLY%, ready to see a %SKILL% like no other?",
+                        "I am going to punch you."
+                    ],
+                    "magquote": [
+                        "Dodge this!",
+                        "There!",
+                        "Underestimating me will be your last mistake!",
+                        "You wanted a show %ALLY%? I'll give you one.",
+                        "Watch me cast a spell I don't know!"
+                    ],
+                    "strongquote": [
+                        "Is that all you can do?",
+                        "C'mon, make me get serious here!",
+                        "**We won't lose to you.**",
+                        "This is for my ally!",
+                        "You won't get away from this unscathed.",
+                        "YEAHH SIDDOWN, DON'T TRY IT! >:D"
+                    ],
+                    "critquote": [
+                        "**Your run ends here.**",
+                        "Aw that's too bad.",
+                        "I've only just BEGUN!",
+                        "You're finished!",
+                        "**I hope you were prepared for a beatdown.**",
+                        "It ends NOW!",
+                        "That was for %ALLY%!",
+                        "Heh, wonder if %ALLY% saw that one.",
+                        "Hey %ALLY% you see that?"
+                    ],
+                    "missquote": [
+                        "Ohhhh the irony....",
+                        "Ah shi-",
+                        "I do not see.",
+                        "Seems I forgot my glasses somewhere.",
+                        "Come on he wAS RIGHT THERE!",
+                        "You've gotta be kidding me.",
+                        "Goddammit.",
+                        "You-",
+                        "**I won't miss next time.**"
+                    ],
+                    "weakquote": [
+                        "Watch the fur WATCH THE FUR!",
+                        "AIEE! C'mon man we can talk about this...!",
+                        "UWAAAAA",
+                        "IYAAAAAAA",
+                        "We can be CIVILIZED ABOUT THIS!",
+                        "I can't fall here...",
+                        "Vision getting... Hazy....",
+                        "If there was ever a time I'd regret bringing my A-game, it'd have to be now....",
+                        "Lucky shot...",
+                        "OUGH! ...Didn't feel a thing.",
+                        "[👎]"
+                    ],
+                    "dodgequote": [
+                        "Denied!",
+                        "Try harder next time!",
+                        "Woah! Watch where you're aiming that thing!",
+                        "You chose wrong!",
+                        "Surely you *meant* to miss?",
+                        "Fuck off.",
+                        "Close, but no cigar!",
+                        "Hoh?",
+                        "Eyes, use them",
+                        "Aim a *little* more to the left next time.",
+                        "Would ya quit screwing around?",
+                        "You can't be serious.",
+                        "You can't keep up with me, JUST LOOK AT MY SPEED!",
+                        "C'mon you weren't even trying that time.",
+                        "There's... There's no way you're *that* bad at aiming?",
+                        "PFFFFFHAHAHAAAAAAAAAAHAHAAA! Ohh I need a vacation.",
+                        "I'm not fighting to watch you target practice man.",
+                        "You were *this* close!",
+                        "Come ON! You have eyes don't you???",
+                        "Quit messing around and HIT ME!",
+                        "I'm no genius, but I *think* you need glasses.",
+                        "Y-You can't be serious...",
+                        "Please tell me you're joking.",
+                        "Didn't know I'd be at a rookie shooting range today.",
+                        "Not bad. You almost made me use 0.00001% of my agility.",
+                        "I can throw a fly's excrement and hit more accurately than this.",
+                        "I swear you're doing this on purpose.",
+                        "I'm honestly speechless.",
+                        "No words.",
+                        "This is truly... A sight to behold.",
+                        "I'm genuinely getting worried for your eyesight.",
+                        "I really thought you'd hit me that time.",
+                        "Come on, it's not that hard. Just *aim* for the Tanuki.",
+                        "*Sighhhh...*",
+                        "This is NO time to be playing around ya know?",
+                        "Oi watch it! You almost charred my fur!",
+                        "NOOO NOT THE DAFFODILS!!! I just bought those. :(",
+                        "Mein gott! I think I've just encountered a blind person!",
+                        "I'll be blunt, I think you need an eye exam.",
+                        "You're gonna have to try a *little* harder than that.",
+                        "Where are you looking? Dumbass!",
+                        "Oops my bad, totally meant to dodge that.",
+                        "Ohhhh and you were *so close!*",
+                        "Wh- Where did you learn to aim, grade school?",
+                        "I'll give you an 🇦 for effort.",
+                        "It's about time I saw some effort.",
+                        "Can't touch this.",
+                        "I hope this is part of your plan.",
+                        "Bruh.",
+                        "F.",
+                        "🅱️oi.",
+                        "This... **Is where the fight truly begins...**",
+                        "Woah! Too close.",
+                        "PFFFFHAHAHAHAAAAAA!! Ohhh my lungs...",
+                        "I see you left your glasses at home today.",
+                        "Leave me BE!",
+                        "I only ask this once for your own benefit. **Leave.. me... ALONE!**",
+                        "Try try again as they say.",
+                        "You're telling me that this... Is your best?",
+                        "C'mon, make me break a sweat at least.",
+                        "You just made the last mistake that you'll ever make.",
+                        "Your first mistake was attacking me. **Your second was sticking around.**",
+                        "Bruh, look at this dude. Wait till you see the f- oh no no no no oh ho ho OoOoOoO- HA HA HA!",
+                        "BAHAHAHAHAAA!",
+                        "Ah.",
+                        "I see.",
+                        "https://www.youtube.com/watch?v=zhKepn1ssSM",
+                        "I'm not dodging, **I'm drifting out of the way.**",
+                        "Not today.",
+                        "'I'll hit you!' they said, 'I'LL DESTROY YOU!' they said. Tsk tsk, look at 'em now..",
+                        "I die hard. [Smirk]"
+                    ],
+                    "resistquote": [
+                        "Ooh, what a nice breeze.",
+                        "I actually felt a slight chill that time.",
+                        "At least try harder to freeze me?",
+                        "Oops, almost slipped that time.",
+                        "No.",
+                        "Try again.",
+                        "Are you gonna try something else now?",
+                        "Nice to know I get free air conditioning.",
+                        "Gotta love a n**ice** cold breeze.",
+                        "...You done yet?",
+                        "Daring today, aren't we?"
+                    ],
+                    "blockquote": [
+                        "Did you really think that move would work on me?",
+                        "That wasn't the only thing up your sleeve... *Right?*",
+                        "You *almost* made me flinch.",
+                        "IYAAAAAAAAAAAAAAAAAAAAA- Oh I'm fine. I mean uh, psh that was nothing.",
+                        "You tried, and you failed.",
+                        "I hope this isn't the second time this happened, not that I'd know or anything.",
+                        "You're trying my patience, aren't you?",
+                        "You're doing this on purpose right?",
+                        "You *almost* got me that time. I swear! Pinky promise!",
+                        "At least aim at someone else man."
+                    ],
+                    "repelquote": [
+                        "Did you really believe that **wouldn't** backfire?",
+                        "[Counter!](https://pbs.twimg.com/media/ErAh1BOWMAE69EA?format=jpg&name=medium)",
+                        "YOU FOOL!"
+                    ],
+                    "drainquote": [
+                        "[Delicious](https://cdn.discordapp.com/attachments/820036937791438859/873538603375013928/KyogreDelicious.jpg)"
+                    ],
+                    "hurtquote": [
+                        "Ow! Come on man dial it back a bit.",
+                        "Come on I *just* combed my fur today...",
+                        "Why don't *you,* go bother someone *ELSE?*",
+                        "**You better watch yourself before you wreck yourself.**",
+                        "How many times have I told you? Hands, OFF!",
+                        "You scratch my back? **I'll snap YOURS!**"
+                    ],
+                    "healquote": [
+                        "Be careful ya'll.",
+                        "Show a bit more caution will ya?",
+                        "You're not out of this yet.",
+                        "Don't falter yet, we've still got a job to do.",
+                        "What'd they do to you %ALLY%?",
+                        "I've got your back.",
+                        "Alright alright, I'll patch you up.",
+                        "C'mon, get up.",
+                        "We've still got company, so be careful.",
+                        "We've still got company, be careful y'hear?",
+                        "Your lack of caution is showing~.",
+                        "I can't keep covering for you bud, be more careful.",
+                        "I'm glad you're relying on me, but try to do it a bit less maybe?",
+                        "I know you're not getting hurt on purpose but, don't let my concern be in vain.",
+                        "I'm happy you're confident, but be more careful will ya?"
+                    ],
+                    "helpedquote": [
+                        "Thanks I needed that.",
+                        "Thanks for the help.",
+                        "Hooh, that was a close one.",
+                        "Hooh yeah, HOH yeah oh yeah..",
+                        "Thanks %ALLY%.",
+                        "Nice.",
+                        "I appreciate it.",
+                        "Much better.",
+                        "Looks like I was a bit too careless huh?",
+                        "Got a drink with that?",
+                        "Don't neglect your own wellbeing either.",
+                        "We're not in the clear yet!",
+                        "Much appreciated.",
+                        "You watch my back, I'll watch yours.",
+                        "Let's not get too chummy, the fight's not over yet."
+                    ],
+                    "killquote": [
+                        "Not even close!",
+                        "Chew on THAT!",
+                        "HAHAHAAAAA, ohhh I need a breather after that one.",
+                        "I alone am more than enough!",
+                        "I thought I could too.",
+                        "Don't ever, forget that pain.",
+                        "Amazing!"
+                    ],
+                    "deathquote": [
+                        "Not... Here....",
+                        "Damn you...!",
+                        "I can feel... The irony.... Already.....",
+                        "https://www.youtube.com/watch?v=lMKFdEBrsss",
+                        "This... isn't it.... chief.....",
+                        "Sorry everyone....",
+                        "I've... failed....",
+                        "Is this my limit...?",
+                        "Why... now...?",
+                        "I can't... Fall here....",
+                        "Not like this....",
+                        "This is no way to go out...",
+                        "I wasn't strong enough....",
+                        "Can't... Continue....",
+                        "Couldn't it have been more... Climactic...?",
+                        "Chang da worl, my final message. *Goodbye.*",
+                        "AGHHHHHHHHHHHHHHHH!!!",
+                        "OUGH!",
+                        "I got too careless...",
+                        "Damn it all...!",
+                        "I'm... sorry....",
+                        "Fuck... this....",
+                        "This is the best I could do...?",
+                        "I couldn't protect them...",
+                        "Grandma? Is that you...?",
+                        "Why is it always... me...?",
+                        "Not so amazing."
+                    ],
+                    "allydeathquote": [
+                        "Those bastards...",
+                        "**I will break them.**",
+                        "%ALLY%... %ENEMY%'s not getting out of this alive...",
+                        "The one that got %ALLY%... **is mine.**",
+                        "I was careless... Sorry %ALLY%....",
+                        "Don't worry %ALLY%, **I won't make the same mistake twice.**",
+                        "[Looks toward %ALLY% and immediately glares daggers of pure fury at %ENEMY%]",
+                        "You... Are so... **Dead.**",
+                        "Your first mistake was targeting %ALLY%... **Can you guess your second?**",
+                        "[Sky reached his boiling point and aimed a hostile gaze at %ENEMY%]",
+                        "It seems",
+                        "%ALLY%! No...!",
+                        "**I'll make sure you suffer for that.**",
+                        "You... **BASTARD!**"
+                    ],
+                    "lbquote": [
+                        "Are you brave enough to take this one?!",
+                        "I'll show you what a REAL attack looks like!",
+                        "You won't get away that easily.",
+                        "I got something special for ya!",
+                        "You're HISTORY!",
+                        "You picked the wrong warrior to mess with!",
+                        "You're as good as DEAD!",
+                        "**There's power behind this!**",
+                        "This one's gonna wipe you off the FACE OF THE PLANET!"
+                    ],
+                    "lvlquote": [
+                        "Not bad.",
+                        "Now my body should be warmed up!",
+                        "Forgive your enemies, but never EVER, forget their names!",
+                        "Phew, almost thought I wasn't getting any stronger.",
+                        "We call this one a difficulty tweak!",
+                        "What a sight for sore eyes.",
+                        "I feel like I'm improving.",
+                        "There is no limit to a Tanuki's power!",
+                        "I need to train harder.",
+                        "I feel like I can up the ante a bit.",
+                        "Nice."
+                    ],
+                    "bio": {
+                        "info": "A cheerful Tanuki and somewhat egotistical, and has perfectionist tendencies. He wears a slightly loose, blue short-sleeved turtleneck to match his Brown fur with dark tan cargo shorts. And a utility belt where he keeps his shortsword around his waist. He may resemble Spectra in many ways, both being Tanukis, but Sky's tail is slightly larger, as well as being a bit fluffier. He seems to have an empty look in his eyes, though it's hard to discern.",
+                        "backstory": "As a traveling warrior, he's seen many places and people. Through these travels, he has gained battle experience by simply mimicking what others do. Sometimes you can spot him with a leaf on his head. Being a Tanuki, he gets rather lonely, as there is almost no fellow Tanuki in the world. Spectra is the only exception to this, but as she came from a different planet, it's a bit awkward for him to approach her.",
+                        "voice": "Vegeta (Dragon Ball Super)",
+                        "theme": "[Lost - Call of Duty: Black Ops Cold War](https://youtu.be/dbWdn7rrxAI)",
+                        "age": 17,
+                        "likes": "Flashy Moves, Evasion, Mimicking Others, Nature",
+                        "dislikes": "The Heat, Making mistakes, Descrepancies",
+                        "fears": "Pyrophobia/Lavaphobia",
+                        "species": "Tanuki",
+                        "appearance": "https://cdn.discordapp.com/attachments/820036937791438859/887059626170925056/20210913_153530.jpg",
+                        "height": "3'",
+                        "weight": "113.41 lbs (Pounds)",
+                        "gender": "male",
+                        "disikes": "The Heat, Making mistakes, Discrepancies, Artificial Life"
+                    },
+                    "weak": [
+                        "fire",
+                        "bless"
+                    ],
+                    "resist": [
+                        "ice",
+                        "psychic"
+                    ],
+                    "block": [
+                        "curse"
+                    ],
+                    "repel": [],
+                    "drain": [],
+                    "skills": [
+                        "FinalBlow",
+                        "Tanukimation",
+                        "ElusionCounterattack",
+                        "Navinity",
+                        "ProngedThrust",
+                        "CycloneSlash",
+                        "Swordbreaker",
+                        "ThunderGodDance"
+                    ],
+                    "trust": {
+                        "Spectra": {
+                            "value": 716,
+                            "nextLevel": 950,
+                            "level": 17
+                        },
+                        "Lanagu": {
+                            "value": 65,
+                            "nextLevel": 200,
+                            "level": 3
+                        },
+                        "Ramia": {
+                            "value": 80,
+                            "nextLevel": 200,
+                            "level": 2
+                        },
+                        "Lena": {
+                            "value": 135,
+                            "nextLevel": 900,
+                            "level": 17
+                        },
+                        "Flara": {
+                            "value": 35,
+                            "nextLevel": 100,
+                            "level": 1
+                        },
+                        "Euphorica": {
+                            "value": 5,
+                            "nextLevel": 100,
+                            "level": 1
+                        },
+                        "Ira": {
+                            "value": 65,
+                            "nextLevel": 100,
+                            "level": 1
+                        },
+                        "Dusk": {
+                            "value": 5,
+                            "nextLevel": 100,
+                            "level": 1
+                        },
+                        "Sparky": {
+                            "value": 65,
+                            "nextLevel": 100,
+                            "level": 1
+                        },
+                        "Rainbow": {
+                            "value": 45,
+                            "nextLevel": 100,
+                            "level": 1
+                        },
+                        "Nate": {
+                            "value": 85,
+                            "nextLevel": 100,
+                            "level": 1
+                        },
+                        "Rattle": {
+                            "value": 80,
+                            "nextLevel": 100,
+                            "level": 1
+                        },
+                        "Brainfreeze": {
+                            "value": 30,
+                            "nextLevel": 150,
+                            "level": 2
+                        },
+                        "Permic": {
+                            "value": 55,
+                            "nextLevel": 100,
+                            "level": 1
+                        },
+                        "Sutela": {
+                            "value": 30,
+                            "nextLevel": 100,
+                            "level": 1
+                        },
+                        "SAUM-052": {
+                            "value": 20,
+                            "nextLevel": 200,
+                            "level": 3
+                        },
+                        "XCyan": {
+                            "value": 25,
+                            "nextLevel": 100,
+                            "level": 1
+                        },
+                        "Harcvuk": {
+                            "value": 25,
+                            "nextLevel": 100,
+                            "level": 1
+                        },
+                        "Sky(H)": {
+                            "value": 45,
+                            "nextLevel": 150,
+                            "level": 2
+                        }
+                    },
+                    "charms": [],
+                    "owner": "412328234198237189",
+                    "lb1": {
+                        "name": "EtherealBlade",
+                        "pow": 300,
+                        "cost": 100,
+                        "status": "none",
+                        "statuschance": 0,
+                        "affinitypow": 5,
+                        "class": "atk",
+                        "level": 1
+                    },
+                    "lb2": {
+                        "name": "EtherealExcalibur",
+                        "pow": 500,
+                        "cost": 220,
+                        "status": "none",
+                        "statuschance": 0,
+                        "affinitypow": 7,
+                        "class": "atk",
+                        "level": 2
+                    },
+                    "lb3": {
+                        "name": "OmegaFinishingBlow",
+                        "class": "atk",
+                        "pow": 750,
+                        "cost": 340,
+                        "status": "dizzy",
+                        "statuschance": 999
+                    },
+                    "lb4": {
+                        "name": "Raijin Enbu",
+                        "class": "atk",
+                        "pow": 20,
+                        "hits": 11,
+                        "cost": 1000,
+                        "status": "none",
+                        "statuschance": 0
+                    },
+                    "lvlUpQueue": [
+                        [
+                            "CycloneSlash",
+                            18
+                        ],
+                        [
+                            "ThunderGodDance",
+                            29
+                        ],
+                        [
+                            "ProngedThrust",
+                            10
+                        ],
+                        [
+                            "Swordbreaker",
+                            22
+                        ]
+                    ],
+                    "affinitypoint": 10
+                },
+                {
+                    "name": "SAUM-052",
+                    "truename": "SAUM-052",
+                    "team": "allies",
+                    "id": 2,
+                    "mainElement": "electric",
+                    "melee": [
+                        "MetalBash",
+                        "strike"
+                    ],
+                    "level": 29,
+                    "hp": 236,
+                    "mp": 65,
+                    "maxhp": 236,
+                    "maxmp": 193,
+                    "basehp": 40,
+                    "basemp": 25,
+                    "mpMeter": [
+                        "EnergyReserves",
+                        "ER"
+                    ],
+                    "lb": 153,
+                    "xp": -34923,
+                    "maxxp": 5472,
+                    "status": "none",
+                    "statusturns": 0,
+                    "atk": 38,
+                    "mag": 19,
+                    "prc": 19,
+                    "end": 34,
+                    "chr": 19,
+                    "int": 35,
+                    "agl": 13,
+                    "luk": 12,
+                    "baseatk": 10,
+                    "basemag": 5,
+                    "baseprc": 5,
+                    "baseend": 6,
+                    "basechr": 5,
+                    "baseint": 7,
+                    "baseagl": 4,
+                    "baseluk": 3,
+                    "weapon": "none",
+                    "guard": false,
+                    "buffs": {
+                        "atk": 3,
+                        "mag": 0,
+                        "prc": 1,
+                        "end": 0,
+                        "agl": 0
+                    },
+                    "meleequote": [
+                        "[Their robotic pupils turn red]"
+                    ],
+                    "physquote": [
+                        "[Their robotic pupils turn into a dark crimson]"
+                    ],
+                    "magquote": [
+                        "[Their robotic pupils turn into a shining azure]"
+                    ],
+                    "strongquote": [
+                        "Attack successful, continuing assault."
+                    ],
+                    "critquote": [
+                        "A miscalculated result... Continuing attack."
+                    ],
+                    "missquote": [
+                        "Recorded miscalculation, activating proper countermeasures."
+                    ],
+                    "weakquote": [
+                        "Unexpected damage sustained."
+                    ],
+                    "dodgequote": [
+                        "Evasion successful, initiating a counterattack."
+                    ],
+                    "resistquote": [
+                        "...You won't stop me with just this."
+                    ],
+                    "blockquote": [
+                        "...Your attempts are futile."
+                    ],
+                    "repelquote": [
+                        "Attack confirmed to have been bounced back... Analyzing potential cause...."
+                    ],
+                    "drainquote": [
+                        "Enemy attack... Intercepted? System recovery confirmed, I will analyze this later...."
+                    ],
+                    "hurtquote": [
+                        "Damage sustained. Amount recorded as... Irrelevant."
+                    ],
+                    "healquote": [
+                        "[Their robotic pupils turn green]"
+                    ],
+                    "helpedquote": [
+                        "......I thank you.",
+                        "[Her eyes turned into the color of Sky's fur] Don't neglect your own wellbeing either."
+                    ],
+                    "killquote": [
+                        "Kill confirmed, moving on."
+                    ],
+                    "deathquote": [
+                        "Damage exceeds... Operating power.... I have failed.....",
+                        "Mission... Failed...."
+                    ],
+                    "allydeathquote": [],
+                    "lbquote": [
+                        "Conditions met, commencing final strike. [Their robotic pupils turn into a crimson red and show a look of cold mercilessnes]"
+                    ],
+                    "lvlquote": [
+                        "Systems nominal, combat prowess increased. Results are... satisfactory."
+                    ],
+                    "bio": {
+                        "species": "Robot - Snow Leopard",
+                        "age": 134,
+                        "info": "Her name actually has a double meaning; it also stands for 'Specialized Augmentation Unique Model 052'. While the name itself is different, the meaning is technically the same.",
+                        "backstory": "SAUM-052, is a serial number branded by her creators. It stands for 'Special Army Unit Model 052'. She is a cold calculated killer that has previously been used in [REDACTED], now reduced to a deactivated mech in a non-disclosed [REDACTED], awaiting her inevitable re-activation, **by friend or by foe**.",
+                        "likes": "",
+                        "dislikes": "",
+                        "fears": "",
+                        "voice": "Aigis (placeholder L)",
+                        "theme": "[Alone - Call of Duty: Black Ops Cold War](https://youtu.be/5BX4FWTbTbI)",
+                        "height": "3'1",
+                        "weight": "2.5 (Humans)",
+                        "\"4'2\"\"": "4'2",
+                        "\"4'2''\"": "4'2''",
+                        "appearance": "https://cdn.discordapp.com/attachments/820036937791438859/904017819992207490/Miku_Spin_Sprites-40.gif",
+                        "gender": "female"
+                    },
+                    "weak": [
+                        "water",
+                        "gravity"
+                    ],
+                    "resist": [
+                        "pierce",
+                        "electric"
+                    ],
+                    "block": [
+                        "poison"
+                    ],
+                    "repel": [],
+                    "drain": [],
+                    "skills": [
+                        "Lunge",
+                        "Snap",
+                        "Zio",
+                        "OrgiaMode",
+                        "Anti-ContactZap",
+                        "JoltHand",
+                        "Tarukaja",
+                        "Anti-MaterialZap"
+                    ],
+                    "trust": {
+                        "Melarue": {
+                            "value": 5,
+                            "nextLevel": 100,
+                            "level": 1
+                        },
+                        "Sky": {
+                            "value": 20,
+                            "nextLevel": 200,
+                            "level": 3
+                        },
+                        "Firestorm": {
+                            "value": 10,
+                            "nextLevel": 100,
+                            "level": 1
+                        },
+                        "Brainfreeze": {
+                            "value": 1,
+                            "nextLevel": 100,
+                            "level": 1
+                        },
+                        "Spectra": {
+                            "value": 55,
+                            "nextLevel": 100,
+                            "level": 1
+                        },
+                        "Lena": {
+                            "value": 10,
+                            "nextLevel": 100,
+                            "level": 1
+                        },
+                        "Axel": {
+                            "value": 10,
+                            "nextLevel": 100,
+                            "level": 1
+                        },
+                        "Sparky": {
+                            "value": 10,
+                            "nextLevel": 100,
+                            "level": 1
+                        },
+                        "Ramia": {
+                            "value": 10,
+                            "nextLevel": 100,
+                            "level": 1
+                        },
+                        "Karma": {
+                            "value": 15,
+                            "nextLevel": 100,
+                            "level": 1
+                        },
+                        "Sky(H)": {
+                            "value": 10,
+                            "nextLevel": 150,
+                            "level": 2
+                        }
+                    },
+                    "charms": [],
+                    "owner": "412328234198237189",
+                    "lb1": {
+                        "name": "Over Breaker",
+                        "class": "atk",
+                        "pow": 320,
+                        "cost": 100,
+                        "status": "fear",
+                        "statuschance": 20
+                    },
+                    "lb2": {
+                        "name": "Utter Brutality",
+                        "class": "atk",
+                        "pow": 600,
+                        "cost": 200,
+                        "status": "fear",
+                        "statuschance": 30
+                    },
+                    "lb3": {
+                        "name": "Ruthless Beatdown",
+                        "class": "atk",
+                        "pow": 800,
+                        "cost": 300,
+                        "status": "fear",
+                        "statuschance": 30
+                    },
+                    "lb4": {
+                        "name": "Heartless Desolation",
+                        "class": "atk",
+                        "pow": 1000,
+                        "cost": 400,
+                        "status": "fear",
+                        "statuschance": 999
+                    },
+                    "lvlUpQueue": [
+                        [
+                            "JoltHand",
+                            10
+                        ],
+                        [
+                            "Anti-MaterialZap",
+                            23
+                        ],
+                        [
+                            "Tarukaja",
+                            15
+                        ],
+                        [
+                            "Anti-ContactZap",
+                            8
+                        ]
+                    ]
+                },
+                {
+                    "name": "Sky(H)",
+                    "truename": "Sky(H)",
+                    "team": "allies",
+                    "id": 3,
+                    "mainElement": "strike",
+                    "melee": [
+                        "HolyHandBonk",
+                        "strike"
+                    ],
+                    "level": 29,
+                    "hp": 198,
+                    "mp": 95,
+                    "maxhp": 198,
+                    "maxmp": 231,
+                    "basehp": 30,
+                    "basemp": 35,
+                    "mpMeter": [
+                        "Magic Points",
+                        "MP"
+                    ],
+                    "lb": 83,
+                    "xp": -34923,
+                    "maxxp": 5472,
+                    "status": "none",
+                    "statusturns": 0,
+                    "atk": 13,
+                    "mag": 13,
+                    "prc": 36,
+                    "end": 34,
+                    "chr": 19,
+                    "int": 36,
+                    "agl": 19,
+                    "luk": 19,
+                    "baseatk": 4,
+                    "basemag": 4,
+                    "baseprc": 8,
+                    "baseend": 6,
+                    "basechr": 5,
+                    "baseint": 8,
+                    "baseagl": 5,
+                    "baseluk": 5,
+                    "weapon": "none",
+                    "guard": false,
+                    "buffs": {
+                        "atk": 0,
+                        "mag": 0,
+                        "prc": 0,
+                        "end": 0,
+                        "agl": 0
+                    },
+                    "meleequote": [],
+                    "physquote": [],
+                    "magquote": [],
+                    "strongquote": [],
+                    "critquote": [],
+                    "missquote": [],
+                    "weakquote": [],
+                    "dodgequote": [],
+                    "resistquote": [],
+                    "blockquote": [],
+                    "repelquote": [],
+                    "drainquote": [],
+                    "hurtquote": [],
+                    "healquote": [],
+                    "helpedquote": [],
+                    "killquote": [],
+                    "deathquote": [],
+                    "allydeathquote": [],
+                    "lbquote": [],
+                    "lvlquote": [],
+                    "bio": {
+                        "species": "Tanuki",
+                        "age": 17,
+                        "info": "This Tanuki is a branching off version of the original Sky. While they still share the same core values and morals, they follow different ideologies. This version is also a bit more on the fluffy side, nevertheless sharing the same appearance (except the staff on his back).",
+                        "backstory": "",
+                        "likes": "",
+                        "dislikes": "",
+                        "fears": "",
+                        "voice": "",
+                        "theme": "",
+                        "height": "",
+                        "weight": "",
+                        "gender": "male"
+                    },
+                    "weak": [
+                        "ice",
+                        "fire"
+                    ],
+                    "resist": [
+                        "psychic"
+                    ],
+                    "block": [
+                        "bless",
+                        "curse"
+                    ],
+                    "repel": [],
+                    "drain": [],
+                    "skills": [
+                        "Kouha",
+                        "Tanukimation",
+                        "Dia",
+                        "Media",
+                        "Makouha",
+                        "Visukaja",
+                        "CuringAura"
+                    ],
+                    "trust": {
+                        "SAUM-052": {
+                            "value": 10,
+                            "nextLevel": 150,
+                            "level": 2
+                        },
+                        "Gura": {
+                            "value": 40,
+                            "nextLevel": 150,
+                            "level": 2
+                        },
+                        "Sky": {
+                            "value": 45,
+                            "nextLevel": 150,
+                            "level": 2
+                        }
+                    },
+                    "charms": [],
+                    "owner": "412328234198237189",
+                    "lb1": {
+                        "name": "HolyEmbrace",
+                        "class": "heal",
+                        "pow": 170,
+                        "cost": 100,
+                        "status": "none",
+                        "statuschance": 0,
+                        "level": 1
+                    },
+                    "lb2": {
+                        "name": "CalmingLight",
+                        "class": "heal",
+                        "pow": 240,
+                        "cost": 150,
+                        "status": "none",
+                        "statuschance": 0,
+                        "level": 2
+                    },
+                    "lb3": {
+                        "name": "ChimkenNuggies",
+                        "class": "heal",
+                        "pow": 360,
+                        "cost": 200,
+                        "status": "none",
+                        "statuschance": 0,
+                        "level": 3
+                    },
+                    "lb4": {
+                        "name": "Light'sEmbrace",
+                        "class": "heal",
+                        "pow": 777,
+                        "cost": 400,
+                        "status": "none",
+                        "statuschance": 0
+                    },
+                    "lvlUpQueue": [
+                        [
+                            "Makouha",
+                            13
+                        ],
+                        [
+                            "Visukaja",
+                            15
+                        ],
+                        [
+                            "CuringAura",
+                            15
+                        ],
+                        [
+                            "Media",
+                            7
+                        ],
+                        [
+                            "InvigI",
+                            41
+                        ]
+                    ]
+                }
+            ],
+            "backup": []
+        },
+        "enemies": {
+            "members": [
+                {
+                    "name": "Nyamo",
+                    "truename": "Nyamo",
+                    "team": "enemies",
+                    "enemy": true,
+                    "id": 4,
+                    "maxhp": 350,
+                    "maxmp": 50,
+                    "hp": 350,
+                    "mp": 42,
+                    "lb": 0,
+                    "boss": false,
+                    "miniboss": false,
+                    "finalboss": false,
+                    "diety": false,
+                    "atk": 22,
+                    "mag": 20,
+                    "prc": 22,
+                    "end": 19,
+                    "chr": 26,
+                    "int": 20,
+                    "agl": 26,
+                    "luk": 29,
+                    "weapon": "none",
+                    "guard": false,
+                    "status": "none",
+                    "statusturns": 0,
+                    "melee": [
+                        "Ankle Bite",
+                        "pierce"
+                    ],
+                    "skills": [
+                        "Aques",
+                        "DoubleCrunch",
+                        "Current",
+                        "Embers",
+                        "Clawshread"
+                    ],
+                    "weak": [
+                        "ice",
+                        "electric"
+                    ],
+                    "resist": [
+                        "strike",
+                        "fire"
+                    ],
+                    "block": [
+                        "pierce",
+                        "wind"
+                    ],
+                    "repel": [],
+                    "drain": [],
+                    "buffs": {
+                        "atk": 0,
+                        "mag": 0,
+                        "prc": 0,
+                        "end": 0,
+                        "agl": 0
+                    },
+                    "limitbreak": null,
+                    "meleequote": [],
+                    "physquote": [],
+                    "magquote": [],
+                    "strongquote": [],
+                    "critquote": [],
+                    "weakquote": [],
+                    "missquote": [],
+                    "dodgequote": [],
+                    "resistquote": [],
+                    "blockquote": [],
+                    "repelquote": [],
+                    "drainquote": [],
+                    "hurtquote": [],
+                    "healquote": [],
+                    "helpedquote": [],
+                    "killquote": [],
+                    "deathquote": [],
+                    "lbquote": [],
+                    "trust": {},
+                    "negotiateOptions": [
+                        {
+                            "name": "Roar",
+                            "desc": "Roar with the Nyamo",
+                            "action": "%PLAYER% imitates the Nyamo's roars. Nyamo is satisfied.",
+                            "convince": 50
+                        },
+                        {
+                            "name": "Pet",
+                            "desc": "Pet the Nyamo",
+                            "action": "%PLAYER% pets the Nyamo. It feels somewhat happy.",
+                            "convince": 50
+                        },
+                        {
+                            "name": "Playtime",
+                            "desc": "Play with the Nyamo",
+                            "action": "%PLAYER% plays with Nyamo. It is satisfied",
+                            "convince": 100
+                        }
+                    ],
+                    "negotiateDefs": {
+                        "required": 5,
+                        "qualities": {
+                            "atk": 5,
+                            "mag": 5,
+                            "def": 3,
+                            "skill": "Embers"
+                        }
+                    },
+                    "oppAff": {
+                        "1": {
+                            "weak": [],
+                            "resist": [],
+                            "block": [],
+                            "repel": [],
+                            "drain": []
+                        }
+                    },
+                    "negotiatePercent": 100,
+                    "negotiated": true
+                },
+                {
+                    "name": "Nyamo",
+                    "truename": "Nyamo",
+                    "team": "enemies",
+                    "enemy": true,
+                    "id": 5,
+                    "maxhp": 350,
+                    "maxmp": 50,
+                    "hp": 315,
+                    "mp": 50,
+                    "lb": 14,
+                    "boss": false,
+                    "miniboss": false,
+                    "finalboss": false,
+                    "diety": false,
+                    "atk": 22,
+                    "mag": 20,
+                    "prc": 22,
+                    "end": 19,
+                    "chr": 26,
+                    "int": 20,
+                    "agl": 26,
+                    "luk": 29,
+                    "weapon": "none",
+                    "guard": false,
+                    "status": "none",
+                    "statusturns": 0,
+                    "melee": [
+                        "Ankle Bite",
+                        "pierce"
+                    ],
+                    "skills": [
+                        "Aques",
+                        "DoubleCrunch",
+                        "Current",
+                        "Embers",
+                        "Clawshread"
+                    ],
+                    "weak": [
+                        "ice",
+                        "electric"
+                    ],
+                    "resist": [
+                        "strike",
+                        "fire"
+                    ],
+                    "block": [
+                        "pierce",
+                        "wind"
+                    ],
+                    "repel": [],
+                    "drain": [],
+                    "buffs": {
+                        "atk": 0,
+                        "mag": 0,
+                        "prc": 0,
+                        "end": 0,
+                        "agl": 0
+                    },
+                    "limitbreak": null,
+                    "meleequote": [],
+                    "physquote": [],
+                    "magquote": [],
+                    "strongquote": [],
+                    "critquote": [],
+                    "weakquote": [],
+                    "missquote": [],
+                    "dodgequote": [],
+                    "resistquote": [],
+                    "blockquote": [],
+                    "repelquote": [],
+                    "drainquote": [],
+                    "hurtquote": [],
+                    "healquote": [],
+                    "helpedquote": [],
+                    "killquote": [],
+                    "deathquote": [],
+                    "lbquote": [],
+                    "trust": {},
+                    "negotiateOptions": [
+                        {
+                            "name": "Roar",
+                            "desc": "Roar with the Nyamo",
+                            "action": "%PLAYER% imitates the Nyamo's roars. Nyamo is satisfied.",
+                            "convince": 50
+                        },
+                        {
+                            "name": "Pet",
+                            "desc": "Pet the Nyamo",
+                            "action": "%PLAYER% pets the Nyamo. It feels somewhat happy.",
+                            "convince": 50
+                        },
+                        {
+                            "name": "Playtime",
+                            "desc": "Play with the Nyamo",
+                            "action": "%PLAYER% plays with Nyamo. It is satisfied",
+                            "convince": 100
+                        }
+                    ],
+                    "negotiateDefs": {
+                        "required": 5,
+                        "qualities": {
+                            "atk": 5,
+                            "mag": 5,
+                            "def": 3,
+                            "skill": "Embers"
+                        }
+                    },
+                    "oppAff": {
+                        "0": {
+                            "weak": [],
+                            "resist": [],
+                            "block": [],
+                            "repel": [],
+                            "drain": []
+                        }
+                    },
+                    "negotiatePercent": 100,
+                    "negotiated": true
+                },
+                {
+                    "name": "Nyamo",
+                    "truename": "Nyamo",
+                    "team": "enemies",
+                    "enemy": true,
+                    "id": 6,
+                    "maxhp": 350,
+                    "maxmp": 50,
+                    "hp": 350,
+                    "mp": 42,
+                    "lb": 0,
+                    "boss": false,
+                    "miniboss": false,
+                    "finalboss": false,
+                    "diety": false,
+                    "atk": 22,
+                    "mag": 20,
+                    "prc": 22,
+                    "end": 19,
+                    "chr": 26,
+                    "int": 20,
+                    "agl": 26,
+                    "luk": 29,
+                    "weapon": "none",
+                    "guard": false,
+                    "status": "none",
+                    "statusturns": 0,
+                    "melee": [
+                        "Ankle Bite",
+                        "pierce"
+                    ],
+                    "skills": [
+                        "Aques",
+                        "DoubleCrunch",
+                        "Current",
+                        "Embers",
+                        "Clawshread"
+                    ],
+                    "weak": [
+                        "ice",
+                        "electric"
+                    ],
+                    "resist": [
+                        "strike",
+                        "fire"
+                    ],
+                    "block": [
+                        "pierce",
+                        "wind"
+                    ],
+                    "repel": [],
+                    "drain": [],
+                    "buffs": {
+                        "atk": 0,
+                        "mag": 0,
+                        "prc": 0,
+                        "end": 0,
+                        "agl": 0
+                    },
+                    "limitbreak": null,
+                    "meleequote": [],
+                    "physquote": [],
+                    "magquote": [],
+                    "strongquote": [],
+                    "critquote": [],
+                    "weakquote": [],
+                    "missquote": [],
+                    "dodgequote": [],
+                    "resistquote": [],
+                    "blockquote": [],
+                    "repelquote": [],
+                    "drainquote": [],
+                    "hurtquote": [],
+                    "healquote": [],
+                    "helpedquote": [],
+                    "killquote": [],
+                    "deathquote": [],
+                    "lbquote": [],
+                    "trust": {},
+                    "negotiateOptions": [
+                        {
+                            "name": "Roar",
+                            "desc": "Roar with the Nyamo",
+                            "action": "%PLAYER% imitates the Nyamo's roars. Nyamo is satisfied.",
+                            "convince": 50
+                        },
+                        {
+                            "name": "Pet",
+                            "desc": "Pet the Nyamo",
+                            "action": "%PLAYER% pets the Nyamo. It feels somewhat happy.",
+                            "convince": 50
+                        },
+                        {
+                            "name": "Playtime",
+                            "desc": "Play with the Nyamo",
+                            "action": "%PLAYER% plays with Nyamo. It is satisfied",
+                            "convince": 100
+                        }
+                    ],
+                    "negotiateDefs": {
+                        "required": 5,
+                        "qualities": {
+                            "atk": 5,
+                            "mag": 5,
+                            "def": 3,
+                            "skill": "Embers"
+                        }
+                    },
+                    "oppAff": {
+                        "2": {
+                            "weak": [],
+                            "resist": [],
+                            "block": [],
+                            "repel": [],
+                            "drain": []
+                        }
+                    }
+                }
+            ],
+            "backup": []
+        },
+        "battleteam": "Endless-Sky",
+        "battleteam2": "none",
+        "battlechannel": "820036937791438859",
+        "doturn": 0,
+        "turn": 49,
+        "turnorder": [],
+        "pvp": false,
+        "pvpmode": "none",
+        "canshowtime": false,
+        "weather": "clear",
+        "terrain": "normal",
+        "ranked": false,
+        "canRun": true
+    }
+}

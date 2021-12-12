@@ -2,17 +2,20 @@
     "712602499823042620": {
         "rolls": 10,
         "canfind": true,
-        "findcooldown": 21,
-        "stars": 10,
+        "findcooldown": 51,
+        "stars": 26,
         "relics": [
-            "Master Emerald"
+            "Master Emerald",
+            "Real Knife",
+            "Indigo Wisp",
+            "Pity Shield"
         ],
         "userelic": "Master Emerald"
     },
     "441198920668938260": {
         "rolls": 10,
         "canfind": true,
-        "findcooldown": 33,
+        "findcooldown": 3,
         "stars": 8,
         "relics": [
             "Real Knife"
@@ -22,30 +25,164 @@
     "516359709779820544": {
         "rolls": 10,
         "canfind": true,
-        "findcooldown": 33,
-        "stars": 6,
+        "findcooldown": 3,
+        "stars": 16,
         "relics": [
-            "Kirby's Sword"
-        ]
+            "Kirby's Sword",
+            "Shoop Da Whoop",
+            "Pure Nail"
+        ],
+        "userelic": "Shoop Da Whoop"
     },
     "332619720802959361": {
         "rolls": 10,
         "canfind": true,
-        "findcooldown": 50,
+        "findcooldown": 20,
         "stars": 0,
         "relics": []
     },
     "532291526634635285": {
         "rolls": 10,
         "canfind": true,
-        "findcooldown": 56,
+        "findcooldown": 26,
         "stars": 0,
         "relics": []
     },
     "461050360832720904": {
         "rolls": 10,
         "canfind": true,
-        "findcooldown": 42,
+        "findcooldown": 12,
+        "stars": 10,
+        "relics": [
+            "Master Emerald"
+        ],
+        "userelic": "Master Emerald"
+    },
+    "544290248734015488": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 31,
+        "stars": 0,
+        "relics": []
+    },
+    "642841151484985365": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 36,
+        "stars": 0,
+        "relics": []
+    },
+    "498041248616153098": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 7,
+        "stars": 0,
+        "relics": []
+    },
+    "569923593694216222": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 59,
+        "stars": 0,
+        "relics": []
+    },
+    "285347786218799104": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 44,
+        "stars": 0,
+        "relics": []
+    },
+    "532601881915031553": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 5,
+        "stars": 0,
+        "relics": []
+    },
+    "849304200663007262": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 44,
+        "stars": 0,
+        "relics": []
+    },
+    "412328234198237189": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 49,
+        "stars": 0,
+        "relics": []
+    },
+    "486810448528801803": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 17,
+        "stars": 0,
+        "relics": []
+    },
+    "589862667674714133": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 47,
+        "stars": 0,
+        "relics": []
+    },
+    "460573162682187776": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 44,
+        "stars": 0,
+        "relics": []
+    },
+    "539885676653576222": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 13,
+        "stars": 0,
+        "relics": []
+    },
+    "427239800978931712": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 59,
+        "stars": 0,
+        "relics": []
+    },
+    "530545842822578178": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 26,
+        "stars": 0,
+        "relics": []
+    },
+    "494699050550165515": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 1,
+        "stars": 4,
+        "relics": [
+            "Green Chaos Emerald"
+        ]
+    },
+    "408302260381286410": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 18,
+        "stars": 0,
+        "relics": []
+    },
+    "363363984390356993": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 21,
+        "stars": 0,
+        "relics": []
+    },
+    "455434131808059422": {
+        "rolls": 10,
+        "canfind": true,
+        "findcooldown": 36,
         "stars": 0,
         "relics": []
     }

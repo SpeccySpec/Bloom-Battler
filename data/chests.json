@@ -6,12 +6,19 @@
                 "inputLoot": "",
                 "inputItems": [],
                 "itemsFromLoot": {},
-                "items": {},
+                "items": {
+                    "Sparkle Berry": 20,
+                    "Shine Berry": 7,
+                    "Killer Potion": 3,
+                    "Shovel": 1,
+                    "Ruby": 8,
+                    "Emerald": 7
+                },
                 "party": "",
                 "locked": false,
                 "lockOpener": "",
                 "spoiler": false,
-                "encountered": false
+                "encountered": true
             }
         },
         "893978927104671785": {
@@ -29,6 +36,53 @@
                 "lockOpener": "",
                 "spoiler": false,
                 "encountered": true
+            }
+        },
+        "820036937791438859": {
+            "Backup": {
+                "name": "Backup",
+                "inputLoot": "",
+                "inputItems": [
+                    "Shine Berry",
+                    "Shine Berry",
+                    "Shine Berry",
+                    "Shine Berry",
+                    "Sparkle Berry",
+                    "Sparkle Berry",
+                    "Sparkle Berry",
+                    "Plump Berry",
+                    "Plump Berry",
+                    "Plump Berry",
+                    "Plump Berry",
+                    "Ruby",
+                    "Ruby",
+                    "Ruby",
+                    "Ruby",
+                    "Poison Leaf",
+                    "Emerald",
+                    "Emerald",
+                    "Emerald",
+                    "Shovel",
+                    "Killer Potion",
+                    "Killer Potion",
+                    "Killer Potion"
+                ],
+                "itemsFromLoot": {},
+                "items": {
+                    "Shine Berry": 4,
+                    "Sparkle Berry": 3,
+                    "Plump Berry": 4,
+                    "Ruby": 4,
+                    "Poison Leaf": 1,
+                    "Emerald": 3,
+                    "Shovel": 1,
+                    "Killer Potion": 3
+                },
+                "party": "",
+                "locked": false,
+                "lockOpener": "",
+                "spoiler": false,
+                "encountered": false
             }
         }
     }

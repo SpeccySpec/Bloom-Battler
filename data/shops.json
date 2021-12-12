@@ -1,1 +1,23 @@
-{}
+{
+    "819616171086577667": {
+        "845397163201789972": {
+            "name": "SpiralShop",
+            "items": [
+                "WoodenSword",
+                "WoodenShield",
+                "WoodenWand",
+                "Potion",
+                "MPPotion",
+                "BottleOfWater",
+                "SparkleBerry",
+                "ShineBerry",
+                "PlumpBerry",
+                "AgiGem",
+                "BufuGem",
+                "ZioGem",
+                "RevivalSpray"
+            ],
+            "party": "none"
+        }
+    }
+}

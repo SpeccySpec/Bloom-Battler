@@ -992,6 +992,27 @@
             "flavors": {
                 "Remains": {
                     "image": "https://cdn.discordapp.com/attachments/737986977210695731/891760576299151390/FC9939A4-EE8B-4D23-9F13-DA556FD86954.png"
+                },
+                "'Cream'": {
+                    "image": "https://cdn.discordapp.com/attachments/887356159642705920/903688538804072468/Cream.png"
+                },
+                "PickleHarc": {
+                    "image": "https://cdn.discordapp.com/attachments/737986977210695731/909546249588453416/PICKLE_HARC.png"
+                },
+                "Blood": {
+                    "image": "https://cdn.discordapp.com/attachments/887356159642705920/914993472648409118/Untitled64_20211128184200.png"
+                },
+                "Hidden Emerald": {
+                    "image": "https://cdn.discordapp.com/attachments/887356159642705920/914995826596663326/Untitled65_20211129164546.png"
+                },
+                "<:pain:898005487482728448>": {
+                    "image": "https://cdn.discordapp.com/attachments/887356159642705920/915404702492016660/898005487482728448.png"
+                },
+                "<:ehehehehehehehehehe:901888176581378123>": {
+                    "image": "https://cdn.discordapp.com/attachments/887356159642705920/915405426441453568/901888176581378123.png"
+                },
+                "Troll": {
+                    "image": "https://cdn.discordapp.com/attachments/887356159642705920/916708502997700749/Troll.png"
                 }
             }
         },
@@ -1000,7 +1021,11 @@
                 "Consumation": {
                     "image": "https://cdn.discordapp.com/attachments/737986977210695731/891765167631765565/Damned.png"
                 }
-            }
+            },
+            "sauces": {},
+            "cheeses": {},
+            "toppings": {},
+            "condiments": {}
         }
     },
     "441198920668938260": {
@@ -1027,10 +1052,21 @@
                 "No": {
                     "image": "https://cdn.discordapp.com/attachments/877143757697454123/892897485775859732/Sutela_-_Neutral.png"
                 }
-            },
-            "condiments": {
-                "No": {
-                    "image": "https://cdn.discordapp.com/attachments/877143757697454123/892897485775859732/Sutela_-_Neutral.png"
+            }
+        },
+        "iceCream": {
+            "flavors": {
+                "Megidolaon Gem": {
+                    "image": "https://cdn.discordapp.com/attachments/763858632319434792/909555862165651516/Megidolaon.png"
+                },
+                "Candy Corn": {
+                    "image": "https://cdn.discordapp.com/attachments/916114533410549770/916694106825166878/Candy_Corn.png"
+                },
+                "Trephron Mix": {
+                    "image": "https://cdn.discordapp.com/attachments/820700041484173314/916707818344710184/Trephron_Mix.png"
+                },
+                "Coconut": {
+                    "image": "https://cdn.discordapp.com/attachments/916114533410549770/916713189499105330/Coconut.png"
                 }
             }
         }
@@ -1087,6 +1123,42 @@
                 },
                 "MegaMan": {
                     "image": "https://cdn.discordapp.com/attachments/820036937791438859/895733748828627015/image0.png"
+                }
+            }
+        }
+    },
+    "642841151484985365": {
+        "iceCream": {
+            "flavors": {
+                "Glampfire Trail Mix": {
+                    "image": "https://cdn.discordapp.com/attachments/887356159642705920/915000204279820298/Glampfire_Trail_Mix.png"
+                },
+                "Real Whipped Cream": {
+                    "image": "https://cdn.discordapp.com/attachments/887356159642705920/915018189765746768/pngfind.com-whip-png-239217.png"
+                },
+                "REDWALL": {
+                    "image": "https://cdn.discordapp.com/attachments/887356159642705920/916691265104510996/REDWALL.png"
+                },
+                "Error": {
+                    "image": "https://cdn.discordapp.com/attachments/887356159642705920/916694383401762916/Fuck_Sake.png"
+                },
+                "Honeycomb": {
+                    "image": "https://cdn.discordapp.com/attachments/887356159642705920/916697465439272970/Honeycomb.png"
+                },
+                "Game Boy": {
+                    "image": "https://cdn.discordapp.com/attachments/887356159642705920/916699184546078820/Gameboy.png"
+                },
+                "Virtual Boy": {
+                    "image": "https://cdn.discordapp.com/attachments/887356159642705920/916699432014213180/Virtual_Boy.png"
+                },
+                "Orange (Rainbow-24)": {
+                    "image": "https://cdn.discordapp.com/attachments/887356159642705920/916703221429440542/Rainbow-24_Orange.png"
+                },
+                "Ice": {
+                    "image": "https://cdn.discordapp.com/attachments/887356159642705920/916704313353572382/Ice.png"
+                },
+                "Passive": {
+                    "image": "https://cdn.discordapp.com/attachments/887356159642705920/916706130040860745/Bruh.png"
                 }
             }
         }
