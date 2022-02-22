@@ -74,7 +74,7 @@ const itemTypeEmoji = {
 	healmp: "⭐",
 	healhpmp: "🔰"
 }
-	
+
 // Status Effects
 const statusEffects = [
     "burn",
@@ -90,7 +90,13 @@ const statusEffects = [
 	"rage",
 	"ego",
 	"silence",
-	"hunger"
+	"dazed",
+	"hunger",
+	"illness",
+	"infatuation",
+	"mirror",
+	"blind",
+	"confusion"
 ]
 
 const statusEmojis = {
@@ -108,7 +114,13 @@ const statusEmojis = {
 	rage: "<:rage:906903500053696532>",
 	ego: "🎭",
 	silence: '<:silence:905238069207240734>',
-	hunger: '🍪'
+	dazed: '✨',
+	hunger: '🍪',
+	illness: '🤢',
+	infatuation: '❣️',
+	mirror: '<:mirror:929864689406582784>',
+	blind: '🕶️',
+	confusion: '☄️'
 }
 
 // Enemy Habitats
@@ -130,12 +142,14 @@ const Targets = [
 	'allallies',
 	'caster',
 	'everyone',
-	'random'
+	'random',
+	'randomopposing'
 ]
 
 const adminList = [
-	"516359709779820544",
-	"532291526634635285"
+	'516359709779820544',
+	'532291526634635285',
+	'441198920668938260'
 ]
 
 function objClone(source) {
@@ -172,28 +186,41 @@ function random(max) {
 // Export Functions
 module.exports = {
 	validType: function(type) {
+		if (!type) return false;
+
 		for (const i in Elements) {
-			if (type === Elements[i]) {
-				return true
-			}
+			if (type.toLowerCase() === Elements[i])
+				return true;
 		}
 
-		return false
+		return false;
 	},
 	
 	validStatus: function(eff) {
+		if (!eff) return false;
+
 		for (const i in statusEffects) {
-			if (eff === statusEffects[i]) {
-				return true
-			}
+			if (eff.toLowerCase() === statusEffects[i])
+				return true;
+		}
+
+		return false;
+	},
+
+	validTarg: function(type) {
+		if (!type) return false;
+		for (const i in Targets) {
+			if (type.toLowerCase() === Targets[i])
+				return true;
 		}
 
 		return false
 	},
 
-	validTarg: function(type) {
-		for (const i in Targets) {
-			if (type === Targets[i]) {
+	validStat: function(stat) {
+		var stats = ['atk', 'mag', 'agl', 'end', 'prc', 'luk', 'chr', 'int']
+		for (const i in stats) {
+			if (stat === stats[i]) {
 				return true
 			}
 		}
@@ -218,12 +245,13 @@ module.exports = {
 		
 		var skillArray = []
 		for (const i in skillFile) {
-			if (!skillFile[i].name) {skillFile[i].name = `${i}`}
+			if (!skillFile[i].name) skillFile[i].name = `${i}`;
 			
 			if (skillFile[i].type != "status" && skillFile[i].type != "heal" && skillFile[i].type != "passive") {
-				if (!skillFile[i].target) {skillFile[i].target = "one"}
-				if (!skillFile[i].atktype) {skillFile[i].atktype = "physical"}
-				if (skillFile[i].status) {skillFile[i].status = skillFile[i].status.toLowerCase()}
+				if (!skillFile[i].target) skillFile[i].target = "one";
+				if (!skillFile[i].atktype) skillFile[i].atktype = "physical";
+				if (skillFile[i].status && typeof skillFile[i].status == 'string') skillFile[i].status = skillFile[i].status.toLowerCase();
+
 				skillFile[i].target = skillFile[i].target.toLowerCase()
 				skillFile[i].atktype = skillFile[i].atktype.toLowerCase()
 			}
@@ -249,14 +277,16 @@ module.exports = {
 			nuclear: 14,
 			curse: 15,
 			bless: 16,
+			sound: 17,
+			gravity: 18,
 			
-			almighty: 17,
+			almighty: 19,
 			
-			status: 18,
-			heal: 19,
-			passive: 20,
+			heal: 20,
+			status: 21,
+			passive: 22,
 			
-			invalid: 21,
+			invalid: 23
 		}
 		
 		/*
@@ -290,7 +320,7 @@ module.exports = {
 			console.error(err);
 		}
 
-		var charFile = JSON.parse(charRead);
+ 		var charFile = JSON.parse(charRead);
 		for (const i in charFile) {
 			if (charFile[i].skills && charFile[i].skills.length) {
 				charFile[i].skills.sort(function(a, b) {
@@ -352,6 +382,10 @@ module.exports = {
 
 	randBetweenNums: function(min, max) {
 		return min + Math.round(Math.random() * (max-min))
+	},
+	
+	randPercent: function() {
+		return Math.round(Math.random()*100);
 	},
 	
 	getChannel: function(channel) {

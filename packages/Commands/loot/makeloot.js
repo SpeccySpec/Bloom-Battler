@@ -42,7 +42,7 @@ function makeLoot(message, prefix) {
 	let incorrectItems = ""
 
 	var itemPath = dataPath+'/items.json'
-	var itemRead = fs.readFileSync(itemPath);
+	var itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
 	var itemFile = JSON.parse(itemRead);
 
 	for (const i in arg) {
@@ -86,8 +86,9 @@ function makeLoot(message, prefix) {
 
 	//Writing into File
 
-	var lootPath = dataPath+'/Loot/lootTables.json'
-	var lootRead = fs.readFileSync(lootPath);
+	var lootPath = `${dataPath}/Loot/lootTables-${message.guild.id}.json`
+	var lootRead = fs.readFileSync(lootPath, {flag: 'as+'});
+	if (lootRead == '') lootRead = '{}';
 	var lootFile = JSON.parse(lootRead);
 
 	lootFile[arg[1]] = {

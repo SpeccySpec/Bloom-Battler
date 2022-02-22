@@ -32,8 +32,8 @@ function assignLoot(message, prefix) {
             return false
     }
 
-    var enmPath = dataPath+'/enemies.json'
-    var enmRead = fs.readFileSync(enmPath);
+    var enmPath = `${dataPath}/Enemies/enemies-${message.guild.id}.json`
+    var enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
     var enmFile = JSON.parse(enmRead);
 
     if (!enmFile[message.guild.id][arg[1]]) {

@@ -74,20 +74,29 @@ const itemTypeEmoji = {
 	healmp: "⭐",
 	healhpmp: "🔰"
 }
-	
+
 // Status Effects
 const statusEffects = [
     "burn",
 	"bleed",
     "freeze",
     "paralyze",
+	"dizzy",
 	"sleep",
 	"despair",
     "poison",
     "brainwash",
 	"fear",
 	"rage",
-	"ego"
+	"ego",
+	"silence",
+	"dazed",
+	"hunger",
+	"illness",
+	"infatuation",
+	"mirror",
+	"blind",
+	"confusion"
 ]
 
 const statusEmojis = {
@@ -104,7 +113,14 @@ const statusEmojis = {
 	fear: "👁",
 	rage: "<:rage:906903500053696532>",
 	ego: "🎭",
-	silence: '<:silence:905238069207240734>'
+	silence: '<:silence:905238069207240734>',
+	dazed: '✨',
+	hunger: '🍪',
+	illness: '🤢',
+	infatuation: '❣️',
+	mirror: '<:mirror:929864689406582784>',
+	blind: '🕶️',
+	confusion: '☄️'
 }
 
 // Enemy Habitats
@@ -122,11 +138,11 @@ const enmHabitats = [
 ///////////////
 // Functions //
 ///////////////
-function setUpBattleVars(btl) {
+function setUpBattleVars(btl, server) {
 	if (!btl.allies.backup)
 		btl.allies.backup = [];
 	if (!btl.enemies.backup)
-		btl.allies.backup = [];
+		btl.enemies.backup = [];
 
 	btl.battling = true;
 	btl.battleteam = "none";
@@ -134,6 +150,8 @@ function setUpBattleVars(btl) {
 	btl.battlechannel = "none";
 	btl.doturn = -1;
 	btl.turn = 1;
+	
+	btl.turnorder = [];
 	
 	btl.pvp = false;
 	btl.pvpmode = "none";
@@ -152,6 +170,12 @@ function setUpBattleVars(btl) {
 	
 	btl.weather = "clear";
 	btl.terrain = "normal"
+	
+	var servPath = `${dataPath}/Server Settings/server.json`
+	var servRead = fs.readFileSync(servPath);
+	var servFile = JSON.parse(servRead);
+	
+	btl.damageFormula = (servFile[server] && servFile[server].damageFormula) ? servFile[server].damageFormula : 'persona'
 }
 
 function clearBTL(btl) {
@@ -187,6 +211,9 @@ function clearBTL(btl) {
 
 	delete btl.onemore	
 	delete btl.testing
+	delete btl.petattack
+	delete btl.turnorder
+	delete btl.damageFormula
 }
 
 function hasPassiveCopyLOL(userDefs, passivetype) {					
@@ -215,7 +242,7 @@ function healPassives(charDefs) {
 		}
 
 		if (charDefs.affinitypoint < 10) {
-			passiveMsg += `\n${charDefs.name} got an affinity point!`
+			passiveMsg += `\n${charDefs.name} got a spirit point!`
 			charDefs.affinitypoint = Math.min(10, charDefs.affinitypoint+1);
 			if (charDefs.affinitypoint >= 10) {
 				passiveMsg += ' (MAX)'
@@ -246,6 +273,10 @@ function buffPassives(charDefs) {
 
 // Export Functions
 module.exports = {
+	setUpBattleVars: function(servBtl, server) {
+		setUpBattleVars(servBtl, server)
+	},
+
 	clearBTL: function(serverBtl) {
 		clearBTL(serverBtl);
 	},
@@ -283,9 +314,5 @@ module.exports = {
 	
 	buffPassives: function(charDefs) {
 		return buffPassives(charDefs)
-	},
-	
-	setUpBattleVars: function(servBtl) {
-		setUpBattleVars(servBtl)
 	}
 }

@@ -37,11 +37,12 @@ function assignLoot(message, prefix) {
         return false
     }
 
-    var lootPath = dataPath+'/Loot/lootTables.json'
-    var lootRead = fs.readFileSync(lootPath);
+    var lootPath = `${dataPath}/Loot/lootTables-${message.guild.id}.json`
+    var lootRead = fs.readFileSync(lootPath, {flag: 'as+'});
+	if (lootRead == '') lootRead = '{}';
     var lootFile = JSON.parse(lootRead);
-    var enmPath = dataPath+'/enemies.json'
-    var enmRead = fs.readFileSync(enmPath);
+    var enmPath = `${dataPath}/Enemies/enemies-${message.guild.id}.json`
+    var enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
     var enmFile = JSON.parse(enmRead);
 
     if (!enmFile[message.guild.id][arg[1]]) {

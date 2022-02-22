@@ -38,8 +38,9 @@ function searchLoots(message, prefix) {
         return false
     }
 
-    var lootPath = dataPath+'/Loot/lootTables.json'
-    var lootRead = fs.readFileSync(lootPath);
+    var lootPath = `${dataPath}/Loot/lootTables-${message.guild.id}.json`
+    var lootRead = fs.readFileSync(lootPath, {flag: 'as+'});
+	if (lootRead == '') lootRead = '{}';
     var lootFile = JSON.parse(lootRead);
 
     var skillTxt = []

@@ -32,14 +32,15 @@ function removeLoot(message, prefix) {
 			return false
 	}
 
-	var lootPath = dataPath+'/Loot/lootTables.json'
-	var lootRead = fs.readFileSync(lootPath);
+	var lootPath = `${dataPath}/Loot/lootTables-${message.guild.id}.json`
+	var lootRead = fs.readFileSync(lootPath, {flag: 'as+'});
+	if (lootRead == '') lootRead = '{}';
 	var lootFile = JSON.parse(lootRead);
-	var enmPath = dataPath+'/enemies.json'
-	var enmRead = fs.readFileSync(enmPath);
+	var enmPath = `${dataPath}/Enemies/enemies-${message.guild.id}.json`
+	var enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
 	var enmFile = JSON.parse(enmRead);
 	var chestPath = dataPath+'/chests.json'
-	var chestRead = fs.readFileSync(chestPath);
+	var chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
 	var chestFile = JSON.parse(chestRead);
 
 	if (!lootFile[arg[1]]) {
@@ -49,7 +50,7 @@ function removeLoot(message, prefix) {
 
 	let enmList = ``
 
-	for (const i in enmFile) {
+	for (const i in enmFile[message.guild.id]) {
 		if (enmFile[message.guild.id][i].loot == arg[1]) {
 			enmFile[message.guild.id][i].loot = ''
 

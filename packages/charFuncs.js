@@ -1,4 +1,7 @@
 // Require
+const Discord = require('discord.js');
+const Voice = require('@discordjs/voice');
+const Builders = require('@discordjs/builders');
 const fs = require('fs');
 
 // Path to 'data' folder
@@ -80,7 +83,7 @@ const itemTypeEmoji = {
 	healmp: "⭐",
 	healhpmp: "🔰"
 }
-	
+
 // Status Effects
 const statusEffects = [
     "burn",
@@ -96,7 +99,13 @@ const statusEffects = [
 	"rage",
 	"ego",
 	"silence",
-	"hunger"
+	"dazed",
+	"hunger",
+	"illness",
+	"infatuation",
+	"mirror",
+	"blind",
+	"confusion"
 ]
 
 const statusEmojis = {
@@ -114,7 +123,13 @@ const statusEmojis = {
 	rage: "<:rage:906903500053696532>",
 	ego: "🎭",
 	silence: '<:silence:905238069207240734>',
-	hunger: '🍪'
+	dazed: '✨',
+	hunger: '🍪',
+	illness: '🤢',
+	infatuation: '❣️',
+	mirror: '<:mirror:929864689406582784>',
+	blind: '🕶️',
+	confusion: '☄️'
 }
 
 // Enemy Habitats
@@ -159,24 +174,25 @@ function writeChar(creator, name, health, magicpoints, attack, magic, perception
         // Melee Attack
         melee: ["Strike Attack", "strike"],
 		weapon: "none",
+		armor: "none",
 
         // Main stats
-        atk: attack,
-        mag: magic,
-        prc: perception,
-        end: endurance,
-        chr: charisma,
-        int: inteligence,
-        agl: agility,
-        luk: luck,
-        baseatk: attack,
-        basemag: magic,
-        baseprc: perception,
-        baseend: endurance,
-        basechr: charisma,
-        baseint: inteligence,
-        baseagl: agility,
-        baseluk: luck,
+        atk: attack ? attack : 1,
+        mag: magic ? magic : 1,
+        prc: perception ? perception : 1,
+        end: endurance ? endurance : 1,
+        chr: charisma ? charisma : 1,
+        int: inteligence ? inteligence : 1,
+        agl: agility ? agility : 1,
+        luk: luck ? luck : 1,
+        baseatk: attack ? attack : 1,
+        basemag: magic ? magic : 1,
+        baseprc: perception ? perception : 1,
+        baseend: endurance ? endurance : 1,
+        basechr: charisma ? charisma : 1,
+        baseint: inteligence ? inteligence : 1,
+        baseagl: agility ? agility : 1,
+        baseluk: luck ? luck : 1,
 
         // Limit Break Meter, XP.
         lb: 0,
@@ -233,14 +249,13 @@ function writeChar(creator, name, health, magicpoints, attack, magic, perception
     console.log(`Written ${name}.`)
 }
 
-function writeTransformation(userDefs, trnsName, req, auto, hpBuff, atkBuff, magBuff, prcBuff, endBuff, chrBuff, intBuff, aglBuff, lukBuff) {
+function writeTransformation(userDefs, trnsName, req, hpBuff, atkBuff, magBuff, prcBuff, endBuff, chrBuff, intBuff, aglBuff, lukBuff) {
 	if (!userDefs.transformations)
 		userDefs.transformations = {};
 	
 	userDefs.transformations[trnsName] = {
 		name: trnsName,
 		requirement: req.toLowerCase(),
-		automatic: auto,
 		desc: '',
 		
 		hp: parseInt(hpBuff),
@@ -262,6 +277,65 @@ function writeTransformation(userDefs, trnsName, req, auto, hpBuff, atkBuff, mag
 }
 
 // FUNCTIONS
+function canTransform(userDefs, allySide, oppSide, trans) {
+	if (userDefs.level < 70)
+		return false;
+
+	if (!userDefs.transformations)
+		return false;
+	
+	if (!userDefs.transformations[trans])
+		return false;
+	
+	var transDefs = userDefs.transformations[trans];
+	
+	if (!transDefs.requirement)
+		return false;
+	
+	switch(transDefs.requirement.toLowerCase()) {
+		case 'allydown':
+			for (const i in allySide) {
+				if (allySide[i].hp <= 0)
+					return true;
+			}
+			break;
+		
+		case 'onlystanding':
+			if (allySide.length <= 1)
+				return true;
+			break;
+		
+		case 'belowhalfhp':
+			if (userDefs.hp <= userDefs.maxhp/2)
+				return true;
+			break;
+		
+		case 'outofmp':
+			if (userDefs.mp <= 0)
+				return true;
+			break;
+		
+		case 'leaderdown':
+			for (const i in allySide) {
+				if (allySide[i].hp <= 0 && allySide[i].leader)
+					return true;
+			}
+			break;
+		
+		case 'trusteddown':
+			for (const i in allySide) {
+				if (allySide[i].hp <= 0 && userDefs.trust[allySide[i].truename] && userDefs.trust[allySide[i].truename].level >= 10)
+					return true;
+			}
+			break;
+		
+		default:
+			return false;
+	}
+
+	return false;
+}
+
 function transformChar(userDefs, transformation) {
 	if (!userDefs.transformations)
 		return false;
@@ -291,7 +365,34 @@ function transformChar(userDefs, transformation) {
 		}
 	}
 	
-	userDefs.transformation = true
+	userDefs.transformation = 5
+	return true
+}
+
+function deTransformChar(userDefs) {
+	if (!userDefs.beforeTransformation)
+		return false;
+
+	var addStats = [
+		"hp",
+		"atk",
+		"mag",
+		"prc",
+		"end",
+		"agl",
+		"int",
+		"chr",
+		"luk"
+	]
+
+	for (const i in addStats) {
+		if (userDefs[addStats[i]] && userDefs.beforeTransformation[addStats[i]]) {
+			userDefs[addStats[i]] = userDefs.beforeTransformation[addStats[i]];
+		}
+	}
+
+	delete userDefs.beforeTransformation
+	delete userDefs.transformation
 	return true
 }
 
@@ -318,7 +419,9 @@ function mimic(userDefs, targDefs, turns) {
 		"lb4"
 	]
 
+	userDefs.old = {}
 	for (const i in copyStats) {
+		userDefs.old[copyStats[i]] = userDefs[copyStats[i]]
 		if (userDefs[copyStats[i]] && targDefs[copyStats[i]])
 			userDefs[copyStats[i]] = targDefs[copyStats[i]];
 	}
@@ -330,7 +433,7 @@ function mimic(userDefs, targDefs, turns) {
 }
 
 function resetMimic(userDefs) {
-	if (!userDefs.oldDefs) {return false}
+	if (!userDefs.oldDefs) return false;
 	
 	var copyStats = [
 		"name",
@@ -353,16 +456,99 @@ function resetMimic(userDefs) {
 		"lb3",
 		"lb4"
 	]
-	
-	var oldDefs = userDefs.oldDefs
+
 	for (const i in copyStats) {
-		if (userDefs[copyStats[i]] && oldDefs[copyStats[i]])
-			userDefs[copyStats[i]] = oldDefs[copyStats[i]];
+		if (userDefs[copyStats[i]] && userDefs.old[copyStats[i]])
+			userDefs[copyStats[i]] = userDefs.old[copyStats[i]];
+	}
+
+	delete userDefs.mimic
+	delete userDefs.old
+	delete userDefs.mimicturns
+	return true
+}
+
+function swapBodies(userDefs, targDefs, turns) {
+	var copyStats = [
+		"name",
+		"atk",
+		"mag",
+		"prc",
+		"end",
+		"agl",
+		"int",
+		"chr",
+		"luk",
+		"weak",
+		"resist",
+		"block",
+		"repel",
+		"drain",
+		"skills",
+		"owner",
+		"enemy"
+	]
+
+	var takeStats = [{}, {}]
+	for (const i in copyStats) {
+		if (userDefs[copyStats[i]])
+			takeStats[0][copyStats[i]] = userDefs[copyStats[i]];
+		if (targDefs[copyStats[i]])
+			takeStats[1][copyStats[i]] = targDefs[copyStats[i]];
 	}
 	
-	delete userDefs.mimic
-	delete userDefs.oldDefs
-	delete userDefs.mimicturns
+	for (const i in copyStats) {
+		userDefs[copyStats[i]] = takeStats[1][copyStats[i]];
+		targDefs[copyStats[i]] = takeStats[0][copyStats[i]];
+	}
+	
+	userDefs.swapped = turns+1;
+	userDefs.swappedWith = targDefs.id;
+	targDefs.swapped = turns+1;
+	targDefs.swappedWith = userDefs.id;
+	return true
+}
+
+function returnBodies(userDefs, targDefs) {
+	if (!userDefs.swapped) return false;
+
+	var copyStats = [
+		"name",
+		"atk",
+		"mag",
+		"prc",
+		"end",
+		"agl",
+		"int",
+		"chr",
+		"luk",
+		"weak",
+		"resist",
+		"block",
+		"repel",
+		"drain",
+		"skills",
+		"owner",
+		"enemy"
+	]
+
+	var takeStats = [{}, {}]
+	for (const i in copyStats) {
+		if (userDefs[copyStats[i]])
+			takeStats[0][copyStats[i]] = userDefs[copyStats[i]];
+		if (targDefs[copyStats[i]])
+			takeStats[1][copyStats[i]] = targDefs[copyStats[i]];
+	}
+	
+	for (const i in copyStats) {
+		userDefs[copyStats[i]] = takeStats[1][copyStats[i]];
+		targDefs[copyStats[i]] = takeStats[0][copyStats[i]];
+	}
+	
+	delete userDefs.swapped
+	delete userDefs.swappedWith
+	delete targDefs.swapped
+	delete targDefs.swappedWith
 	return true
 }
 
@@ -391,7 +577,7 @@ function hasPassive(userDefs, passivetype) {
 	for (const skillNum in userDefs.skills) {
 		var skillDefs = skillFile[userDefs.skills[skillNum]];
 		if (skillDefs && skillDefs.type && skillDefs.type === "passive") {
-			if (skillDefs.passive.toLowerCase() === passivetype.toLowerCase()) {
+			if (skillDefs.passive && skillDefs.passive.toLowerCase() === passivetype.toLowerCase()) {
 				console.log(`${userDefs.name} has the ${passivetype} passive.`)
 				return true
 			}
@@ -457,7 +643,7 @@ function equippedCharm(charDefs, charm) {
 	return false
 }
 
-function levelUp(charDefs) {
+function levelUp(charDefs, forceEvo, server) {
 	if (charDefs.level >= 99) {
 		charDefs.xp = charDefs.maxxp - 1
 		console.log(`LevelUp: ${charDefs.name} cannot level up further.`)
@@ -477,32 +663,50 @@ function levelUp(charDefs) {
 	}
 	
 	console.log(`LevelUp: ${charDefs.name} levelled up to level ${charDefs.level}.`)
-	
-	var highestStats = [
-		["atk", charDefs.baseatk],
-		["mag", charDefs.basemag],
-		["prc", charDefs.baseprc],
-		["end", charDefs.baseend],
-		["chr", charDefs.basechr],
-		["int", charDefs.baseint],
-		["agl", charDefs.baseagl],
-		["luk", charDefs.baseluk]
-	];
-	
-	highestStats.sort(function(a, b) {return  a[1] - b[1]})
 
-	for (const i in highestStats) {
-		if (i > highestStats.length-4)
-			charDefs[highestStats[i][0]]++;
-		else if (i <= 1) {
-			if (charDefs.level%3 == 1)
-				charDefs[highestStats[i][0]]++;
-		} else {
-			if (charDefs.level%2 == 1)
-				charDefs[highestStats[i][0]]++;
+	var servPath = dataPath+'/Server Settings/server.json'
+	var servRead = fs.readFileSync(servPath, {flag: 'as+'});
+	var servFile = JSON.parse(servRead);
+
+	if (servFile[server].levelUpFormula && servFile[server].levelUpFormula === 'percent') {
+		var stats = ['atk', 'mag', 'prc', 'end', 'chr', 'int', 'agl', 'luk']
+		for (const i in stats) {
+			var baseStat = charDefs[`base${stats[i]}`]
+			charDefs[stats[i]] = Math.min(99, Math.round(baseStat * (1 + ((charDefs.level-1) * 0.091))))
 		}
+	} else if (servFile[server].levelUpFormula && servFile[server].levelUpFormula === 'assist') {
+		var stats = ['atk', 'mag', 'prc', 'end', 'chr', 'int', 'agl', 'luk']
+		for (const i in stats) {
+			var baseStat = charDefs[`base${stats[i]}`]
+			charDefs[stats[i]] = Math.min(99, Math.round((baseStat+3) * (1 + ((charDefs.level-1) * 0.06751))))
+		}
+	} else {
+		var highestStats = [
+			["atk", charDefs.baseatk],
+			["mag", charDefs.basemag],
+			["prc", charDefs.baseprc],
+			["end", charDefs.baseend],
+			["chr", charDefs.basechr],
+			["int", charDefs.baseint],
+			["agl", charDefs.baseagl],
+			["luk", charDefs.baseluk]
+		];
+		
+		highestStats.sort(function(a, b) {return  a[1] - b[1]})
 
-		charDefs[highestStats[i][0]] = Math.min(99, charDefs[highestStats[i][0]])
+		for (const i in highestStats) {
+			if (i > highestStats.length-4)
+				charDefs[highestStats[i][0]]++;
+			else if (i <= 1) {
+				if (charDefs.level%3 == 1)
+					charDefs[highestStats[i][0]]++;
+			} else {
+				if (charDefs.level%2 == 1)
+					charDefs[highestStats[i][0]]++;
+			}
+
+			charDefs[highestStats[i][0]] = Math.min(99, charDefs[highestStats[i][0]])
+		}
 	}
 
 	charDefs.xp -= +charDefs.maxxp
@@ -517,30 +721,45 @@ function levelUp(charDefs) {
 		}
 	}
 	
-	if (!charDefs.autoLearn) return;
+	if (forceEvo == true) {
+		const skillPath = dataPath+'/skills.json'
+		const skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+		const skillFile = JSON.parse(skillRead);
 
-	var checkSkills = []
-	for (const i in charDefs.autoLearn) {
-		if (charDefs.skills[charDefs.autoLearn[i]]) {
-			checkSkills.push([charDefs.skills[charDefs.autoLearn[i]], charDefs.autoLearn[i]])
+		for (const i in charDefs.skills) {
+			if (skillFile[charDefs.skills[i]] && skillFile[charDefs.skills[i]].evoSkill) {
+				var skillDefs = skillFile[charDefs.skills[i]]
+
+				if (charDefs.level == skillDefs.evoSkill[1])
+					charDefs.skills[i] = skillDefs.evoSkill[0];
+			}
 		}
-	}
-	
-	const skillPath = dataPath+'/skills.json'
-	const skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-	const skillFile = JSON.parse(skillRead);
+	} else {
+		if (!charDefs.autoLearn) return;
 
-	for (const i in checkSkills) {
-		if (skillFile[checkSkills[i][0]] && skillFile[checkSkills[i][0]].evoSkill) {
-			var skillDefs = skillFile[checkSkills[i][0]]
-			
-			if (charDefs.level == skillDefs.evoSkill[1])
-				charDefs.skills[checkSkills[i][1]] = skillDefs.evoSkill[0];
+		var checkSkills = []
+		for (const i in charDefs.autoLearn) {
+			if (charDefs.autoLearn[i] && charDefs.skills[parseInt(i)]) {
+				checkSkills.push([charDefs.skills[parseInt(i)], parseInt(i)])
+			}
+		}
+
+		const skillPath = dataPath+'/skills.json'
+		const skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+		const skillFile = JSON.parse(skillRead);
+
+		for (const i in checkSkills) {
+			if (skillFile[checkSkills[i][0]] && skillFile[checkSkills[i][0]].evoSkill) {
+				var skillDefs = skillFile[checkSkills[i][0]]
+				
+				if (charDefs.level == skillDefs.evoSkill[1])
+					charDefs.skills[checkSkills[i][1]] = skillDefs.evoSkill[0];
+			}
 		}
 	}
 }
 
-function levelDown(charDefs) {
+function levelDown(charDefs, server) {
 	if (charDefs.level <= 1) {
 		charDefs.xp = 1
 		console.log(`LevelUp: ${charDefs.name} cannot level down further.`)
@@ -561,31 +780,49 @@ function levelDown(charDefs) {
 	
 	console.log(`LevelUp: ${charDefs.name} levelled down to level ${charDefs.level}.`)
 	
-	var highestStats = [
-		["atk", charDefs.baseatk],
-		["mag", charDefs.basemag],
-		["prc", charDefs.baseprc],
-		["end", charDefs.baseend],
-		["chr", charDefs.basechr],
-		["int", charDefs.baseint],
-		["agl", charDefs.baseagl],
-		["luk", charDefs.baseluk]
-	];
-	
-	highestStats.sort(function(a, b) {return  a[1] - b[1]})
+	var servPath = dataPath+'/Server Settings/server.json'
+	var servRead = fs.readFileSync(servPath, {flag: 'as+'});
+	var servFile = JSON.parse(servRead);
 
-	for (const i in highestStats) {
-		if (i > highestStats.length-4)
-			charDefs[highestStats[i][0]]--;
-		else if (i <= 1) {
-			if (charDefs.level%3 == 1) 
-				charDefs[highestStats[i][0]]--;
-		} else {
-			if (charDefs.level%2 == 1) 
-				charDefs[highestStats[i][0]]--;
+	if (servFile[server].levelUpFormula && servFile[server].levelUpFormula === 'percent') {
+		var stats = ['atk', 'mag', 'prc', 'end', 'chr', 'int', 'agl', 'luk']
+		for (const i in stats) {
+			var baseStat = charDefs[`base${stats[i]}`]
+			charDefs[stats[i]] = Math.min(99, Math.round(baseStat * (1 + ((charDefs.level-1) * 0.091))))
 		}
+	} else if (servFile[server].levelUpFormula && servFile[server].levelUpFormula === 'assist') {
+		var stats = ['atk', 'mag', 'prc', 'end', 'chr', 'int', 'agl', 'luk']
+		for (const i in stats) {
+			var baseStat = charDefs[`base${stats[i]}`]
+			charDefs[stats[i]] = Math.min(99, Math.round((baseStat+3) * (1 + ((charDefs.level-1) * 0.06751))))
+		}
+	} else {
+		var highestStats = [
+			["atk", charDefs.baseatk],
+			["mag", charDefs.basemag],
+			["prc", charDefs.baseprc],
+			["end", charDefs.baseend],
+			["chr", charDefs.basechr],
+			["int", charDefs.baseint],
+			["agl", charDefs.baseagl],
+			["luk", charDefs.baseluk]
+		];
+		
+		highestStats.sort(function(a, b) {return  a[1] - b[1]})
 
-		charDefs[highestStats[i][0]] = Math.max(1, charDefs[highestStats[i][0]])
+		for (const i in highestStats) {
+			if (i > highestStats.length-4)
+				charDefs[highestStats[i][0]]--;
+			else if (i <= 1) {
+				if (charDefs.level%3 == 1) 
+					charDefs[highestStats[i][0]]--;
+			} else {
+				if (charDefs.level%2 == 1) 
+					charDefs[highestStats[i][0]]--;
+			}
+
+			charDefs[highestStats[i][0]] = Math.max(1, charDefs[highestStats[i][0]])
+		}
 	}
 
 	charDefs.xp = 0
@@ -609,7 +846,7 @@ function initTrust(charDefs, targName) {
 	return true
 }
 
-function trustLevel(charDefs, targName) {
+function trustLevel(charDefs, targName, btl, client) {
 	if (!charDefs.trust)
 		charDefs.trust = {};
 
@@ -625,22 +862,40 @@ function trustLevel(charDefs, targName) {
 	charDefs.trust[targName].value = Math.max(0, charDefs.trust[targName].value-charDefs.trust[targName].nextLevel);
 
 	// Next Level Poggers!
-	charDefs.trust[targName].nextLevel += 50;
+	charDefs.trust[targName].nextLevel += 20;
+
+	const trustEmbed = new Discord.MessageEmbed()
+		.setColor('#ff40af')
+		.setTitle(`Level ${charDefs.trust[targName].level-1} => ${charDefs.trust[targName].level}`)
+		.setDescription(`${charDefs.name} & ${targName} are getting closer...`)
+
+	client.channels.fetch(btl.battlechannel)
+		.then(channel => channel.send({embeds: [trustEmbed]}))
 }
 
-function dislikeChar(charDefs, targName) {
+function dislikeChar(charDefs, targName, btl, client) {
 	if (!charDefs.trust)
 		charDefs.trust = {};
 
 	if (!charDefs.trust[targName]) {
 		charDefs.trust[targName] = {
 			value: 0,
+			dislike: 100,
 			nextLevel: 100,
 			level: 1
 		}
 	}
 
-	charDefs.trust[targName].dislike = 10;
+	// Dislike
+	charDefs.trust[targName].dislike = 100;
+
+	const trustEmbed = new Discord.MessageEmbed()
+		.setColor('#ff40af')
+		.setTitle('Dislikes and anger!')
+		.setDescription(`${charDefs.name} & ${targName} seem to dislike eachother.`)
+
+	client.channels.fetch(btl.battlechannel)
+		.then(channel => channel.send({embeds: [trustEmbed]}))
 }
 
 function buffStat(charDefs, stat, amount) {
@@ -679,6 +934,30 @@ function leaderSkillsAtBattleStart(allySide) {
 	}
 }
 
+function copyObj(source) {
+	if (Object.prototype.toString.call(source) === '[object Array]') {
+		var clone = []
+
+		for (var i = 0; i < source.length; i++) {
+			clone[i] = copyObj(source[i])
+		}
+
+		return clone
+	} else if (typeof(source)=="object") {
+		var clone = {}
+
+		for (var prop in source) {
+			if (source.hasOwnProperty(prop)) {
+				clone[prop] = copyObj(source[prop])
+			}
+		}
+
+		return clone
+	} else {
+		return source
+	}
+}
+
 // Export Functions
 module.exports = {
 	writeChar: function(creator, name, health, magicpoints, attack, magic, perception, endurance, charisma, inteligence, agility, luck) {
@@ -689,7 +968,7 @@ module.exports = {
 		writeTransformation(userDefs, trnsName, req, auto, hpBuff, atkBuff, magBuff, prcBuff, endBuff, chrBuff, intBuff, aglBuff, lukBuff)
 	},
 
-	genChar: function(charDefs, leader, petDefs) {
+	genChar: function(charDefs, leader, partyDefs) {
 		var battlerDefs = {
 			name: charDefs.name,
 			truename: charDefs.name,
@@ -698,9 +977,15 @@ module.exports = {
 			
 			mainElement: charDefs.mainElement,
 
-			melee: charDefs.melee,
-			level: charDefs.level,
+			melee: {
+				name: charDefs.melee[0],
+				type: charDefs.melee[1],
+				pow: 30,
+				acc: 93,
+				crit: 15
+			},
 
+			level: charDefs.level,
 			hp: charDefs.hp,
 			mp: charDefs.mp,
 			maxhp: charDefs.maxhp,
@@ -743,7 +1028,9 @@ module.exports = {
 				mag: 0,
 				prc: 0,
 				end: 0,
-				agl: 0
+				agl: 0,
+				
+				crit: 0
 			},
 
 			meleequote: charDefs.meleequote ? charDefs.meleequote : [],
@@ -769,6 +1056,7 @@ module.exports = {
 
 			bio: charDefs.bio ? charDefs.bio : {info: "", backstory: "", voice: "", theme: ""},
 
+			superweak: charDefs.superweak,
 			weak: charDefs.weak,
 			resist: charDefs.resist,
 			block: charDefs.block,
@@ -778,7 +1066,9 @@ module.exports = {
 
 			trust: charDefs.trust ? charDefs.trust : {},
 
-			charms: charDefs.charms ? charDefs.charms : []
+			charms: charDefs.charms ? charDefs.charms : [],
+			
+			transformations: charDefs.transformations ? charDefs.transformations : null
 		}
 		
 		if (charDefs.owner)
@@ -811,7 +1101,50 @@ module.exports = {
 			battlerDefs.maxhp += 50;
 			battlerDefs.hp += 50;
 		}
-		
+
+		// Weapons and Armor
+		if (partyDefs.weapons) {
+			for (const i in partyDefs.weapons) {
+				if (partyDefs.weapons[i].equipped != charDefs.name) continue;
+
+				if (partyDefs.weapons[i].atk)
+					battlerDefs.atk += partyDefs.weapons[i].atk;
+				if (partyDefs.weapons[i].mag)
+					battlerDefs.mag += partyDefs.weapons[i].mag;
+				if (partyDefs.weapons[i].def)
+					battlerDefs.end += partyDefs.weapons[i].def;
+				if (partyDefs.weapons[i].melee)
+					battlerDefs.melee.pow += partyDefs.weapons[i].melee;
+				if (partyDefs.weapons[i].element)
+					battlerDefs.melee.type = partyDefs.weapons[i].element;
+				if (partyDefs.weapons[i].skill)
+					battlerDefs.skills.push(partyDefs.weapons[i].skill);
+
+				battlerDefs.weaponData = copyObj(partyDefs.weapons[i]);
+			}
+		}
+
+		if (partyDefs.armors) {
+			for (const i in partyDefs.armors) {
+				if (partyDefs.armors[i].equipped != charDefs.name) continue;
+
+				if (partyDefs.armors[i].atk)
+					battlerDefs.atk += partyDefs.armors[i].atk
+				if (partyDefs.armors[i].mag)
+					battlerDefs.mag += partyDefs.armors[i].mag
+				if (partyDefs.armors[i].def)
+					battlerDefs.end += partyDefs.armors[i].def
+				if (partyDefs.armors[i].melee)
+					battlerDefs.melee.pow += partyDefs.armors[i].melee
+				if (partyDefs.armors[i].element)
+					battlerDefs.melee.type = partyDefs.armors[i].element
+				if (partyDefs.armors[i].skill)
+					battlerDefs.skills.push(partyDefs.armors[i].skill);
+
+				battlerDefs.armorData = copyObj(partyDefs.weapons[i]);
+			}
+		}
+
 		return battlerDefs
 	},
 
@@ -839,12 +1172,12 @@ module.exports = {
 		return hasShowTime(charDefs, targChar)
 	},
 	
-	lvlUp: function(charDefs) {
-		levelUp(charDefs)
+	lvlUp: function(charDefs, forceEvo, server) {
+		levelUp(charDefs, forceEvo, server)
 	},
 	
-	lvlDown: function(charDefs) {
-		levelDown(charDefs)
+	lvlDown: function(charDefs, server) {
+		levelDown(charDefs, server)
 	},
 	
 	initTrust: function(charDefs, targName) {
@@ -855,7 +1188,7 @@ module.exports = {
 		trustLevel(charDefs, targName)
 	},
 	
-	trustUp: function(charDefs, targDefs, increment, server) {
+	trustUp: function(charDefs, targDefs, increment, server, client) {
 		if (charDefs == targDefs || charDefs.name === targDefs.name)
 			return false;
 
@@ -868,6 +1201,9 @@ module.exports = {
 		var btlPath = dataPath+'/Battles/battle-' + server + '.json'
 		var btlRead = fs.readFileSync(btlPath);
 		var btl = JSON.parse(btlRead);
+        var servPath = dataPath+'/Server Settings/server.json'
+        var servRead = fs.readFileSync(servPath, {flag: 'as+'});
+        var servFile = JSON.parse(servRead);
 		
 		var charName = charDefs.truename ? charDefs.truename : charDefs.name
 		var targName = targDefs.truename ? targDefs.truename : targDefs.name
@@ -877,18 +1213,18 @@ module.exports = {
 				initTrust(charDefs, targName)
 				initTrust(targDefs, charName)
 			}
-			
+
 			if (targDefs.trust[charName].dislike) {
-				targDefs.trust[charName].dislike += increment
+				targDefs.trust[charName].dislike += increment*(servFile[server].trustrate ? servFile[server].trustrate : 1)
 				if (targDefs.trust[charName].dislike >= 200)
 					delete targDefs.trust[charName].dislike;
 			} else {
-				targDefs.trust[charName].value += increment
+				targDefs.trust[charName].value += increment*(servFile[server].trustrate ? servFile[server].trustrate : 1)
 				if (targDefs.trust[charName].value < 0) {
-					dislikeChar(targDefs, charName)
+					dislikeChar(targDefs, charName, btl[server], client)
 				} else {
 					while (targDefs.trust[charName].value >= targDefs.trust[charName].nextLevel) {
-						trustLevel(targDefs, charName)
+						trustLevel(targDefs, charName, btl[server], client)
 					}
 				}
 			}
@@ -932,5 +1268,17 @@ module.exports = {
 	
 	equippedCharm: function(charDefs, charm) {
 		return equippedCharm(charDefs, charm)
+	},
+	
+	canTransform: function(charDefs, allySide, oppSide, trans) {
+		return canTransform(charDefs, trans);
+	},
+	
+	transform: function(charDefs, trans) {
+		transformChar(charDefs, trans)
+	},
+	
+	untransform: function(charDefs) {
+		deTransformChar(charDefs)
 	}
 }
