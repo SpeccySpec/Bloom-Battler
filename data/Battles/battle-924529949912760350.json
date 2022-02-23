@@ -1,5 +1,5 @@
 {
-    "763858631836958771": {
+    "924529949912760350": {
         "battling": false,
         "colosseum": [
             false,
@@ -14,9 +14,9 @@
         ],
         "trials": {},
         "parties": {
-            "Patella": {
+            "Ira": {
                 "members": [
-                    "Patella"
+                    "Ira"
                 ],
                 "backup": [],
                 "subs": [],
@@ -25,9 +25,20 @@
                 "items": {},
                 "rings": 0
             },
-            "Lacrimal": {
+            "Croato": {
                 "members": [
-                    "Lacrimal"
+                    "Croato"
+                ],
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {},
+                "items": {},
+                "rings": 142
+            },
+            "DemonicDesire": {
+                "members": [
+                    "DemonicDesire"
                 ],
                 "backup": [],
                 "subs": [],
@@ -36,10 +47,20 @@
                 "items": {},
                 "rings": 0
             },
-            "vsPatella": {
+            "RecolorNate": {
                 "members": [
-                    "Sutela",
-                    "Lacrimal"
+                    "RecolorNate"
+                ],
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {},
+                "items": {},
+                "rings": 0
+            },
+            "PVP1": {
+                "members": [
+                    "Bayrero"
                 ],
                 "items": {},
                 "rings": 0,
@@ -48,43 +69,16 @@
                 "negotiates": {},
                 "negotiateAllies": {}
             },
-            "Trinity": {
-                "members": [],
+            "PVP2": {
+                "members": [
+                    "Sparky"
+                ],
                 "items": {},
                 "rings": 0,
-                "backup": [
-                    "Sutela",
-                    "Patella",
-                    "Lacrimal",
-                    "Nighthug"
-                ],
+                "backup": [],
                 "subs": [],
                 "negotiates": {},
                 "negotiateAllies": {}
-            },
-            "Sutela": {
-                "members": [
-                    "Sutela"
-                ],
-                "backup": [],
-                "subs": [],
-                "negotiates": {
-                    "Patella(Enemy)": 1
-                },
-                "negotiateAllies": {},
-                "items": {},
-                "rings": 0
-            },
-            "Terrly": {
-                "members": [
-                    "Terrly"
-                ],
-                "backup": [],
-                "subs": [],
-                "negotiates": {},
-                "negotiateAllies": {},
-                "items": {},
-                "rings": 0
             }
         },
         "allies": {

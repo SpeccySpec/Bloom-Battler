@@ -1,5 +1,5 @@
 {
-    "739088538964066345": {
+    "836346842848428092": {
         "battling": false,
         "colosseum": [
             false,
@@ -14,20 +14,9 @@
         ],
         "trials": {},
         "parties": {
-            "Arrow": {
+            "Lanagu": {
                 "members": [
-                    "Arrow"
-                ],
-                "backup": [],
-                "subs": [],
-                "negotiates": {},
-                "negotiateAllies": {},
-                "items": {},
-                "rings": 0
-            },
-            "PVPSandbag": {
-                "members": [
-                    "PVPSandbag"
+                    "Lanagu"
                 ],
                 "backup": [],
                 "subs": [],
@@ -54,8 +43,9 @@
         "turn": 0,
         "pvp": false,
         "pvpmode": "none",
-        "ranked": true,
         "weather": "clear",
-        "terrain": "normal"
+        "terrain": "normal",
+        "canRun": true,
+        "canshowtime": false
     }
 }

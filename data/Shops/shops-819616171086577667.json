@@ -1,0 +1,35 @@
+{
+    "819616171086577667": {
+        "845397163201789972": {
+            "name": "SpiralShop",
+            "party": "none",
+            "items": [
+                "Wood",
+                "Potion",
+                "MPPotion",
+                "BottleOfWater",
+                "SparkleBerry",
+                "ShineBerry",
+                "PlumpBerry",
+                "AgiGem",
+                "BufuGem",
+                "ZioGem",
+                "RevivalSpray"
+            ]
+        },
+        "944724118379560991": {
+            "name": "PrismaShop",
+            "items": [
+                "Wood",
+                "Apple",
+                "Potion",
+                "MPPotion",
+                "BottleOfWater",
+                "RevivalSpray",
+                "HanaGem",
+                "PoisonLeaf"
+            ],
+            "party": "none"
+        }
+    }
+}

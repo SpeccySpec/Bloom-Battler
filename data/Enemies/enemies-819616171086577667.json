@@ -175,7 +175,7 @@
             "repel": [],
             "drain": [],
             "image": "miniscle.png",
-            "journal": "Attacks in groups, persuing those they feel are dangerous to them.",
+            "journal": "Attacks in groups, persuing those they feel are dangerous to them. Most use the sharpness of their icicles to determine who should lead. They are known to have a very cold personality, and don't usually enjoy making friends with other species.",
             "dreams": [
                 "...Danger...",
                 "...Fear ... Fear...",
@@ -384,7 +384,7 @@
                 "bless"
             ],
             "drain": [],
-            "image": "glimbat.png",
+            "image": "Glimbat.png",
             "journal": "Attacks alone, but will freely accept help from it's allies.",
             "dreams": [
                 "...Food... Food...",
@@ -425,7 +425,8 @@
                 "...End... it..."
             ],
             "awardxp": 50,
-            "name": "Sacriful"
+            "name": "Sacriful",
+            "image": "Sacriful.png"
         },
         "GlowingCrystal": {
             "level": 43,
@@ -470,8 +471,9 @@
                 "...Can't... Run...",
                 "...Pain... Pain..."
             ],
-            "awardxp": 600,
-            "name": "GlowingCrystal"
+            "awardxp": 201044,
+            "name": "GlowingCrystal",
+            "image": "GlowingCrystal.png"
         },
         "Mosstone": {
             "level": 32,
@@ -529,7 +531,8 @@
                     "skill": "RockThrow"
                 }
             },
-            "name": "Mosstone"
+            "name": "Mosstone",
+            "image": "Mosstone.png"
         },
         "Spiritual": {
             "level": 52,
@@ -566,7 +569,7 @@
             "drain": [
                 "curse"
             ],
-            "journal": "Spirit said to be from hell. It's an imprint of past life, however, the past life has not been very well behaved, and has sinned.",
+            "journal": "Spirit said to be from hell. It's an imprint of past life, however, it has some unfinished buisness to attend to.",
             "dreams": [
                 "...Sin... Sin..."
             ],
@@ -576,8 +579,8 @@
                 {
                     "name": "Calm",
                     "desc": "Calm the Spiritual.",
-                    "action": "%PLAYER% tries to calm the Spiritual. It seems calmed.",
-                    "convince": 100
+                    "action": "%PLAYER% tries to calm the Spiritual. It seems calmer.",
+                    "convince": 40
                 }
             ],
             "negotiateDefs": {
@@ -589,7 +592,8 @@
                     "skill": "Mamakanda"
                 }
             },
-            "name": "Spiritual"
+            "name": "Spiritual",
+            "image": "Spiritual.png"
         },
         "Croconite": {
             "level": 60,
@@ -656,7 +660,8 @@
                     "skill": "BrainBite"
                 }
             },
-            "name": "Croconite"
+            "name": "Croconite",
+            "image": "Croconite.png"
         },
         "Toxiplant": {
             "level": 54,
@@ -722,7 +727,8 @@
                     "skill": "Secrete"
                 }
             },
-            "name": "Toxiplant"
+            "name": "Toxiplant",
+            "image": "Toxiplant.png"
         },
         "Noxiherb": {
             "level": 59,
@@ -790,7 +796,8 @@
                     "skill": "GooWave"
                 }
             },
-            "name": "Noxiherb"
+            "name": "Noxiherb",
+            "image": "Noxiherb.png"
         },
         "Grassimp": {
             "level": 14,
@@ -817,13 +824,15 @@
             "weak": [
                 "fire"
             ],
-            "resist": [],
+            "resist": [
+                "grass"
+            ],
             "block": [],
             "repel": [],
             "drain": [
                 "water"
             ],
-            "image": "grassimp.png",
+            "image": "Grassimp.png",
             "journal": "Defenseless bug that hides under bushes. They warm up to other people very quickly, and never intend to hurt others. They love being held & pet, and nuzzle others to show their trust. During the summers, they bloom & hand out the blueberries produced to friends & trusted allies.",
             "dreams": [
                 "...Food... Food...",
@@ -917,7 +926,8 @@
                     "convince": 15
                 }
             ],
-            "name": "Mossimp"
+            "name": "Mossimp",
+            "image": "Mossimp.png"
         },
         "GreatMossimp": {
             "level": 33,
@@ -945,7 +955,8 @@
                 "AssaultDive"
             ],
             "weak": [
-                "fire"
+                "fire",
+                "slash"
             ],
             "resist": [
                 "grass",
@@ -964,7 +975,8 @@
             ],
             "awardxp": 33251,
             "loot": "Grassimp",
-            "name": "GreatMossimp"
+            "name": "GreatMossimp",
+            "image": "GreatMossimp.png"
         },
         "MassiveMossimp": {
             "level": 50,
@@ -993,16 +1005,15 @@
                 "GrassyTerrain"
             ],
             "weak": [
-                "curse",
+                "fire",
                 "slash"
             ],
             "resist": [
-                "poison",
-                "strike"
+                "grass",
+                "ice"
             ],
             "block": [
-                "pierce",
-                "grass"
+                "pierce"
             ],
             "repel": [],
             "drain": [
@@ -1014,7 +1025,8 @@
             ],
             "awardxp": 78342,
             "loot": "Grassimp",
-            "name": "MassiveMossimp"
+            "name": "MassiveMossimp",
+            "image": "MassiveMossimp.png"
         },
         "Grassage": {
             "level": 43,
@@ -1042,17 +1054,18 @@
                 "Media"
             ],
             "weak": [
-                "poison"
+                "fire"
             ],
             "resist": [
-                "grass"
+                "grass",
+                "psychic"
             ],
             "block": [],
             "repel": [],
             "drain": [
                 "water"
             ],
-            "image": "grassage.png",
+            "image": "Grassage.png",
             "journal": "Magical Grassimp that fights for the safety of others of it's kind. It can be dangerous when encountered in groups. It, like a regular Grassimp, loves pets, and will warm up to others easilly.",
             "dreams": [
                 "...Food... Food...",
@@ -1109,7 +1122,9 @@
                 "poison"
             ],
             "resist": [
-                "water"
+                "water",
+                "grass",
+                "earth"
             ],
             "block": [],
             "repel": [],
@@ -1119,7 +1134,8 @@
                 "...Teamwork..."
             ],
             "awardxp": 1242,
-            "name": "Mosscreep"
+            "name": "Mosscreep",
+            "image": "Mosscreep.png"
         },
         "Reactite": {
             "level": 10,
@@ -1152,7 +1168,8 @@
                 "...Light..."
             ],
             "awardxp": 1192,
-            "name": "Reactite"
+            "name": "Reactite",
+            "image": "Reactite.png"
         },
         "Mossknight": {
             "level": 15,
@@ -1197,7 +1214,8 @@
                 "...Light..."
             ],
             "awardxp": 1201,
-            "name": "Mossknight"
+            "name": "Mossknight",
+            "image": "Mossknight.png"
         },
         "Folly": {
             "level": 12,
@@ -1235,7 +1253,8 @@
                 "...Light..."
             ],
             "awardxp": 2000,
-            "name": "Folly"
+            "name": "Folly",
+            "image": "Folly.png"
         },
         "Enigstone": {
             "level": 49,
@@ -1301,7 +1320,8 @@
                     "action": "%PLAYER% pets Enigstone, and it is pleased.",
                     "convince": 50
                 }
-            ]
+            ],
+            "image": "Enigstone.png"
         },
         "Mystone": {
             "level": 15,
@@ -1370,7 +1390,8 @@
                     "def": 6,
                     "skill": "ConfusingMist"
                 }
-            }
+            },
+            "image": "Mystone.png"
         },
         "Nymbulous": {
             "level": 17,
@@ -1422,7 +1443,8 @@
                 "...Danger... ...Danger..."
             ],
             "awardxp": 14532,
-            "name": "Nymbulous"
+            "name": "Nymbulous",
+            "image": "Nymbulous.png"
         },
         "Sandmound": {
             "level": 16,
@@ -1470,7 +1492,8 @@
                 "...Danger... ...Danger..."
             ],
             "awardxp": 210,
-            "name": "Sandmound"
+            "name": "Sandmound",
+            "image": "Sandmound.png"
         },
         "Sandifly": {
             "level": 16,
@@ -1518,7 +1541,8 @@
                 "...Danger... ...Danger..."
             ],
             "awardxp": 190,
-            "name": "Sandifly"
+            "name": "Sandifly",
+            "image": "Sandifly.png"
         },
         "MasterMiniscle": {
             "level": 21,
@@ -1564,7 +1588,8 @@
                 "...Pain... Pain..."
             ],
             "awardxp": 600,
-            "name": "MasterMiniscle"
+            "name": "MasterMiniscle",
+            "image": "MasterMiniscle.png"
         },
         "Memoiru": {
             "level": 18,
@@ -1602,7 +1627,7 @@
             "block": [],
             "repel": [],
             "drain": [],
-            "image": "memoiru.png",
+            "image": "Memoiru.png",
             "journal": "An infected creature that goes around, mimicking people that it's targets know, and luring them to their lair, to be killed and sometimes consumed.",
             "dreams": [
                 "..."
@@ -1650,7 +1675,8 @@
                 "...Seal... ...darkness..."
             ],
             "awardxp": 1923,
-            "name": "Monia"
+            "name": "Monia",
+            "image": "Monia.png"
         },
         "Monum": {
             "level": 20,
@@ -1659,12 +1685,12 @@
             "boss": true,
             "hp": 1400,
             "mp": 1000,
-            "atk": 24,
+            "atk": 18,
             "mag": 24,
             "prc": 18,
             "end": 23,
             "chr": 18,
-            "int": 18,
+            "int": 24,
             "agl": 16,
             "luk": 20,
             "melee": [
@@ -1672,13 +1698,14 @@
                 "strike"
             ],
             "skills": [
-                "Secrete",
                 "TentacleSwipe",
+                "Secrete",
                 "InkySplat",
                 "AquaBeam",
                 "TidalWave",
                 "SapSnip",
-                "BrainTrick"
+                "BrainTrick",
+                "Intelligence"
             ],
             "weak": [
                 "strike",
@@ -1700,7 +1727,15 @@
                 "...Seal... ...darkness..."
             ],
             "awardxp": 7653,
-            "name": "Monum"
+            "name": "Monum",
+            "negotiate": [
+                {
+                    "name": "Restore",
+                    "desc": "Restore Monum to it's senses.",
+                    "action": "%PLAYER% pleads to Monum. Monum remembers...",
+                    "convince": 20
+                }
+            ]
         },
         "AwakenedMonum": {
             "name": "AwakenedMonum",
@@ -1710,12 +1745,12 @@
             "boss": true,
             "hp": 10000,
             "mp": 3485,
-            "atk": 60,
-            "mag": 63,
+            "atk": 24,
+            "mag": 73,
             "prc": 56,
-            "end": 40,
+            "end": 43,
             "chr": 40,
-            "int": 20,
+            "int": 64,
             "agl": 24,
             "luk": 29,
             "melee": [
@@ -1730,7 +1765,7 @@
                 "Garudyne",
                 "Magarula",
                 "BrainTrick",
-                "TentacleSwipe"
+                "Intelligence"
             ],
             "weak": [
                 "electric",
@@ -1745,13 +1780,13 @@
             "drain": [
                 "water"
             ],
-            "journal": "A stronger, more complete form of Monum. Angered over the destruction of the lands, Monum has grown stronger and enraged. It controls elements of Water, Wind and Poison, and is seen as the god of those.",
+            "journal": "A stronger, more complete form of Monum. Angered over the destruction of the lands, Monum has grown stronger, restless and enraged. It controls elements of Water, Wind and Poison, and is seen as the god of those.",
             "dreams": [
                 "...Don't... ...Break... ...seals...",
                 "...Leave... ...be...",
                 "...Seal... ...darkness..."
             ],
-            "awardxp": 109323,
+            "awardxp": 1404932,
             "negotiate": [
                 {
                     "name": "Calm",
@@ -1831,7 +1866,8 @@
                     "convince": 33
                 }
             ],
-            "name": "Agilitop"
+            "name": "Agilitop",
+            "image": "Agilitop.png"
         },
         "Topium": {
             "level": 30,
@@ -1873,7 +1909,8 @@
                 "...You... pay..."
             ],
             "awardxp": 24000,
-            "name": "Topium"
+            "name": "Topium",
+            "image": "Topium.png"
         },
         "Flarebubble": {
             "level": 17,
@@ -1895,7 +1932,8 @@
                 "Fireball",
                 "Lavawave",
                 "Embers",
-                "MoltenBody"
+                "MoltenBody",
+                "Freila"
             ],
             "weak": [
                 "water"
@@ -1916,7 +1954,8 @@
                 "...Can't... run..."
             ],
             "awardxp": 1999,
-            "name": "Flarebubble"
+            "name": "Flarebubble",
+            "image": "Flarebubble.png"
         },
         "Ghasty": {
             "level": 30,
@@ -1961,7 +2000,8 @@
                 "...Can't... run..."
             ],
             "awardxp": 13221,
-            "name": "Ghasty"
+            "name": "Ghasty",
+            "image": "Ghasty.png"
         },
         "Nyamo": {
             "level": 20,
@@ -1991,8 +2031,7 @@
                 "electric"
             ],
             "resist": [
-                "strike",
-                "fire"
+                "water"
             ],
             "block": [
                 "pierce",
@@ -2000,7 +2039,7 @@
             ],
             "repel": [],
             "drain": [],
-            "image": "nyamo.png",
+            "image": "Nyamo.png",
             "journal": "Thought to be closely related to the diety Nyamem. Little dragon babies that love to play around.",
             "dreams": [
                 "...Hungry... ...Food...?",
@@ -2063,13 +2102,15 @@
             ],
             "weak": [
                 "grass",
-                "earth"
+                "electric",
+                "ice"
             ],
             "resist": [
-                "strike",
                 "fire"
             ],
-            "block": [],
+            "block": [
+                "pierce"
+            ],
             "repel": [
                 "water"
             ],
@@ -2110,7 +2151,8 @@
                     "convince": -20
                 }
             ],
-            "name": "Nyamush"
+            "name": "Nyamush",
+            "image": "Nyamush.png"
         },
         "ViolentNyamo": {
             "level": 24,
@@ -2157,7 +2199,8 @@
                 "...Lonely..."
             ],
             "awardxp": 2433,
-            "name": "ViolentNyamo"
+            "name": "ViolentNyamo",
+            "image": "ViolentNyamo.png"
         },
         "ViolentNyamush": {
             "level": 23,
@@ -2203,7 +2246,8 @@
                 "...Lonely..."
             ],
             "awardxp": 2532,
-            "name": "ViolentNyamush"
+            "name": "ViolentNyamush",
+            "image": "ViolentNyamush.png"
         },
         "NyamoWarrior": {
             "level": 20,
@@ -2231,19 +2275,18 @@
             ],
             "weak": [
                 "psychic",
-                "fire"
+                "electric",
+                "ice"
             ],
             "resist": [
-                "ice"
+                "slash",
+                "water"
             ],
             "block": [
                 "pierce",
-                "wind",
-                "slash"
+                "wind"
             ],
-            "repel": [
-                "strike"
-            ],
+            "repel": [],
             "drain": [],
             "journal": "Thought to be closely related to the diety Nyamem. They fight together to guard their mother, said to be Nyamem themselves.",
             "dreams": [
@@ -2252,7 +2295,8 @@
                 "...Lonely..."
             ],
             "awardxp": 6462,
-            "name": "NyamoWarrior"
+            "name": "NyamoWarrior",
+            "image": "NyamoWarrior.png"
         },
         "VolatileWarrior": {
             "level": 20,
@@ -2305,7 +2349,8 @@
                 "...Lonely..."
             ],
             "awardxp": 12342,
-            "name": "VolatileWarrior"
+            "name": "VolatileWarrior",
+            "image": "VolatileWarrior.png"
         },
         "Hydruu": {
             "level": 30,
@@ -2350,7 +2395,8 @@
                 "...You... hurt them..."
             ],
             "awardxp": 23523,
-            "name": "Hydruu"
+            "name": "Hydruu",
+            "image": "Hydruu.png"
         },
         "Nyamem": {
             "level": 30,
@@ -2371,28 +2417,27 @@
                 "pierce"
             ],
             "skills": [
-                "TripleCrunch",
                 "DragonClaw",
                 "RapidSlashes",
-                "Current",
+                "TripleCrunch",
                 "TidalWave",
-                "Psio",
+                "Current",
                 "Roar",
-                "ThunderWings",
-                "Makakaja"
+                "Makakaja",
+                "ThunderWings"
             ],
             "weak": [
-                "ice",
-				"curse"
+                "ice"
             ],
             "resist": [
                 "strike",
                 "grass"
             ],
-            "block": [],
-            "repel": [
+            "block": [
+                "pierce",
                 "wind"
-			],
+            ],
+            "repel": [],
             "drain": [],
             "journal": "A live creature, hiding the true diety within it. If it were to be defeated, it would calm the diety inside.",
             "dreams": [
@@ -2421,7 +2466,8 @@
                     "convince": 6
                 }
             ],
-            "name": "Nyamem"
+            "name": "Nyamem",
+            "image": "Nyamem.png"
         },
         "InfectedNyamem": {
             "level": 32,
@@ -2477,10 +2523,10 @@
                 "...Lonely..."
             ],
             "awardxp": 43566,
-            "name": "InfectedNyamem"
+            "name": "InfectedNyamem",
+            "image": "InfectedNyamem.png"
         },
         "Evergreen": {
-            "name": "Evergreen",
             "level": 35,
             "boss": true,
             "diety": true,
@@ -2499,14 +2545,12 @@
                 "pierce"
             ],
             "skills": [
-                "Magnadyne",
-                "Materazi",
                 "Hanamadyne",
                 "Mahanama",
                 "Eigaon",
-                "GiantSlice",
-                "RootStab",
+                "Maeiga",
                 "Megido",
+                "Matarunda",
                 "Debilitate",
                 "ForestCurse"
             ],
@@ -2528,7 +2572,9 @@
             "dreams": [
                 "...Light..."
             ],
-            "awardxp": 29534
+            "awardxp": 29534,
+            "name": "Evergreen",
+            "image": "Evergreen.png"
         },
         "Mawler": {
             "level": 35,
@@ -2576,7 +2622,8 @@
                 "...Can't... run..."
             ],
             "awardxp": 19421,
-            "name": "Mawler"
+            "name": "Mawler",
+            "image": "Mawler.png"
         },
         "GravenIdol": {
             "level": 47,
@@ -2597,11 +2644,13 @@
                 "strike"
             ],
             "skills": [
+                "EyeCannon",
                 "HugeKnuckle",
                 "MegaKick",
-                "EyeCannon",
                 "Earthquake",
                 "Shockwave",
+                "Tarukaja",
+                "Masukunda",
                 "Tetrakarn"
             ],
             "weak": [
@@ -2626,10 +2675,12 @@
                 "...Can't... run..."
             ],
             "awardxp": 39643,
-            "name": "GravenIdol"
+            "name": "GravenIdol",
+            "image": "GravenIdol.png"
         },
         "InfectedVessel": {
             "level": 45,
+            "image": "InfectedVessel.png",
             "miniboss": true,
             "hp": 3523,
             "mp": 1224,
@@ -2657,7 +2708,7 @@
             "lb": {
                 "name": "Infectious End",
                 "pow": 200,
-                "cost": 110,
+                "cost": 200,
                 "status": "poison",
                 "statuschance": 20
             },
@@ -2666,8 +2717,7 @@
             ],
             "resist": [
                 "grass",
-                "wind",
-                "slash"
+                "wind"
             ],
             "block": [],
             "repel": [
@@ -2732,11 +2782,13 @@
                 "..."
             ],
             "awardxp": 68394,
-            "name": "RefinedVessel"
+            "name": "RefinedVessel",
+            "image": "RefinedVessel.png"
         },
         "TheLuminosity": {
             "level": 40,
             "boss": true,
+            "diety": true,
             "hp": 6421,
             "mp": 4324,
             "atk": 46,
@@ -2770,21 +2822,23 @@
             "journal": "The god of light herself. When angered, she spreads her influence with mutus, an infectious liquid that if enveloped in for too long, may take control of the victim. She has aged over time and therefore, cannot use her true power.",
             "dreams": [],
             "awardxp": 112942,
-            "name": "TheLuminosity"
+            "name": "TheLuminosity",
+            "image": "Luminosity.png"
         },
         "ElderLuminosity": {
-            "level": 60,
+            "level": 75,
             "boss": true,
+            "diety": true,
             "hp": 7000,
             "mp": 6000,
-            "atk": 70,
-            "mag": 70,
-            "prc": 60,
-            "end": 20,
-            "chr": 50,
-            "int": 50,
-            "agl": 54,
-            "luk": 48,
+            "atk": 81,
+            "mag": 81,
+            "prc": 75,
+            "end": 22,
+            "chr": 58,
+            "int": 51,
+            "agl": 21,
+            "luk": 32,
             "melee": [
                 "Pierce Attack",
                 "pierce"
@@ -2822,7 +2876,8 @@
             "journal": "The Luminosity aged over time, and lost some of her power due to the fact that everybody stopped worshipping her. Her elder ancestor would step in if provoked. This is her at full power, while everyone still worshipped her, and gave strength. This battle will be a lengthy one. **Good luck**.",
             "dreams": [],
             "awardxp": 200000,
-            "name": "ElderLuminosity"
+            "name": "ElderLuminosity",
+            "image": "Luminosity.png"
         },
         "Hitten": {
             "level": 50,
@@ -2866,7 +2921,8 @@
             ],
             "awardxp": 7532,
             "loot": "Metalic",
-            "name": "Hitten"
+            "name": "Hitten",
+            "image": "Hitten.png"
         },
         "Eleku": {
             "level": 48,
@@ -2909,10 +2965,12 @@
             ],
             "awardxp": 4312,
             "loot": "Metalic",
-            "name": "Eleku"
+            "name": "Eleku",
+            "image": "Eleku.png"
         },
         "Minet": {
             "level": 40,
+            "image": "Minet.png",
             "hp": 200,
             "mp": 20,
             "atk": 35,
@@ -2979,7 +3037,8 @@
             ],
             "awardxp": 4854,
             "loot": "Metalic",
-            "name": "Lazerite"
+            "name": "Lazerite",
+            "image": "Lazerite.png"
         },
         "Windite": {
             "level": 48,
@@ -3019,7 +3078,8 @@
             ],
             "awardxp": 4400,
             "loot": "Metalic",
-            "name": "Windite"
+            "name": "Windite",
+            "image": "Windite.png"
         },
         "Frostite": {
             "level": 48,
@@ -3061,7 +3121,8 @@
             ],
             "awardxp": 5000,
             "loot": "Metalic",
-            "name": "Frostite"
+            "name": "Frostite",
+            "image": "Frostite.png"
         },
         "Mossite": {
             "level": 48,
@@ -3105,7 +3166,8 @@
             ],
             "awardxp": 4450,
             "loot": "Metalic",
-            "name": "Mossite"
+            "name": "Mossite",
+            "image": "Mossite.png"
         },
         "Aquatite": {
             "level": 48,
@@ -3150,7 +3212,8 @@
             ],
             "awardxp": 4450,
             "loot": "Metalic",
-            "name": "Aquatite"
+            "name": "Aquatite",
+            "image": "Aquatite.png"
         },
         "BigStriker": {
             "level": 55,
@@ -3196,7 +3259,8 @@
             ],
             "awardxp": 29532,
             "loot": "Metalic",
-            "name": "BigStriker"
+            "name": "BigStriker",
+            "image": "BigStriker.png"
         },
         "Frostimp": {
             "level": 46,
@@ -3230,7 +3294,7 @@
             "block": [],
             "repel": [],
             "drain": [],
-            "image": "frostimp.png",
+            "image": "Frostimp.png",
             "journal": "This Grassimp's leaves froze over, and it now uses this as a better method of defense. Unfortunately, it's a worse method of defense.",
             "dreams": [
                 "...Food... Food...",
@@ -3324,7 +3388,8 @@
                     "convince": 10
                 }
             ],
-            "name": "Verglasimp"
+            "name": "Verglasimp",
+            "image": "Verglasimp.png"
         },
         "Frostsage": {
             "level": 55,
@@ -3390,7 +3455,8 @@
                     "convince": 50
                 }
             ],
-            "name": "Frostsage"
+            "name": "Frostsage",
+            "image": "Frostsage.png"
         },
         "Icifli": {
             "level": 40,
@@ -3433,7 +3499,8 @@
             ],
             "awardxp": 5965,
             "loot": "Ice",
-            "name": "Icifli"
+            "name": "Icifli",
+            "image": "Icifli.png"
         },
         "Snowamor": {
             "level": 60,
@@ -3504,19 +3571,20 @@
                     "convince": 7
                 }
             ],
-            "name": "Snowamor"
+            "name": "Snowamor",
+            "image": "Snowamor.png"
         },
         "Howlice": {
             "level": 40,
             "hp": 240,
             "mp": 196,
-            "atk": 60,
-            "mag": 40,
+            "atk": 40,
+            "mag": 21,
             "prc": 39,
             "end": 39,
             "chr": 9,
             "int": 12,
-            "agl": 56,
+            "agl": 41,
             "luk": 22,
             "melee": [
                 "Strike Attack",
@@ -3555,7 +3623,17 @@
                     "convince": 50
                 }
             ],
-            "name": "Howlice"
+            "name": "Howlice",
+            "negotiateDefs": {
+                "required": 2,
+                "qualities": {
+                    "atk": 6,
+                    "mag": 0,
+                    "def": 2,
+                    "skill": "IceFang"
+                }
+            },
+            "image": "Howlice.png"
         },
         "Arftic": {
             "level": 1,
@@ -3598,7 +3676,17 @@
                     "convince": 100
                 }
             ],
-            "name": "Arftic"
+            "name": "Arftic",
+            "negotiateDefs": {
+                "required": 3,
+                "qualities": {
+                    "atk": 3,
+                    "mag": 0,
+                    "def": 0,
+                    "skill": "0"
+                }
+            },
+            "image": "Arftic.png"
         },
         "FrostTunneler": {
             "level": 50,
@@ -3663,7 +3751,8 @@
                     "convince": 5
                 }
             ],
-            "name": "FrostTunneler"
+            "name": "FrostTunneler",
+            "image": "FrostTunneler.png"
         },
         "Robat": {
             "level": 45,
@@ -3720,7 +3809,8 @@
                     "convince": 50
                 }
             ],
-            "name": "Robat"
+            "name": "Robat",
+            "image": "Robat.png"
         },
         "Mechanium": {
             "level": 55,
@@ -3797,10 +3887,12 @@
                     "convince": 3
                 }
             ],
-            "name": "Mechanium"
+            "name": "Mechanium",
+            "image": "Mechanium.png"
         },
         "Foxbot": {
             "level": 50,
+            "image": "foxbot.png",
             "hp": 321,
             "mp": 46,
             "atk": 49,
@@ -4348,7 +4440,7 @@
         "GrassyWarrior": {
             "name": "GrassyWarrior",
             "creator": "516359709779820544",
-            "image": "grassywarrior.png",
+            "image": "GrassyWarrior.png",
             "level": 65,
             "hp": 430,
             "mp": 99,
@@ -4977,7 +5069,8 @@
             ],
             "weak": [
                 "fire",
-                "poison"
+                "poison",
+                "pierce"
             ],
             "resist": [],
             "block": [],
@@ -5106,7 +5199,8 @@
             "negotiateDefs": {
                 "required": 5
             },
-            "diety": true
+            "diety": true,
+            "image": "Nyamem.png"
         },
         "Lychy": {
             "name": "Lychy",
@@ -5132,7 +5226,6 @@
                 "Kouha"
             ],
             "weak": [
-                "fire",
                 "curse"
             ],
             "resist": [
@@ -5167,7 +5260,10 @@
                     "skill": "Kouha"
                 }
             },
-            "loot": "LychyDrops"
+            "loot": "LychyDrops",
+            "superweak": [
+                "fire"
+            ]
         },
         "LychenImp": {
             "name": "LychenImp",
@@ -5195,7 +5291,6 @@
                 "Lunge"
             ],
             "weak": [
-                "fire",
                 "curse"
             ],
             "resist": [
@@ -5238,7 +5333,10 @@
                     "skill": "Kouga"
                 }
             },
-            "loot": "LychenImpDrops"
+            "loot": "LychenImpDrops",
+            "superweak": [
+                "fire"
+            ]
         },
         "LychenAngel": {
             "name": "LychenAngel",
@@ -5385,12 +5483,7 @@
                 "strike"
             ],
             "skills": [
-                "ShadowStrike",
-                "Eigaon",
-                "Bufula",
-                "Maeigaon",
-                "SilencedDark",
-                "TentacleSwipe"
+                "Mimic"
             ],
             "weak": [
                 "bless",
@@ -5412,19 +5505,19 @@
                     "name": "Comfort",
                     "desc": "Try to comfort the creature of  disguises",
                     "action": "%PLAYER% would try to speak to the creature in a means to calm it down. It seems to have slowly understand what you mean.",
-                    "convince": 15
+                    "convince": 3
                 },
                 {
                     "name": "Threaten",
                     "desc": "Speak to the disguises in a rough manner",
                     "action": "%PLAYER% said harsh thing to the creature. Disguaisa visibly didn't like that action.",
-                    "convince": -40
+                    "convince": -10
                 },
                 {
                     "name": "Soothe",
                     "desc": "Sing a small tune to calm the multi-personality creature",
                     "action": "%PLAYER% sung a quaint melody to Disguaisa, who clearly enjoyed it.",
-                    "convince": 20
+                    "convince": 5
                 }
             ],
             "negotiateDefs": {
@@ -5500,7 +5593,8 @@
                     "def": 1,
                     "skill": "Madokusei"
                 }
-            }
+            },
+            "loot": "Monia"
         },
         "Mimicry": {
             "name": "Mimicry",
@@ -5618,7 +5712,8 @@
                     "def": 1,
                     "skill": "ToxinaBruiser"
                 }
-            }
+            },
+            "loot": "Monia"
         },
         "Crosar": {
             "name": "Crosar",
@@ -5810,7 +5905,8 @@
                     "def": 4,
                     "skill": "Mavisunda"
                 }
-            }
+            },
+            "loot": "Toxiplant"
         },
         "CaveCrawler": {
             "name": "CaveCrawler",
@@ -6102,7 +6198,7 @@
             ],
             "repel": [],
             "drain": [],
-            "journal": "Jolly mushrooms with a playful attitude. They glow on touch and have been known to assist in lighting dark rooms.",
+            "journal": "Jolly mushrooms with a playful attitude. They glow on touch and have been known to assist in lighting dark rooms. They will offer Glow Shrooms to those they like, and love being pet. While they are technically two creatures, they share one mind.",
             "dreams": [],
             "awardxp": 10069,
             "negotiate": [
@@ -6133,7 +6229,9 @@
                     "def": 8,
                     "skill": "Mediarama"
                 }
-            }
+            },
+            "loot": "Mushi",
+            "image": "Mushi.png"
         },
         "AngryNyamo": {
             "name": "AngryNyamo",
@@ -6252,7 +6350,7 @@
                 {
                     "name": "Calm",
                     "desc": "Calm the angered dragon",
-                    "action": "%PLAYER% sings a soft melody to calm Nyqmush down, it's making progress.",
+                    "action": "%PLAYER% sings a soft melody to calm Nyamush down, it's making progress.",
                     "convince": 20
                 },
                 {
@@ -6333,7 +6431,8 @@
                     "def": 2,
                     "skill": "TripleCrunch"
                 }
-            }
+            },
+            "loot": "Mushi"
         },
         "Guardmos": {
             "name": "Guardmos",
@@ -6419,7 +6518,7 @@
             ],
             "repel": [],
             "drain": [],
-            "journal": "Rocky bugs that often remain in buildings.",
+            "journal": "Rocky bugs that often remain in buildings, or rocky areas.",
             "dreams": [],
             "awardxp": 432123,
             "negotiate": [
@@ -6431,7 +6530,7 @@
                 },
                 {
                     "name": "ScaryFace",
-                    "desc": "Make a scary face to te Runeite",
+                    "desc": "Make a scary face to the Runeite",
                     "action": "%PLAYER% scares te Runeite, and it seems scared.",
                     "convince": -20
                 }
@@ -6529,9 +6628,34 @@
             "journal": "Leads groups of small Shimites in battle. They strike hard with their crystal body, easilly causing their foes to bleed.",
             "dreams": [],
             "awardxp": 373232,
-            "negotiate": [],
+            "negotiate": [
+                {
+                    "name": "Agression",
+                    "desc": "Agressively rub Glimmer's crystals.",
+                    "action": "%PLAYER% attempted to rub Glimmer's crystals with agility, But they just got worse.",
+                    "convince": -40
+                },
+                {
+                    "name": "Rub",
+                    "desc": "Rub up the crystals with something clean.",
+                    "action": "%PLAYER% cleaned the crystals with something clean, and Glimmer was greatful.",
+                    "convince": 34
+                },
+                {
+                    "name": "Hands-On",
+                    "desc": "Use your hands to rub Glimmer's crystals",
+                    "action": "%PLAYER% attempted to rub Glimmer's crystals with their hands, But they just got worse.",
+                    "convince": -20
+                }
+            ],
             "negotiateDefs": {
-                "required": 5
+                "required": 4,
+                "qualities": {
+                    "atk": 1,
+                    "mag": 9,
+                    "def": 3,
+                    "skill": "CrystalLightshow"
+                }
             }
         },
         "Spinitop": {
@@ -6613,9 +6737,52 @@
             "journal": "Attracted to blood, Gleambite works in unison with lesser Glimbats to consume the blood of those who disturb it.",
             "dreams": [],
             "awardxp": 243221,
-            "negotiate": [],
+            "negotiate": [
+                {
+                    "name": "Agression",
+                    "desc": "Agressively rub Gleambite's crystals.",
+                    "require": [
+                        "called",
+                        "%PLAYER% attempted to rub Gleambite's crystals with agility, But they just got worse.",
+                        "%PLAYER% attempted to rub Gleambite's crystals, but it was too high up. **Maybe try to lure them down?**"
+                    ],
+                    "convince": -40
+                },
+                {
+                    "name": "Rub",
+                    "desc": "Rub up the crystals with something clean.",
+                    "require": [
+                        "called",
+                        "%PLAYER% cleaned the crystals with something clean, and Gleambite was greatful.",
+                        "%PLAYER% attempted to rub Gleambite's crystals, but it was too high up. **Maybe try to lure them down?**"
+                    ],
+                    "convince": 50
+                },
+                {
+                    "name": "Hands-On",
+                    "desc": "Use your hands to rub Gleambite's crystals",
+                    "require": [
+                        "called",
+                        "%PLAYER% attempted to rub Gleambite's crystals with their hands, But they just got worse.",
+                        "%PLAYER% attempted to rub Gleambite's crystals, but it was too high up. **Maybe try to lure them down?**"
+                    ],
+                    "convince": -20
+                },
+                {
+                    "name": "Whistle",
+                    "desc": "Catch the Gleambite's attention to lower it down.",
+                    "action": "%PLAYER% whistles to catch Gleambite's attention.",
+                    "special": "called"
+                }
+            ],
             "negotiateDefs": {
-                "required": 5
+                "required": 2,
+                "qualities": {
+                    "atk": 1,
+                    "mag": 12,
+                    "def": 2,
+                    "skill": "GleamingFire"
+                }
             }
         },
         "Darklin": {
@@ -6714,1158 +6881,1513 @@
             "journal": "Warrior Dream summoned only by usage of the Fantasy Wielder. Desired to ascend.",
             "dreams": [],
             "awardxp": 1505283,
-            "negotiate": [],
+            "negotiate": [
+                {
+                    "name": "Purify",
+                    "desc": "Assist Morb in it's Dreams.",
+                    "action": "%PLAYER% prays to Morb.",
+                    "convince": 9
+                }
+            ],
             "negotiateDefs": {
-                "required": 5
+                "required": 1,
+                "qualities": {
+                    "atk": 4,
+                    "mag": 8,
+                    "def": 5,
+                    "skill": "FantasySwords"
+                }
             },
             "miniboss": true
-        }
-    },
-    "874635107300933682": {
-        "Sandbag": {
-            "name": "Sandbag",
-            "creator": "516359709779820544",
-            "level": 1,
-            "hp": 999999,
-            "mp": 99999,
-            "atk": 1,
-            "mag": 1,
-            "prc": 1,
-            "end": 1,
-            "chr": 1,
-            "int": 1,
-            "agl": 1,
-            "luk": 1,
-            "melee": [
-                "Strike Attack",
-                "strike"
-            ],
-            "skills": [
-                "Splash",
-                "InfiniteEndure"
-            ],
-            "weak": [],
-            "resist": [],
-            "block": [],
-            "repel": [],
-            "drain": [],
-            "journal": "A punching bag.",
-            "dreams": [],
-            "awardxp": 100,
-            "negotiate": [],
-            "negotiateDefs": {
-                "required": 5
-            }
         },
-        "Frostimp": {
-            "level": 46,
-            "hp": 232,
-            "mp": 210,
-            "atk": 43,
-            "mag": 54,
-            "prc": 23,
-            "end": 43,
-            "chr": 46,
-            "int": 20,
-            "agl": 40,
-            "luk": 23,
+        "TrailingDevout": {
+            "name": "TrailingDevout",
+            "creator": "516359709779820544",
+            "level": 64,
+            "hp": 450,
+            "mp": 120,
+            "atk": 69,
+            "mag": 32,
+            "prc": 45,
+            "end": 32,
+            "chr": 54,
+            "int": 23,
+            "agl": 34,
+            "luk": 53,
             "melee": [
-                "Strike Attack",
-                "strike"
+                "Pierce Attack",
+                "pierce"
             ],
             "skills": [
-                "Bufudyne",
-                "Hanamadyne",
-                "Magnadyne",
-                "GiganticFist"
+                "HeavyShot",
+                "FatalEnd",
+                "MegatonRaid",
+                "Eigaon",
+                "Tarukaja",
+                "Sandstorm"
             ],
             "weak": [
-                "fire"
+                "bless",
+                "ice"
             ],
             "resist": [
-                "ice",
-                "grass"
-            ],
-            "block": [],
-            "repel": [],
-            "drain": [],
-            "image": "frostimp.png",
-            "journal": "This Grassimp's leaves froze over, and it now uses this as a better method of defense. Unfortunately, it's a worse method of defense.",
-            "dreams": [
-                "...Food... Food...",
-                "...Scary... Scary...",
-                "...Run... Run...",
-                "...Find... Shelter..."
-            ],
-            "awardxp": 5965,
-            "loot": "Grassimp",
-            "negotiateDefs": {
-                "required": 5,
-                "qualities": {
-                    "atk": 3,
-                    "mag": 8,
-                    "def": 6,
-                    "skill": "Bufudyne"
-                }
-            },
-            "negotiate": [
-                {
-                    "name": "Pet",
-                    "desc": "Pet the Frostimp",
-                    "action": "%PLAYER% pets the Frostimp! It feels content.",
-                    "convince": 100
-                }
-            ],
-            "name": "Frostimp"
-        },
-        "Miniscle": {
-            "level": 3,
-            "hp": 45,
-            "mp": 21,
-            "atk": 5,
-            "mag": 10,
-            "prc": 6,
-            "end": 4,
-            "chr": 8,
-            "int": 2,
-            "agl": 3,
-            "luk": 6,
-            "melee": [
-                "Strike Attack",
-                "strike"
-            ],
-            "skills": [
-                "Bufu",
-                "Garu",
-                "IcyShield"
-            ],
-            "weak": [
-                "fire",
+                "curse",
                 "earth"
             ],
-            "resist": [
-                "water"
-            ],
-            "block": [
-                "ice"
-            ],
-            "repel": [],
-            "drain": [],
-            "image": "miniscle.png",
-            "journal": "Attacks in groups, persuing those they feel are dangerous to them.",
-            "dreams": [
-                "...Danger...",
-                "...Fear ... Fear...",
-                "...Stand... ground...",
-                "...Can't... run..."
-            ],
-            "awardxp": 301,
-            "loot": "Ice",
-            "negotiateDefs": {
-                "required": 5,
-                "qualities": {
-                    "atk": 1,
-                    "mag": 4,
-                    "def": 1,
-                    "skill": "FreezingAir"
-                }
-            },
-            "negotiate": [
-                {
-                    "name": "Pet",
-                    "desc": "Pet the Miniscle",
-                    "require": [
-                        "complimented",
-                        "%PLAYER% pets the Miniscle. It's very happy.",
-                        "%PLAYER% pets the Miniscle, but it doesn't budge."
-                    ],
-                    "convince": 100
-                },
-                {
-                    "name": "Compliment",
-                    "desc": "Compliment the Miniscle",
-                    "action": "%PLAYER% compliments the Miniscle on their rounded spikes. Miniscle seems overjoyed.",
-                    "special": "complimented"
-                },
-                {
-                    "name": "Ignore",
-                    "desc": "Ignore the Miniscle",
-                    "action": "%PLAYER% ignores the Miniscle. Miniscle seems desperate for attention.",
-                    "convince": 0
-                }
-            ],
-            "name": "Miniscle"
-        },
-        "Moltescle": {
-            "level": 4,
-            "hp": 52,
-            "mp": 30,
-            "atk": 2,
-            "mag": 7,
-            "prc": 4,
-            "end": 4,
-            "chr": 1,
-            "int": 4,
-            "agl": 6,
-            "luk": 4,
-            "melee": [
-                "Strike Attack",
-                "strike"
-            ],
-            "skills": [
-                "Agi",
-                "Frei",
-                "MoltenBody"
-            ],
-            "weak": [
-                "water"
-            ],
-            "resist": [
-                "ice"
-            ],
             "block": [],
             "repel": [],
-            "drain": [
-                "fire"
+            "drain": [],
+            "journal": "Huge Spiders that strike after stalking the target for a while.",
+            "dreams": [],
+            "awardxp": 180000,
+            "negotiate": [
+                {
+                    "name": "Scare",
+                    "desc": "Scare the Trailing Devout away.",
+                    "action": "%PLAYER% tries to scare the Trailing Devout away. It seems ammused.",
+                    "convince": 25
+                },
+                {
+                    "name": "Pet",
+                    "desc": "Pet the Trailing Devout.",
+                    "action": "%PLAYER% tries to pet the Trailing Devout, but it grows enraged.",
+                    "convince": -15
+                }
             ],
-            "image": "moltescle.png",
-            "journal": "Attacks in groups, fleeing if they are wounded.",
-            "dreams": [
-                "...Scary... Scary...",
-                "...Fear... Fear...",
-                "...Stand... ground...",
-                "...Can't... run..."
-            ],
-            "awardxp": 30,
-            "name": "Moltescle"
+            "negotiateDefs": {
+                "required": 3,
+                "qualities": {
+                    "atk": 1,
+                    "mag": 7,
+                    "def": 2,
+                    "skill": "HeavyShot"
+                }
+            }
         },
-        "Murk": {
-            "level": 15,
-            "miniboss": true,
-            "hp": 650,
-            "mp": 250,
-            "atk": 9,
-            "mag": 10,
-            "prc": 7,
-            "end": 12,
-            "chr": 6,
-            "int": 10,
-            "agl": 6,
-            "luk": 5,
+        "Pyradus": {
+            "name": "Pyradus",
+            "creator": "516359709779820544",
+            "level": 64,
+            "hp": 399,
+            "mp": 259,
+            "atk": 43,
+            "mag": 64,
+            "prc": 50,
+            "end": 45,
+            "chr": 21,
+            "int": 19,
+            "agl": 14,
+            "luk": 32,
             "melee": [
                 "Slash Attack",
                 "slash"
             ],
             "skills": [
-                "ImpalingArm",
-                "CursedBlast",
-                "VoraciousLeech"
+                "SunnyDay",
+                "Sandstorm",
+                "Magnara",
+                "Agidyne"
             ],
             "weak": [
-                "bless",
-                "slash"
+                "ice",
+                "pierce"
             ],
             "resist": [
-                "water"
-            ],
-            "block": [
-                "ice"
-            ],
-            "repel": [],
-            "drain": [
-                "curse"
-            ],
-            "image": "murk.png",
-            "journal": "Past lives are imprinted on this world in one way or another. Methods of fighting are often those of lives past, and the number they attack in are affected by that aswell. These are often extremely strong, so fighting these is for those who are willing to take on the challenge.",
-            "dreams": [
-                "..."
-            ],
-            "awardxp": 8753,
-            "name": "Murk"
-        }
-    },
-    "763858631836958771": {
-        "Shrivelimp": {
-            "name": "Shrivelimp",
-            "creator": "441198920668938260",
-            "level": 25,
-            "hp": 213,
-            "mp": 150,
-            "atk": 12,
-            "mag": 22,
-            "prc": 8,
-            "end": 20,
-            "chr": 15,
-            "int": 16,
-            "agl": 52,
-            "luk": 18,
-            "melee": [
-                "Strike Attack",
-                "strike"
-            ],
-            "skills": [
-                "Hanama",
-                "Mahama",
-                "Magna",
-                "Lunge"
-            ],
-            "weak": [
+                "earth",
                 "fire"
             ],
-            "resist": [],
+            "block": [
+                "curse"
+            ],
+            "repel": [],
+            "drain": [],
+            "journal": "Large pyramid-like structures that often guard something precious, dangerous or significant",
+            "dreams": [],
+            "awardxp": 193000,
+            "negotiate": [
+                {
+                    "name": "Silence",
+                    "desc": "Remain in silence.",
+                    "action": "%PLAYER% stays quiet, which convinces the Pyradus.",
+                    "convince": 25
+                },
+                {
+                    "name": "Shout",
+                    "desc": "Shout! Shout at Pyradus!",
+                    "action": "%PLAYER% screams at Pyradus, which enrages it!",
+                    "convince": -15
+                }
+            ],
+            "negotiateDefs": {
+                "required": 5,
+                "qualities": {
+                    "atk": 4,
+                    "mag": 4,
+                    "def": 6,
+                    "skill": "Sandstorm"
+                }
+            }
+        },
+        "Hydrog": {
+            "name": "Hydrog",
+            "image": "hydrog.png",
+            "creator": "516359709779820544",
+            "level": 60,
+            "hp": 322,
+            "mp": 194,
+            "atk": 34,
+            "mag": 59,
+            "prc": 54,
+            "end": 32,
+            "chr": 33,
+            "int": 19,
+            "agl": 54,
+            "luk": 11,
+            "melee": [
+                "Pierce Attack",
+                "pierce"
+            ],
+            "skills": [
+                "Aquadyne",
+                "Malaques",
+                "Dokusei",
+                "Masukukaja",
+                "Makanda",
+                "Lick"
+            ],
+            "weak": [
+                "grass",
+                "gravity"
+            ],
+            "resist": [
+                "poison",
+                "earth"
+            ],
             "block": [],
             "repel": [],
             "drain": [
                 "water"
             ],
-            "journal": "Grassimp has seen too much for their own good. Terrified of the sight, they lost some of their leaves and are now way more avoidant of any sort of battling, just to guarantee its own safety. However if they are forced to, then they will hurt anything out of fear.",
+            "journal": "An aquatic amphibian, lurking in area with the precense of water.",
             "dreams": [],
-            "awardxp": 3021,
+            "awardxp": 95231,
+            "negotiate": [
+                {
+                    "name": "Hop",
+                    "desc": "Mimic the Hydrog's hopping patterns",
+                    "action": "%PLAYER% copies the Squeleaf's hopping patterns. Hydrog seems amused.",
+                    "convince": 34
+                },
+                {
+                    "name": "Pet",
+                    "desc": "Pet the Hydrog",
+                    "action": "Hydrog lets %PLAYER% pet it.",
+                    "convince": 10
+                }
+            ],
+            "negotiateDefs": {
+                "required": 4,
+                "qualities": {
+                    "atk": 3,
+                    "mag": 10,
+                    "def": 2,
+                    "skill": "Lick"
+                }
+            }
+        },
+        "Shalines": {
+            "name": "Shalines",
+            "creator": "532291526634635285",
+            "level": 73,
+            "hp": 380,
+            "mp": 220,
+            "atk": 25,
+            "mag": 71,
+            "prc": 45,
+            "end": 34,
+            "chr": 55,
+            "int": 20,
+            "agl": 43,
+            "luk": 30,
+            "melee": [
+                "Strike Attack",
+                "strike"
+            ],
+            "skills": [
+                "SilencedDark",
+                "Eigaon",
+                "TorturedClaws",
+                "BloodySpeed",
+                "AggroLeak"
+            ],
+            "weak": [
+                "bless",
+                "pierce"
+            ],
+            "resist": [],
+            "block": [
+                "strike"
+            ],
+            "repel": [],
+            "drain": [
+                "curse"
+            ],
+            "journal": "An envolved form of the Darklins that have embraced the corruption around them that are willing to fight off any intruders to allow the corruption to grow.",
+            "dreams": [],
+            "awardxp": 240000,
             "negotiate": [],
             "negotiateDefs": {
                 "required": 5
             }
         },
-        "Frostimp": {
-            "level": 46,
-            "hp": 232,
-            "mp": 210,
-            "atk": 43,
-            "mag": 54,
+        "DJ_T": {
+            "name": "DJ_T",
+            "creator": "532291526634635285",
+            "level": 1,
+            "hp": 999999,
+            "mp": 9999,
+            "atk": 1,
+            "mag": 1,
+            "prc": 1,
+            "end": 1,
+            "chr": 1,
+            "int": 1,
+            "agl": 1,
+            "luk": 1,
+            "melee": [
+                "Strike Attack",
+                "strike"
+            ],
+            "skills": [
+                "Splash"
+            ],
+            "weak": [],
+            "resist": [],
+            "block": [],
+            "repel": [],
+            "drain": [],
+            "journal": "Just your average Training Dummy, but in the form of the reaper.",
+            "dreams": [],
+            "awardxp": 1,
+            "negotiate": [],
+            "negotiateDefs": {
+                "required": 5
+            }
+        },
+        "DJ_T1": {
+            "name": "DJ_T1",
+            "creator": "532291526634635285",
+            "level": 1,
+            "hp": 999999,
+            "mp": 9999,
+            "atk": 1,
+            "mag": 1,
+            "prc": 1,
+            "end": 45,
+            "chr": 1,
+            "int": 1,
+            "agl": 1,
+            "luk": 1,
+            "melee": [
+                "Strike Attack",
+                "strike"
+            ],
+            "skills": [],
+            "weak": [],
+            "resist": [],
+            "block": [],
+            "repel": [],
+            "drain": [],
+            "journal": "The Reaper Training Dummy, but more durable",
+            "dreams": [],
+            "awardxp": 1,
+            "negotiate": [],
+            "negotiateDefs": {
+                "required": 5
+            }
+        },
+        "Grifflare": {
+            "name": "Grifflare",
+            "image": "grifflare.png",
+            "creator": "441198920668938260",
+            "level": 55,
+            "hp": 1030,
+            "mp": 1500,
+            "atk": 23,
+            "mag": 42,
+            "prc": 30,
+            "end": 37,
+            "chr": 21,
+            "int": 19,
+            "agl": 34,
+            "luk": 12,
+            "melee": [
+                "Strike Attack",
+                "strike"
+            ],
+            "skills": [
+                "FireTriangle",
+                "Pyroblast",
+                "Fireball",
+                "Hex",
+                "PhantomShip",
+                "MoltenBody"
+            ],
+            "weak": [
+                "poison",
+                "ice"
+            ],
+            "resist": [
+                "curse",
+                "earth"
+            ],
+            "block": [],
+            "repel": [],
+            "drain": [
+                "fire"
+            ],
+            "journal": "Related to the entity living below, from Scorch Excavation. A griffin made of pure hatred in a similar fashion to the one it relates to. Impossible to pacify, vicious.",
+            "dreams": [],
+            "awardxp": 254082,
+            "negotiate": [],
+            "negotiateDefs": {
+                "required": 5
+            },
+            "miniboss": true,
+            "loot": "GrifflareDrops",
+            "superweak": [
+                "water"
+            ]
+        },
+        "Westone": {
+            "name": "Westone",
+            "image": "westone.png",
+            "creator": "441198920668938260",
+            "level": 60,
+            "hp": 720,
+            "mp": 310,
+            "atk": 32,
+            "mag": 24,
+            "prc": 30,
+            "end": 20,
+            "chr": 14,
+            "int": 23,
+            "agl": 15,
+            "luk": 14,
+            "melee": [
+                "Strike Attack",
+                "strike"
+            ],
+            "skills": [
+                "AquaSlash",
+                "Waterfall",
+                "Aqua",
+                "Magna",
+                "RollingRock"
+            ],
+            "weak": [
+                "fire",
+                "bless"
+            ],
+            "resist": [
+                "earth",
+                "poison"
+            ],
+            "block": [],
+            "repel": [
+                "water"
+            ],
+            "drain": [],
+            "journal": "Sentient Stone surrounded with liquid, willing to beat up anyone they dare to see with fists made of the same liquid.",
+            "dreams": [],
+            "awardxp": 99382,
+            "negotiate": [
+                {
+                    "name": "Kick",
+                    "desc": "Kick the stone inside of a Westone",
+                    "action": "%PLAYER% kicked the Westone. They are not satisfied, as the liquid got their rock again.",
+                    "convince": -20
+                },
+                {
+                    "name": "Calm",
+                    "desc": "Calm down a Westone",
+                    "action": "%PLAYER% calmed down the Westone. They are satisfied with that.",
+                    "convince": 15
+                }
+            ],
+            "negotiateDefs": {
+                "required": 5,
+                "qualities": {
+                    "atk": 12,
+                    "mag": 6,
+                    "def": 12,
+                    "skill": "Waterfall"
+                }
+            },
+            "loot": "WestoneDrops"
+        },
+        "FlowSprout": {
+            "name": "FlowSprout",
+            "creator": "441198920668938260",
+            "level": 60,
+            "hp": 540,
+            "mp": 823,
+            "atk": 23,
+            "mag": 60,
+            "prc": 25,
+            "end": 34,
+            "chr": 12,
+            "int": 10,
+            "agl": 6,
+            "luk": 12,
+            "melee": [
+                "Strike Attack",
+                "strike"
+            ],
+            "skills": [
+                "Petradeus",
+                "EarthDance",
+                "WaterDance",
+                "Waterfall",
+                "Hanama",
+                "Terazi"
+            ],
+            "weak": [
+                "earth",
+                "nuclear",
+                "fire"
+            ],
+            "resist": [
+                "grass"
+            ],
+            "block": [],
+            "repel": [],
+            "drain": [
+                "water"
+            ],
+            "journal": "A seemingly lifeless sprout of life. It looks like a plant, but liquid circles around it like a drill. Accepts everything what gets thrown at it.",
+            "dreams": [],
+            "awardxp": 195325,
+            "negotiate": [
+                {
+                    "name": "Accept",
+                    "desc": "Accept the reality of your situation.",
+                    "action": "%PLAYER% seemingly accepts the situation they are in. The Flow Sprout understands and respects that way of thinking.",
+                    "convince": 15
+                },
+                {
+                    "name": "Pull",
+                    "desc": "Try to pull out the Flow Sprout by force.",
+                    "action": "%PLAYER% tries to pull out the Flow Sprout. They did not like that one bit.",
+                    "convince": -40
+                }
+            ],
+            "negotiateDefs": {
+                "required": 5,
+                "qualities": {
+                    "atk": 12,
+                    "mag": 30,
+                    "def": 18,
+                    "skill": "EarthDance"
+                }
+            },
+            "loot": "FlowSproutDrops",
+            "image": "FlowSprout.png"
+        },
+        "Dreamie": {
+            "name": "Dreamie",
+            "creator": "516359709779820544",
+            "level": 67,
+            "hp": 3212,
+            "mp": 1532,
+            "atk": 32,
+            "mag": 72,
+            "prc": 64,
+            "end": 34,
+            "chr": 54,
+            "int": 21,
+            "agl": 34,
+            "luk": 19,
+            "melee": [
+                "Strike Attack",
+                "strike"
+            ],
+            "skills": [
+                "FantasySwords",
+                "Glowdeus",
+                "Kougaon",
+                "Makouga",
+                "Starfall",
+                "Grydyne",
+                "IntenseShine",
+                "Samakakaja"
+            ],
+            "weak": [
+                "curse"
+            ],
+            "resist": [
+                "water"
+            ],
+            "block": [],
+            "repel": [],
+            "drain": [
+                "bless"
+            ],
+            "journal": "A ghostly entity guarding the finest of Dolense Fruit. It uses the foe's sins to strike them harder.",
+            "dreams": [],
+            "awardxp": 757530,
+            "negotiate": [
+                {
+                    "name": "Prove",
+                    "desc": "Prove your pureness to Dreamie.",
+                    "action": "%PLAYER% proves themselves clean and pure. Dreamie seems to be judging them.",
+                    "convince": 7
+                },
+                {
+                    "name": "Sin",
+                    "desc": "Commit a sin.",
+                    "action": "%PLAYER% is mean to Dreamie.",
+                    "convince": -10
+                }
+            ],
+            "negotiateDefs": {
+                "required": 1,
+                "qualities": {
+                    "atk": 3,
+                    "mag": 9,
+                    "def": 1,
+                    "skill": "Mamakakaja"
+                }
+            },
+            "miniboss": true
+        },
+        "Ecossnor": {
+            "name": "Ecossnor",
+            "creator": "441198920668938260",
+            "level": 65,
+            "hp": 680,
+            "mp": 310,
+            "atk": 40,
+            "mag": 21,
             "prc": 23,
-            "end": 43,
-            "chr": 46,
-            "int": 20,
-            "agl": 40,
+            "end": 31,
+            "chr": 8,
+            "int": 12,
+            "agl": 35,
             "luk": 23,
             "melee": [
                 "Strike Attack",
                 "strike"
             ],
             "skills": [
-                "Bufudyne",
-                "Hanamadyne",
-                "Magnadyne",
-                "GiganticFist"
+                "HeatOfRage",
+                "Mamakakaja",
+                "Fireball",
+                "Agilao",
+                "Maeiha",
+                "Taunt"
             ],
             "weak": [
-                "fire"
+                "poison",
+                "bless"
             ],
             "resist": [
-                "ice",
-                "grass"
+                "curse"
             ],
-            "block": [],
+            "block": [
+                "fire",
+                "earth"
+            ],
             "repel": [],
             "drain": [],
-            "image": "frostimp.png",
-            "journal": "This Grassimp's leaves froze over, and it now uses this as a better method of defense. Unfortunately, it's a worse method of defense.",
-            "dreams": [
-                "...Food... Food...",
-                "...Scary... Scary...",
-                "...Run... Run...",
-                "...Find... Shelter..."
-            ],
-            "awardxp": 5965,
-            "loot": "Grassimp",
-            "negotiateDefs": {
-                "required": 5,
-                "qualities": {
-                    "atk": 3,
-                    "mag": 8,
-                    "def": 6,
-                    "skill": "Bufudyne"
-                }
-            },
+            "journal": "[WRATH]\nThe one that represents pure hatred and uncontrollable violence. Will do absolutely nothing to hit you at all times, and punish you for what you have done. The only way to calm them down is not by repenting, but by stepping yourself down to them.",
+            "dreams": [],
+            "awardxp": 79763,
             "negotiate": [
                 {
-                    "name": "Pet",
-                    "desc": "Pet the Frostimp",
-                    "action": "%PLAYER% pets the Frostimp! It feels content.",
-                    "convince": 100
+                    "name": "Enrage",
+                    "desc": "Enrage the Ecossnor",
+                    "action": "%PLAYER% talks down to the Ecossnor, enraging them in the process. In reality this is what it wants.",
+                    "convince": 15
+                },
+                {
+                    "name": "Enrage",
+                    "desc": "Insult the Ecossnor",
+                    "action": "%PLAYER% insults Ecossnor, calling them names and such. Ecossnor appreciates the effort.",
+                    "convince": 5
+                },
+                {
+                    "name": "PeacefulConversation",
+                    "desc": "Make a peaceful conversation with the Ecossnor",
+                    "action": "%PLAYER% talks to Ecossnor about any topic they want. Sports, magic, whatever. Ecossnor is absolutely not interested in that junk.",
+                    "convince": -25
+                },
+                {
+                    "name": "Repent",
+                    "desc": "Repent the Ecossnor",
+                    "action": "%PLAYER% repents Ecossnor, hoping they would disappear soon. They absolutely are not a fan of that.",
+                    "convince": -50
                 }
-            ]
-        },
-        "MetalSonic": {
-            "name": "Metal Sonic",
-            "creator": "441198920668938260",
-            "level": 90,
-            "hp": 60,
-            "mp": 50,
-            "atk": 90,
-            "mag": 45,
-            "prc": 86,
-            "end": 88,
-            "chr": 35,
-            "int": 88,
-            "agl": 88,
-            "luk": 50,
-            "melee": [
-                "Overdrive Dash",
-                "strike"
             ],
-            "skills": [],
-            "weak": [],
-            "resist": [],
-            "block": [],
-            "repel": [],
-            "drain": [],
-            "journal": "Metal Sonic is an evil ultra-high performance Badnik version of Sonic the Hedgehog created by Dr. Eggman for the sole purpose of destroying Sonic. The brainchild of Eggman, he is by far the doctor's greatest Badnik enemy robot creation.",
-            "dreams": [],
-            "awardxp": 100,
-            "negotiate": [],
             "negotiateDefs": {
-                "required": 5
+                "required": 12,
+                "qualities": {
+                    "atk": 15,
+                    "mag": 4,
+                    "def": 9,
+                    "skill": "HeatOfRage"
+                }
             },
-            "bigboss": true,
-            "boss": true
+            "superweak": [
+                "water"
+            ],
+            "loot": "EcossnorDrops",
+            "image": "Ecossnor.png"
         },
-        "Patella": {
-            "name": "Patella",
+        "Dearmyda": {
+            "name": "Dearmyda",
             "creator": "441198920668938260",
-            "level": 54,
-            "hp": 826,
-            "mp": 235,
-            "atk": 61,
-            "mag": 31,
-            "prc": 60,
-            "end": 32,
-            "chr": 20,
-            "int": 21,
-            "agl": 31,
-            "luk": 60,
+            "level": 65,
+            "hp": 340,
+            "mp": 720,
+            "atk": 20,
+            "mag": 35,
+            "prc": 24,
+            "end": 20,
+            "chr": 25,
+            "int": 18,
+            "agl": 8,
+            "luk": 12,
             "melee": [
                 "Strike Attack",
                 "strike"
             ],
-            "skills": [],
-            "weak": [],
-            "resist": [],
-            "block": [],
-            "repel": [],
-            "drain": [],
-            "journal": "'Representation of Death', but it's just a thought of his. A necromancer, capable of cheating death. No fear, shown from murdering people.",
-            "dreams": [],
-            "awardxp": 195809,
-            "negotiate": [
-                {
-                    "name": "Sex",
-                    "desc": "You know what this is about.",
-                    "action": "%PLAYER% done the dirty to Patella. He is extremely satisfied.",
-                    "convince": null
-                },
-                {
-                    "name": "Sex",
-                    "desc": "You know what this is about.",
-                    "action": "%PLAYER% done the dirty to Patella. He is extremely satisfied.",
-                    "convince": null
-                },
-                {
-                    "name": "Sex",
-                    "desc": "You know what this is about.",
-                    "action": "%PLAYER% done the dirty to Patella. He is extremely satisfied.",
-                    "convince": null
-                },
-                {
-                    "name": "Sex",
-                    "desc": "You know what this is about.",
-                    "action": "%PLAYER% done the dirty to Patella. He is extremely satisfied.",
-                    "convince": null
-                },
-                {
-                    "name": "Sex",
-                    "desc": "You know what this is about.",
-                    "action": "%PLAYER% done the dirty to Patella. He is extremely satisfied.",
-                    "convince": null
-                }
-            ],
-            "negotiateDefs": {
-                "required": 5
-            },
-            "boss": true
-        },
-        "Patella(Enemy)": {
-            "name": "Patella(Enemy)",
-            "creator": "441198920668938260",
-            "level": 54,
-            "hp": 826,
-            "mp": 235,
-            "atk": 61,
-            "mag": 31,
-            "prc": 60,
-            "end": 32,
-            "chr": 20,
-            "int": 21,
-            "agl": 31,
-            "luk": 60,
-            "melee": [
-                "ScytheSlice",
-                "slash"
-            ],
             "skills": [
-                "RottenSlash",
-                "RapidSlashes",
-                "3CutShock",
-                "Dokusei",
-                "Undead-Like_(Teammates)",
-                "Undead-Like_(Newborn)",
-                "Glare"
+                "NightmareSurround",
+                "SinfulCharisma",
+                "Eiga",
+                "FlameCurse",
+                "Lullaby",
+                "Mavisukaja"
             ],
             "weak": [
-                "bless",
-                "water",
-                "ice"
+                "earth",
+                "poison"
             ],
             "resist": [
-                "poison",
-                "earth"
+                "fire"
             ],
             "block": [
                 "curse"
             ],
             "repel": [],
             "drain": [],
-            "journal": "'Representation of Death', but it's just a thought of his. A necromancer, capable of cheating death. No fear, shown from murdering people.",
+            "journal": "[SLOTH]\nThe one that represents the feeling of a constant daydream and lack of effort. Ironically enough, it still wants to get a hit at you but there might not be enough effort for that to happen. The only way to calm them down is not by repenting, but by stepping yourself down to them.",
             "dreams": [],
-            "awardxp": 195809,
+            "awardxp": 67956,
             "negotiate": [
                 {
-                    "name": "Sex",
-                    "desc": "Do the thing",
-                    "action": "You done the dirty",
-                    "convince": 100
+                    "name": "Lullaby",
+                    "desc": "Sing a lullaby for the Dearmyda",
+                    "action": "%PLAYER% sings a lullaby to Dearmyda, one that might for sure put them to sleep. However they think they are doing this at the wrong targets.",
+                    "convince": -15
+                },
+                {
+                    "name": "Nap",
+                    "desc": "Nap",
+                    "action": "%PLAYER% puts himself to sleep, or at least a nap. They accept it with pleasure.",
+                    "convince": 10
+                },
+                {
+                    "name": "Laziness",
+                    "desc": "Convince the Dearmyda that you don't want to attack for the reason of being lazy.",
+                    "action": "%PLAYER% explains to Dearmyda how they are too lazy to attack Dearmyda. It fell for it, enjoying itself a little bit.",
+                    "convince": 7
+                },
+                {
+                    "name": "Repent",
+                    "desc": "Repent the Dearmyda ",
+                    "action": "%PLAYER% repents Dearmyda, hoping they would disappear soon. They absolutely are not a fan of that.",
+                    "convince": -50
                 }
             ],
             "negotiateDefs": {
-                "required": 5
+                "required": 12,
+                "qualities": {
+                    "atk": 10,
+                    "mag": 16,
+                    "def": 10,
+                    "skill": "NightmareSurround"
+                }
             },
-            "boss": true
+            "superweak": [
+                "bless"
+            ],
+            "loot": "DearmydaDrops",
+            "image": "Dearmyda.png"
         },
-        "Necromancy": {
-            "name": "Necromancy",
+        "Algittoseci": {
+            "name": "Algittoseci",
             "creator": "441198920668938260",
-            "level": 1,
-            "hp": 999,
-            "mp": 999,
-            "atk": 10,
-            "mag": 10,
-            "prc": 10,
-            "end": 10,
-            "chr": 10,
-            "int": 10,
-            "agl": 10,
-            "luk": 10,
-            "melee": [
-                "Strike Attack",
-                "strike"
-            ],
-            "skills": [
-                "Undead-Like_(Newborn)"
-            ],
-            "weak": [],
-            "resist": [],
-            "block": [],
-            "repel": [],
-            "drain": [],
-            "journal": "test",
-            "dreams": [],
-            "awardxp": 100,
-            "negotiate": [],
-            "negotiateDefs": {
-                "required": 5
-            }
-        }
-    },
-    "808462313262415893": {
-        "Sandbag": {
-            "name": "Sandbag",
-            "creator": "516359709779820544",
-            "level": 1,
-            "hp": 999999,
-            "mp": 99999,
-            "atk": 1,
-            "mag": 1,
-            "prc": 1,
-            "end": 1,
-            "chr": 1,
-            "int": 1,
-            "agl": 1,
-            "luk": 1,
-            "melee": [
-                "Strike Attack",
-                "strike"
-            ],
-            "skills": [
-                "Splash",
-                "InfiniteEndure"
-            ],
-            "weak": [],
-            "resist": [],
-            "block": [],
-            "repel": [],
-            "drain": [],
-            "journal": "A punching bag.",
-            "dreams": [],
-            "awardxp": 100,
-            "negotiate": [],
-            "negotiateDefs": {
-                "required": 5
-            }
-        }
-    },
-    "487751823604711435": {
-        "Sandbag": {
-            "name": "Sandbag",
-            "creator": "516359709779820544",
-            "level": 1,
-            "hp": 999999,
-            "mp": 99999,
-            "atk": 1,
-            "mag": 1,
-            "prc": 1,
-            "end": 1,
-            "chr": 1,
-            "int": 1,
-            "agl": 1,
-            "luk": 1,
-            "melee": [
-                "Strike Attack",
-                "strike"
-            ],
-            "skills": [
-                "Splash",
-                "InfiniteEndure"
-            ],
-            "weak": [],
-            "resist": [],
-            "block": [],
-            "repel": [],
-            "drain": [],
-            "journal": "A punching bag.",
-            "dreams": [],
-            "awardxp": 100,
-            "negotiate": [],
-            "negotiateDefs": {
-                "required": 5
-            }
-        },
-        "TheLuminosity": {
-            "level": 40,
-            "boss": true,
-            "diety": true,
-            "hp": 6421,
-            "mp": 4324,
-            "atk": 46,
-            "mag": 46,
-            "prc": 46,
-            "end": 20,
-            "chr": 22,
-            "int": 21,
-            "agl": 33,
-            "luk": 32,
-            "melee": [
-                "Pierce Attack",
-                "pierce"
-            ],
-            "skills": [
-                "Illuminate",
-                "Megido",
-                "LightHand",
-                "Kougaon",
-                "Makouga",
-                "Mabufula",
-                "Maragion",
-                "Mazionga",
-                "Magarula"
-            ],
-            "weak": [],
-            "resist": [],
-            "block": [],
-            "repel": [],
-            "drain": [],
-            "journal": "The god of light herself. When angered, she spreads her influence with mutus, an infectious liquid that if enveloped in for too long, may take control of the victim. She has aged over time and therefore, cannot use her true power.",
-            "dreams": [],
-            "awardxp": 112942,
-            "name": "TheLuminosity"
-        },
-        "ElderLuminosity": {
-            "level": 60,
-            "boss": true,
-            "diety": true,
-            "hp": 7000,
-            "mp": 6000,
-            "atk": 70,
-            "mag": 70,
-            "prc": 60,
-            "end": 20,
-            "chr": 50,
-            "int": 50,
-            "agl": 54,
-            "luk": 48,
-            "melee": [
-                "Pierce Attack",
-                "pierce"
-            ],
-            "skills": [
-                "LightStorm",
-                "Megidolaon",
-                "TentacleSwipe",
-                "LightHand",
-                "Diarama",
-                "Kougaon",
-                "Makougaon",
-                "Eigaon",
-                "Maeigaon",
-                "Bufudyne",
-                "Mabufudyne",
-                "Agidyne",
-                "Maragidyne",
-                "Ziodyne",
-                "Maziodyne",
-                "Garudyne",
-                "Magarudyne",
-                "Psiodyne",
-                "Mapsiodyne",
-                "Hama",
-                "Mahama",
-                "Makarakarn",
-                "Tetrakarn"
-            ],
-            "weak": [],
-            "resist": [],
-            "block": [],
-            "repel": [],
-            "drain": [],
-            "journal": "The Luminosity aged over time, and lost some of her power due to the fact that everybody stopped worshipping her. Her elder ancestor would step in if provoked. This is her at full power, while everyone still worshipped her, and gave strength. This battle will be a lengthy one. **Good luck**.",
-            "dreams": [],
-            "awardxp": 200000,
-            "name": "ElderLuminosity"
-        },
-        "GreatGod": {
-            "name": "GreatGod",
-            "creator": "461050360832720904",
-            "level": 99,
-            "hp": 99999,
-            "mp": 9999,
-            "atk": 99,
-            "mag": 99,
-            "prc": 99,
-            "end": 99,
-            "chr": 99,
-            "int": 99,
-            "agl": 99,
-            "luk": 99,
-            "melee": [
-                "Strike Attack",
-                "strike"
-            ],
-            "skills": [],
-            "weak": [],
-            "resist": [],
-            "block": [],
-            "repel": [],
-            "drain": [],
-            "journal": "Great God? More Like…Great Punching Bag! ~Signed By Pointy 💙",
-            "dreams": [],
-            "awardxp": 10000,
-            "negotiate": [],
-            "negotiateDefs": {
-                "required": 5
-            }
-        },
-        "MetalSonic": {
-            "name": "Metal Sonic",
-            "creator": "461050360832720904",
-            "level": 90,
-            "hp": 5000,
+            "level": 65,
+            "hp": 500,
             "mp": 500,
-            "atk": 90,
-            "mag": 45,
-            "prc": 86,
-            "end": 88,
-            "chr": 35,
-            "int": 88,
-            "agl": 88,
-            "luk": 50,
-            "melee": [
-                "ClawSwipe",
-                "slash"
-            ],
-            "skills": [
-                "IronFist",
-                "Charge",
-                "FatalEnd",
-                "V.MaximumOverdrive",
-                "BlackShield",
-                "PlasmaPulseAttack"
-            ],
-            "weak": [
-                "water",
-                "pierce",
-                "earth"
-            ],
-            "resist": [
-                "metal",
-                "fire",
-                "nuclear"
-            ],
-            "block": [
-                "poison"
-            ],
-            "repel": [],
-            "drain": [
-                "electric"
-            ],
-            "journal": "Metal Sonic is an evil ultra-high performance Badnik version of Sonic the Hedgehog created by Dr. Eggman for the sole purpose of destroying Sonic. The brainchild of Eggman, he is by far the doctor's greatest Badnik enemy robot creation.",
-            "dreams": [],
-            "awardxp": 5000,
-            "negotiate": [],
-            "negotiateDefs": {
-                "required": 5
-            },
-            "bigboss": true
-        },
-        "Amarugeon": {
-            "name": "Amarugeon",
-            "creator": "461050360832720904",
-            "level": 75,
-            "hp": 4200,
-            "mp": 5700,
-            "atk": 70,
-            "mag": 90,
-            "prc": 58,
-            "end": 40,
-            "chr": 39,
-            "int": 56,
-            "agl": 45,
-            "luk": 50,
-            "melee": [
-                "Strike Attack",
-                "strike"
-            ],
-            "skills": [
-                "CopySkill"
-            ],
-            "weak": [],
-            "resist": [],
-            "block": [],
-            "repel": [],
-            "drain": [],
-            "journal": "Not much is known about them, But they are a reality shifter entity, who’s actions may seems unreasonable, but they have their own reasons for them.",
-            "dreams": [],
-            "awardxp": 7000,
-            "negotiate": [],
-            "negotiateDefs": {
-                "required": 5
-            }
-        }
-    },
-    "759805005913260062": {
-        "FlareBandit": {
-            "name": "FlareBandit",
-            "creator": "516359709779820544",
-            "level": 7,
-            "hp": 102,
-            "mp": 83,
-            "atk": 3,
-            "mag": 15,
-            "prc": 10,
-            "end": 5,
-            "chr": 8,
-            "int": 2,
-            "agl": 9,
+            "atk": 12,
+            "mag": 24,
+            "prc": 42,
+            "end": 31,
+            "chr": 12,
+            "int": 18,
+            "agl": 23,
             "luk": 8,
             "melee": [
                 "Strike Attack",
                 "strike"
             ],
             "skills": [
-                "Agi",
-                "Lunge"
+                "FalsePraise",
+                "KingsBurn",
+                "FirePledge",
+                "Fireball",
+                "HollowMind",
+                "Eiha",
+                "Doku"
             ],
-            "weak": [],
-            "resist": [],
+            "weak": [
+                "metal"
+            ],
+            "resist": [
+                "earth",
+                "curse"
+            ],
             "block": [],
+            "repel": [
+                "fire"
+            ],
+            "drain": [],
+            "journal": "[PRIDE]\nThe one that represents the feeling of self-indulgence, egotistical behavior and a need to pride themselves in their achievements on repeat. It will take an effort to make their move but for the reason of needing to show their best. The only way to calm them down is not by repenting, but by stepping yourself down to them.",
+            "dreams": [],
+            "awardxp": 73590,
+            "negotiate": [
+                {
+                    "name": "Boogie",
+                    "desc": "Give the Algittoseci a boogie time",
+                    "action": "%PLAYER% gives Algittoseci a boogie time. They give the time back to them, excited.",
+                    "convince": 6
+                },
+                {
+                    "name": "Proudness",
+                    "desc": "Give your own achievements to Algittoseci",
+                    "action": "%PLAYER% talks about their own achievements, what they had done, etc. Algittoseci doubles down saying they are still better than them, hurting %PLAYER%'s emotions, and this is what they truly wanted.",
+                    "convince": 18
+                },
+                {
+                    "name": "Challenge",
+                    "desc": "Give Algittoseci a challenge",
+                    "action": "%PLAYER% suggests Algittoseci a challenge. They won't double down on it.",
+                    "convince": 10
+                },
+                {
+                    "name": "RealityCheck",
+                    "desc": "Give Algittoseci a reality check",
+                    "action": "%PLAYER% tries to get Algittoseci back on track into reality. They are not amused and decide to ignore them.",
+                    "convince": -20
+                },
+                {
+                    "name": "Repent",
+                    "desc": "Repent the Algittoseci",
+                    "action": "%PLAYER% repents Algittoseci, hoping they would disappear soon. They absolutely are not a fan of that.",
+                    "convince": -50
+                }
+            ],
+            "negotiateDefs": {
+                "required": 12,
+                "qualities": {
+                    "atk": 4,
+                    "mag": 12,
+                    "def": 10,
+                    "skill": "KingsBurn"
+                }
+            },
+            "superweak": [
+                "water",
+                "bless"
+            ],
+            "loot": "AlgittoseciDrops",
+            "image": "Algittoseci.png"
+        },
+        "Prutisotte": {
+            "name": "Prutisotte",
+            "creator": "441198920668938260",
+            "level": 65,
+            "hp": 423,
+            "mp": 690,
+            "atk": 21,
+            "mag": 38,
+            "prc": 24,
+            "end": 12,
+            "chr": 45,
+            "int": 23,
+            "agl": 21,
+            "luk": 12,
+            "melee": [
+                "Strike Attack",
+                "strike"
+            ],
+            "skills": [
+                "DeviousLick",
+                "Heartburn",
+                "FireDance",
+                "FireFang",
+                "Swindle",
+                "Hex",
+                "Gust"
+            ],
+            "weak": [
+                "water",
+                "curse"
+            ],
+            "resist": [
+                "earth",
+                "nuclear"
+            ],
+            "block": [
+                "fire"
+            ],
             "repel": [],
             "drain": [],
-            "journal": "A bandit that uses the art of flames to strike their foes, while making off with their stuff.",
+            "journal": "[LUST]\nThe one that represents endless sexual craving in a desire of lust and intense orgasms, but also the feeling of false love for anything anyone would imagine. It doesn't necessarily attack as much as others but it will make sure you are by their side. The only way to calm them down is not by repenting, but by stepping yourself down to them.",
             "dreams": [],
-            "awardxp": 1021,
+            "awardxp": 82560,
+            "negotiate": [
+                {
+                    "name": "Compliment",
+                    "desc": "Compliment Prutisotte's looks",
+                    "action": "%PLAYER% compliments Prutisotte's look, albeit a bit embarrassed or ashamed. Or maybe none of that. Prutisotte like the good start of something great.",
+                    "convince": 7
+                },
+                {
+                    "name": "Kiss",
+                    "desc": "Kiss the Prutisotte's",
+                    "action": "%PLAYER% decides that it was a good time and kisses one of Prutisotte's tongues, albeit either with shame or thrilled excitement. They love this a lot.",
+                    "convince": 12
+                },
+                {
+                    "name": "DoubleDown",
+                    "desc": "Double down on something disgusting.",
+                    "action": "%PLAYER% doubles down to Prutisotte, deciding on a date to attend to, even if it's not gonna happen. Prutisotte loves that idea.",
+                    "convince": 20
+                },
+                {
+                    "name": "Reject",
+                    "desc": "Reject Prutisotte's attitude.",
+                    "action": "%PLAYER% seems that they don't like Prutisotte's attitude, rejecting them. They become extremely saddened afterwards.",
+                    "convince": -35
+                },
+                {
+                    "name": "Repent",
+                    "desc": "Repent the Prutisotte",
+                    "action": "%PLAYER% repents Prutisotte, hoping they would disappear soon. They absolutely are not a fan of that.",
+                    "convince": -50
+                }
+            ],
+            "negotiateDefs": {
+                "required": 12,
+                "qualities": {
+                    "atk": 12,
+                    "mag": 16,
+                    "def": 13,
+                    "skill": "Heartburn"
+                }
+            },
+            "superweak": [
+                "poison"
+            ],
+            "loot": "PrutisotteDrops",
+            "image": "Prutisotte.png"
+        },
+        "Lariamestim": {
+            "name": "Lariamestim",
+            "creator": "441198920668938260",
+            "level": 65,
+            "hp": 690,
+            "mp": 310,
+            "atk": 22,
+            "mag": 30,
+            "prc": 23,
+            "end": 25,
+            "chr": 22,
+            "int": 12,
+            "agl": 25,
+            "luk": 32,
+            "melee": [
+                "Strike Attack",
+                "strike"
+            ],
+            "skills": [
+                "DarkVeil",
+                "CopperCut",
+                "Abyss",
+                "FieryFastball",
+                "Astonish",
+                "HollowMind",
+                "BlindlessStrike"
+            ],
+            "weak": [
+                "water",
+                "poison"
+            ],
+            "resist": [
+                "fire",
+                "earth"
+            ],
+            "block": [
+                "curse"
+            ],
+            "repel": [],
+            "drain": [
+                "metal"
+            ],
+            "journal": "[GREED]\nThe one that represents materialism and a need for gathering riches, along with the egoistical attachment to them purely due to a very specific monetary value. They don't seemingly care about people as much as others expect. The only way to calm them down is not by repenting, but by stepping yourself down to them.",
+            "dreams": [],
+            "awardxp": 69324,
+            "negotiate": [
+                {
+                    "name": "Give",
+                    "desc": "Give out something for Lariamestim",
+                    "action": "%PLAYER% gives some of their riches to Lariamestim. They appreciate the gesture.",
+                    "convince": 10
+                },
+                {
+                    "name": "Steal",
+                    "desc": "Steal some of Lariamestim's riches.",
+                    "action": "%PLAYER% steals part of a necklace from Lariamestim, and you managed to anger them because of it.",
+                    "convince": -30
+                },
+                {
+                    "name": "Insult",
+                    "desc": "Insult Lariamestim.",
+                    "action": "%PLAYER% convinces himself to have the audacity, to call Lariamestim poor. They actually insult you instead.",
+                    "convince": -30
+                },
+                {
+                    "name": "Repent",
+                    "desc": "Repent the Lariamestim",
+                    "action": "%PLAYER% repents Lariamestim, hoping they would disappear soon. They absolutely are not a fan of that.",
+                    "convince": -50
+                }
+            ],
+            "negotiateDefs": {
+                "required": 12,
+                "qualities": {
+                    "atk": 14,
+                    "mag": 10,
+                    "def": 9,
+                    "skill": "BlindlessStrike"
+                }
+            },
+            "superweak": [
+                "bless"
+            ],
+            "loot": "LariamestimDrops",
+            "image": "Lariamestim.png"
+        },
+        "Soytebi": {
+            "name": "Soytebi",
+            "creator": "441198920668938260",
+            "level": 65,
+            "hp": 430,
+            "mp": 710,
+            "atk": 12,
+            "mag": 35,
+            "prc": 22,
+            "end": 45,
+            "chr": 23,
+            "int": 12,
+            "agl": 25,
+            "luk": 12,
+            "melee": [
+                "Strike Attack",
+                "strike"
+            ],
+            "skills": [
+                "SpikyBody",
+                "MySecretRecipe",
+                "StomachDraining",
+                "CruelIntent",
+                "FlameCharge",
+                "Pyro",
+                "CurseBoost"
+            ],
+            "weak": [
+                "fire"
+            ],
+            "resist": [
+                "poison",
+                "earth"
+            ],
+            "block": [],
+            "repel": [],
+            "drain": [
+                "curse"
+            ],
+            "journal": "[GLUTTONY]\nThe one that represents endless hunger and infinitude in terms of indulging themselves in overeating whatever they see on their path. They don't insist on making their target to be defeated. None of that. Instead on top of they, they desire eating everything they see, like a ground worm of eldritch nightmares. The only way to calm them down is not by repenting, but by stepping yourself down to them.",
+            "dreams": [],
+            "awardxp": 89352,
+            "negotiate": [
+                {
+                    "name": "BodyShame",
+                    "desc": "Shame the Soyteri's body",
+                    "action": "%PLAYER% decides to body shame Soytebi for their choices. They absolutely did not appreciate that thought.",
+                    "convince": -20
+                },
+                {
+                    "name": "Engage",
+                    "desc": "Engage the Soytebi with a challenge",
+                    "action": "%PLAYER% challenged Soytebi into an eating competition. The Soytebi, knowing they'll win accept with pleasure.",
+                    "convince": 7
+                },
+                {
+                    "name": "Attempt",
+                    "desc": "Attempt to... Eat your partner?",
+                    "action": "%PLAYER% starts trying to eat their partner in battle, in hopes of getting on the side of Soytebi, but give up quick. You can feel Soy's amusement.",
+                    "convince": 14
+                },
+                {
+                    "name": "Repent",
+                    "desc": "Repent the Soytebi",
+                    "action": "%PLAYER% repents Soytebi, hoping they would disappear soon. They absolutely are not a fan of that.",
+                    "convince": -50
+                },
+                {
+                    "name": "Consult",
+                    "desc": "Consult the Soytebi",
+                    "action": "%PLAYER% tries to consult Soytebi in trying to get them in a better diet... Which ends on failure.",
+                    "convince": -20
+                }
+            ],
+            "negotiateDefs": {
+                "required": 12,
+                "qualities": {
+                    "atk": 7,
+                    "mag": 15,
+                    "def": 20,
+                    "skill": "StomachDraining"
+                }
+            },
+            "superweak": [
+                "water"
+            ],
+            "loot": "SoytebiDrops",
+            "image": "Soytebi.png"
+        },
+        "Terponiteus": {
+            "name": "Terponiteus",
+            "creator": "441198920668938260",
+            "level": 65,
+            "hp": 520,
+            "mp": 620,
+            "atk": 23,
+            "mag": 42,
+            "prc": 32,
+            "end": 10,
+            "chr": 23,
+            "int": 7,
+            "agl": 34,
+            "luk": 3,
+            "melee": [
+                "Strike Attack",
+                "strike"
+            ],
+            "skills": [
+                "Tera",
+                "Hexburst",
+                "BurningStare",
+                "FireSquare",
+                "Incinerate",
+                "Glare"
+            ],
+            "weak": [
+                "water",
+                "bless"
+            ],
+            "resist": [
+                "wind",
+                "earth"
+            ],
+            "block": [],
+            "repel": [
+                "fire"
+            ],
+            "drain": [],
+            "journal": "[ENVY]\nThe one that represents the feeling of conscienceless, resentful longing aroused from someone else's qualities, skills, possessions, or even luck. They depend on you trying to be better at them in any possible capacity. If they find something, they will rush you down to crisp. The only way to calm them down is not by repenting, but by stepping yourself down to them.",
+            "dreams": [],
+            "awardxp": 72867,
+            "negotiate": [
+                {
+                    "name": "Calm",
+                    "desc": "Try to calm the Terponiteus",
+                    "action": "%PLAYER% tries to calm down Terponiteus through normal ways. They still are envious at them.",
+                    "convince": -23
+                },
+                {
+                    "name": "Complain",
+                    "desc": "Complain about Terponiteus",
+                    "action": "%PLAYER% complains to Terponiteus about their behavior. They get the spirit, but it's not enough.",
+                    "convince": 8
+                },
+                {
+                    "name": "Repent",
+                    "desc": "Repent the Terponiteus",
+                    "action": "%PLAYER% repents Terponiteus, hoping they would disappear soon. They absolutely are not a fan of that.",
+                    "convince": -50
+                }
+            ],
+            "negotiateDefs": {
+                "required": 12,
+                "qualities": {
+                    "atk": 13,
+                    "mag": 23,
+                    "def": 8,
+                    "skill": "BurningStare"
+                }
+            },
+            "superweak": [
+                "curse"
+            ],
+            "loot": "TerponiteusDrops",
+            "image": "Terponiteus.png"
+        },
+        "Sibling": {
+            "name": "Sibling",
+            "creator": "516359709779820544",
+            "level": 64,
+            "hp": 364,
+            "mp": 225,
+            "atk": 67,
+            "mag": 43,
+            "prc": 54,
+            "end": 43,
+            "chr": 22,
+            "int": 18,
+            "agl": 21,
+            "luk": 34,
+            "melee": [
+                "Strike Attack",
+                "strike"
+            ],
+            "skills": [
+                "FatalEnd",
+                "Eigaon",
+                "Tarukaja",
+                "ProtectionBuster"
+            ],
+            "weak": [
+                "bless"
+            ],
+            "resist": [
+                "ice"
+            ],
+            "block": [],
+            "repel": [],
+            "drain": [
+                "curse"
+            ],
+            "journal": "A sibling of the void. Thought to be directly related to the Destructive Titan. It is only seen at lower points within the ground, or in shadowy areas. It sees anything not made of the void-like substance called Eruyami as a threat. It also sees Eruyami creatures siding with those of other kind as betrayal.",
+            "dreams": [],
+            "awardxp": 954939,
             "negotiate": [],
             "negotiateDefs": {
                 "required": 5
             }
         },
-        "FrostBandit": {
-            "name": "FrostBandit",
+        "Applup": {
+            "name": "Applup",
+            "creator": "516359709779820544",
+            "level": 64,
+            "hp": 325,
+            "mp": 212,
+            "atk": 66,
+            "mag": 21,
+            "prc": 35,
+            "end": 54,
+            "chr": 24,
+            "int": 35,
+            "agl": 37,
+            "luk": 22,
+            "melee": [
+                "Strike Attack",
+                "strike"
+            ],
+            "skills": [],
+            "weak": [],
+            "resist": [],
+            "block": [],
+            "repel": [],
+            "drain": [],
+            "journal": "A small bug that hides inside apples, for stealth-related reasons. It loves to roll around, and finds it funny when other people actually mistake it for an apple.",
+            "dreams": [],
+            "awardxp": 632123,
+            "negotiate": [],
+            "negotiateDefs": {
+                "required": 5
+            }
+        },
+        "Dirtmound": {
+            "name": "Dirtmound",
+            "creator": "516359709779820544",
+            "level": 67,
+            "hp": 2343,
+            "mp": 654,
+            "atk": 56,
+            "mag": 56,
+            "prc": 38,
+            "end": 62,
+            "chr": 21,
+            "int": 21,
+            "agl": 20,
+            "luk": 35,
+            "melee": [
+                "Strike Attack",
+                "strike"
+            ],
+            "skills": [
+                "Earthquake",
+                "Magnadyne",
+                "Mamagnara",
+                "MegatonRaid",
+                "HeavyShot",
+                "Rakunda"
+            ],
+            "weak": [
+                "water",
+                "gravity"
+            ],
+            "resist": [
+                "wind",
+                "earth",
+                "grass"
+            ],
+            "block": [],
+            "repel": [],
+            "drain": [],
+            "journal": "A large creature that hides itself in the ground. Many accidentally step on it, and so, provoke it into attacking. Usually, it lays dormant, so grass can grow on it's head, as can certain special flowers.",
+            "dreams": [],
+            "awardxp": 753204,
+            "negotiate": [
+                {
+                    "name": "Pet",
+                    "desc": "Pet the Dirtmound",
+                    "action": "%PLAYER% pets the dirtmound on it's head. It feels slightly happy.",
+                    "convince": 3
+                },
+                {
+                    "name": "UseDirt",
+                    "desc": "Cover the Dirtmound back up.",
+                    "action": "%PLAYER% tries to cover the Dirtmound back up, and it starts feeling drowsy.",
+                    "convince": 7
+                },
+                {
+                    "name": "Slap",
+                    "desc": "Slap the Dirtmound",
+                    "action": "%PLAYER% slaps the Dirtmound, and it feels upset.",
+                    "convince": -10
+                }
+            ],
+            "negotiateDefs": {
+                "required": 1,
+                "qualities": {
+                    "atk": 0,
+                    "mag": 0,
+                    "def": 20,
+                    "skill": "Rakunda"
+                }
+            },
+            "boss": true
+        },
+        "HeartKraken": {
+            "name": "HeartKraken",
+            "creator": "532291526634635285",
+            "level": 78,
+            "hp": 4650,
+            "mp": 3000,
+            "atk": 24,
+            "mag": 73,
+            "prc": 69,
+            "end": 45,
+            "chr": 37,
+            "int": 20,
+            "agl": 45,
+            "luk": 52,
+            "melee": [
+                "Strike Attack",
+                "strike"
+            ],
+            "skills": [
+                "Agilonda",
+                "Maragidyne",
+                "Crysplan",
+                "CursedFlames",
+                "Freila",
+                "Jino",
+                "TentacleSwipe"
+            ],
+            "weak": [
+                "nuclear",
+                "gravity"
+            ],
+            "resist": [
+                "psychic",
+                "earth"
+            ],
+            "block": [
+                "metal"
+            ],
+            "repel": [],
+            "drain": [
+                "fire"
+            ],
+            "journal": "A huge beast with a fiery heart. This beast is rumored to cause magma to rise when its rage is at its peak. The only solution to win is by defeating the beast.",
+            "dreams": [],
+            "awardxp": 3000000,
+            "negotiate": [],
+            "negotiateDefs": {
+                "required": 5
+            },
+            "bigboss": true,
+            "superweak": [
+                "water"
+            ]
+        },
+        "Rainbow...?": {
+            "name": "Rainbow...?",
+            "creator": "516359709779820544",
+            "level": 58,
+            "hp": 2322,
+            "mp": 500,
+            "atk": 33,
+            "mag": 67,
+            "prc": 63,
+            "end": 22,
+            "chr": 33,
+            "int": 64,
+            "agl": 33,
+            "luk": 23,
+            "melee": [
+                "Bite",
+                "pierce"
+            ],
+            "weak": [
+                "fire"
+            ],
+            "resist": [
+                "psychic",
+                "wind"
+            ],
+            "block": [],
+            "repel": [],
+            "drain": [
+                "ice"
+            ],
+            "skills": [
+                "WolfBite",
+                "SharpChomp-III",
+                "AuraBarrage",
+                "AuraSphere",
+                "AuraScythe",
+                "Makakaja",
+                "Makanda"
+            ],
+            "journal": "A somewhat familiar hedgehog(?), overrun with a weird multicoloured power. He wields an energy-based scythe and will show no mercy.",
+            "dreams": [],
+            "awardxp": 347075,
+            "boss": true,
+            "superweak": [
+                "electric"
+            ]
+        },
+        "PhantomMeran": {
+            "name": "PhantomMeran",
+            "creator": "516359709779820544",
+            "level": 70,
+            "hp": 5000,
+            "mp": 5000,
+            "atk": 29,
+            "mag": 31,
+            "prc": 39,
+            "end": 57,
+            "chr": 30,
+            "int": 58,
+            "agl": 56,
+            "luk": 19,
+            "melee": [
+                "Strike Attack",
+                "strike"
+            ],
+            "skills": [
+                "ShadowStrike",
+                "UnseenSnatch",
+                "BurningSpirit",
+                "ImmoralMagnetism",
+                "Taunt"
+            ],
+            "weak": [
+                "psychic",
+                "electric"
+            ],
+            "resist": [
+                "strike"
+            ],
+            "block": [
+                "curse",
+                "gravity"
+            ],
+            "repel": [],
+            "drain": [],
+            "journal": "???",
+            "dreams": [],
+            "awardxp": 18491,
+            "negotiate": [],
+            "negotiateDefs": {
+                "required": 5
+            }
+        },
+        "LuminousWings": {
+            "name": "LuminousWings",
             "creator": "516359709779820544",
             "level": 80,
-            "hp": 100,
-            "mp": 5,
-            "atk": 8,
-            "mag": 7,
-            "prc": 6,
-            "end": 4,
-            "chr": 9,
-            "int": 8,
-            "agl": 6,
-            "luk": 6,
-            "melee": [
-                "Strike Attack",
-                "strike"
-            ],
-            "skills": [],
-            "weak": [],
-            "resist": [],
-            "block": [],
-            "repel": [],
-            "drain": [],
-            "journal": "A bandit that uses the art of frost to strike their foes, while making off with their stuff.",
-            "dreams": [],
-            "awardxp": 13,
-            "negotiate": [],
-            "negotiateDefs": {
-                "required": 5
-            }
-        },
-        "ChargedBandit": {
-            "name": "ChargedBandit",
-            "creator": "516359709779820544",
-            "level": 120,
-            "hp": 55,
-            "mp": 8,
-            "atk": 8,
-            "mag": 7,
-            "prc": 6,
-            "end": 4,
-            "chr": 9,
-            "int": 8,
-            "agl": 6,
-            "luk": 6,
-            "melee": [
-                "Strike Attack",
-                "strike"
-            ],
-            "skills": [],
-            "weak": [],
-            "resist": [],
-            "block": [],
-            "repel": [],
-            "drain": [],
-            "journal": "A bandit that uses the art of electricity to strike their foes, while making off with their stuff.",
-            "dreams": [],
-            "awardxp": 10,
-            "negotiate": [],
-            "negotiateDefs": {
-                "required": 5
-            }
-        },
-        "EzRadicator": {
-            "name": "EzRadicator",
-            "creator": "516359709779820544",
-            "level": 130,
-            "hp": 20,
-            "mp": 16,
-            "atk": 5,
-            "mag": 6,
-            "prc": 7,
-            "end": 3,
-            "chr": 5,
-            "int": 8,
-            "agl": 6,
-            "luk": 6,
-            "melee": [
-                "Strike Attack",
-                "strike"
-            ],
-            "skills": [],
-            "weak": [],
-            "resist": [],
-            "block": [],
-            "repel": [],
-            "drain": [],
-            "journal": "Tall preying mantis like creatures with venomously dangerous arm blades, almost ninja like.",
-            "dreams": [],
-            "awardxp": 4,
-            "negotiate": [],
-            "negotiateDefs": {
-                "required": 5
-            }
-        },
-        "Mech-Type-α": {
-            "name": "Mech-Type-α",
-            "creator": "516359709779820544",
-            "level": 150,
-            "hp": 20,
-            "mp": 13,
-            "atk": 5,
-            "mag": 8,
-            "prc": 7,
-            "end": 3,
-            "chr": 5,
-            "int": 8,
-            "agl": 6,
-            "luk": 6,
-            "melee": [
-                "Strike Attack",
-                "strike"
-            ],
-            "skills": [],
-            "weak": [],
-            "resist": [],
-            "block": [],
-            "repel": [],
-            "drain": [],
-            "journal": "Corrupted robots with strong physical capabilities.",
-            "dreams": [],
-            "awardxp": 4,
-            "negotiate": [],
-            "negotiateDefs": {
-                "required": 5
-            }
-        }
-    },
-    "856551013660885024": {
-        "Sandbag": {
-            "name": "Sandbag",
-            "creator": "516359709779820544",
-            "level": 1,
-            "hp": 999999,
-            "mp": 99999,
-            "atk": 1,
-            "mag": 1,
-            "prc": 1,
-            "end": 1,
-            "chr": 1,
-            "int": 1,
-            "agl": 1,
-            "luk": 1,
+            "hp": 50000,
+            "mp": 8392,
+            "atk": 43,
+            "mag": 89,
+            "prc": 32,
+            "end": 45,
+            "chr": 29,
+            "int": 80,
+            "agl": 45,
+            "luk": 65,
             "melee": [
                 "Strike Attack",
                 "strike"
             ],
             "skills": [
-                "Splash",
-                "InfiniteEndure"
+                "LightStorm",
+                "Megido",
+                "SpreadWings"
             ],
             "weak": [],
             "resist": [],
             "block": [],
             "repel": [],
             "drain": [],
-            "journal": "A punching bag.",
+            "journal": "The true form of The Luminosity. She spreads her wings, and shines bright. In this form, she is at her strongest. This is a form she uses mostly to combat the biggest threats to her and Yaretza. It is considered eternal good luck if you ever see her in this form, as most will not or can not. She is considered a myth among most.",
             "dreams": [],
-            "awardxp": 100,
+            "awardxp": 4593203,
             "negotiate": [],
             "negotiateDefs": {
                 "required": 5
-            }
-        }
-    },
-    "836346842848428092": {
-        "A": {
-            "name": "A",
-            "creator": "532291526634635285",
-            "level": 99,
-            "hp": 9000,
-            "mp": 9000,
-            "atk": 10,
-            "mag": 10,
-            "prc": 10,
-            "end": 10,
-            "chr": 10,
-            "int": 10,
-            "agl": 10,
-            "luk": 10,
-            "melee": [
-                "Strike Attack",
-                "strike"
-            ],
-            "skills": [
-                "Mimic"
-            ],
-            "weak": [],
-            "resist": [],
-            "block": [],
-            "repel": [],
-            "drain": [],
-            "journal": "A",
-            "dreams": [],
-            "awardxp": 1,
-            "negotiate": [],
-            "negotiateDefs": {
-                "required": 5
-            }
-        },
-        "A2": {
-            "name": "A2",
-            "creator": "532291526634635285",
-            "level": 9000,
-            "hp": 9000,
-            "mp": 1,
-            "atk": 10,
-            "mag": 10,
-            "prc": 10,
-            "end": 10,
-            "chr": 10,
-            "int": 10,
-            "agl": 10,
-            "luk": 6,
-            "melee": [
-                "Strike Attack",
-                "strike"
-            ],
-            "skills": [
-                "Eiga",
-                "Agi",
-                "Maeiga"
-            ],
-            "weak": [],
-            "resist": [],
-            "block": [],
-            "repel": [],
-            "drain": [],
-            "journal": "A: Electric Boogaloo",
-            "dreams": [],
-            "awardxp": 10,
-            "negotiate": [],
-            "negotiateDefs": {
-                "required": 5
-            }
-        }
-    },
-    "924529949912760350": {
-        "Sandbag": {
-            "name": "Sandbag",
-            "creator": "544290248734015488",
-            "level": 1,
-            "hp": 1e+24,
-            "mp": 50,
-            "atk": 1,
-            "mag": 1,
-            "prc": 1,
-            "end": 1,
-            "chr": 1,
-            "int": 1,
-            "agl": 1,
-            "luk": 1,
-            "melee": [
-                "Strike Attack",
-                "strike"
-            ],
-            "skills": [],
-            "weak": [],
-            "resist": [],
-            "block": [],
-            "repel": [],
-            "drain": [],
-            "journal": "A punching bag.",
-            "dreams": [],
-            "awardxp": 1,
-            "negotiate": [],
-            "negotiateDefs": {
-                "required": 5
-            }
+            },
+            "boss": true
         }
     }
 }

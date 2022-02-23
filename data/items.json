@@ -23,192 +23,23 @@
         "cost": 150,
         "desc": "A small gem that can be used to create or enhance all sorts of things."
     },
-    "none": {
-        "type": "weapon"
+    "Shroom": {
+        "name": "Shroom",
+        "type": "material",
+        "cost": 10,
+        "desc": "A spongy, bouncy mushroom that can be used to create or enhance all sorts of things."
     },
-    "Shovel": {
-        "name": "Shovel",
-        "type": "weapon",
-        "element": "earth",
-        "melee": 60,
-        "cost": 250,
-        "atk": 8,
-        "desc": "A shovel that can be picked up to raise attack stat by 8 and use Magnara."
+    "JellyCore": {
+        "name": "Jelly Core",
+        "type": "material",
+        "cost": 50,
+        "desc": "Rare cores from the Monia species that can be used to create or enhance a few things."
     },
-    "WornOutSword": {
-        "name": "Worn-out Sword",
-        "type": "weapon",
-        "element": "slash",
-        "melee": 60,
-        "cost": 200,
-        "atk": 5,
-        "desc": "A worn out sword that can be equipped to raise atk stat by 5."
-    },
-    "WornOutWand": {
-        "name": "Worn-out Wand",
-        "type": "weapon",
-        "element": "psychic",
-        "melee": 60,
-        "cost": 200,
-        "mag": 5,
-        "desc": "A worn out want that can be equipped to raise mag stat by 5."
-    },
-    "WornOutShield": {
-        "name": "Worn-out Shield",
-        "type": "weapon",
-        "element": "strike",
-        "melee": 60,
-        "cost": 200,
-        "def": 5,
-        "desc": "A worn out shield that can be equipped to raise def stat by 5."
-    },
-    "WoodenSword": {
-        "name": "Wooden Sword",
-        "type": "weapon",
-        "element": "slash",
-        "melee": 80,
-        "cost": 400,
-        "atk": 8,
-        "desc": "An old sword made out of wood that can be equipped to raise atk stat by 8."
-    },
-    "WoodenWand": {
-        "name": "Wooden Wand",
-        "type": "weapon",
-        "element": "psychic",
-        "melee": 80,
-        "cost": 400,
-        "mag": 8,
-        "desc": "An old wand made out of wood that can be equipped to raise mag stat by 8."
-    },
-    "WoodenShield": {
-        "name": "Wooden Shield",
-        "type": "weapon",
-        "element": "strike",
-        "melee": 80,
-        "cost": 400,
-        "def": 8,
-        "desc": "An old shield made out of wood that can be equipped to raise def stat by 8."
-    },
-    "SteelSword": {
-        "name": "Steel Sword",
-        "type": "weapon",
-        "element": "slash",
-        "melee": 100,
-        "cost": 200,
-        "atk": 8,
-        "def": 5,
-        "desc": "A steel sword used for both offense and defense that can be equipped to raise atk stat by 8 and def stat by 5."
-    },
-    "SteelShield": {
-        "name": "Steel Shield",
-        "type": "weapon",
-        "element": "strike",
-        "melee": 100,
-        "cost": 200,
-        "def": 15,
-        "desc": "A steel shield used for defense that can be equipped to raise def stat by 15. It also changes your melee attack to Strike Type, and raises it's power slightly."
-    },
-    "SteelWand": {
-        "name": "Steel Wand",
-        "type": "weapon",
-        "element": "bless",
-        "melee": 100,
-        "cost": 200,
-        "mag": 8,
-        "def": 5,
-        "desc": "A steel wand used for both offense and defense that can be equipped to raise mag stat by 8 and def stat by 5. It also changes your melee attack to Bless Type, and raises it's power slightly."
-    },
-    "RoboticFist": {
-        "name": "Robotic Fist",
-        "type": "weapon",
-        "element": "strike",
-        "melee": 150,
-        "cost": 400,
-        "atk": 15,
-        "skill": "GiganticFist",
-        "desc": "A part of a robot that was broken off. It can be used to raise attack stat by 15, and use Gigantic Fist. It also changes your melee attack to Strike Type, and raises it's power greatly."
-    },
-    "RoboticFlamethrower": {
-        "name": "Robotic Flamethrower",
-        "type": "weapon",
-        "element": "fire",
-        "melee": 100,
-        "cost": 400,
-        "mag": 15,
-        "skill": "Flamethrower",
-        "desc": "A part of a robot that was broken off. It can be used to raise magic stat by 15, and use Flamethrower. It also changes your melee attack to Fire Type, and raises it's power slightly."
-    },
-    "WaterGun": {
-        "name": "Water Gun",
-        "type": "weapon",
-        "element": "water",
-        "melee": 150,
-        "cost": 400,
-        "mag": 15,
-        "skill": "Scald",
-        "desc": "A part of a robot that was broken off. It can be used to raise magic stat by 15, and use Scald. It also changes your melee attack to Water Type, and raises it's power greatly."
-    },
-    "FrozenFist": {
-        "name": "Frozen Fist",
-        "type": "weapon",
-        "element": "ice",
-        "melee": 180,
-        "cost": 950,
-        "atk": 18,
-        "skill": "MegatonRaid",
-        "desc": "A frozen fist of some sort of animal. It can be used to raise attack stat by 18, and use Megaton Raid. It also changes your melee attack to Ice Type, and raises it's power greatly."
-    },
-    "IcyFang": {
-        "name": "Icy Fang",
-        "type": "weapon",
-        "element": "ice",
-        "melee": 180,
-        "cost": 400,
-        "atk": 15,
-        "skill": "IceFang",
-        "desc": "A frozen fang of some sort of animal. It can be used to raise attack stat by 15, and use Ice Fang. It also changes your melee attack to Ice Type, and raises it's power greatly."
-    },
-    "GrassGem": {
-        "name": "Grass Gem",
-        "type": "weapon",
-        "element": "grass",
-        "melee": 100,
-        "cost": 400,
-        "atk": 5,
-        "mag": 5,
-        "def": 5,
-        "skill": "GrassyTerrain",
-        "desc": "One of the various elemental crystals. It can be used to raise all stats by 5, and use Grassy Terrain. It also changes your melee attack to Grass Type, and raises it's power slightly."
-    },
-    "FrostGem": {
-        "name": "Frost Gem",
-        "type": "weapon",
-        "cost": 400,
-        "atk": 4,
-        "mag": 4,
-        "def": 4,
-        "skill": "Blizzard",
-        "desc": "One of the various elemental crystals. It can be used to raise all stats by 4, and use Blizzard."
-    },
-    "NukeLaunch": {
-        "name": "Nuke Launcher",
-        "cost": 0,
-        "element": "nuclear",
-        "melee": 180,
-        "type": "weapon",
-        "desc": "A rare weapon that is possible to launch radiation at a foe without needing ammo. It allows the user to use Freila. It also changes the user's melee attack to Nuclear Type, and raise it's power greatly.",
-        "mag": 10,
-        "skill": "Freila"
-    },
-    "God'sBlessing": {
-        "name": "God's Blessing",
-        "type": "weapon",
-        "atk": 100000000000000000,
-        "mag": 100000000000000000,
-        "def": 100000000000000000,
-        "cost": 100000000000000000,
-        "skill": "Megidolaon",
-        "desc": "A blessing."
+    "Crystal": {
+        "name": "Crystal",
+        "type": "material",
+        "cost": 80,
+        "desc": "Rare crystals from the Shimite species that can be used to create or enhance a few things."
     },
     "SliceOfPizza": {
         "emoji": "🍕",
@@ -225,19 +56,47 @@
         "heal": 20,
         "desc": "Just a chicken nugget. Restores one ally's HP by 20."
     },
+    "Apple": {
+        "name": "Apple",
+        "type": "heal",
+        "cost": 10,
+        "heal": 40,
+        "desc": "A nice juicy apple to restore one's HP by 40."
+    },
     "Potion": {
         "name": "Potion",
         "type": "heal",
         "cost": 65,
         "heal": 80,
-        "desc": "If one were to drink this, their HP would be restored by 80."
+        "desc": "If one were to drink this, their HP would be restored by 80.",
+        "fusion": {
+            "ShineBerry": 2,
+            "SparkleBerry": 1,
+            "JellyCore": 1
+        }
     },
     "MPPotion": {
         "name": "MP Potion",
         "type": "healmp",
         "cost": 65,
         "heal": 60,
-        "desc": "If one were to drink this, their MP would be restored by 60."
+        "desc": "If one were to drink this, their MP would be restored by 60.",
+        "fusion": {
+            "ShineBerry": 1,
+            "SparkleBerry": 2,
+            "JellyCore": 1
+        }
+    },
+    "GreaterPotion": {
+        "name": "Greater Potion",
+        "type": "heal",
+        "cost": 150,
+        "heal": 175,
+        "desc": "If one were to drink this, their HP would be restored by 175.",
+        "fusion": {
+            "PlumpBerry": 5,
+            "JellyCore": 2
+        }
     },
     "BottleOfWater": {
         "name": "Bottle of Water",
@@ -276,6 +135,13 @@
         "healhp": 150,
         "healmp": 150,
         "desc": "A tasty, soft sponge cake tasting of 3 different berries. Restores 150 HP & 150 MP."
+    },
+    "GlowShroom": {
+        "name": "Glow Shroom",
+        "type": "heal",
+        "cost": 100,
+        "heal": 80,
+        "desc": "Large mushroom that heals 80HP upon consumption"
     },
     "RevivalSpray": {
         "name": "Revival Spray",
@@ -364,35 +230,6 @@
         "desc": "A throwable cocktail full of fire that explodes upon contact after a throw.",
         "skill": "MolotovToss"
     },
-    "Revitalizer": {
-        "name": "Revitalizer",
-        "cost": 599,
-        "type": "weapon",
-        "desc": "This item grants people to be able to heal each turn while equipped.",
-        "atk": 1,
-        "mag": 1,
-        "def": 8,
-        "skill": "RegenI"
-    },
-    "RailGun": {
-        "name": "Rail Gun",
-        "cost": 9000,
-        "type": "weapon",
-        "desc": "To use this gun, you'll probably need to lower your defenses.",
-        "atk": 10,
-        "def": -4,
-        "skill": "TheRail"
-    },
-    "InconspicuousCan": {
-        "name": "Inconspicuous Can",
-        "cost": 260,
-        "type": "weapon",
-        "desc": "A seemingly regular black soda can...?",
-        "atk": 1,
-        "mag": 3,
-        "def": 1,
-        "skill": "Bepsi"
-    },
     "CookedTurkey": {
         "name": "Cooked Turkey",
         "cost": 500,
@@ -401,29 +238,12 @@
         "healhp": 200,
         "healmp": 40
     },
-    "AirFryer": {
-        "name": "AirFryer",
-        "cost": 2000,
-        "type": "weapon",
-        "desc": "Clearly you don't own this. ...Yet.",
-        "mag": 25,
-        "skill": "Garudyne"
-    },
     "PoisonLeaf": {
         "name": "Poison Leaf",
         "cost": 222,
         "type": "skill",
         "desc": "Cover yourself with a Poison Leaf.",
         "skill": "PoisonLeaf"
-    },
-    "BloomBattlerBreaker": {
-        "name": "BloomBattlerBreaker",
-        "cost": 2000,
-        "type": "weapon",
-        "desc": "A mysterious item that can break Bloom Battler. It's best not to ask why it exists.",
-        "mag": 23,
-        "def": 2,
-        "skill": "undefined"
     },
     "KillerPotion": {
         "name": "Killer Potion",
@@ -432,27 +252,150 @@
         "desc": "Toss a killer potion to instantly down the foe.",
         "skill": "KillerPotion"
     },
-    "MagikaPoison": {
-        "name": "Magika Poison",
-        "cost": 1250,
-        "type": "weapon",
-        "desc": "This grants the use of Magika Poison, be aware there's no gain for this stat wise.",
-        "skill": "MagikaPoison"
+    "SpiritCrystal": {
+        "name": "Spirit Crystal",
+        "cost": 1500,
+        "type": "skill",
+        "desc": "It is a slightly transparent, black crystal with a glowing spirit inside of it, said to give power when used, however with a permament side effect of gaining a spirit inside of the activator, no matter the amount they already have.",
+        "skill": "EtherialSupport"
     },
-    "ConspicuousOldGun": {
-        "name": "Conspicuous Old Gun",
-        "cost": 1000,
-        "type": "weapon",
-        "desc": "An old weapon used to attack things from afar, remember to keep safety on unless fighting something. The best form of stress relief. It increases Strength by 9 because of how heavy it is...",
-        "atk": 9,
-        "skill": "ZaGan"
+    "Lychen": {
+        "name": "Lychen",
+        "cost": 100,
+        "type": "healhpmp",
+        "desc": "A scrumptious berry that glows for as long as the time will allow. Used for giving out blessings and fortune to ones that consume it.",
+        "healhp": 25,
+        "healmp": 25
     },
-    "ConspicuousOldRifle": {
-        "name": "Conspicuous Old Rifle",
+    "E-Tank": {
+        "name": "E-Tank",
+        "cost": 150,
+        "type": "heal",
+        "desc": "A full refill! Use it to completely heal an ally back to full health. Don't use it too late though... || PS: I am not sorry for defining this. -Rainbow",
+        "heal": 999999
+    },
+    "MoltMaterial": {
+        "name": "MoltMaterial",
+        "cost": 300,
+        "type": "material",
+        "desc": "Material from Grifflares, used for crafting armor and weapons.",
+        "originalAuthor": "441198920668938260"
+    },
+    "ClearTear": {
+        "name": "ClearTear",
+        "cost": 300,
+        "type": "material",
+        "desc": "Water of a Flow Sprout, encased in a tear-like shape. Useful for crafting armor.",
+        "originalAuthor": "441198920668938260"
+    },
+    "PotionOfLiquidFlame": {
+        "name": "Potion Of Liquid Flame",
+        "cost": 60,
+        "type": "skill",
+        "desc": "This potion contains an unstable compound which will burst violently into flame upon exposure to open air. Likely to burn the hit foe.",
+        "originalAuthor": "621307633718132746",
+        "skill": "PotionOfLiquidFlame"
+    },
+    "PotionOfFrost": {
+        "name": "Potion Of Frost",
+        "cost": 60,
+        "type": "skill",
+        "desc": "The chemical contained in this potion will evaporate into a freezing cloud upon exposure to open air. Likely to freeze the hit foe.",
+        "originalAuthor": "621307633718132746",
+        "skill": "PotionOfFrost"
+    },
+    "PotionOfToxicGas": {
+        "name": "Potion Of Toxic Gas",
+        "cost": 60,
+        "type": "skill",
+        "desc": "Uncorking or shattering this pressurized glass will cause its contents to explode into a deadly cloud of toxic green gas. Might poison some foes.",
+        "originalAuthor": "621307633718132746",
+        "skill": "PotionOfToxicGas"
+    },
+    "PotionOfHaste": {
+        "name": "Potion Of Haste",
+        "cost": 60,
+        "type": "skill",
+        "desc": "Drinking this oddly sweet liquid will imbue you with tremendous energy for a short time, allowing you to run at high speeds.",
+        "originalAuthor": "621307633718132746",
+        "skill": "PotionOfHaste"
+    },
+    "PotionOfStrength": {
+        "name": "Potion Of Strength",
+        "cost": 60,
+        "type": "skill",
+        "desc": "This powerful liquid will course through your muscles, increasing your attack.",
+        "originalAuthor": "621307633718132746",
+        "skill": "PotionOfStrength"
+    },
+    "RageEssence": {
+        "name": "RageEssence",
         "cost": 2000,
-        "type": "weapon",
-        "desc": "An old weapon used to attack things from up close, remember to keep safety on unless fighting something. Remember, no matter how bad your aim is, friendly fire is never permitted. It increases Strength by 18 because of how insanely heavy it is...",
-        "atk": 18,
-        "skill": "ZaMinigan"
+        "type": "healmp",
+        "desc": "[RARE]\nPure essence of rage in edible form.",
+        "originalAuthor": "441198920668938260",
+        "heal": 40
+    },
+    "DreamEssence": {
+        "name": "DreamEssence",
+        "cost": 2000,
+        "type": "skill",
+        "desc": "[RARE]\nPure essence of a dream in powder, used to put people to sleep.",
+        "originalAuthor": "441198920668938260",
+        "skill": "SleepPowder"
+    },
+    "AchievementEssence": {
+        "name": "AchievementEssence",
+        "cost": 2000,
+        "type": "heal",
+        "desc": "[RARE]\nPure essence of a achievement in drinkable form.",
+        "originalAuthor": "441198920668938260",
+        "heal": 60
+    },
+    "DriveEssence": {
+        "name": "DriveEssence",
+        "cost": 2000,
+        "type": "skill",
+        "desc": "[RARE]\nPure essence of sexual drive in a sweet edible shell made for enemies to eat, and potentially have them fall in love with you.",
+        "originalAuthor": "441198920668938260",
+        "skill": "DeviousLick"
+    },
+    "Gold": {
+        "name": "Gold",
+        "cost": 400,
+        "type": "material",
+        "originalAuthor": "441198920668938260"
+    },
+    "RichHunger": {
+        "name": "RichHunger",
+        "cost": 2000,
+        "type": "healhpmp",
+        "desc": "[RARE]\nIt's like a living oxymoron. Hunger, yet somehow rich. Eat it and recover some health and mana, at the cost of possibly being hungry for more",
+        "originalAuthor": "441198920668938260",
+        "healhp": 60,
+        "healmp": 45
+    },
+    "OutburnedSpike": {
+        "name": "OutburnedSpike",
+        "cost": 700,
+        "type": "material",
+        "desc": "[RARE]\nA large spike of burns, how weird. Could be used to craft something.",
+        "originalAuthor": "441198920668938260"
+    },
+    "EverstaringEye": {
+        "name": "Everstaring Eye",
+        "cost": 2000,
+        "type": "skill",
+        "desc": "[RARE]\nJust an everstaring eye of fear. Make it stare at someone and it might give someone the geebies.",
+        "originalAuthor": "441198920668938260",
+        "skill": "Glare"
+    },
+    "CalmingPotion": {
+        "name": "Calming Potion",
+        "cost": 2000,
+        "type": "pacify",
+		"pacify": 50,
+        "desc": "[RARE]\nCan be used when a deity is 50% pacified or more to instantly pacify.",
+        "originalAuthor": "516359709779820544"
     }
 }

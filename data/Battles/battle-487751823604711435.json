@@ -69,6 +69,101 @@
                 "negotiateAllies": {},
                 "items": {},
                 "rings": 0
+            },
+            "PointyCrew": {
+                "members": [
+                    "Firestorm",
+                    "Brainfreeze",
+                    "Hurricane"
+                ],
+                "items": {},
+                "rings": 208,
+                "backup": [
+                    "Pointy"
+                ],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {}
+            },
+            "Slow": {
+                "members": [
+                    "Slow"
+                ],
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {},
+                "items": {},
+                "rings": 0
+            },
+            "Decium": {
+                "members": [
+                    "Decium",
+                    "Decium",
+                    "Decium",
+                    "Decium"
+                ],
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {},
+                "items": {},
+                "rings": 0
+            },
+            "Kane": {
+                "members": [
+                    "Kane"
+                ],
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {},
+                "items": {},
+                "rings": 0
+            },
+            "Firestorm": {
+                "members": [
+                    "Firestorm"
+                ],
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {},
+                "items": {},
+                "rings": 0
+            },
+            "Sour": {
+                "members": [
+                    "Sour"
+                ],
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {},
+                "items": {},
+                "rings": 0
+            },
+            "Sonic": {
+                "members": [
+                    "Sonic"
+                ],
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {},
+                "items": {},
+                "rings": 2618
+            },
+            "M.A.G.E.": {
+                "members": [
+                    "Alia"
+                ],
+                "items": {},
+                "rings": 0,
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {}
             }
         },
         "allies": {
@@ -86,13 +181,13 @@
         "battlechannel": "none",
         "doturn": 0,
         "turn": 0,
-        "turnorder": [],
         "pvp": false,
         "pvpmode": "none",
         "weather": "clear",
         "terrain": "normal",
         "canshowtime": false,
-        "ranked": false,
-        "canRun": true
+        "ranked": true,
+        "canRun": true,
+        "noLBs": false
     }
 }

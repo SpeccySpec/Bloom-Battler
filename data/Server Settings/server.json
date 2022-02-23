@@ -13,13 +13,13 @@
                     "points": 4
                 },
                 "412328234198237189": {
-                    "points": 6
+                    "points": 8
                 },
                 "516359709779820544": {
-                    "points": 18
+                    "points": 19
                 },
                 "532291526634635285": {
-                    "points": 3
+                    "points": 4
                 },
                 "461050360832720904": {
                     "points": 11
@@ -45,10 +45,13 @@
                     "points": 3
                 },
                 "544290248734015488": {
-                    "points": 2
+                    "points": 7
                 },
                 "712602499823042620": {
                     "points": 1
+                },
+                "461050360832720904": {
+                    "points": 2
                 }
             },
             "randskills": {
@@ -91,6 +94,12 @@
                 },
                 "412328234198237189": {
                     "points": 2
+                },
+                "621307633718132746": {
+                    "points": 1
+                },
+                "441198920668938260": {
+                    "points": 1
                 }
             }
         },
@@ -195,7 +204,7 @@
             "Aquatite",
             "Melarue",
             "Axel",
-            "RechargedLightning",
+            "RechargedSpark",
             "Frostimp",
             "Icifli",
             "Snowamor",
@@ -228,14 +237,77 @@
             "ViperWing",
             "Patella(Enemy)",
             "Psibo",
-            "Psibo",
-            "Psibo",
             "Psiobo",
             "Psiodynebo",
-            "Periphe"
+            "Periphe",
+            "ExplosiveDice",
+            "TheDestroyer",
+            "DestructiveTitan",
+            "Lychy",
+            "LychenImp",
+            "Sandbag",
+            "Terrly(Enemy)",
+            "Mimicry",
+            "LychenAngel",
+            "Mystone",
+            "Enigstone",
+            "Mystone",
+            "Mushi",
+            "Mushi",
+            "Mushi",
+            "Mushi",
+            "Moshroom",
+            "AncientHusk",
+            "TrailingDevout",
+            "Pyradus",
+            "Squeleaf",
+            "Squeleaf",
+            "Granibug",
+            "Crystapile",
+            "Glimmer",
+            "Gleambite",
+            "Glimmer",
+            "DJ_T",
+            "DJ_T1",
+            "Grifflare",
+            "Hydrog",
+            "Westone",
+            "Hydrog",
+            "FlowSprout",
+            "FlowSprout",
+            "Dreamie",
+            "Dawn(Enemy)",
+            "Morb",
+            "Sibling",
+            "Sibling",
+            "Sibling",
+            "Mystus",
+            "Arftic",
+            "Arftic",
+            "Lariamestim",
+            "Ecossnor",
+            "Dearmyda",
+            "Terponiteus",
+            "Algittoseci",
+            "Dirtmound",
+            "PoisonMonia",
+            "PoisonMonia",
+            "PoisonMonia",
+            "Prutisotte",
+            "Prutisotte",
+            "Soytebi",
+            "ToxidMorian",
+            "ToxidMorian",
+            "Disguaisa",
+            "AwakenedMonum",
+            "HeartKraken",
+            "PhantomMeran",
+            "Rainbow...?"
         ],
         "goldChance": 0.2,
-        "desc": "On Yaretza, there are 17 main species of monster roaming the lands. One for each planetary element. The planet has lasted for quite a while, and is still going through disasters today. Can the rag-tag group of \"friends\" survive, and help others?"
+        "desc": "On Yaretza, there are 17 main species of monster roaming the lands. One for each planetary element. The planet has lasted for quite a while, and is still going through disasters today. Can the rag-tag group of \"friends\" survive, and help others?",
+        "levelUpFormula": "original",
+        "trustrate": 1
     },
     "808462313262415893": {
         "prefix": "rpg!",
@@ -263,7 +335,7 @@
     },
     "874635107300933682": {
         "prefix": "rpg!",
-        "limitbreaks": true,
+        "limitbreaks": false,
         "showtimes": false,
         "onemores": false,
         "currency": "Kromer",
@@ -325,25 +397,31 @@
             },
             "charfuck": {
                 "532291526634635285": {
-                    "points": 28
+                    "points": 32
                 },
                 "544290248734015488": {
                     "points": 29
                 },
                 "516359709779820544": {
-                    "points": 41
+                    "points": 43
                 },
                 "441198920668938260": {
-                    "points": 28
+                    "points": 30
                 },
                 "498041248616153098": {
-                    "points": 20
+                    "points": 22
                 },
                 "412328234198237189": {
-                    "points": 16
+                    "points": 20
                 },
                 "642841151484985365": {
                     "points": 2
+                },
+                "712602499823042620": {
+                    "points": 2
+                },
+                "363363984390356993": {
+                    "points": 4
                 }
             }
         },
@@ -365,10 +443,13 @@
         },
         "encountered": [
             "Sandbag",
-            "Frostimp"
+            "Frostimp",
+            "Miniscle",
+            "Moltescle"
         ],
         "goldChance": 0.1,
-        "desc": ""
+        "desc": "",
+        "levelUpFormula": "original"
     },
     "763858631836958771": {
         "prefix": "rpg!",
@@ -403,7 +484,8 @@
             "Patella"
         ],
         "goldChance": 0.1,
-        "desc": ""
+        "desc": "",
+        "levelUpFormula": "original"
     },
     "728307995901034546": {
         "prefix": "rpg!",
@@ -455,7 +537,26 @@
             "randstats": {},
             "charfuck": {}
         },
-        "banned": []
+        "banned": [],
+        "encountered": [
+            "A",
+            "A2"
+        ],
+        "themes": {
+            "battle": [],
+            "advantage": [],
+            "disadvantage": [],
+            "bossfight": [],
+            "miniboss": [],
+            "strongfoe": [],
+            "finalboss": [],
+            "colosseum": [],
+            "colosseumstrong": [],
+            "pvp": [],
+            "victory": [],
+            "colosseumvictory": [],
+            "loss": []
+        }
     },
     "739088538964066345": {
         "prefix": "rpg!",
@@ -557,10 +658,65 @@
             "colosseumvictory": [],
             "loss": []
         },
-        "banned": []
+        "banned": [],
+        "encountered": []
     },
     "487751823604711435": {
         "prefix": "rpg!",
+        "limitbreaks": true,
+        "showtimes": false,
+        "onemores": false,
+        "currency": "Ring",
+        "xprate": 1,
+        "damageFormula": "persona",
+        "pvpstuff": {
+            "none": {
+                "138315499162435584": {
+                    "points": 7
+                },
+                "363363984390356993": {
+                    "points": 8
+                },
+                "461050360832720904": {
+                    "points": 1
+                }
+            },
+            "metronome": {},
+            "randskills": {},
+            "randstats": {},
+            "charfuck": {}
+        },
+        "themes": {
+            "battle": [],
+            "advantage": [],
+            "disadvantage": [],
+            "bossfight": [],
+            "miniboss": [],
+            "strongfoe": [],
+            "finalboss": [],
+            "colosseum": [],
+            "colosseumstrong": [],
+            "pvp": [],
+            "victory": [],
+            "colosseumvictory": [],
+            "loss": []
+        },
+        "banned": [],
+        "encountered": [
+            "Sandbag",
+            "GreatGod",
+            "MetalSonic",
+            "ElderLuminosity",
+            "TheLuminosity",
+            "Amarugeon",
+            "Amarugeon"
+        ],
+        "goldChance": 0.1,
+        "desc": "",
+        "levelUpFormula": "original"
+    },
+    "906996792359522385": {
+        "prefix": "BB!",
         "limitbreaks": false,
         "showtimes": false,
         "onemores": false,
@@ -589,12 +745,111 @@
             "colosseumvictory": [],
             "loss": []
         },
+        "banned": []
+    },
+    "924529949912760350": {
+        "prefix": "bb!",
+        "limitbreaks": false,
+        "showtimes": false,
+        "onemores": false,
+        "currency": "<:HarcRapeFace:944639712042303538>",
+        "xprate": 1,
+        "damageFormula": "persona",
+        "pvpstuff": {
+            "none": {},
+            "metronome": {},
+            "randskills": {},
+            "randstats": {},
+            "charfuck": {}
+        },
+        "themes": {
+            "battle": [],
+            "advantage": [],
+            "disadvantage": [],
+            "bossfight": [],
+            "miniboss": [],
+            "strongfoe": [],
+            "finalboss": [],
+            "colosseum": [],
+            "colosseumstrong": [],
+            "pvp": [],
+            "victory": [],
+            "colosseumvictory": [],
+            "loss": []
+        },
         "banned": [],
-        "encountered": [
-            "Sandbag",
-            "GreatGod"
-        ],
+        "levelUpFormula": "original",
         "goldChance": 0.1,
-        "desc": ""
+        "desc": "",
+        "encountered": [
+            "Sandbag"
+        ]
+    },
+    "941106062331895871": {
+        "prefix": "rpg!",
+        "limitbreaks": false,
+        "showtimes": false,
+        "onemores": false,
+        "currency": "Bloom Token",
+        "xprate": 1,
+        "damageFormula": "persona",
+        "levelUpFormula": "original",
+        "pvpstuff": {
+            "none": {},
+            "metronome": {},
+            "randskills": {},
+            "randstats": {},
+            "charfuck": {}
+        },
+        "themes": {
+            "battle": [],
+            "advantage": [],
+            "disadvantage": [],
+            "bossfight": [],
+            "miniboss": [],
+            "strongfoe": [],
+            "finalboss": [],
+            "colosseum": [],
+            "colosseumstrong": [],
+            "pvp": [],
+            "victory": [],
+            "colosseumvictory": [],
+            "loss": []
+        },
+        "banned": [],
+        "encountered": []
+    },
+    "923350649427619850": {
+        "prefix": "rpg!",
+        "limitbreaks": false,
+        "showtimes": false,
+        "onemores": false,
+        "currency": "Bloom Token",
+        "xprate": 1,
+        "damageFormula": "persona",
+        "levelUpFormula": "original",
+        "pvpstuff": {
+            "none": {},
+            "metronome": {},
+            "randskills": {},
+            "randstats": {},
+            "charfuck": {}
+        },
+        "themes": {
+            "battle": [],
+            "advantage": [],
+            "disadvantage": [],
+            "bossfight": [],
+            "miniboss": [],
+            "strongfoe": [],
+            "finalboss": [],
+            "colosseum": [],
+            "colosseumstrong": [],
+            "pvp": [],
+            "victory": [],
+            "colosseumvictory": [],
+            "loss": []
+        },
+        "banned": []
     }
 }

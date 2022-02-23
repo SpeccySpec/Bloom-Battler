@@ -1,0 +1,30 @@
+{
+    "name": "SpiralWares",
+    "party": "none",
+    "text": {
+        "blacksmith": "??? - SpiralWares",
+        "enter": [
+            "Hey, welcome to the blacksmith's. We do weapons, armors and more!"
+        ],
+        "weapon": [
+            "Would you like me to create some weapons, or enhance an existing one?"
+        ],
+        "createWeapon": [
+            "Which weapon do you think suits you?",
+            "Any of these seem useful?"
+        ],
+        "enhanceWeapon": [
+            "Want to get stronger? Why don't you enhance a weapon."
+        ],
+        "createArmor": [
+            "Which set of armor do you think suits you?",
+            "Any of these seem useful?"
+        ],
+        "enhanceArmor": [
+            "Want to get stronger? Why don't you enhance an armor."
+        ],
+        "decompose": [
+            "I can also scrap some of your stuff back into materials, but I won't be able to salvage all of it."
+        ]
+    }
+}

@@ -1,0 +1,420 @@
+{
+    "Grassimp": {
+        "name": "Grassimp",
+        "items": [
+            "SparkleBerry",
+            "ShineBerry",
+            "PlumpBerry",
+            "Ruby",
+            "Ruby"
+        ],
+        "itemChances": [
+            50,
+            50,
+            20,
+            5,
+            5
+        ]
+    },
+    "Mushi": {
+        "name": "Mushi",
+        "items": [
+            "GlowShroom",
+            "Shroom",
+            "Shroom",
+            "Ruby",
+            "Ruby"
+        ],
+        "itemChances": [
+            40,
+            40,
+            30,
+            10,
+            10
+        ]
+    },
+    "GrassyWarrior": {
+        "name": "GrassyWarrior",
+        "items": [
+            "SparkleBerry",
+            "ShineBerry",
+            "PlumpBerry",
+            "Wood",
+            "Ruby",
+            "Ruby",
+            "Ruby",
+            "Ruby"
+        ],
+        "itemChances": [
+            80,
+            80,
+            80,
+            50,
+            10,
+            10,
+            10,
+            10
+        ]
+    },
+    "Toxiplant": {
+        "name": "Toxiplant",
+        "items": [
+            "PoisonLeaf",
+            "SparkleBerry",
+            "ShineBerry",
+            "PlumpBerry",
+            "Emerald",
+            "Emerald",
+            "Ruby",
+            "Ruby",
+            "Ruby",
+            "Ruby"
+        ],
+        "itemChances": [
+            50,
+            33,
+            33,
+            33,
+            33,
+            33,
+            20,
+            20,
+            15,
+            10
+        ]
+    },
+    "Ice": {
+        "name": "Ice",
+        "items": [
+            "SparkleBerry",
+            "IcyFang",
+            "FrostGem",
+            "Ruby",
+            "Emerald"
+        ],
+        "itemChances": [
+            20,
+            9,
+            7,
+            50,
+            50
+        ]
+    },
+    "IcyBoss": {
+        "name": "IcyBoss",
+        "items": [
+            "FrozenFist",
+            "IcyFang"
+        ],
+        "itemChances": [
+            30,
+            30
+        ]
+    },
+    "Metalic": {
+        "name": "Metalic",
+        "items": [
+            "RoboticFist",
+            "RoboticFlamethrower",
+            "WaterGun",
+            "GrassGem"
+        ],
+        "itemChances": [
+            5,
+            5,
+            5,
+            8
+        ]
+    },
+    "LychyDrops": {
+        "name": "LychyDrops",
+        "items": [
+            "Lychen",
+            "Lychen"
+        ],
+        "itemChances": [
+            10,
+            25
+        ]
+    },
+    "LychenImpDrops": {
+        "name": "LychenImpDrops",
+        "items": [
+            "Lychen",
+            "Lychen",
+            "Lychen",
+            "Lychen"
+        ],
+        "itemChances": [
+            25,
+            25,
+            20,
+            10
+        ]
+    },
+    "LychenAngelDrops": {
+        "name": "LychenAngelDrops",
+        "items": [
+            "Lychen",
+            "Lychen",
+            "Lychen",
+            "Lychen",
+            "Lychen",
+            "Lychen",
+            "Lychen",
+            "Ruby",
+            "Ruby",
+            "Emerald",
+            "Lychen"
+        ],
+        "itemChances": [
+            25,
+            25,
+            25,
+            20,
+            20,
+            15,
+            15,
+            15,
+            15,
+            15,
+            10
+        ]
+    },
+    "Monia": {
+        "name": "Monia",
+        "items": [
+            "JellyCore",
+            "JellyCore",
+            "JellyCore",
+            "JellyCore",
+            "JellyCore"
+        ],
+        "itemChances": [
+            50,
+            40,
+            30,
+            20,
+            10
+        ]
+    },
+    "GrifflareDrops": {
+        "name": "GrifflareDrops",
+        "items": [
+            "Crystal",
+            "Crystal",
+            "MPPotion",
+            "MPPotion",
+            "AgiGem",
+            "MoltMaterial",
+            "MoltMaterial",
+            "MoltMaterial"
+        ],
+        "itemChances": [
+            25,
+            25,
+            10,
+            10,
+            30,
+            100,
+            50,
+            20
+        ]
+    },
+    "WestoneDrops": {
+        "name": "WestoneDrops",
+        "items": [
+            "Ruby",
+            "Ruby",
+            "Diamond",
+            "ShineBerry",
+            "ShineBerry",
+            "ShineBerry"
+        ],
+        "itemChances": [
+            20,
+            25,
+            10,
+            10,
+            25,
+            100
+        ]
+    },
+    "FlowSproutDrops": {
+        "name": "FlowSproutDrops",
+        "items": [
+            "ClearTear",
+            "ClearTear",
+            "ClearTear",
+            "ClearTear",
+            "Ruby",
+            "Emerald",
+            "SparkleBerry"
+        ],
+        "itemChances": [
+            100,
+            45,
+            25,
+            10,
+            25,
+            25,
+            30
+        ]
+    },
+    "Test": {
+        "name": "Test",
+        "items": [
+            "Apple",
+            "Apple"
+        ],
+        "itemChances": [
+            25,
+            25
+        ]
+    },
+    "EcossnorDrops": {
+        "name": "EcossnorDrops",
+        "items": [
+            "Crystal",
+            "Crystal",
+            "RageEssence",
+            "RageEssence",
+            "AgiGem"
+        ],
+        "itemChances": [
+            10,
+            10,
+            50,
+            20,
+            20
+        ]
+    },
+    "DearmydaDrops": {
+        "name": "DearmydaDrops",
+        "items": [
+            "Crystal",
+            "Crystal",
+            "DreamEssence",
+            "DreamEssence",
+            "Ruby",
+            "Ruby"
+        ],
+        "itemChances": [
+            15,
+            15,
+            30,
+            20,
+            20,
+            10
+        ]
+    },
+    "AlgittoseciDrops": {
+        "name": "AlgittoseciDrops",
+        "items": [
+            "Crystal",
+            "Crystal",
+            "Crystal",
+            "AchievementEssence",
+            "AchievementEssence",
+            "Ruby"
+        ],
+        "itemChances": [
+            10,
+            15,
+            50,
+            60,
+            10,
+            25
+        ]
+    },
+    "PrutisotteDrops": {
+        "name": "PrutisotteDrops",
+        "items": [
+            "Crystal",
+            "Crystal",
+            "DriveEssence",
+            "DriveEssence",
+            "DriveEssence",
+            "DriveEssence",
+            "Emerald",
+            "Emerald"
+        ],
+        "itemChances": [
+            12,
+            15,
+            75,
+            45,
+            20,
+            10,
+            25,
+            10
+        ]
+    },
+    "LariamestimDrops": {
+        "name": "LariamestimDrops",
+        "items": [
+            "Crystal",
+            "Crystal",
+            "Gold",
+            "Gold",
+            "Gold",
+            "Emerald",
+            "Emerald"
+        ],
+        "itemChances": [
+            17,
+            22,
+            80,
+            65,
+            40,
+            37,
+            21
+        ]
+    },
+    "SoytebiDrops": {
+        "name": "SoytebiDrops",
+        "items": [
+            "Crystal",
+            "Crystal",
+            "RichHunger",
+            "RichHunger",
+            "RichHunger",
+            "Ruby",
+            "Ruby",
+            "OutburnedSpike",
+            "OutburnedSpike"
+        ],
+        "itemChances": [
+            20,
+            10,
+            20,
+            45,
+            70,
+            20,
+            10,
+            20,
+            50
+        ]
+    },
+    "TerponiteusDrops": {
+        "name": "TerponiteusDrops",
+        "items": [
+            "Crystal",
+            "Crystal",
+            "EverstaringEye",
+            "EverstaringEye",
+            "EverstaringEye",
+            "Ruby",
+            "Ruby"
+        ],
+        "itemChances": [
+            16,
+            14,
+            15,
+            20,
+            50,
+            25,
+            8
+        ]
+    }
+}

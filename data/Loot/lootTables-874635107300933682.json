@@ -1,0 +1,24 @@
+{
+    "Apple": {
+        "name": "Apple",
+        "items": [
+            "Apple"
+        ],
+        "itemChances": [
+            69
+        ]
+    },
+    "Orange": {
+        "name": "Orange",
+        "items": [
+            "Apple",
+            "Apple",
+            "Apple"
+        ],
+        "itemChances": [
+            90,
+            20,
+            40
+        ]
+    }
+}

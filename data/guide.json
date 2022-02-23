@@ -1,7 +1,7 @@
 {
     "0": {
 		"title": "Guide to Battles! - Ramia",
-		"desc": "Hii, I'm Ramia, the writer to this guide! Flick through it with 'rpg!guide <Page Number>'!"
+		"desc": "Hii, I'm Ramia, the writer to this guide! Bloom Battler is a Discord Bot that allows you to create characters, skills, items and more! Flick through it with 'rpg!guide <Page Number>'!"
 	},
 	
 	"1": {
@@ -10,7 +10,7 @@
 		"fields": [
 			{
 				"title": "Stats",
-				"text": "Stats are crucial. They WILL make or break a character. They WILL affect their playstyle. They WILL affect their usefulness. Arguably, these are the most important part of a character. Here are some reccomendations:\n**Healers** are usually magic based with average endurance & HP.\n**Physical Attackers** come in 3 kinds, __Hard-Hitting__, __Average__ and __Agile__. __Hard-Hitting__ **Physical Attackers** usually have high endurance and HP, with less MP. Further down, they become faster and have less endurance.\n**Magic Attackers** are usually focused on __one element__, with another as a backup. The main element is often __stronger__ than the backup element. They can also be __Hard-Hitting__, __Average__ or __Agile__.",
+				"text": "Stats are crucial. They WILL make or break a character. They WILL affect their playstyle. They WILL affect their usefulness. Arguably, these are the most important part of a character. Here are some reccomendations:\n**Healers** are usually magic based with average endurance & HP.\n**Physical Attackers** come in 3 kinds, __Hard-Hitting__, __Average__ and __Agile__. __Hard-Hitting__ **Physical Attackers** usually have high endurance and HP, with less MP. Further down, they become faster and have less endurance.\n**Magic Attackers** are usually focused on __one element__, with another as a backup. The main element is often __stronger__ than the backup element. They can also be __Hard-Hitting__, __Average__ or __Agile__. Please read the next page to figure out how to keep your characters balanced.",
 				"inline": false
 			},
 			{
@@ -32,7 +32,7 @@
 		"fields": [
 			{
 				"title": "Do NOT Overstat",
-				"text": "Do you like the term ''overstat''? Yeah I made it just now!\nOverstatting is giving a character... say, __high endurance__ when they **don't need it**, or __high agility__ when they **shouldn't have it**. It's annoying, makes then undefeatable, and removes the whole point of *challenge* in your battles!",
+				"text": "Do you like the term ''overstat''? Yeah I made it just now!\nOverstatting is giving a character... say, __high endurance__ when they **don't need it**, or __high agility__ when they **shouldn't have it**. It's annoying, makes then undefeatable, and removes the whole point of *challenge* in your battles! What you also **shouldn't** do is giving many stats the same value, you will have many issues in doing this.",
 				"inline": false
 			},
 			{
@@ -42,7 +42,7 @@
 			},
 			{
 				"title": "Affinity Overusage",
-				"text": "Do NOT overuse affinities. You should not resist (in some way) too many elements. Infact, two or three at most should be enough for your character. There may be special cases where this is ok, for example, a character with **⏎Wonder Guard**. Generally though, don't do this.",
+				"text": "Do NOT overuse affinities. You should not resist (in some way) too many elements. Infact, two or three at most should be enough for your character. There may be special cases where this is ok, in terms of weaknesses, for example, a character with <:passive:906874477210648576>**Wonder Guard**. Generally though, don't do this.",
 				"inline": false
 			}
 		]
@@ -74,7 +74,7 @@
 			},
 			{
 				"title": "Tactics",
-				"text": "Use the command when it is your turn: **''rpg!tactics <User> <Type> <Target>''**\nYou can either run, negotiate or tweak your party here.\nRunning away has a chance to fail if your speed stat is lower than the enemies' average. You cannot run from bosses.\nYou can have backup party members to switch around with regular party members mid-battle. Only the leader of the party can do it, and it counts as their turn.\nAnd negotiation... this is explained on the next page.",
+				"text": "Use the command when it is your turn: **''rpg!tactics <User> <Type> <Target>''**\nYou can either run, negotiate or tweak your party here.\nRunning away has a chance to fail if your speed stat is lower than the enemies' average. You cannot run from bosses.\nYou can have backup party members to switch around with regular party members mid-battle. Only the leader of the party can do it, and it uses up their turn.\nAnd negotiation... this is explained on the next page.",
 				"inline": false
 			}
 		]
@@ -86,7 +86,27 @@
 		"fields": [
 			{
 				"title": "The Command",
-				"text": "To negotiate with an enemy, use the command **''rpg!tactics <User> Negotiate <Target>''**. It is part of the tactics menu.",
+				"text": "To negotiate with an enemy, use the command **''rpg!tactics <User> Pacify <Target>''**. It is part of the tactics menu. Each enemy usually has different ways to pacify them, think of Undertale or Deltarune's sparing system.",
+				"inline": false
+			},
+			{
+				"title": "Uses of Pacifying",
+				"text": "When you pacify an enemy, they will be added to the party's pets. You can switch between pets and use their different skills to fight, pacify other enemies, or you can switch between pets. Only the team's leader (the first in the order) will be able to control the pet, so others should guide the leader on what to do",
+				"inline": false
+			},
+			{
+				"title": "Attacking with Pets (petskill)",
+				"text": "The pet's default stats will be used to strike the foe. Pets have 1 **special** skill,\n for example: \n%RANDOMSKILL%\nand use that when attacking.",
+				"inline": false
+			},
+			{
+				"title": "Pacifying with Pets (pacify)",
+				"text": "The pet can pacify foes the same way their team can - Use the same inputs for this.",
+				"inline": false
+			},
+			{
+				"title": "Switching Pets (switchpet)",
+				"text": "You can switch pets mid-battle to use a different **special skill**! You can only switch with pets you have, and this will drain the pet's turn.",
 				"inline": false
 			}
 		]

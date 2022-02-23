@@ -7,16 +7,11 @@
                 "inputItems": [],
                 "itemsFromLoot": {},
                 "items": {
-                    "Sparkle Berry": 20,
-                    "Shine Berry": 7,
-                    "Killer Potion": 3,
-                    "Shovel": 1,
-                    "Ruby": 8,
-                    "Emerald": 7
-                },
+					"Wood": 69
+				},
                 "party": "",
-                "locked": false,
-                "lockOpener": "",
+                "locked": true,
+                "lockOpener": "Ruby",
                 "spoiler": false,
                 "encountered": true
             }
@@ -75,7 +70,6 @@
                     "Ruby": 4,
                     "Poison Leaf": 1,
                     "Emerald": 3,
-                    "Shovel": 1,
                     "Killer Potion": 3
                 },
                 "party": "",
@@ -85,5 +79,8 @@
                 "encountered": false
             }
         }
+    },
+    "487751823604711435": {
+        "596839120358080542": {}
     }
 }

@@ -1,0 +1,36 @@
+{
+    "924529949912760350": {
+        "Sandbag": {
+            "name": "Sandbag",
+            "creator": "544290248734015488",
+            "level": 1,
+            "hp": 1e+24,
+            "mp": 50,
+            "atk": 1,
+            "mag": 1,
+            "prc": 1,
+            "end": 1,
+            "chr": 1,
+            "int": 1,
+            "agl": 1,
+            "luk": 1,
+            "melee": [
+                "Strike Attack",
+                "strike"
+            ],
+            "skills": [],
+            "weak": [],
+            "resist": [],
+            "block": [],
+            "repel": [],
+            "drain": [],
+            "journal": "A punching bag.",
+            "dreams": [],
+            "awardxp": 1,
+            "negotiate": [],
+            "negotiateDefs": {
+                "required": 5
+            }
+        }
+    }
+}

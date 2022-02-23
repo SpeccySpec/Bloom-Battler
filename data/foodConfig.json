@@ -1013,6 +1013,15 @@
                 },
                 "Troll": {
                     "image": "https://cdn.discordapp.com/attachments/887356159642705920/916708502997700749/Troll.png"
+                },
+                "Strawberries n' Cream": {
+                    "image": "https://cdn.discordapp.com/attachments/887356159642705920/920387453611835402/Strawberries_n_Cream.png"
+                },
+                "Magnet": {
+                    "image": "https://cdn.discordapp.com/attachments/887356159642705920/920388698531594300/Name_needed.png"
+                },
+                "reese's": {
+                    "image": "https://cdn.discordapp.com/attachments/887356159642705920/920390482054496336/reeses.png"
                 }
             }
         },
@@ -1063,10 +1072,19 @@
                     "image": "https://cdn.discordapp.com/attachments/916114533410549770/916694106825166878/Candy_Corn.png"
                 },
                 "Trephron Mix": {
-                    "image": "https://cdn.discordapp.com/attachments/820700041484173314/916707818344710184/Trephron_Mix.png"
+                    "image": "https://cdn.discordapp.com/attachments/765580899604627456/921911844396990474/Trephron_Mix.png"
                 },
                 "Coconut": {
                     "image": "https://cdn.discordapp.com/attachments/916114533410549770/916713189499105330/Coconut.png"
+                },
+                "Starshine Delight": {
+                    "image": "https://cdn.discordapp.com/attachments/763858632319434792/921437707526373386/Starshine_Delight.png"
+                },
+                "Heart Of Pyro": {
+                    "image": "https://cdn.discordapp.com/attachments/763858632319434792/921440683728986132/Heart_Of_Pyro.png"
+                },
+                "Genocidal Lust": {
+                    "image": "https://cdn.discordapp.com/attachments/820700023938875443/921445057737932860/Genocidal_Lust.png"
                 }
             }
         }
@@ -1159,6 +1177,15 @@
                 },
                 "Passive": {
                     "image": "https://cdn.discordapp.com/attachments/887356159642705920/916706130040860745/Bruh.png"
+                }
+            }
+        }
+    },
+    "498041248616153098": {
+        "iceCream": {
+            "flavors": {
+                "Sleep": {
+                    "image": "https://cdn.discordapp.com/attachments/865710613534736454/923629310127001620/unknown.png"
                 }
             }
         }
