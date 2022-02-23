@@ -1,0 +1,107 @@
+{
+    "924529949912760350": {
+        "battling": false,
+        "colosseum": [
+            false,
+            0,
+            "none",
+            {
+                "curLvl": 1,
+                "lvlLeft": 2,
+                "upperBound": 0,
+                "lowerBound": 0
+            }
+        ],
+        "trials": {},
+        "parties": {
+            "Ira": {
+                "members": [
+                    "Ira"
+                ],
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {},
+                "items": {},
+                "rings": 0
+            },
+            "Croato": {
+                "members": [
+                    "Croato"
+                ],
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {},
+                "items": {},
+                "rings": 142
+            },
+            "DemonicDesire": {
+                "members": [
+                    "DemonicDesire"
+                ],
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {},
+                "items": {},
+                "rings": 0
+            },
+            "RecolorNate": {
+                "members": [
+                    "RecolorNate"
+                ],
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {},
+                "items": {},
+                "rings": 0
+            },
+            "PVP1": {
+                "members": [
+                    "Bayrero"
+                ],
+                "items": {},
+                "rings": 0,
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {}
+            },
+            "PVP2": {
+                "members": [
+                    "Sparky"
+                ],
+                "items": {},
+                "rings": 0,
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {}
+            }
+        },
+        "allies": {
+            "members": [],
+            "backup": []
+        },
+        "enemies": {
+            "members": [],
+            "items": {},
+            "rings": 0,
+            "backup": []
+        },
+        "battleteam": "none",
+        "battleteam2": "none",
+        "battlechannel": "none",
+        "doturn": 0,
+        "turn": 0,
+        "pvp": false,
+        "pvpmode": "none",
+        "ranked": false,
+        "weather": "clear",
+        "terrain": "normal",
+        "canshowtime": false,
+        "canRun": true
+    }
+}

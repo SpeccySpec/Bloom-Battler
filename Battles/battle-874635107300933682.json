@@ -1,0 +1,512 @@
+{
+    "874635107300933682": {
+        "battling": true,
+        "colosseum": [
+            false,
+            0,
+            "none",
+            {
+                "curLvl": 1,
+                "lvlLeft": 2,
+                "upperBound": 0,
+                "lowerBound": 0
+            }
+        ],
+        "trials": {
+            "Gods": [
+                [
+                    "Monum"
+                ],
+                [
+                    "Nyamem"
+                ],
+                [
+                    "Evergreen"
+                ],
+                [
+                    "GravenIdol"
+                ],
+                [
+                    "InfectedVessel"
+                ],
+                [
+                    "TheLuminosity"
+                ]
+            ]
+        },
+        "parties": {
+            "1": {
+                "members": [
+                    "Sutela",
+                    "Lanagu"
+                ],
+                "backup": [],
+                "items": {},
+                "rings": 743,
+                "negotiates": {},
+                "negotiateAllies": {}
+            },
+            "2": {
+                "members": [
+                    "Sky",
+                    "Dusk"
+                ],
+                "backup": [],
+                "items": {},
+                "rings": 174
+            },
+            "CursedIce": {
+                "members": [
+                    "Lanagu",
+                    "Flara",
+                    "Karma",
+                    "Nyamo"
+                ],
+                "items": {},
+                "rings": 732
+            },
+            "Vibers": {
+                "members": [
+                    "Flara",
+                    "Sky",
+                    "Lanagu",
+                    "Sparky"
+                ],
+                "items": [],
+                "rings": 0
+            },
+            "Tanukis": {
+                "members": [
+                    "Sky",
+                    "Spectra"
+                ],
+                "items": {},
+                "rings": 0
+            },
+            "zenstheclone": {
+                "members": [
+                    "zenstheclone"
+                ],
+                "items": [],
+                "rings": 1041
+            },
+            "Dusk": {
+                "members": [
+                    "Dusk"
+                ],
+                "items": [],
+                "rings": 0
+            },
+            "Karma": {
+                "members": [
+                    "Karma",
+                    "Lanagu",
+                    "Flara",
+                    "Nyamo"
+                ],
+                "items": {},
+                "rings": 0
+            },
+            "Spectra": {
+                "members": [
+                    "Spectra",
+                    "Sky"
+                ],
+                "items": {},
+                "rings": 221
+            },
+            "DJ": {
+                "members": [
+                    "DJ"
+                ],
+                "items": {},
+                "rings": 184,
+                "negotiateAllies": {}
+            },
+            "Lanagu": {
+                "members": [
+                    "Lanagu"
+                ],
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {},
+                "items": {},
+                "rings": 0
+            },
+            "Rainbow": {
+                "members": [
+                    "Rainbow"
+                ],
+                "items": [],
+                "rings": 0
+            },
+            "Sulba": {
+                "members": [
+                    "Sulba"
+                ],
+                "items": {},
+                "rings": 43
+            },
+            "Axel": {
+                "members": [
+                    "Axel",
+                    "Melarue"
+                ],
+                "items": {},
+                "rings": 0
+            },
+            "Ramia": {
+                "members": [
+                    "Ramia"
+                ],
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {},
+                "items": {},
+                "rings": 0
+            },
+            "Brainfreeze": {
+                "members": [
+                    "Brainfreeze",
+                    "Taletan"
+                ],
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {},
+                "items": {},
+                "rings": 0
+            },
+            "Mike": {
+                "members": [
+                    "Mike"
+                ],
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {},
+                "items": {},
+                "rings": 0
+            },
+            "Euphorica": {
+                "members": [
+                    "Euphorica"
+                ],
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {},
+                "items": {},
+                "rings": 0
+            },
+            "Patella": {
+                "members": [
+                    "Patella"
+                ],
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {},
+                "items": {},
+                "rings": 0
+            },
+            "undefined": {
+                "members": [],
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {},
+                "items": {},
+                "rings": 0
+            },
+            "Sandbag": {
+                "members": [
+                    "PVPSandbag"
+                ],
+                "items": {},
+                "rings": 0,
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {}
+            },
+            "Deities": {
+                "members": [
+                    "Monum",
+                    "Nyamem",
+                    "Evergreen",
+                    "GravenIdol"
+                ],
+                "items": {},
+                "rings": 0,
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {}
+            },
+            "Test": {
+                "members": [
+                    "Test"
+                ],
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {},
+                "items": {},
+                "rings": 0
+            },
+            "Decium": {
+                "members": [
+                    "Decium"
+                ],
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {},
+                "items": {},
+                "rings": 2
+            },
+            "Sutela": {
+                "members": [
+                    "Sutela"
+                ],
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {},
+                "items": {},
+                "rings": 0
+            },
+            "Wish": {
+                "members": [
+                    "Wish"
+                ],
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {},
+                "items": {},
+                "rings": 0
+            },
+            "Nighthug": {
+                "members": [
+                    "Nighthug"
+                ],
+                "backup": [],
+                "subs": [],
+                "negotiates": {},
+                "negotiateAllies": {},
+                "items": {},
+                "rings": 0
+            }
+        },
+        "allies": {
+            "members": [
+                {
+                    "name": "Valk",
+                    "truename": "Valk",
+                    "team": "allies",
+                    "id": 0,
+                    "mainElement": "water",
+                    "melee": {
+                        "name": "Peck",
+                        "type": "pierce",
+                        "pow": 30,
+                        "acc": 93,
+                        "crit": 15
+                    },
+                    "level": 42,
+                    "hp": 229,
+                    "mp": 144,
+                    "maxhp": 229,
+                    "maxmp": 144,
+                    "basehp": 27,
+                    "basemp": 24,
+                    "mpMeter": [
+                        "Magic Points",
+                        "MP"
+                    ],
+                    "lb": 0,
+                    "xp": 0,
+                    "maxxp": 32723,
+                    "status": "none",
+                    "statusturns": 0,
+                    "atk": 17,
+                    "mag": 27,
+                    "prc": 99,
+                    "end": 26,
+                    "chr": 48,
+                    "int": 16,
+                    "agl": 99,
+                    "luk": 26,
+                    "baseatk": 4,
+                    "basemag": 6,
+                    "baseprc": 8,
+                    "baseend": 5,
+                    "basechr": 7,
+                    "baseint": 3,
+                    "baseagl": 7,
+                    "baseluk": 5,
+                    "weapon": "none",
+                    "guard": false,
+                    "buffs": {
+                        "atk": 0,
+                        "mag": 0,
+                        "prc": 0,
+                        "end": 0,
+                        "agl": 0,
+                        "crit": 0
+                    },
+                    "meleequote": [],
+                    "physquote": [],
+                    "magquote": [],
+                    "strongquote": [],
+                    "critquote": [],
+                    "missquote": [],
+                    "weakquote": [],
+                    "dodgequote": [],
+                    "resistquote": [],
+                    "blockquote": [],
+                    "repelquote": [],
+                    "drainquote": [],
+                    "hurtquote": [],
+                    "healquote": [],
+                    "helpedquote": [],
+                    "killquote": [],
+                    "deathquote": [],
+                    "allydeathquote": [],
+                    "lbquote": [],
+                    "lvlquote": [],
+                    "bio": {
+                        "species": "",
+                        "age": "",
+                        "info": "",
+                        "backstory": "",
+                        "likes": "",
+                        "dislikes": "",
+                        "fears": "",
+                        "voice": "",
+                        "theme": ""
+                    },
+                    "weak": [],
+                    "resist": [],
+                    "block": [],
+                    "repel": [],
+                    "drain": [],
+                    "skills": [
+                        "AerialDice",
+                        "HydroWave",
+                        "AtmosCharge",
+                        "Focus"
+                    ],
+                    "trust": {},
+                    "charms": [],
+                    "transformations": null,
+                    "owner": "642841151484985365",
+                    "leader": true
+                }
+            ],
+            "backup": []
+        },
+        "enemies": {
+            "members": [
+                {
+                    "name": "Sandbag",
+                    "truename": "Sandbag",
+                    "team": "enemies",
+                    "enemy": true,
+                    "level": 99,
+                    "maxhp": 99999,
+                    "maxmp": 99999,
+                    "hp": 99999,
+                    "mp": 99999,
+                    "lb": 0,
+                    "boss": false,
+                    "miniboss": false,
+                    "finalboss": false,
+                    "diety": false,
+                    "atk": 1,
+                    "mag": 1,
+                    "prc": 1,
+                    "end": 1,
+                    "chr": 1,
+                    "int": 1,
+                    "agl": 1,
+                    "luk": 6,
+                    "weapon": "none",
+                    "guard": false,
+                    "status": "none",
+                    "statusturns": 0,
+                    "melee": {
+                        "name": "Strike Attack",
+                        "type": "strike",
+                        "pow": 30,
+                        "acc": 95,
+                        "crit": 16
+                    },
+                    "skills": [],
+                    "weak": [],
+                    "resist": [],
+                    "block": [],
+                    "repel": [],
+                    "drain": [],
+                    "buffs": {
+                        "atk": 0,
+                        "mag": 0,
+                        "prc": 0,
+                        "end": 0,
+                        "agl": 0,
+                        "crit": 0
+                    },
+                    "limitbreak": null,
+                    "meleequote": [],
+                    "physquote": [],
+                    "magquote": [],
+                    "strongquote": [],
+                    "critquote": [],
+                    "weakquote": [],
+                    "missquote": [],
+                    "dodgequote": [],
+                    "resistquote": [],
+                    "blockquote": [],
+                    "repelquote": [],
+                    "drainquote": [],
+                    "hurtquote": [],
+                    "healquote": [],
+                    "helpedquote": [],
+                    "killquote": [],
+                    "deathquote": [],
+                    "lbquote": [],
+                    "trust": {},
+                    "negotiateOptions": [],
+                    "negotiateDefs": {
+                        "required": 5
+                    }
+                }
+            ],
+            "items": [],
+            "rings": 0,
+            "backup": []
+        },
+        "battleteam": "Valk",
+        "battleteam2": "none",
+        "battlechannel": "874697053421326377",
+        "doturn": 0,
+        "turn": 1,
+        "pvp": false,
+        "pvpmode": "none",
+        "canshowtime": false,
+        "weather": "clear",
+        "terrain": "normal",
+        "ranked": true,
+        "canRun": true,
+        "turnorder": [
+            0,
+            null
+        ],
+        "damageFormula": "persona",
+        "testing": true
+    }
+}

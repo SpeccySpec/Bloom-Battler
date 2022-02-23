@@ -1,0 +1,291 @@
+{
+    "487751823604711435": {
+        "Sandbag": {
+            "name": "Sandbag",
+            "creator": "516359709779820544",
+            "level": 1,
+            "hp": 999999,
+            "mp": 99999,
+            "atk": 1,
+            "mag": 1,
+            "prc": 1,
+            "end": 1,
+            "chr": 1,
+            "int": 1,
+            "agl": 1,
+            "luk": 1,
+            "melee": [
+                "Strike Attack",
+                "strike"
+            ],
+            "skills": [
+                "Splash",
+                "InfiniteEndure"
+            ],
+            "weak": [],
+            "resist": [],
+            "block": [],
+            "repel": [],
+            "drain": [],
+            "journal": "A punching bag.",
+            "dreams": [],
+            "awardxp": 100,
+            "negotiate": [],
+            "negotiateDefs": {
+                "required": 5
+            }
+        },
+        "TheLuminosity": {
+            "level": 40,
+            "boss": true,
+            "diety": true,
+            "hp": 6421,
+            "mp": 4324,
+            "atk": 46,
+            "mag": 46,
+            "prc": 46,
+            "end": 20,
+            "chr": 22,
+            "int": 21,
+            "agl": 33,
+            "luk": 32,
+            "melee": [
+                "Pierce Attack",
+                "pierce"
+            ],
+            "skills": [
+                "Illuminate",
+                "Megido",
+                "LightHand",
+                "Kougaon",
+                "Makouga",
+                "Mabufula",
+                "Maragion",
+                "Mazionga",
+                "Magarula"
+            ],
+            "weak": [],
+            "resist": [],
+            "block": [],
+            "repel": [],
+            "drain": [],
+            "journal": "The god of light herself. When angered, she spreads her influence with mutus, an infectious liquid that if enveloped in for too long, may take control of the victim. She has aged over time and therefore, cannot use her true power.",
+            "dreams": [],
+            "awardxp": 112942,
+            "name": "TheLuminosity"
+        },
+        "ElderLuminosity": {
+            "level": 60,
+            "boss": true,
+            "diety": true,
+            "hp": 7000,
+            "mp": 6000,
+            "atk": 70,
+            "mag": 70,
+            "prc": 60,
+            "end": 20,
+            "chr": 50,
+            "int": 50,
+            "agl": 54,
+            "luk": 48,
+            "melee": [
+                "Pierce Attack",
+                "pierce"
+            ],
+            "skills": [
+                "LightStorm",
+                "Megidolaon",
+                "TentacleSwipe",
+                "LightHand",
+                "Diarama",
+                "Kougaon",
+                "Makougaon",
+                "Eigaon",
+                "Maeigaon",
+                "Bufudyne",
+                "Mabufudyne",
+                "Agidyne",
+                "Maragidyne",
+                "Ziodyne",
+                "Maziodyne",
+                "Garudyne",
+                "Magarudyne",
+                "Psiodyne",
+                "Mapsiodyne",
+                "Hama",
+                "Mahama",
+                "Makarakarn",
+                "Tetrakarn"
+            ],
+            "weak": [],
+            "resist": [],
+            "block": [],
+            "repel": [],
+            "drain": [],
+            "journal": "The Luminosity aged over time, and lost some of her power due to the fact that everybody stopped worshipping her. Her elder ancestor would step in if provoked. This is her at full power, while everyone still worshipped her, and gave strength. This battle will be a lengthy one. **Good luck**.",
+            "dreams": [],
+            "awardxp": 200000,
+            "name": "ElderLuminosity"
+        },
+        "GreatGod": {
+            "name": "GreatGod",
+            "creator": "461050360832720904",
+            "level": 99,
+            "hp": 99999,
+            "mp": 9999,
+            "atk": 99,
+            "mag": 99,
+            "prc": 99,
+            "end": 99,
+            "chr": 99,
+            "int": 99,
+            "agl": 99,
+            "luk": 99,
+            "melee": [
+                "Strike Attack",
+                "strike"
+            ],
+            "skills": [],
+            "weak": [],
+            "resist": [],
+            "block": [],
+            "repel": [],
+            "drain": [],
+            "journal": "Great God? More Like…Great Punching Bag! ~Signed By Pointy 💙",
+            "dreams": [],
+            "awardxp": 10000,
+            "negotiate": [],
+            "negotiateDefs": {
+                "required": 5
+            }
+        },
+        "MetalSonic": {
+            "name": "Metal Sonic",
+            "creator": "461050360832720904",
+            "level": 90,
+            "hp": 5000,
+            "mp": 500,
+            "atk": 90,
+            "mag": 45,
+            "prc": 86,
+            "end": 88,
+            "chr": 35,
+            "int": 88,
+            "agl": 88,
+            "luk": 50,
+            "melee": [
+                "ClawSwipe",
+                "slash"
+            ],
+            "skills": [
+                "IronFist",
+                "Charge",
+                "FatalEnd",
+                "V.MaximumOverdrive",
+                "BlackShield",
+                "PlasmaPulseAttack"
+            ],
+            "weak": [
+                "water",
+                "pierce",
+                "earth"
+            ],
+            "resist": [
+                "metal",
+                "fire",
+                "nuclear"
+            ],
+            "block": [
+                "poison"
+            ],
+            "repel": [],
+            "drain": [
+                "electric"
+            ],
+            "journal": "Metal Sonic is an evil ultra-high performance Badnik version of Sonic the Hedgehog created by Dr. Eggman for the sole purpose of destroying Sonic. The brainchild of Eggman, he is by far the doctor's greatest Badnik enemy robot creation.",
+            "dreams": [],
+            "awardxp": 5000,
+            "negotiate": [],
+            "negotiateDefs": {
+                "required": 5
+            },
+            "bigboss": true
+        },
+        "Amarugeon": {
+            "name": "Amarugeon",
+            "creator": "461050360832720904",
+            "level": 75,
+            "hp": 4200,
+            "mp": 5700,
+            "atk": 70,
+            "mag": 90,
+            "prc": 58,
+            "end": 40,
+            "chr": 39,
+            "int": 56,
+            "agl": 45,
+            "luk": 50,
+            "melee": [
+                "Strike Attack",
+                "strike"
+            ],
+            "skills": [
+                "CopySkill"
+            ],
+            "weak": [],
+            "resist": [],
+            "block": [],
+            "repel": [],
+            "drain": [],
+            "journal": "Not much is known about them, But they are a reality shifter entity, who’s actions may seems unreasonable, but they have their own reasons for them.",
+            "dreams": [],
+            "awardxp": 7000,
+            "negotiate": [],
+            "negotiateDefs": {
+                "required": 5
+            }
+        },
+        "Sentinel-Vita": {
+            "name": "Sentinel-Vita",
+            "creator": "363363984390356993",
+            "level": 99,
+            "hp": 64000,
+            "mp": 10000,
+            "atk": 53,
+            "mag": 53,
+            "prc": 99,
+            "end": 99,
+            "chr": 34,
+            "int": 51,
+            "agl": 99,
+            "luk": 34,
+            "melee": [
+                "SpearLunge",
+                "pierce"
+            ],
+            "skills": [
+                "WonderGuard",
+                "DiminishingLife",
+                "Gidolaon",
+                "Megidolaon",
+                "PhysicalMegidolaon",
+                "HolyStrike",
+                "HolyDance",
+                "ArsMagna"
+            ],
+            "weak": [],
+            "resist": [],
+            "block": [],
+            "repel": [],
+            "drain": [],
+            "journal": "An ethereal knight, whose armor protects them from any damage. But their life force seems to be leaking away...",
+            "dreams": [],
+            "awardxp": 8000000,
+            "negotiate": [],
+            "negotiateDefs": {
+                "required": 5
+            },
+            "boss": true
+        }
+    }
+}

@@ -1,0 +1,68 @@
+{
+    "none": {},
+    "WornOutShield": {
+        "name": "Worn-out Shield",
+        "cost": 200,
+        "def": 5,
+        "element": "strike",
+        "desc": "A worn out shield that can be equipped to raise def stat by 5."
+    },
+    "WoodenShield": {
+        "name": "Wooden Shield",
+        "cost": 400,
+        "def": 8,
+        "element": "strike",
+        "desc": "An old shield made out of wood that can be equipped to raise def stat by 8."
+    },
+    "SteelShield": {
+        "name": "Steel Shield",
+        "cost": 1200,
+        "def": 15,
+        "element": "metal",
+        "skill": "SteelShield",
+        "desc": "A steel shield used for defense that can be equipped to raise def stat by 15."
+    },
+    "Revitalizer": {
+        "name": "Revitalizer",
+        "cost": 599,
+        "def": 8,
+        "desc": "This item grants people to be able to heal each turn while equipped.",
+        "element": "bless",
+        "skill": "RegenI"
+    },
+    "RedShirt": {
+        "name": "Red Shirt",
+        "cost": 10,
+        "element": "gravity",
+        "desc": "Wearer's purpose is to show that the enemy is indeed dangerous without losing anyone important",
+        "skill": "Exhaust",
+        "originalAuthor": "363363984390356993"
+    },
+    "ScorchChestplate": {
+        "name": "Scorch Chestplate",
+        "cost": 2500,
+        "element": "fire",
+        "desc": "An fascinatingly crafted chestplate made from raw material from Grifflates, signature for a core on its center.",
+        "skill": "MoltenBody",
+        "originalAuthor": "441198920668938260",
+        "def": 15
+    },
+    "TearCloak": {
+        "name": "TearCloak",
+        "cost": 700,
+        "element": "water",
+        "desc": "A cloak made from what seem to be tears of a Flow Sprout. Ideal for going with the flow, in a literal sense.",
+        "skill": "FlowSense",
+        "originalAuthor": "441198920668938260",
+        "def": 6
+    },
+    "ScorchChestplace": {
+        "name": "ScorchChestplace",
+        "cost": 650,
+        "element": "fire",
+        "desc": "A fascinatingly crafted chestplate made from raw material from Grifflates, signature for a core on its center. With it you can damage physical attacks on the attacker at no cost.",
+        "skill": "MoltenBody",
+        "originalAuthor": "441198920668938260",
+        "def": 15
+    }
+}
