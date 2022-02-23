@@ -7,12 +7,6 @@ const fs = require('fs');
 // Path to 'data' folder
 const dataPath = './data'
 
-// Other Funcs
-const utilityFuncs = require('./utilityFuncs.js');
-const enemyFuncs = require('./enemyFuncs.js');
-const attackFuncs = require('./attackFuncs.js');
-const turnFuncs = require('./turnFuncs.js');
-
 // Elements
 const Elements = [
     "strike",
@@ -433,7 +427,7 @@ function mimic(userDefs, targDefs, turns) {
 }
 
 function resetMimic(userDefs) {
-	if (!userDefs.oldDefs) return false;
+	if (!userDefs.old) return false;
 	
 	var copyStats = [
 		"name",

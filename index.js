@@ -35,6 +35,7 @@ const charFuncs = require(packPath + '/charFuncs.js');
 const enemyFuncs = require(packPath + '/enemyFuncs.js');
 const attackFuncs = require(packPath + '/attackFuncs.js');
 const turnFuncs = require(packPath + '/turnFuncs.js');
+const skillFuncs = require(packPath + '/skillFuncs.js');
 
 const RF = require(packPath + '/relicFuncs.js');
 
@@ -64,16 +65,16 @@ const ytdl = require('ytdl-core');
 const http = require('http');
 
 // Daily Quote - Resets at midnight
-var dailyQuote = 'none'
+let dailyQuote = 'none'
 
-var tempQuote = fs.readFileSync(dataPath+'/dailyquote.txt', {flag: 'as+'});
+let tempQuote = fs.readFileSync(dataPath+'/dailyquote.txt', {flag: 'as+'});
 if (tempQuote && tempQuote != '')
 	dailyQuote = tempQuote.toString();
 
 // Daily Skill - Resets at midnight
-var dailySkill = 'none'
+let dailySkill = 'none'
 
-var tempSkill = fs.readFileSync(dataPath+'/dailyskill.txt', {flag: 'as+'});
+let tempSkill = fs.readFileSync(dataPath+'/dailyskill.txt', {flag: 'as+'});
 if (tempSkill && tempSkill != '')
 	dailySkill = tempSkill.toString();
 
@@ -103,10 +104,10 @@ require('dotenv').config();
 const { isBooleanObject } = require('util/types');
 
 // Games
-var doGSM = false;
+let doGSM = false;
 
 // Blacksmith
-var blackSmith = {}
+let blackSmith = {}
 
 // Elements
 const Elements = [
@@ -574,14 +575,15 @@ const sendFoodArray = async(channel, theArray, nameArray, ownerArray) => {
 		for (const i in current) {
 			current[i].name = current2[i]
 
+			let userID = ''
 			if (current3[i] !== 'official') {
 				if (isFinite(parseInt(current3[i]))) {
-					var userID = client.users.cache.find(user => user.id === current3[i].toString())
+					userID = client.users.cache.find(user => user.id === current3[i].toString())
 					userID = userID.username
 				} else
-				userID = current3[i]
-			} else
-			var userID = 'official'
+					userID = current3[i]
+			} else 
+				userID = 'official'
 
 			current[i].owner = userID
 		}
@@ -782,7 +784,7 @@ function downloadUrl(file) {
 // LETS G ///////////////////////
 /////////////////////////////////
 
-var voiceChannelShit = {}
+let voiceChannelShit = {}
 
 // Join a VC
 async function joinVc(channel, originalChannel) {
@@ -890,11 +892,11 @@ async function playSong(server, url, author, sendToChannel) {
 		const songInfo = await ytdl.getInfo(url)
 		console.log(`play ${songInfo.videoDetails.title}`)
 		
-		var title = songInfo.videoDetails.title ? songInfo.videoDetails.title : 'someSong'
-		var fileName = songInfo.videoDetails.title.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '')
+		let title = songInfo.videoDetails.title ? songInfo.videoDetails.title : 'someSong'
+		let fileName = songInfo.videoDetails.title.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '')
 
 		if (sendToChannel && voiceChannelShit[server].sendShit) {
-			var musicEmbed
+			let musicEmbed
 			if (author) {
 				musicEmbed = new Discord.MessageEmbed()
 					.setColor('#bb58fc')
@@ -964,7 +966,7 @@ async function endSong(server, sendString) {
 		voiceChannelShit[server].player.stop();
 
 	if (voiceChannelShit[server].battlethemes || voiceChannelShit[server].loop) {
-		var sendShit = voiceChannelShit[server].battlethemes ? null : true
+		let sendShit = voiceChannelShit[server].battlethemes ? null : true
 		
 		if (sendShit === true && voiceChannelShit[server].sendShit)
 			voiceChannelShit[server].sendShit.send('Looping song.');
@@ -1027,9 +1029,9 @@ function leaveVC(server) {
 
 // Battle Themes
 async function playThemeType(server, themeType) {
-	var servPath = dataPath+'/Server Settings/server.json'
-	var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-	var servFile = JSON.parse(servRead);
+	let servPath = dataPath+'/Server Settings/server.json'
+	let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+	let servFile = JSON.parse(servRead);
 
 	if (!servFile[server]) {
 		servFile[server] = {
@@ -1116,7 +1118,7 @@ async function playThemeType(server, themeType) {
 	
 	const themes = servFile[server].themes[themeType.toLowerCase()]
 	if (themes.length > 0) {
-		var themeNum = utilityFuncs.randNum(themes.length-1)
+		let themeNum = utilityFuncs.randNum(themes.length-1)
 		await playSong(server, themes[themeNum-1])
 	}
 }
@@ -1155,9 +1157,9 @@ function writeMelee(charDefs, skillname, type) {
 
 // Gives EXP to a Character.
 function giveXP(name, exp, msg) {
-    var charPath = dataPath+'/characters.json'
-    var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-    var charFile = JSON.parse(charRead);
+    let charPath = dataPath+'/characters.json'
+    let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+    let charFile = JSON.parse(charRead);
 
     charFile[name].xp += parseInt(exp);
 	while (charFile[name].xp >= charFile[name].maxxp)
@@ -1165,9 +1167,9 @@ function giveXP(name, exp, msg) {
 
     fs.writeFileSync(charPath, JSON.stringify(charFile, null, '    '));
 
-	var xpPercent = Math.floor((charFile[name].xp/charFile[name].maxxp)*100)
-	var xpSquares = xpPercent/5
-	var xpStr = `[${'🟦'.repeat(xpSquares)}${'⬛'.repeat(20 - xpSquares)}]`
+	let xpPercent = Math.floor((charFile[name].xp/charFile[name].maxxp)*100)
+	let xpSquares = xpPercent/5
+	let xpStr = `[${'🟦'.repeat(xpSquares)}${'⬛'.repeat(20 - xpSquares)}]`
 
     msg.channel.send(`${name} got ${parseInt(exp)}EXP!\n${xpStr}`);
     console.log(`BattleStatus: ${name} ${charFile[name].xp}/${charFile[name].maxxp}XP`)
@@ -1290,9 +1292,9 @@ function applyHealExtra(skill, extra1, extra2, extra3) {
 
 // Creates a Skill to be used in Battle.
 function writeSkill(msg, name, nameWithSpaces, need, bartype, power, accuracy, critical, movetype, status, chance, physorspec, targettype, hitcount, extra1, extra2, extra3, desc) {
-    var skillPath = dataPath+'/skills.json'
-    var skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-    var skillFile = JSON.parse(skillRead);
+    let skillPath = dataPath+'/skills.json'
+    let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+    let skillFile = JSON.parse(skillRead);
 
     skillFile[name] = {
 		name: nameWithSpaces ? nameWithSpaces : name,
@@ -1311,7 +1313,7 @@ function writeSkill(msg, name, nameWithSpaces, need, bartype, power, accuracy, c
 		originalAuthor: msg.author.id
     };
 	
-	var totalDmg = skillFile[name].pow*skillFile[name].hits
+	let totalDmg = skillFile[name].pow*skillFile[name].hits
 	if (totalDmg >= 2000)
 		return msg.channel.send(`The Power cap for skills is 2000! A skill of ${skillFile[name].hits} hits can have a maximum of ${2000/skillFile[name].hits} power!`);
 	
@@ -1374,9 +1376,9 @@ function writeSkill(msg, name, nameWithSpaces, need, bartype, power, accuracy, c
 
 // Creates a Healing Skill to be used in Battle.
 function writeHeal(msg, name, nameWithSpaces, need, bartype, power, targettype, extra1, extra2, extra3, desc) {
-    var skillPath = dataPath+'/skills.json'
-    var skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-    var skillFile = JSON.parse(skillRead);
+    let skillPath = dataPath+'/skills.json'
+    let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+    let skillFile = JSON.parse(skillRead);
 
     skillFile[name] = {
 		name: nameWithSpaces ? nameWithSpaces : name,
@@ -1414,9 +1416,9 @@ function writeHeal(msg, name, nameWithSpaces, need, bartype, power, targettype, 
 
 // Creates a status type skill to be used in battle.
 function writeStatus(msg, name, name2, need, bartype, statustype, extra1, extra2, extra3, desc) {
-    var skillPath = dataPath+'/skills.json'
-    var skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-    var skillFile = JSON.parse(skillRead);
+    let skillPath = dataPath+'/skills.json'
+    let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+    let skillFile = JSON.parse(skillRead);
 
     skillFile[name] = {
 		name: name2 ? name2 : name,
@@ -1427,7 +1429,7 @@ function writeStatus(msg, name, name2, need, bartype, statustype, extra1, extra2
 		originalAuthor: msg.author.id
     };
 
-	var statusType = statustype.toLowerCase()
+	let statusType = statustype.toLowerCase()
 	if (statusType === 'status') {
 		if (!utilityFuncs.validStatus(extra1)) return msg.channel.send(`${extra1} is an invalid status effect.`);
 
@@ -1521,9 +1523,9 @@ function writeStatus(msg, name, name2, need, bartype, statustype, extra1, extra2
 
 // Creates a passive skill to be used in battle.
 function writePassive(msg, name, name2, passivetype, extra1, extra2, desc) {
-    var skillPath = dataPath+'/skills.json'
-    var skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-    var skillFile = JSON.parse(skillRead);
+    let skillPath = dataPath+'/skills.json'
+    let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+    let skillFile = JSON.parse(skillRead);
 
     skillFile[name] = {
 		name: name2 ? name2 : name,
@@ -1536,7 +1538,7 @@ function writePassive(msg, name, name2, passivetype, extra1, extra2, desc) {
 		delete skillFile[name].desc
 	}
 	
-	var passiveType = passivetype.toLowerCase()
+	let passiveType = passivetype.toLowerCase()
 	if (passiveType === 'damagephys' || passiveType === 'damagemag' || passiveType === 'dodgephys' || passiveType === 'dodgemag' ||
 		passiveType === 'healonturn' || passiveType === 'healmponturn' || passiveType === 'regen' || passiveType === 'invig') {
 		skillFile[name].passive = passiveType
@@ -1615,9 +1617,9 @@ function writePassive(msg, name, name2, passivetype, extra1, extra2, desc) {
 
 // Reads Character Data
 function readChar(name) {
-    var charPath = dataPath+'/characters.json'
-    var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-    var charFile = JSON.parse(charRead);
+    let charPath = dataPath+'/characters.json'
+    let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+    let charFile = JSON.parse(charRead);
 
     if (charFile[name])
         return charFile[name];
@@ -1649,9 +1651,9 @@ function getBattleCharNum(n, server) {
 
 // Reads Enemy Definition Data
 function readEnm(name, server) {
-    var enmPath = dataPath+'/Enemies/enemies-' + server + '.json'
-    var enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
-    var enmFile = JSON.parse(enmRead);
+    let enmPath = dataPath+'/Enemies/enemies-' + server + '.json'
+    let enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
+    let enmFile = JSON.parse(enmRead);
 
     if (enmFile[server][name]) {
         return enmFile[server][name]
@@ -1687,9 +1689,9 @@ function readEnmStatNum(n, server) {
 
 // Reads Skill Data
 function readSkill(name) {
-    var skillPath = dataPath+'/skills.json'
-    var skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-    var skillFile = JSON.parse(skillRead);
+    let skillPath = dataPath+'/skills.json'
+    let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+    let skillFile = JSON.parse(skillRead);
 
     if (skillFile[name])
         return skillFile[name]
@@ -1699,9 +1701,9 @@ function readSkill(name) {
 
 // Reads Battle Data
 function readBattle(server) {
-    var btlPath = dataPath+'/Battles/battle-' + server + '.json'
-    var btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
-    var btlFile = JSON.parse(btlRead);
+    let btlPath = dataPath+'/Battles/battle-' + server + '.json'
+    let btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
+    let btlFile = JSON.parse(btlRead);
 	
 	if (!btlFile)
 		btlFile = {}
@@ -1781,8 +1783,8 @@ function doStatusEffect(fighterDef, btl, server) {
 	}
 
 	if (fighterDef.forceMove) {	
-		var allySide = btl[server].allies.members
-		var opposingSide = btl[server].enemies.members
+		let allySide = btl[server].allies.members
+		let opposingSide = btl[server].enemies.members
 		if (charFuncs.isOpposingSide(fighterDef, btl[server])) {
 			allySide = btl[server].enemies.members
 			opposingSide = btl[server].allies.members
@@ -1797,7 +1799,7 @@ function doStatusEffect(fighterDef, btl, server) {
 		fighterDef.futureSightSkill.turns--;
 		
 		if (fighterDef.futureSightSkill.turns <= 0) {
-			var skillData = fighterDef.futureSightSkill;
+			let skillData = fighterDef.futureSightSkill;
 
 			const skillDefs = {
 				name: skillData.name ? skillData.name : "their Future Sight Skill",
@@ -1827,7 +1829,7 @@ function doStatusEffect(fighterDef, btl, server) {
 		}
 	}
 
-	var forceSkip = false;
+	let forceSkip = false;
 	if (fighterDef.rest) {
 		delete fighterDef.rest;
 
@@ -1843,7 +1845,7 @@ function doStatusEffect(fighterDef, btl, server) {
 	}
 
 	if (fighterDef.infatuation) {
-		var chance = Math.round(Math.random()*100)
+		let chance = Math.round(Math.random()*100)
 		
 		if (chance <= 50) {
 			forceSkip = true;
@@ -1872,12 +1874,12 @@ function doStatusEffect(fighterDef, btl, server) {
 	}
 
 	if (fighterDef.confusion) {
-		var chance = Math.round(Math.random()*100)
+		let chance = Math.round(Math.random()*100)
 		
 		if (chance <= 50) {
 			forceSkip = true;
 
-			var dmg = Math.round((Math.random()*fighterDef.atk)*2)
+			let dmg = Math.round((Math.random()*fighterDef.atk)*2)
             var DiscordEmbed = new Discord.MessageEmbed()
                 .setColor('#e36b2b')
                 .setTitle(`${fighterDef.name}'s Confusion`)
@@ -1904,7 +1906,7 @@ function doStatusEffect(fighterDef, btl, server) {
 
     if (fighterDef.status && fighterDef.status.toLowerCase() != "none") {
         if (fighterDef.status === "burn" || fighterDef.status === "poison" || fighterDef.status === "illness") {
-            var dmg = Math.round(fighterDef.maxhp/10)
+            let dmg = Math.round(fighterDef.maxhp/10)
 			if (fighterDef.boss || fighterDef.miniboss)
 				dmg = 5;
 
@@ -1925,13 +1927,13 @@ function doStatusEffect(fighterDef, btl, server) {
 
 			console.log(`TurnOrder: Done ${fighterDef.name}'s ${fighterDef.status} status effect.`);
 		} else if (fighterDef.status === "bleed") {
-            var dmg = Math.round(fighterDef.maxhp/10)
+            let dmg = Math.round(fighterDef.maxhp/10)
 			if (fighterDef.boss || fighterDef.miniboss)
 				dmg = 5;
 
             fighterDef.hp -= dmg
 
-            var defeated = "."
+            let defeated = "."
             if (fighterDef.hp <= 0) {
 				fighterDef.hp = 0
                 defeated = " and was defeated!"
@@ -1956,11 +1958,11 @@ function doStatusEffect(fighterDef, btl, server) {
 				return [fighterDef, "skip"]
 			}
 		} else if (fighterDef.status === "despair") {
-            var dmg = Math.round(fighterDef.maxmp/10)
+            let dmg = Math.round(fighterDef.maxmp/10)
 			if (fighterDef.boss || fighterDef.miniboss)
 				dmg = Math.round(fighterDef.maxmp/25);
 
-			var dmgText = `${fighterDef.name} lost ${dmg} MP`;
+			let dmgText = `${fighterDef.name} lost ${dmg} MP`;
 
             fighterDef.mp = Math.max(0, fighterDef.mp - dmg)
 			if (fighterDef.mp <= 0) {
@@ -2091,8 +2093,8 @@ function doStatusEffect(fighterDef, btl, server) {
 				fighterDef.status = "none"
 				fighterDef.statusturns = 0
 			} else {
-				var heal = Math.floor(fighterDef.maxhp/20)
-				var healmp = Math.floor(fighterDef.maxmp/20)
+				let heal = Math.floor(fighterDef.maxhp/20)
+				let healmp = Math.floor(fighterDef.maxmp/20)
 				fighterDef.statusturns--;
 				
 				fighterDef.hp = Math.min(fighterDef.maxhp, fighterDef.hp + heal)
@@ -2211,9 +2213,9 @@ function doStatusEffect(fighterDef, btl, server) {
 			fs.writeFileSync(dataPath+'/Battles/battle-' + server + '.json', JSON.stringify(btl, null, '    '));
             return [fighterDef, forceSkip ? "skip" : "continue"]
         } else if (fighterDef.status === "brainwash") {
-			var skillPath = dataPath+'/skills.json'
-			var skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-			var skillFile = JSON.parse(skillRead);
+			let skillPath = dataPath+'/skills.json'
+			let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+			let skillFile = JSON.parse(skillRead);
 
 			if (fighterDef.boss || fighterDef.miniboss) {
 				fighterDef.status = "none"
@@ -2233,12 +2235,12 @@ function doStatusEffect(fighterDef, btl, server) {
 				return [fighterDef, forceSkip ? "skip" : "continue"]
 			}
 
-			var possibleSkills = [];
+			let possibleSkills = [];
 			for (const i in fighterDef.skills) {
-				var skillDefs = skillFile[fighterDef.skills[i]]
+				let skillDefs = skillFile[fighterDef.skills[i]]
 				
 				if (!skillDefs.passive && skillDefs.type != "passive") {
-					var costType = skillDefs.costtype ? skillDefs.costtype.toLowerCase() : 'mp'
+					let costType = skillDefs.costtype ? skillDefs.costtype.toLowerCase() : 'mp'
 
 					switch(costType) {
 						case 'hp':
@@ -2266,7 +2268,7 @@ function doStatusEffect(fighterDef, btl, server) {
 				}
 			}
 			
-			var skillDefs
+			let skillDefs
 			if (possibleSkills.length <= 0) {
 				skillDefs = {
 					name: fighterDef.melee[0],
@@ -2279,15 +2281,15 @@ function doStatusEffect(fighterDef, btl, server) {
 				skillDefs = skillFile[possibleSkills[Math.round(Math.random() * (possibleSkills.length-1))]]
 			}
 
-			var targets = []
-			var targType = skillDefs.target ? skillDefs.target.toLowerCase() : 'one'
+			let targets = []
+			let targType = skillDefs.target ? skillDefs.target.toLowerCase() : 'one'
 			switch(targType) {
 				case 'ally':
 					if (charFuncs.isOpposingSide(fighterDef, btl[server])) {
-						var targNum = Math.round(Math.random() * (btl[server].allies.members.length - 1))
+						let targNum = Math.round(Math.random() * (btl[server].allies.members.length - 1))
 						targets.push(btl[server].allies.members[targNum])
 					} else {
-						var targNum = Math.round(Math.random() * (btl[server].enemies.members.length - 1))
+						let targNum = Math.round(Math.random() * (btl[server].enemies.members.length - 1))
 						targets.push(btl[server].enemies.members[targNum])
 					}
 					
@@ -2329,21 +2331,21 @@ function doStatusEffect(fighterDef, btl, server) {
 				
 				default: 
 					if (charFuncs.isOpposingSide(fighterDef, btl[server])) {
-						var targNum = utilityFuncs.randNum(btl[server].enemies.members.length - 1)
+						let targNum = utilityFuncs.randNum(btl[server].enemies.members.length - 1)
 						targets.push(btl[server].enemies.members[targNum])
 					} else {
-						var targNum = utilityFuncs.randNum(btl[server].allies.members.length - 1)
+						let targNum = utilityFuncs.randNum(btl[server].allies.members.length - 1)
 						targets.push(btl[server].allies.members[targNum])
 					}
 			}
 
-			var embedTexts = []
+			let embedTexts = []
 			for (const i in targets) {
-				var targDefs = targets[i]
+				let targDefs = targets[i]
 				const targName = targets[i].name
 				
 				if (targDefs.hp > 0) {
-					var embedTxt = attackFuncs.attackFoe(fighterDef.name, targName, fighterDef, targDefs, skillDefs, false, server, btl)
+					let embedTxt = attackFuncs.attackFoe(fighterDef.name, targName, fighterDef, targDefs, skillDefs, false, server, btl)
 					if (embedTxt.oneMore == true && turnFuncs.oneMores(server)) {
 						btl[message.guild.id].onemore = true
 					}
@@ -2396,16 +2398,16 @@ function doStatusEffect(fighterDef, btl, server) {
 			fs.writeFileSync(dataPath+'/Battles/battle-' + server + '.json', JSON.stringify(btl, null, '    '));
             return [fighterDef, "skip"]
 		} else if (fighterDef.status === "rage") {
-			var targ;
+			let targ;
             if (charFuncs.isOpposingSide(fighterDef, btl[server])) {
-				var targNum = Math.round(Math.random() * (btl[server].allies.members.length - 1))
+				let targNum = Math.round(Math.random() * (btl[server].allies.members.length - 1))
 				targ = btl[server].allies.members[targNum]
 			} else {
-				var targNum = Math.round(Math.random() * (btl[server].enemies.members.length - 1))
+				let targNum = Math.round(Math.random() * (btl[server].enemies.members.length - 1))
 				targ = btl[server].enemies.members[targNum]
 			}
 			
-			var embedText = attackFuncs.meleeFoe(fighterDef, targ, server, true, btl)
+			let embedText = attackFuncs.meleeFoe(fighterDef, targ, server, true, btl)
 			const DiscordEmbed = new Discord.MessageEmbed()
 				.setColor('#fcba03')
 				.setTitle(`${embedText.targetText}`)
@@ -2431,7 +2433,7 @@ function doStatusEffect(fighterDef, btl, server) {
 
 // other shit
 function genCharFromPet(charDefs) {
-	var battlerDefs = {
+	let battlerDefs = {
 		name: charDefs.name,
 		truename: charDefs.name,
 		petChar: true,
@@ -2488,9 +2490,9 @@ function genCharFromPet(charDefs) {
 }
 
 function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
-    var servPath = dataPath+'/Server Settings/server.json'
-    var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-    var servFile = JSON.parse(servRead);
+    let servPath = dataPath+'/Server Settings/server.json'
+    let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+    let servFile = JSON.parse(servRead);
 
     if (message && message.guild && message.guild.id) {
         if (!servFile[message.guild.id]) {
@@ -2535,27 +2537,27 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
     const prefix = servFile[message.guild.id] ? servFile[message.guild.id].prefix : 'rpg!'
 	const arg = message.content.slice(prefix.length).trim().split(/ +/);
 
-	var skillPath = dataPath+'/skills.json'
-	var skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-	var skillFile = JSON.parse(skillRead);
+	let skillPath = dataPath+'/skills.json'
+	let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+	let skillFile = JSON.parse(skillRead);
 			
 	var DiscordEmbed;
 	
 	if (arg[0] == 'petmove' || arg[0] == 'petskill') {
-		var charDefs = genCharFromPet(petDefs)
-		var charName = petDefs.name
+		let charDefs = genCharFromPet(petDefs)
+		let charName = petDefs.name
 
 		if (charDefs) {
-			var skillName = petDefs.skill
-			var skillDefs = skillFile[skillName]
+			let skillName = petDefs.skill
+			let skillDefs = skillFile[skillName]
 			
 			// Copy Skill
 			if (skillDefs.copyskill) {
-				var possibleSkills = []
+				let possibleSkills = []
 				for (const val in allySide) {
 					if (allySide[val].id != charDefs.id) {
 						for (const i in allySide[val].skills) {
-							var skillDefs = skillFile[allySide[val].skills[i]]
+							let skillDefs = skillFile[allySide[val].skills[i]]
 							if (skillDefs.type != "heal" && skillDefs.type != "status" && skillDefs.type != "passive") {
 								possibleSkills.push(allySide[val].skills[i])
 							}
@@ -2564,7 +2566,7 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 				}
 				
 				if (possibleSkills.length > 0) {
-					var skillVal = possibleSkills[Math.round(Math.random() * (possibleSkills.length-1))]
+					let skillVal = possibleSkills[Math.round(Math.random() * (possibleSkills.length-1))]
 					
 					skillDefs = skillFile[skillVal]
 					if (!skillDefs.name) {skillDefs.name = `${skillVal}`}
@@ -2582,14 +2584,14 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 			
 			// Metronome
 			if (skillDefs.metronome) {
-				var possibleSkills = []
+				let possibleSkills = []
 				for (const val in skillFile) {
 					if (skillFile[val].type != "heal" && (skillFile[val].type != "status" && !skillFile[val].buff) && skillFile[val].type != "passive" && val != "Metronome") {
 						possibleSkills.push(val)
 					}
 				}
 
-				var skillVal = possibleSkills[Math.round(Math.random() * (possibleSkills.length-1))]
+				let skillVal = possibleSkills[Math.round(Math.random() * (possibleSkills.length-1))]
 				skillDefs = skillFile[skillVal]
 
 				console.log(`Metronome: Chosen skill ${skillVal} of ${possibleSkills.length-1} skills`)
@@ -2606,21 +2608,21 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 
 			// Heal Skills target allies
 			if (skillDefs.type == "heal") {
-				var healedQuote = ""
+				let healedQuote = ""
 
-				var affinityMessage = ``;
+				let affinityMessage = ``;
 				if (skillDefs.healall || skillDefs.target && skillDefs.target === "allallies") {
 					if (skillDefs.fullheal) {
 						for (const i in allySide) {
-							var partyDef = allySide[i]
+							let partyDef = allySide[i]
 							if (partyDef.hp > 0) {
 								partyDef.hp = partyDef.maxhp
 							
 								affinityMessage += turnFuncs.healPassives(partyDef)
 							
 								if (partyDef.helpedquote && partyDef.helpedquote.length > 0) {
-									var possibleQuote = Math.round(Math.random() * (partyDef.helpedquote.length-1))
-									var theQuote = `\n*${partyDef.name}: "${partyDef.helpedquote[possibleQuote]}"*`
+									let possibleQuote = Math.round(Math.random() * (partyDef.helpedquote.length-1))
+									let theQuote = `\n*${partyDef.name}: "${partyDef.helpedquote[possibleQuote]}"*`
 
 									if (theQuote.includes('%ALLY%'))
 										theQuote = theQuote.replace('%ALLY%', petDefs.name)
@@ -2637,7 +2639,7 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 							.setFooter(`${petDefs.name}'s turn`);
 					} else if (skillDefs.statusheal) {
 						for (const i in allySide) {
-							var partyDef = allySide[i]
+							let partyDef = allySide[i]
 							if (partyDef.hp > 0) {
 								if (partyDef.status === "hunger") {
 									partyDef.atk = Math.round(partyDef.atk*2)
@@ -2652,8 +2654,8 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 								affinityMessage += turnFuncs.healPassives(partyDef)
 							
 								if (partyDef.helpedquote && partyDef.helpedquote.length > 0) {
-									var possibleQuote = Math.round(Math.random() * (partyDef.helpedquote.length-1))
-									var theQuote = `\n*${partyDef.name}: "${partyDef.helpedquote[possibleQuote]}"*`
+									let possibleQuote = Math.round(Math.random() * (partyDef.helpedquote.length-1))
+									let theQuote = `\n*${partyDef.name}: "${partyDef.helpedquote[possibleQuote]}"*`
 
 									if (theQuote.includes('%ALLY%'))
 										theQuote = theQuote.replace('%ALLY%', petDefs.name)
@@ -2669,11 +2671,11 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 							.setDescription(`${petDefs.name} used ${skillName}!\nThe Party was cured of their status ailments.${healedQuote} ${affinityMessage}`)
 							.setFooter(`${petDefs.name}'s turn`);
 					} else if (skillDefs.healmp) {
-						var txt = ``
+						let txt = ``
 						for (const i in allySide) {
-							var partyDef = allySide[i]								
+							let partyDef = allySide[i]								
 
-							var heal = (skillDefs.pow-8) + Math.round(Math.random()*16)
+							let heal = (skillDefs.pow-8) + Math.round(Math.random()*16)
 
 							partyDef.mp = Math.round(Math.min(partyDef.maxmp, partyDef.mp + heal))
 							txt += `\n${partyDef.name}'s MP was restored by ${Math.round(heal)}. (${partyDef.mp}/${partyDef.maxmp}MP)`
@@ -2681,8 +2683,8 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 							txt += turnFuncs.healPassives(partyDef)
 							
 							if (partyDef.helpedquote && partyDef.helpedquote.length > 0) {
-								var possibleQuote = Math.round(Math.random() * (partyDef.helpedquote.length-1))
-								var theQuote = `\n*${partyDef.name}: "${partyDef.helpedquote[possibleQuote]}"*`
+								let possibleQuote = Math.round(Math.random() * (partyDef.helpedquote.length-1))
+								let theQuote = `\n*${partyDef.name}: "${partyDef.helpedquote[possibleQuote]}"*`
 
 								if (theQuote.includes('%ALLY%'))
 									theQuote = theQuote.replace('%ALLY%', petDefs.name)
@@ -2697,19 +2699,19 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 							.setDescription(`${petDefs.name} used ${skillName}!\nThe Party's MP was restored by ${skillDefs.pow}!\n${txt}`)
 							.setFooter(`${petDefs.name}'s turn`);
 					} else {
-						var txt = ``;
+						let txt = ``;
 						for (const i in allySide) {
-							var partyDef = allySide[i]
+							let partyDef = allySide[i]
 							if (partyDef.hp > 0) {
-								var healAmount = Math.round(heal-8 + Math.round(Math.random()*16))
+								let healAmount = Math.round(heal-8 + Math.round(Math.random()*16))
 								partyDef.hp = Math.round(Math.min(partyDef.maxhp, partyDef.hp + healAmount))
 
 								txt += `\n${partyDef.name}'s HP was restored by ${healAmount}. (${partyDef.hp}/${partyDef.maxhp}HP)`							
 								txt += turnFuncs.healPassives(partyDef)
 							
 								if (partyDef.helpedquote && partyDef.helpedquote.length > 0) {
-									var possibleQuote = Math.round(Math.random() * (partyDef.helpedquote.length-1))
-									var theQuote = `\n*${partyDef.name}: "${partyDef.helpedquote[possibleQuote]}"*`
+									let possibleQuote = Math.round(Math.random() * (partyDef.helpedquote.length-1))
+									let theQuote = `\n*${partyDef.name}: "${partyDef.helpedquote[possibleQuote]}"*`
 
 									if (theQuote.includes('%ALLY%'))
 										theQuote = theQuote.replace('%ALLY%', petDefs.name)
@@ -2731,8 +2733,8 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 					if (skillDefs.target == 'caster') 
 						return message.channel.send("You can't use caster skills as a pet!")
 
-					var charDefs2
-					var charName2
+					let charDefs2
+					let charName2
 					if (allySide[arg[1]]) {
 						charDefs2 = allySide[arg[1]]
 						charName2 = allySide[arg[1]].name
@@ -2752,8 +2754,8 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 						charDefs2.hp = Math.floor(charDefs2.maxhp / skillDefs.revive)
 						
 						if (charDefs2.helpedquote && charDefs2.helpedquote.length > 0) {
-							var possibleQuote = Math.round(Math.random() * (charDefs2.helpedquote.length-1))
-							var theQuote = `\n*${charDefs2.name}: "${charDefs2.helpedquote[possibleQuote]}"*`
+							let possibleQuote = Math.round(Math.random() * (charDefs2.helpedquote.length-1))
+							let theQuote = `\n*${charDefs2.name}: "${charDefs2.helpedquote[possibleQuote]}"*`
 
 							while (theQuote.includes('%ALLY%'))
 								theQuote = theQuote.replace('%ALLY%', petDefs.name)
@@ -2774,11 +2776,11 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 						}
 
 						charDefs2.hp = charDefs2.maxhp
-						var passives = turnFuncs.healPassives(charDefs2)
+						let passives = turnFuncs.healPassives(charDefs2)
 						
 						if (charDefs2.helpedquote && charDefs2.helpedquote.length > 0) {
-							var possibleQuote = Math.round(Math.random() * (charDefs2.helpedquote.length-1))
-							var theQuote = `\n*${charDefs2.name}: "${charDefs2.helpedquote[possibleQuote]}"*`
+							let possibleQuote = Math.round(Math.random() * (charDefs2.helpedquote.length-1))
+							let theQuote = `\n*${charDefs2.name}: "${charDefs2.helpedquote[possibleQuote]}"*`
 
 							while (theQuote.includes('%ALLY%'))
 								theQuote = theQuote.replace('%ALLY%', petDefs.name)
@@ -2807,11 +2809,11 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 
 						charDefs2.status = "none";
 						charDefs2.statusturns = 0;
-						var passives = turnFuncs.healPassives(charDefs2)
+						let passives = turnFuncs.healPassives(charDefs2)
 						
 						if (charDefs2.helpedquote && charDefs2.helpedquote.length > 0) {
-							var possibleQuote = Math.round(Math.random() * (charDefs2.helpedquote.length-1))
-							var theQuote = `\n*${charDefs2.name}: "${charDefs2.helpedquote[possibleQuote]}"*`
+							let possibleQuote = Math.round(Math.random() * (charDefs2.helpedquote.length-1))
+							let theQuote = `\n*${charDefs2.name}: "${charDefs2.helpedquote[possibleQuote]}"*`
 
 							while (theQuote.includes('%ALLY%'))
 								theQuote = theQuote.replace('%ALLY%', petDefs.name)
@@ -2826,11 +2828,11 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 							.setFooter(`${petDefs.name}'s turn`);
 					} else if (skillDefs.healmp) {
 						charDefs2.mp = Math.min(charDefs2.maxmp, charDefs2.mp + Math.round(heal-8 + Math.round(Math.random()*16)))
-						var passives = turnFuncs.healPassives(charDefs2)
+						let passives = turnFuncs.healPassives(charDefs2)
 						
 						if (charDefs2.helpedquote && charDefs2.helpedquote.length > 0) {
-							var possibleQuote = Math.round(Math.random() * (charDefs2.helpedquote.length-1))
-							var theQuote = `\n*${charDefs2.name}: "${charDefs2.helpedquote[possibleQuote]}"*`
+							let possibleQuote = Math.round(Math.random() * (charDefs2.helpedquote.length-1))
+							let theQuote = `\n*${charDefs2.name}: "${charDefs2.helpedquote[possibleQuote]}"*`
 
 							while (theQuote.includes('%ALLY%'))
 								theQuote = theQuote.replace('%ALLY%', petDefs.name)
@@ -2851,11 +2853,11 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 						}
 
 						charDefs2.hp = Math.min(charDefs2.maxhp, charDefs2.hp + Math.round(heal-8 + Math.round(Math.random()*16)))
-						var passivesMsg = turnFuncs.healPassives(charDefs2)
+						let passivesMsg = turnFuncs.healPassives(charDefs2)
 						
 						if (charDefs2.helpedquote && charDefs2.helpedquote.length > 0) {
-							var possibleQuote = Math.round(Math.random() * (charDefs2.helpedquote.length-1))
-							var theQuote = `\n*${charDefs2.name}: "${charDefs2.helpedquote[possibleQuote]}"*`
+							let possibleQuote = Math.round(Math.random() * (charDefs2.helpedquote.length-1))
+							let theQuote = `\n*${charDefs2.name}: "${charDefs2.helpedquote[possibleQuote]}"*`
 
 							while (theQuote.includes('%ALLY%'))
 								theQuote = theQuote.replace('%ALLY%', petDefs.name)
@@ -2877,9 +2879,9 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 						.setTitle(`${petDefs.name} => Self`)
 						.setDescription(`${petDefs.name} used ${skillName}!\n${petDefs.name} flops around!\n...If only this had an effect.`)
                 } else if (skillDefs.shield || skillDefs.makarakarn || skillDefs.tetrakarn || skillDefs.trap) {
-					var healedQuote = ""
+					let healedQuote = ""
 
-					var effect = 'shield'
+					let effect = 'shield'
 					if (skillDefs.makarakarn)
 						effect = 'makarakarn';
 					else if (skillDefs.tetrakarn)
@@ -2898,11 +2900,11 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 								}
 							}
 
-							var charName2 = allySide[i].name
+							let charName2 = allySide[i].name
 								
 							if (allySide[i].helpedquote && allySide[i].helpedquote.length > 0) {
-								var possibleQuote = Math.round(Math.random() * (allySide[i].helpedquote.length-1))
-								var theQuote = `\n*${charName2}: "${allySide[i].helpedquote[possibleQuote]}"*`
+								let possibleQuote = Math.round(Math.random() * (allySide[i].helpedquote.length-1))
+								let theQuote = `\n*${charName2}: "${allySide[i].helpedquote[possibleQuote]}"*`
 
 								while (theQuote.includes('%ALLY%'))
 									theQuote = theQuote.replace('%ALLY%', petDefs.name)
@@ -2926,10 +2928,10 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 							}
 						}
 
-						var charName2 = allySide[arg[1]].name
+						let charName2 = allySide[arg[1]].name
 						if (allySide[arg[1]].helpedquote && allySide[arg[1]].helpedquote.length > 0) {
-							var possibleQuote = Math.round(Math.random() * (allySide[arg[1]].helpedquote.length-1))
-							var theQuote = `\n*${charName2}: "${allySide[arg[1]].helpedquote[possibleQuote]}"*`
+							let possibleQuote = Math.round(Math.random() * (allySide[arg[1]].helpedquote.length-1))
+							let theQuote = `\n*${charName2}: "${allySide[arg[1]].helpedquote[possibleQuote]}"*`
 
 							while (theQuote.includes('%ALLY%'))
 								theQuote = theQuote.replace('%ALLY%', petDefs.name)
@@ -2948,28 +2950,28 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 						return false
 					}
 				} else if (skillDefs.status && skillDefs.statuschance) {
-					var enmDefs = oppSide[parseInt(arg[1])]
-					var enmName = enmDefs.name
+					let enmDefs = oppSide[parseInt(arg[1])]
+					let enmName = enmDefs.name
 					if (skillDefs.statuschance > 0 || enmDefs.status === "none") {
-						var targ = (skillDefs.statuschance + (petDefs.chr - enmDefs.luk));
+						let targ = (skillDefs.statuschance + (petDefs.chr - enmDefs.luk));
 						if (attackFuncs.physStatus(skillDefs.status))
 							targ = (skillDefs.statuschance + (petDefs.luk - enmDefs.luk));
 
-						var chance = Math.round(Math.random()*100);
+						let chance = Math.round(Math.random()*100);
 
 						const movestatus = skillDefs.status
 
-						var finaltext = `${petDefs.name} used ${skillName} on ${enmDefs.name}!\n`;
+						let finaltext = `${petDefs.name} used ${skillName} on ${enmDefs.name}!\n`;
 						if (chance <= targ || skillDefs.statuschance >= 100) {
 							finaltext += attackFuncs.inflictStatus(enmDefs, skillDefs);
 							if (enmDefs.hitquote && enmDefs.hitquote.length > 0) {
-								var possibleQuote = utilityFuncs.randNum(enmDefs.hitquote.length-1)
+								let possibleQuote = utilityFuncs.randNum(enmDefs.hitquote.length-1)
 								finaltext += `\n*${enmName}: "${enmDefs.hitquote[possibleQuote]}"*`
 							}
 						} else {
 							finaltext += " But they dodged it!"
 							if (enmDefs.dodgequote && enmDefs.dodgequote.length > 0) {
-								var possibleQuote = Math.round(Math.random() * (enmDefs.dodgequote.length-1))
+								let possibleQuote = Math.round(Math.random() * (enmDefs.dodgequote.length-1))
 								finaltext += `\n*${enmName}: "${enmDefs.dodgequote[possibleQuote]}"*`
 							}
 						}
@@ -2985,13 +2987,13 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 						return false
 					}
 				} else if (skillDefs.buff) {
-					var buffCount = skillDefs.buffCount ? skillDefs.buffCount : 1
-					var buffTxt = ['', '', ' twice', ' three times', ' four times', ' five times', ' completely']
+					let buffCount = skillDefs.buffCount ? skillDefs.buffCount : 1
+					let buffTxt = ['', '', ' twice', ' three times', ' four times', ' five times', ' completely']
 
 					if (skillDefs.target == "allallies") {
 						for (let i = 0; i < buffCount; i++) {
 							for (const i in allySide) {
-								var charDefs2 = allySide[i]
+								let charDefs2 = allySide[i]
 								if (skillDefs.buff == "all") {
 									charDefs2.buffs.atk = Math.min(3, charDefs2.buffs.atk+1)
 									charDefs2.buffs.mag = Math.min(3, charDefs2.buffs.mag+1)
@@ -3012,7 +3014,7 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 					} else {
 						if (!allySide[arg[1]])
 							return message.channel.send('Invalid ally!')
-						var charDefs2 = allySide[arg[1]]
+						let charDefs2 = allySide[arg[1]]
 
 						for (let i = 0; i < buffCount; i++) {
 							if (skillDefs.buff == "all") {
@@ -3035,7 +3037,7 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 				} else if (skillDefs.debuff) {
 					if (skillDefs.target == "allopposing") {
 						for (const i in oppSide) {
-							var charDefs2 = oppSide[i]
+							let charDefs2 = oppSide[i]
 							if (skillDefs.debuff == "all") {
 								charFuncs.buffStat(charDefs2, 'atk', -1)
 								charFuncs.buffStat(charDefs2, 'mag', -1)
@@ -3055,7 +3057,7 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 						if (!oppSide[arg[1]])
 							return message.channel.send('Invalid opponent!')
 
-						var charDefs2 = oppSide[arg[1]]
+						let charDefs2 = oppSide[arg[1]]
 						if (skillDefs.debuff == "all") {
 							charDefs2.buffs.atk = Math.max(-3, charDefs2.buffs.atk-1)
 							charDefs2.buffs.mag = Math.max(-3, charDefs2.buffs.mag-1)
@@ -3072,10 +3074,10 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 							.setFooter(`${petDefs.name}'s turn`);
 					}
 				} else if (skillDefs.dualbuff) {
-					var statStuff = '';
+					let statStuff = '';
 					if (skillDefs.target == "allallies") {
 						for (const i in allySide) {
-							var charDefs2 = allySide[i]
+							let charDefs2 = allySide[i]
 
 							for (const k in skillDefs.dualbuff) {
 								charDefs2.buffs[skillDefs.dualbuff[k]] = Math.min(3, charDefs2.buffs[skillDefs.dualbuff[k]]+1);
@@ -3098,7 +3100,7 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 					} else {
 						if (!allySide[arg[1]])
 							return message.channel.send('Invalid ally!')
-						var charDefs2 = allySide[arg[1]]
+						let charDefs2 = allySide[arg[1]]
 
 						for (const k in skillDefs.dualbuff) {
 							charDefs2.buffs[skillDefs.dualbuff[k]] = Math.min(3, charDefs2.buffs[skillDefs.dualbuff[k]]+1);
@@ -3119,10 +3121,10 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 							.setFooter(`${petDefs.name}'s turn`);
 					}
 				} else if (skillDefs.dekaja) {
-					var debuffStats = ['atk', 'mag', 'end', 'agl', 'prc']
+					let debuffStats = ['atk', 'mag', 'end', 'agl', 'prc']
 					if (skillDefs.target == "allopposing") {
 						for (const i in oppSide) {
-							var charDefs2 = oppSide[i]
+							let charDefs2 = oppSide[i]
 							for (const k in debuffStats) {
 								if (charDefs2.buffs[debuffStats[k]] > 0)
 									charDefs2.buffs[debuffStats[k]] = 0;
@@ -3138,7 +3140,7 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 						if (!oppSide[arg[1]])
 							return message.channel.send('Invalid opponent!')
 
-						var charDefs2 = oppSide[arg[1]]
+						let charDefs2 = oppSide[arg[1]]
 						for (const k in debuffStats) {
 							if (charDefs2.buffs[debuffStats[k]] > 0)
 								charDefs2.buffs[debuffStats[k]] = 0;
@@ -3151,7 +3153,7 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 							.setFooter(`${petDefs.name}'s turn`);
 					}
 				} else if (skillDefs.futuresight) {
-					var oppDefs = oppSide[arg[1]]
+					let oppDefs = oppSide[arg[1]]
 					
 					if (oppDefs) {
 						oppDefs.futureSightSkill = skillDefs.futuresight
@@ -3167,7 +3169,7 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 						return false
 					}
 				} else if (skillDefs.weather) {
-					var weatherMessage = {
+					let weatherMessage = {
 						rain: 'It begun to rain!',
 						thunder: 'Thunder begun, coming out of nowhere!',
 						sunlight: 'The sun shone brightly.',
@@ -3199,7 +3201,7 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 					return false
 				}
 			} else {
-				var server = message.guild.id
+				let server = message.guild.id
 				DiscordEmbed = attackFuncs.attackWithSkill(charDefs, arg[1], allySide, oppSide, btl, skillDefs, server)
 			}
 
@@ -3231,7 +3233,7 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 		if (!oppSide[arg[1]].enemy)
 			return message.channel.send('You must negotiate with an enemy, not a player!');
 
-		var oppDefs = oppSide[arg[1]]
+		let oppDefs = oppSide[arg[1]]
 		if (!oppDefs.negotiatePercent)
 			oppDefs.negotiatePercent = 0
 		else {
@@ -3326,7 +3328,7 @@ function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
 function getTurnOrder(serverBtl) {
 	const terrain = serverBtl.changeterrain ? serverBtl.changeterrain.terrain : serverBtl.terrain
 
-	var tempTurnOrder = [];
+	let tempTurnOrder = [];
 	for (const i in serverBtl.allies.members) {
 		tempTurnOrder.push(serverBtl.allies.members[i]);
 
@@ -3352,7 +3354,7 @@ function getTurnOrder(serverBtl) {
 	for (const i in tempTurnOrder)
 		console.log(`${i}: ${tempTurnOrder[i].name}`);
 	
-	var realTurnOrder = []
+	let realTurnOrder = []
 	for (const i in tempTurnOrder)
 		realTurnOrder[i] = tempTurnOrder[i].id
 	
@@ -3395,15 +3397,15 @@ function sendTurnBrief(btl, channel) {
 	const turnOrder = btl[channel.guild.id].turnorder
 	const charDefs = getBattlerFromID(btl[channel.guild.id], turnOrder[btl[channel.guild.id].doturn])
 
-	var allySide = btl[channel.guild.id].allies.members
-	var opposingSide = btl[channel.guild.id].enemies.members
+	let allySide = btl[channel.guild.id].allies.members
+	let opposingSide = btl[channel.guild.id].enemies.members
 	if (charFuncs.isOpposingSide(charDefs, btl[channel.guild.id])) {
 		allySide = btl[channel.guild.id].enemies.members
 		opposingSide = btl[channel.guild.id].allies.members
 	}
 
-	var charNum = 0
-    var allies = ``
+	let charNum = 0
+    let allies = ``
     for (const i in allySide) {
         const ally = allySide[i]
         if (ally.hp > 0) {
@@ -3425,9 +3427,9 @@ function sendTurnBrief(btl, channel) {
 			charNum = i;
     }
 
-    var targets = ""
-	var allDown = false
-	var downCount = 0
+    let targets = ""
+	let allDown = false
+	let downCount = 0
     for (const i in opposingSide) {
         const enemy = opposingSide[i]
         if (enemy.hp > 0) {
@@ -3464,7 +3466,7 @@ function sendTurnBrief(btl, channel) {
 	if (downCount == opposingSide.length)
 		allDown = true;
 
-	var skills = ""
+	let skills = ""
 	for (const i in charDefs.skills) {
 		const skillDefs = readSkill(charDefs.skills[i]);
 		
@@ -3474,15 +3476,15 @@ function sendTurnBrief(btl, channel) {
 	}
 	
 	skills += "\n\n**Items**\n"
-	var hasItems = false
+	let hasItems = false
 	
-	var party = btl[channel.guild.id].parties[btl[channel.guild.id].battleteam]
+	let party = btl[channel.guild.id].parties[btl[channel.guild.id].battleteam]
 	if (charFuncs.isOpposingSide(charDefs, btl[channel.guild.id]))
 		party = (btl[channel.guild.id].battleteam2.toLowerCase() != "none") ? btl[channel.guild.id].parties[btl[channel.guild.id].battleteam2] : null;
 
-	var itemPath = dataPath+'/items.json'
-	var itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
-	var itemFile = JSON.parse(itemRead);
+	let itemPath = dataPath+'/items.json'
+	let itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
+	let itemFile = JSON.parse(itemRead);
 	
 	if (party && party.items) {
 		for (const i in party.items) {
@@ -3496,8 +3498,8 @@ function sendTurnBrief(btl, channel) {
 	if (!hasItems)
 		skills += "No Items.";
 
-    var hpBrief = `__${charDefs.hp}/${charDefs.maxhp}HP__\n__${charDefs.mp}/${charDefs.maxmp}${charDefs.mpMeter[1]}__`
-	var otherBrief = `rpg!usemelee ${charNum} <Target Number>`
+    let hpBrief = `__${charDefs.hp}/${charDefs.maxhp}HP__\n__${charDefs.mp}/${charDefs.maxmp}${charDefs.mpMeter[1]}__`
+	let otherBrief = `rpg!usemelee ${charNum} <Target Number>`
 	
 	if (!btl[channel.guild.id].testing) {
 		otherBrief += `\nrpg!useitem ${charNum} <Item Name> <Target Number>\nrpg!guard ${charNum}`
@@ -3551,8 +3553,8 @@ function sendTurnBrief(btl, channel) {
 }
 
 function petTurn(btl, channel, partyName, charDefs, allySide, opposingSide, petDefs) {
-	var charNum = 0
-    var allies = ``
+	let charNum = 0
+    let allies = ``
     for (const i in allySide) {
         const ally = allySide[i]
         if (ally.hp > 0) {
@@ -3574,9 +3576,9 @@ function petTurn(btl, channel, partyName, charDefs, allySide, opposingSide, petD
 			charNum = i;
     }
 
-    var targets = ""
-	var allDown = false
-	var downCount = 0
+    let targets = ""
+	let allDown = false
+	let downCount = 0
     for (const i in opposingSide) {
         const enemy = opposingSide[i]
         if (enemy.hp > 0) {
@@ -3610,7 +3612,7 @@ function petTurn(btl, channel, partyName, charDefs, allySide, opposingSide, petD
             targets += `~~**${i}**: ${enemy.name} *(DOWN)*~~\n`;
     }
 
-	var skills = ""
+	let skills = ""
 	const skillDefs = readSkill(petDefs.skill);
 	if (!skillDefs.passive && skillDefs.type != "passive")
 		skills += `${elementEmoji[skillDefs.type.toLowerCase()]}${petDefs.skill}\n`;
@@ -3648,6 +3650,19 @@ function petTurn(btl, channel, partyName, charDefs, allySide, opposingSide, petD
     })
 }
 
+// Clear reincarnates
+function clearClones(btl) {
+	for (const i in btl.allies.members) {
+		if (btl.allies.members[i].undead || btl.allies.members[i].clone)
+			delete btl.allies.members[i];
+	}
+	
+	for (const i in btl.enemies.members) {
+		if (btl.enemies.members[i].undead || btl.enemies.members[i].clone)
+			delete btl.enemies.members[i];
+	}
+}
+
 function advanceTurn(btl, server, ignorePet) {
 	delete btl[server].petattack;
 
@@ -3656,9 +3671,13 @@ function advanceTurn(btl, server, ignorePet) {
 	// Do end of turn events too.
 
     // Should the player side win?
+	
+	let allFighters = []
+
+	let enemy;
     var enemiesLeft = 0;
     for (const enm in btl[server].enemies.members) {
-        const enemy = btl[server].enemies.members[enm]
+        enemy = btl[server].enemies.members[enm]
         if (enemy.hp > 0 && !enemy.negotiated) {
             enemiesLeft = enemiesLeft + 1
         } else {
@@ -3682,8 +3701,10 @@ function advanceTurn(btl, server, ignorePet) {
 			if (enemy.healVerse)
 				delete enemy.healVerse
 
-			if (enemy.clone || enemy.undead)
-				btl[server].enemies.members.splice(enm, 1);
+			if (enemy.clone || enemy.undead) {
+				delete btl[server].enemies.members[enm];
+				return;
+			}
 			
 			if (btl[server].testing) {
 				client.channels.fetch(btl[server].battlechannel)
@@ -3713,9 +3734,10 @@ function advanceTurn(btl, server, ignorePet) {
     }
 
     // Should the Enemy Side win?
+	let p;
     var playersLeft = 0;
     for (const player in btl[server].allies.members) {
-        const p = btl[server].allies.members[player]
+        p = btl[server].allies.members[player]
         if (p.hp > 0) {
             playersLeft = playersLeft + 1
         } else {
@@ -3739,8 +3761,10 @@ function advanceTurn(btl, server, ignorePet) {
 			if (p.healVerse)
 				delete p.healVerse
 
-			if (p.clone || p.undead)
-				btl[server].allies.members.splice(player, 1);
+			if (p.clone || p.undead) {
+				delete btl[server].allies.members[player];
+				return;
+			}
 		}
     }
 
@@ -3748,28 +3772,35 @@ function advanceTurn(btl, server, ignorePet) {
 		// LOl we have a draw here folks cause 	WE SUCK ASSs
 		// In PVP, it is a draw, but in regular battles, the enemies always win.
 		if (enemiesLeft <= 0 && playersLeft <= 0) {
+			clearClones(btl[server]);
 			if (btl[server].pvp) {
+				console.log("Draw this battle!")
 				drawBattle(btl, server)
 				return
 			} else {
+				console.log("Lose this battle!")
 				loseBattle(btl, server)
 				return
 			}
 		// The Enemies won
 		} else if (playersLeft <= 0) {
-			loseBattle(btl, server)
+			console.log("Lose this battle!")
+			clearClones(btl[server]);
+			loseBattle(btl, server);
 			return
 		// The Players Won
 		} else if (enemiesLeft <= 0) {
-			winBattle(btl, server)
+			console.log("Win this battle!")
+			clearClones(btl[server]);
+			winBattle(btl, server);
 			return
 		}
 	}
 	
 	// Advance the turn. + ONEMORE CHECK
-    var defs;
-	var shouldInfect = false;
-	var infectTeam = "";
+    let defs;
+	let shouldInfect = false;
+	let infectTeam = "";
 	
 	btl[server].turnorder = getTurnOrder(btl[server]);
 	if (btl[server].onemore && turnFuncs.oneMores(server)) {
@@ -3796,12 +3827,12 @@ function advanceTurn(btl, server, ignorePet) {
 		while (!defs || defs.hp <= 0 || defs.negotiated) {
 			console.log("TurnOrder: Generated temporary turn order to be used:")
 
-			var defs = getBattlerFromID(btl[server], btl[server].turnorder[btl[server].doturn])
+			defs = getBattlerFromID(btl[server], btl[server].turnorder[btl[server].doturn])
 			if (defs && defs.leader && !ignorePet) {
-				var partyName = btl[server].battleteam
-				var allyParty = btl[server].parties[btl[server].battleteam]
-				var allySide = btl[server].allies.members
-				var oppSide = btl[server].enemies.members
+				let partyName = btl[server].battleteam
+				let allyParty = btl[server].parties[btl[server].battleteam]
+				let allySide = btl[server].allies.members
+				let oppSide = btl[server].enemies.members
 				if (charFuncs.isOpposingSide(defs, btl[server])) {
 					allyParty = btl[server].parties[btl[server].battleteam2]
 					partyName = btl[server].battleteam2
@@ -3826,7 +3857,7 @@ function advanceTurn(btl, server, ignorePet) {
 			defs = getBattlerFromID(btl[server], btl[server].turnorder[(btl[server].doturn && btl[server].doturn >= 0) ? btl[server].doturn : 0])
 
 			if (defs && defs.status && defs.status === 'illness') {
-				var chance = Math.round(Math.random()*100);
+				let chance = Math.round(Math.random()*100);
 
 				if (chance <= 33) {
 					shouldInfect = true;
@@ -3851,7 +3882,7 @@ function advanceTurn(btl, server, ignorePet) {
 			defs = getBattlerFromID(btl[server], btl[server].turnorder[btl[server].doturn])
 
 			// Should we skip this turn because the character is dead or negotiated
-			var skipTurn = false
+			let skipTurn = false
 			if (!defs.hp || defs.hp <= 0)
 				skipTurn = true;
 			if (defs.negotiated)
@@ -3888,19 +3919,21 @@ function advanceTurn(btl, server, ignorePet) {
 		fs.writeFile(dataPath+'/Battles/battle-' + server + '.json', JSON.stringify(btl, null, '    '), function(err) { if (err) throw err });	
 		return
 	}
+	
+	console.log(defs)
 
     // Send channel, also handles passives, status effects and shit
     if (btl[server].battling == true) {
-		var result = [{}, "continue"];
+		let result = [{}, "continue"];
 
-		var skillPath = dataPath+'/skills.json'
-		var skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-		var skillFile = JSON.parse(skillRead);
-		var itemPath = dataPath+'/items.json'
-		var itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
-		var itemFile = JSON.parse(itemRead);
+		let skillPath = dataPath+'/skills.json'
+		let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+		let skillFile = JSON.parse(skillRead);
+		let itemPath = dataPath+'/items.json'
+		let itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
+		let itemFile = JSON.parse(itemRead);
 
-		var fighterDefs = defs
+		var fighterDefs = defs;
 
 		if (shouldInfect && fighterDefs === infectTeam) {
 			fighterDefs.status = "illness";
@@ -3964,7 +3997,7 @@ function advanceTurn(btl, server, ignorePet) {
 		switch(weather) {
 			case 'hail':
 				if (!fighterDefs.mainElement || fighterDefs.mainElement != 'ice') {
-					var dmgAmount = Math.round(fighterDefs.maxhp/10)
+					let dmgAmount = Math.round(fighterDefs.maxhp/10)
 					if (fighterDefs.miniboss || fighterDefs.boss || fighterDefs.diety)
 						dmgAmount = 15;
 
@@ -3977,7 +4010,7 @@ function advanceTurn(btl, server, ignorePet) {
 
 			case 'sandstorm':
 				if (!fighterDefs.mainElement || fighterDefs.mainElement != 'earth') {
-					var dmgAmount = Math.round(fighterDefs.maxhp/20)
+					let dmgAmount = Math.round(fighterDefs.maxhp/20)
 					if (fighterDefs.miniboss || fighterDefs.boss || fighterDefs.diety)
 						dmgAmount = 5;
 
@@ -3992,7 +4025,7 @@ function advanceTurn(btl, server, ignorePet) {
 
 		switch(terrain) {
 			case 'grassy':
-				var healAmount = Math.round(fighterDefs.maxhp/10)
+				let healAmount = Math.round(fighterDefs.maxhp/10)
 				if (fighterDefs.miniboss || fighterDefs.boss || fighterDefs.diety)
 					healAmount = 20;
 
@@ -4021,7 +4054,7 @@ function advanceTurn(btl, server, ignorePet) {
 			btl[server].changeweather.weathertime--;
 			
 			if (btl[server].changeweather.weathertime <= 0) {
-				var theWeather = btl[server].changeweather.weather
+				let theWeather = btl[server].changeweather.weather
 				client.channels.fetch(btl[server].battlechannel)
 					.then(channel => channel.send(`The ${theWeather} weather subsided.`))
 
@@ -4033,7 +4066,7 @@ function advanceTurn(btl, server, ignorePet) {
 			btl[server].changeterrain.terraintime--;
 			
 			if (btl[server].changeterrain.terraintime <= 0) {
-				var theTerrain = btl[server].changeterrain.terrain
+				let theTerrain = btl[server].changeterrain.terrain
 				client.channels.fetch(btl[server].battlechannel)
 					.then(channel => channel.send(`The ${theTerrain} weather subsided.`))
 
@@ -4041,7 +4074,7 @@ function advanceTurn(btl, server, ignorePet) {
 			}
 		}
 		
-		var partyDefs = btl[server].parties[btl[server].battleteam];
+		let partyDefs = btl[server].parties[btl[server].battleteam];
 		if (charFuncs.isOpposingSide(fighterDefs, btl[server]))
 			partyDefs = btl[server].parties[btl[server].battleteam2];
 
@@ -4069,7 +4102,7 @@ function advanceTurn(btl, server, ignorePet) {
 }
 
 function sendCharStats(user, charDefs) {
-	var charAffs = "";
+	let charAffs = "";
 	for (const i in charDefs.superweak) {charAffs += `${charDefs.superweak[i]} super weakness.\n`}
 	for (const i in charDefs.weak) {charAffs += `${charDefs.weak[i]} weakness.\n`}
 	for (const i in charDefs.resist) {charAffs += `${charDefs.resist[i]} resist.\n`}
@@ -4078,9 +4111,9 @@ function sendCharStats(user, charDefs) {
 	for (const i in charDefs.drain) {charAffs += `${charDefs.drain[i]} drain.\n`}
 	if (charAffs === "") {charAffs = "No Affinities that battle."}
 	
-	var charPassives = ''
+	let charPassives = ''
 	for (const i in charDefs.skills) {
-		var skillDefs = readSkill(charDefs.skills[i])
+		let skillDefs = readSkill(charDefs.skills[i])
 		
 		if (skillDefs && skillDefs.passive)
 			charPassives += '\n' + skillDefs.name;
@@ -4101,7 +4134,7 @@ function sendCharStats(user, charDefs) {
 }
 
 function drawBattle(btl, server) {
-	var drawQuotes = [
+	let drawQuotes = [
 		"You're a bunch of idiots.",
 		"How did you even...???",
 		"That one point, down the drain.",
@@ -4123,7 +4156,7 @@ function drawBattle(btl, server) {
 		const charDefs = btl[server].allies.members[i]
 	
 		if ((btl[server].pvpmode === 'randstats' || btl[server].pvpmode === 'charfuck') && charDefs.owner) {			
-			var owner = client.users.fetch(charDefs.owner)
+			let owner = client.users.fetch(charDefs.owner)
 			owner.then(function(owner) {
 				sendCharStats(owner, charDefs)
 			})
@@ -4134,7 +4167,7 @@ function drawBattle(btl, server) {
 		const charDefs = btl[server].enemies.members[i]
 	
 		if ((btl[server].pvpmode === 'randstats' || btl[server].pvpmode === 'charfuck') && charDefs.owner) {			
-			var owner = client.users.fetch(charDefs.owner)
+			let owner = client.users.fetch(charDefs.owner)
 			owner.then(function(owner) {
 				sendCharStats(owner, charDefs)
 			})
@@ -4162,7 +4195,7 @@ function drawBattle(btl, server) {
 
 function nextWave(btl, server) {
     if (btl[server].colosseum[0] == true) {
-		var trialObj = btl[server].trials[btl[server].colosseum[2]]
+		let trialObj = btl[server].trials[btl[server].colosseum[2]]
 		if (trialObj.endless) {
 			// Level Up
 			if (!btl[server].colosseum[3]) {
@@ -4197,17 +4230,17 @@ function nextWave(btl, server) {
 			}
 
 			// Randomize Waves
-			var waveNum = utilityFuncs.randBetweenNums(btl[server].colosseum[3].lowerBound, btl[server].colosseum[3].upperBound)				
+			let waveNum = utilityFuncs.randBetweenNums(btl[server].colosseum[3].lowerBound, btl[server].colosseum[3].upperBound)				
 			btl[server].enemies.members = [];
 
 			// Spawn Wave
-			var bossWave = false;
-			var miniBossWave = false;
-			var battlerID = btl[server].allies.members.length
+			let bossWave = false;
+			let miniBossWave = false;
+			let battlerID = btl[server].allies.members.length
 			for (const trial in trialObj.waves[waveNum]) {
-				var enmName = trialObj.waves[waveNum][trial]
+				let enmName = trialObj.waves[waveNum][trial]
 				if (readEnm(enmName, server)) {
-					var enemyDefs = enemyFuncs.genEnm(enmName, server)
+					let enemyDefs = enemyFuncs.genEnm(enmName, server)
 					enemyDefs.id = battlerID;
 					
 
@@ -4256,13 +4289,13 @@ function nextWave(btl, server) {
 				btl[server].colosseum[1]++;
 				btl[server].enemies.members = [];
 
-				var bossWave = false;
-				var miniBossWave = false;
-				var battlerID = btl[server].allies.members.length
+				let bossWave = false;
+				let miniBossWave = false;
+				let battlerID = btl[server].allies.members.length
 				for (const trial in trialObj.waves[btl[server].colosseum[1]]) {
-					var enmName = trialObj.waves[btl[server].colosseum[1]][trial]
+					let enmName = trialObj.waves[btl[server].colosseum[1]][trial]
 					if (readEnm(enmName, server)) {
-						var enemyDefs = enemyFuncs.genEnm(enmName, server)
+						let enemyDefs = enemyFuncs.genEnm(enmName, server)
 						enemyDefs.id = battlerID;
 						
 						btl[server].enemies.members.push(enemyDefs);
@@ -4328,10 +4361,10 @@ function nextWave(btl, server) {
 }
 
 function loseColosseum(btl, server) {
-	var discordEmbed
-	var trialObj = btl[server].trials[btl[server].colosseum[2]]
+	var DiscordEmbed
+	let trialObj = btl[server].trials[btl[server].colosseum[2]]
 	if (trialObj.endless) {
-		var partyDefs = btl[server].parties[btl[server].battleteam]
+		let partyDefs = btl[server].parties[btl[server].battleteam]
 		if (!partyDefs.endless) {
 			partyDefs.endless = {
 				highscores: 0,
@@ -4362,13 +4395,13 @@ function loseColosseum(btl, server) {
 }
 	
 function winBattle(btl, server) {
-    var charPath = dataPath+'/characters.json'
-    var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-    var charFile = JSON.parse(charRead);
+    let charPath = dataPath+'/characters.json'
+    let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+    let charFile = JSON.parse(charRead);
 	
-	var servPath = dataPath+'/Server Settings/server.json'
-	var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-	var servFile = JSON.parse(servRead);
+	let servPath = dataPath+'/Server Settings/server.json'
+	let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+	let servFile = JSON.parse(servRead);
 	
 	if (btl[server].pvp) {
         if (!servFile[server]) {
@@ -4407,7 +4440,7 @@ function winBattle(btl, server) {
             }
         }
 		
-		var pointTxt = ''
+		let pointTxt = ''
 		for (const i in btl[server].allies.members) {
 			if (!servFile[server].pvpstuff || servFile[server].pvpstuff.legnth <= 3) {
 				servFile[server].pvpstuff = {
@@ -4419,7 +4452,7 @@ function winBattle(btl, server) {
 				}
 			}
 			
-			var pvpDefs = servFile[server].pvpstuff[btl[server].pvpmode]
+			let pvpDefs = servFile[server].pvpstuff[btl[server].pvpmode]
 			const charDefs = btl[server].allies.members[i]
 			
 			if (charDefs.owner && btl[server].ranked == true) {
@@ -4450,7 +4483,7 @@ function winBattle(btl, server) {
 			}
 				
 			if ((btl[server].pvpmode === 'randstats' || btl[server].pvpmode === 'charfuck') && charDefs.owner) {			
-				var owner = client.users.fetch(charDefs.owner)
+				let owner = client.users.fetch(charDefs.owner)
 				owner.then(function(owner) {
 					sendCharStats(owner, charDefs)
 				})
@@ -4461,7 +4494,7 @@ function winBattle(btl, server) {
 			const charDefs = btl[server].enemies.members[i]
 		
 			if ((btl[server].pvpmode === 'randstats' || btl[server].pvpmode === 'charfuck') && charDefs.owner) {			
-				var owner = client.users.fetch(charDefs.owner)
+				let owner = client.users.fetch(charDefs.owner)
 				owner.then(function(owner) {
 					sendCharStats(owner, charDefs)
 				})
@@ -4496,9 +4529,9 @@ function winBattle(btl, server) {
     }
 
     // XP and Rings
-    var totalXP = 0;
-    var totalRings = 0;
-	var isBigBoss = false;
+    let totalXP = 0;
+    let totalRings = 0;
+	let isBigBoss = false;
     for (const enemy in btl[server].enemies.members) {
 		const enmStats = btl[server].enemies.members[enemy]
 		const enmDefs = readEnm(btl[server].enemies.members[enemy].name, server)
@@ -4506,8 +4539,8 @@ function winBattle(btl, server) {
 		if (enmDefs.diety || enmDefs.bigboss)
 			isBigBoss = true;
 
-        var enmXP = Math.round(parseInt(enmDefs.awardxp) * parseFloat(servFile[server].xprate))
-		var enmRings = 100+Math.round(Math.random() * 100)
+        let enmXP = Math.round(parseInt(enmDefs.awardxp) * parseFloat(servFile[server].xprate))
+		let enmRings = 100+Math.round(Math.random() * 100)
 		if (isBigBoss)
             enmRings = 1000+Math.round(Math.random() * 500);
         else if (enmDefs.boss || enmDefs.miniboss)
@@ -4528,7 +4561,7 @@ function winBattle(btl, server) {
     }
 
 	for (const i in btl[server].allies.members) {
-		var charDefs = btl[server].allies.members[i]
+		let charDefs = btl[server].allies.members[i]
 		if (parseFloat(servFile[server].xprate) > 0)
 			totalXP += Math.round(charDefs.int*2.5);
 
@@ -4539,7 +4572,7 @@ function winBattle(btl, server) {
 			totalRings = Math.round(totalRings*1.7);
 	}
 	
-	var partyDefs = {
+	let partyDefs = {
 		members: [],
 		backup: []
 	}
@@ -4567,19 +4600,19 @@ function winBattle(btl, server) {
 		charDefs.xp = Math.round(charDefs.xp + totalXP);
 		console.log(`BattleStatus: ${charDefs.name} got ${totalXP}XP. (${charDefs.xp}/${charDefs.maxxp}XP)`)
 
-		var xpPercent = Math.floor((charDefs.xp/charDefs.maxxp)*100)
-		var xpSquares = xpPercent/10
-		var xpStr = `[${'🟦'.repeat(Math.max(0, xpSquares))}${'⬛'.repeat(Math.max(0, 10 - xpSquares))}]`
+		let xpPercent = Math.floor((charDefs.xp/charDefs.maxxp)*100)
+		let xpSquares = xpPercent/10
+		let xpStr = `[${'🟦'.repeat(Math.max(0, xpSquares))}${'⬛'.repeat(Math.max(0, 10 - xpSquares))}]`
 
 		client.channels.fetch(btl[server].battlechannel)
 			.then(channel => channel.send(`${charDefs.name} got **${totalXP}EXP**!\n${xpStr}`))
 
-		var shouldLevelUp = false;
+		let shouldLevelUp = false;
 		if (charDefs.xp >= charDefs.maxxp)
 			shouldLevelUp = true;
 
 		if (shouldLevelUp == true) {
-			var levelCount = 0
+			let levelCount = 0
 			while (charDefs.xp >= charDefs.maxxp) {
 				if (battlerDefs.lvlUpQueue)
 					charDefs.lvlUpQueue = battlerDefs.lvlUpQueue;
@@ -4590,9 +4623,9 @@ function winBattle(btl, server) {
 
 			console.log(`BattleStatus: ${charDefs.name} levelled up ${levelCount} time(s)`)
 			
-			var lvlQuote = ""
+			let lvlQuote = ""
 			if (charDefs.lvlquote && charDefs.lvlquote.length > 0) {
-				var possibleQuote = Math.round(Math.random() * (charDefs.lvlquote.length-1))
+				let possibleQuote = Math.round(Math.random() * (charDefs.lvlquote.length-1))
 				lvlQuote = `*${charDefs.name}: "${charDefs.lvlquote[possibleQuote]}"*\n\n`
 			}
 
@@ -4643,19 +4676,19 @@ function winBattle(btl, server) {
 		charDefs.xp = Math.round(charDefs.xp + totalXP/2);
 		console.log(`BattleStatus: ${charDefs.name} got ${totalXP/2}XP. (${charDefs.xp}/${charDefs.maxxp}XP)`)
 
-		var xpPercent = Math.floor((charDefs.xp/charDefs.maxxp)*100)
-		var xpSquares = xpPercent/5
-		var xpStr = `[${'🟦'.repeat(Math.max(0, xpSquares))}${'⬛'.repeat(Math.max(0, 20 - xpSquares))}]`
+		let xpPercent = Math.floor((charDefs.xp/charDefs.maxxp)*100)
+		let xpSquares = xpPercent/5
+		let xpStr = `[${'🟦'.repeat(Math.max(0, xpSquares))}${'⬛'.repeat(Math.max(0, 20 - xpSquares))}]`
 
 		client.channels.fetch(btl[server].battlechannel)
 			.then(channel => channel.send(`${charDefs.name} got **${Math.round(totalXP/2)}EXP**!\n${xpStr}`))
 
-		var shouldLevelUp = false;
+		let shouldLevelUp = false;
 		if (charDefs.xp >= charDefs.maxxp)
 			shouldLevelUp = true;
 
 		if (shouldLevelUp == true) {
-			var levelCount = 0
+			let levelCount = 0
 			while (charDefs.xp >= charDefs.maxxp) {
 				charFuncs.lvlUp(charDefs, false, server)
 				levelCount++;
@@ -4663,9 +4696,9 @@ function winBattle(btl, server) {
 
 			console.log(`BattleStatus: ${charDefs.name} levelled up ${levelCount} time(s)`)
 			
-			var lvlQuote = ""
+			let lvlQuote = ""
 			if (charDefs.lvlquote && charDefs.lvlquote.length > 0) {
-				var possibleQuote = Math.round(Math.random() * (charDefs.lvlquote.length-1))
+				let possibleQuote = Math.round(Math.random() * (charDefs.lvlquote.length-1))
 				lvlQuote = `*${charDefs.name}: "${charDefs.lvlquote[possibleQuote]}"*\n\n`
 			}
 
@@ -4705,9 +4738,9 @@ function winBattle(btl, server) {
 	let itemList = ``
 	
 	for (const enemy in btl[server].enemies.members) {
-		var lootPath = `${dataPath}/Loot/lootTables-${server}.json`
-		var lootRead = fs.readFileSync(lootPath, {flag: 'as+'});
-		var lootFile = JSON.parse(lootRead);
+		let lootPath = `${dataPath}/Loot/lootTables-${server}.json`
+		let lootRead = fs.readFileSync(lootPath, {flag: 'as+'});
+		let lootFile = JSON.parse(lootRead);
 
 		const enmDefs = readEnm(btl[server].enemies.members[enemy].name, server)
 
@@ -4719,7 +4752,7 @@ function winBattle(btl, server) {
 				let chanceInput = lootFile[enmDefs.loot].itemChances
 
 				for (const loot in itemInput) {
-					var itemChance = chanceInput[loot]
+					let itemChance = chanceInput[loot]
 					
 					if (btl[server].enemies.members[enemy].golden)
 						itemChance *= 4;
@@ -4763,9 +4796,9 @@ function winBattle(btl, server) {
 }
 
 function loseBattle(btl, server) {
-	var servPath = dataPath+'/Server Settings/server.json'
-	var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-	var servFile = JSON.parse(servRead);
+	let servPath = dataPath+'/Server Settings/server.json'
+	let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+	let servFile = JSON.parse(servRead);
 
 	// Colosseum
     if (btl[server].colosseum[0] == true) {
@@ -4804,7 +4837,7 @@ function loseBattle(btl, server) {
             }
         }
 		
-		var pointTxt = ''
+		let pointTxt = ''
 		for (const i in btl[server].enemies.members) {
 			if (!servFile[server].pvpstuff || servFile[server].pvpstuff <= 2) {
 				servFile[server].pvpstuff = {
@@ -4816,7 +4849,7 @@ function loseBattle(btl, server) {
 				}
 			}
 
-			var pvpDefs = servFile[server].pvpstuff[btl[server].pvpmode]
+			let pvpDefs = servFile[server].pvpstuff[btl[server].pvpmode]
 			const charDefs = btl[server].enemies.members[i]
 			
 			if (charDefs.owner && btl[server].ranked == true) {
@@ -4847,7 +4880,7 @@ function loseBattle(btl, server) {
 			}
 				
 			if ((btl[server].pvpmode === 'randstats' || btl[server].pvpmode === 'charfuck') && charDefs.owner) {			
-				var owner = client.users.fetch(charDefs.owner)
+				let owner = client.users.fetch(charDefs.owner)
 				owner.then(function(owner) {
 					sendCharStats(owner, charDefs)
 				})
@@ -4858,7 +4891,7 @@ function loseBattle(btl, server) {
 			const charDefs = btl[server].allies.members[i]
 		
 			if ((btl[server].pvpmode === 'randstats' || btl[server].pvpmode === 'charfuck') && charDefs.owner) {			
-				var owner = client.users.fetch(charDefs.owner)
+				let owner = client.users.fetch(charDefs.owner)
 				owner.then(function(owner) {
 					sendCharStats(owner, charDefs)
 				})
@@ -4884,9 +4917,9 @@ function loseBattle(btl, server) {
 		return true
 	}
 
-    var charPath = dataPath+'/characters.json'
-    var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-    var charFile = JSON.parse(charRead);
+    let charPath = dataPath+'/characters.json'
+    let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+    let charFile = JSON.parse(charRead);
 	
 	// Reset Members
     for (const ally in btl[server].allies.members) {
@@ -4917,7 +4950,7 @@ function loseBattle(btl, server) {
     }
 
 	// Remove Rings
-    var totalRings = Math.round((btl[server].parties[btl[server].battleteam].rings / 2) + (Math.random() * (btl[server].parties[btl[server].battleteam].rings / 3)))
+    let totalRings = Math.round((btl[server].parties[btl[server].battleteam].rings / 2) + (Math.random() * (btl[server].parties[btl[server].battleteam].rings / 3)))
 
     btl[server].parties[btl[server].battleteam].items = {}
     btl[server].parties[btl[server].battleteam].rings = btl[server].parties[btl[server].battleteam].rings - totalRings
@@ -4943,13 +4976,13 @@ function loseBattle(btl, server) {
 
 // Running away
 function runFromBattle(btl, server) {
-    var charPath = dataPath+'/characters.json'
-    var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-    var charFile = JSON.parse(charRead);
+    let charPath = dataPath+'/characters.json'
+    let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+    let charFile = JSON.parse(charRead);
 	
-	var servPath = dataPath+'/Server Settings/server.json'
-	var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-	var servFile = JSON.parse(servRead);
+	let servPath = dataPath+'/Server Settings/server.json'
+	let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+	let servFile = JSON.parse(servRead);
 
 	// Colosseum
     if (btl[server].colosseum[0] == true) {
@@ -4958,12 +4991,12 @@ function runFromBattle(btl, server) {
     }
 
     // XP and Rings
-    var totalXP = 0;
-    var totalRings = Math.round(Math.random() * 100);
+    let totalXP = 0;
+    let totalRings = Math.round(Math.random() * 100);
     for (const enemy in btl[server].enemies.members) {
 		if (btl[server].enemies.members[enemy].hp <= 0) {
 			const enmDefs = readEnm(btl[server].enemies.members[enemy].name, server)
-			var enmXP = Math.round(parseInt(enmDefs.awardxp) * parseFloat(servFile[server].xprate))
+			let enmXP = Math.round(parseInt(enmDefs.awardxp) * parseFloat(servFile[server].xprate))
 
 			if (btl[server].enemies.members[enemy].golden)
 				enmXP *= 3
@@ -4996,12 +5029,12 @@ function runFromBattle(btl, server) {
 		client.channels.fetch(btl[server].battlechannel)
 			.then(channel => channel.send(`${charDefs.name} got **${totalXP}EXP**!`))
 
-		var shouldLevelUp = false;
+		let shouldLevelUp = false;
 		if (charDefs.xp >= charDefs.maxxp)
 			shouldLevelUp = true;
 
 		if (shouldLevelUp == true) {
-			var levelCount = 0
+			let levelCount = 0
 			while (charDefs.xp >= charDefs.maxxp) {
 				charFuncs.lvlUp(charDefs, false, server)
 				levelCount++;
@@ -5009,9 +5042,9 @@ function runFromBattle(btl, server) {
 
 			console.log(`BattleStatus: ${charDefs.name} levelled up ${levelCount} time(s)`)
 			
-			var lvlQuote = ""
+			let lvlQuote = ""
 			if (charDefs.lvlquote && charDefs.lvlquote.length > 0) {
-				var possibleQuote = Math.round(Math.random() * (charDefs.lvlquote.length-1))
+				let possibleQuote = Math.round(Math.random() * (charDefs.lvlquote.length-1))
 				lvlQuote = `*${charDefs.name}: "${charDefs.lvlquote[possibleQuote]}"*\n\n`
 			}
 
@@ -5039,9 +5072,9 @@ function runFromBattle(btl, server) {
 		if (btl[server].enemies.members[enemy].hp > 0)
 			continue;
 
-		var lootPath = `${dataPath}/Loot/lootTables-${server}.json`
-		var lootRead = fs.readFileSync(lootPath, {flag: 'as+'});
-		var lootFile = JSON.parse(lootRead);
+		let lootPath = `${dataPath}/Loot/lootTables-${server}.json`
+		let lootRead = fs.readFileSync(lootPath, {flag: 'as+'});
+		let lootFile = JSON.parse(lootRead);
 
 		const enmDefs = readEnm(btl[server].enemies.members[enemy].name, server)
 
@@ -5079,23 +5112,22 @@ function runFromBattle(btl, server) {
 }
 
 function specialNegotiation(charDefs, enmDefs, i, channel, btl, negDefs) {
-	var negDefs = enmDefs.negotiateOptions[i]
-	var negotiationTxt = negDefs.action ? negDefs.action : 'thing happens';
+	let negotiationTxt = negDefs.action ? negDefs.action : 'thing happens';
 	
-	var pacifyThing = false
+	let pacifyThing = false
 
 	while (negotiationTxt.includes("%PLAYER%"))
 		negotiationTxt = negotiationTxt.replace("%PLAYER%", charDefs.name);
 	while (negotiationTxt.includes("%ENEMY%"))
 		negotiationTxt = negotiationTxt.replace("%ENEMY%", enmDefs.name);
 
-	var spec = negDefs.special.toLowerCase()
+	let spec = negDefs.special.toLowerCase()
 	switch(spec) {
 		case 'math':
-			var num1 = Math.max(4, utilityFuncs.randNum(20));
-			var num2 = utilityFuncs.randNum(10);
-			var sign = utilityFuncs.randBetweenNums(0, 3);
-			var signs = ['+', '-', '×', '÷']
+			let num1 = Math.max(4, utilityFuncs.randNum(20));
+			let num2 = utilityFuncs.randNum(10);
+			let sign = utilityFuncs.randBetweenNums(0, 3);
+			let signs = ['+', '-', '×', '÷']
 			negotiationTxt += `\n\n**Solve ${num1}${signs[sign] ? signs[sign] : '+'}${num2}!**`
 
 			const DiscordEmbed = new Discord.MessageEmbed()
@@ -5105,14 +5137,14 @@ function specialNegotiation(charDefs, enmDefs, i, channel, btl, negDefs) {
 			channel.send({embeds: [DiscordEmbed]})
 
 			var givenResponce = false
-			var msgCol = channel.createMessageCollector({ time: 15000 });
+			let msgCol = channel.createMessageCollector({ time: 15000 });
 			msgCol.on('collect', m => {
 				if (m.author.id == charDefs.owner) {
 					givenResponce = true;
 					msgCol.stop();
 
-					var correct = false
-					var num = parseFloat(m.content)
+					let correct = false
+					let num = parseFloat(m.content)
 					switch(sign) {
 						case 1:
 							if (num == num1-num2)
@@ -5133,7 +5165,7 @@ function specialNegotiation(charDefs, enmDefs, i, channel, btl, negDefs) {
 					
 					if (correct == true) {
 						negotiationTxt = `${charDefs.name} gives a correct answer, and ${enmDefs.name} is satisified.`;
-						var convinceAmount = negDefs.convince
+						let convinceAmount = negDefs.convince
 						if (charFuncs.hasPassive(charDefs, "kindheart")) {
 							convinceAmount += Math.round((convinceAmount/100)*25)
 						} else if (charFuncs.hasPassive(charDefs, "kindsoul")) {
@@ -5142,7 +5174,7 @@ function specialNegotiation(charDefs, enmDefs, i, channel, btl, negDefs) {
 						
 						enmDefs.negotiatePercent += convinceAmount;
 
-						var completelyConvinced = ''
+						let completelyConvinced = ''
 						if (enmDefs.negotiatePercent >= 100) {
 							const partyDefs = btl[channel.guild.id].parties[btl[channel.guild.id].battleteam]
 							if (!partyDefs.negotiates)
@@ -5168,7 +5200,7 @@ function specialNegotiation(charDefs, enmDefs, i, channel, btl, negDefs) {
 								if (partyDefs.negotiates[enmDefs.name] == enmDefs.negotiateDefs.required) {
 									completelyConvinced += '\n...but it returns to the group, it seems to like you!'
 
-									var enemyDefs = enemyFuncs.makePet(enmDefs)
+									let enemyDefs = enemyFuncs.makePet(enmDefs)
 									enemyDefs.name = enmDefs.name
 
 									partyDefs.negotiateAllies[enmDefs.name] = enemyDefs
@@ -5199,7 +5231,7 @@ function specialNegotiation(charDefs, enmDefs, i, channel, btl, negDefs) {
 						channel.send(`Do you want to keep the ${enmDefs.golden ? '<:golden:903369740142116887>' : ''}${enmDefs.name} as the current pet?`)
 						var givenResponce2 = false
 						var collector = channel.createMessageCollector({ time: 15000 });
-						var refMsg
+						let refMsg
 						collector.on('collect', message => {
 							refMsg = message;
 							if (message.author.id == charDefs.owner) {
@@ -5251,7 +5283,7 @@ function specialNegotiation(charDefs, enmDefs, i, channel, btl, negDefs) {
 		default: 
 			enmDefs[spec] = true;
 
-			var theEmbed = new Discord.MessageEmbed()
+			let theEmbed = new Discord.MessageEmbed()
 				.setColor('#d613cc')
 				.setTitle(`${charDefs.name} => ${enmDefs.name}`)
 				.setDescription(negotiationTxt)
@@ -5261,8 +5293,8 @@ function specialNegotiation(charDefs, enmDefs, i, channel, btl, negDefs) {
 }
 
 function doNegotiation(charDefs, enmDefs, i, channel, btl) {
-	var negDefs = enmDefs.negotiateOptions[i]
-	var negotiationTxt = negDefs.action ? negDefs.action : 'thing happens';
+	let negDefs = enmDefs.negotiateOptions[i]
+	let negotiationTxt = negDefs.action ? negDefs.action : 'thing happens';
 
 	while (negotiationTxt.includes("%PLAYER%"))
 		negotiationTxt = negotiationTxt.replace("%PLAYER%", charDefs.name);
@@ -5273,14 +5305,14 @@ function doNegotiation(charDefs, enmDefs, i, channel, btl) {
 	if (!enmDefs.negotiatePercent)
 		enmDefs.negotiatePercent = 0
 	
-	var pacifyThing = false;
+	let pacifyThing = false;
 
 	if (negDefs.require) {
 		if (enmDefs[negDefs.require[0].toLowerCase()] && enmDefs[negDefs.require[0].toLowerCase()] == true) {
 			if (negDefs.special && negDefs.special != 'none' && specialNegotiation(charDefs, enmDefs, i, channel, btl, negDefs)) {
 				return true;
 			} else {
-				var convinceAmount = negDefs.convince
+				let convinceAmount = negDefs.convince
 				if (charFuncs.hasPassive(charDefs, "kindheart")) {
 					convinceAmount += Math.round((convinceAmount/100)*25)
 				} else if (charFuncs.hasPassive(charDefs, "kindsoul")) {
@@ -5296,7 +5328,7 @@ function doNegotiation(charDefs, enmDefs, i, channel, btl) {
 				while (negotiationTxt.includes("%ENEMY%"))
 					negotiationTxt = negotiationTxt.replace("%ENEMY%", enmDefs.name);
 
-				var completelyConvinced = ''
+				let completelyConvinced = ''
 				if (enmDefs.negotiatePercent >= 100) {
 					const partyDefs = btl[channel.guild.id].parties[btl[channel.guild.id].battleteam]
 					if (!partyDefs.negotiates)
@@ -5322,7 +5354,7 @@ function doNegotiation(charDefs, enmDefs, i, channel, btl) {
 						if (partyDefs.negotiates[enmDefs.name] == enmDefs.negotiateDefs.required) {
 							completelyConvinced += '\n...but it returns to the group, it seems to like you!'
 
-							var enemyDefs = enemyFuncs.makePet(enmDefs)
+							let enemyDefs = enemyFuncs.makePet(enmDefs)
 							enemyDefs.name = enmDefs.name
 
 							partyDefs.negotiateAllies[enmDefs.name] = enemyDefs
@@ -5345,7 +5377,7 @@ function doNegotiation(charDefs, enmDefs, i, channel, btl) {
 					
 					var givenResponce2 = false
 					var collector = channel.createMessageCollector({ time: 15000 });
-					var refMsg
+					let refMsg
 					collector.on('collect', message => {
 						refMsg = message
 						if (message.author.id == charDefs.owner) {
@@ -5396,7 +5428,7 @@ function doNegotiation(charDefs, enmDefs, i, channel, btl) {
 		if (specialNegotiation(charDefs, enmDefs, i, channel, btl, negDefs))
 			return true;
 	} else {
-		var convinceAmount = negDefs.convince
+		let convinceAmount = negDefs.convince
 		if (charFuncs.hasPassive(charDefs, "kindheart")) {
 			convinceAmount += Math.round((convinceAmount/100)*25)
 		} else if (charFuncs.hasPassive(charDefs, "kindsoul")) {
@@ -5405,7 +5437,7 @@ function doNegotiation(charDefs, enmDefs, i, channel, btl) {
 
 		enmDefs.negotiatePercent += convinceAmount;
 
-		var completelyConvinced = ''
+		let completelyConvinced = ''
 		if (enmDefs.negotiatePercent >= 100) {
 			const partyDefs = btl[channel.guild.id].parties[btl[channel.guild.id].battleteam]
 			if (!partyDefs.negotiates)
@@ -5431,7 +5463,7 @@ function doNegotiation(charDefs, enmDefs, i, channel, btl) {
 				if (partyDefs.negotiates[enmDefs.name] == enmDefs.negotiateDefs.required) {
 					completelyConvinced += '\n...but it returns to the group, it seems to like you!'
 
-					var enemyDefs = enemyFuncs.makePet(enmDefs)
+					let enemyDefs = enemyFuncs.makePet(enmDefs)
 					enemyDefs.name = enmDefs.name
 
 					partyDefs.negotiateAllies[enmDefs.name] = enemyDefs
@@ -5455,7 +5487,7 @@ function doNegotiation(charDefs, enmDefs, i, channel, btl) {
 			
 			var givenResponce2 = false
 			var collector = channel.createMessageCollector({ time: 15000 });
-			var refMsg
+			let refMsg
 			collector.on('collect', message => {
 				refMsg = message
 				if (message.author.id == charDefs.owner) {
@@ -5492,7 +5524,7 @@ function doNegotiation(charDefs, enmDefs, i, channel, btl) {
 function enemyMove(enmID, btl, channel) {
 	console.log('enemyMove(): Search for ID ' + enmID)
 
-	var userDefs
+	let userDefs
 	for (const i in btl[channel.guild.id].allies.members) {
 		if (enmID == btl[channel.guild.id].allies.members[i].id) {
 			userDefs = btl[channel.guild.id].allies.members[i]
@@ -5507,19 +5539,19 @@ function enemyMove(enmID, btl, channel) {
 		}
 	}
 	
-	var enmName = userDefs.name
+	let enmName = userDefs.name
 	
-	var allySide = btl[channel.guild.id].allies.members
-	var opposingSide = btl[channel.guild.id].enemies.members
+	let allySide = btl[channel.guild.id].allies.members
+	let opposingSide = btl[channel.guild.id].enemies.members
 	if (charFuncs.isOpposingSide(userDefs, btl[channel.guild.id])) {
 		allySide = btl[channel.guild.id].enemies.members
 		opposingSide = btl[channel.guild.id].allies.members
 	}
 	
 	/*
-	var possibleSkills = [];
+	let possibleSkills = [];
 	for (const i in userDefs.skills) {
-		var skillDefs = readSkill(userDefs.skills[i])
+		let skillDefs = readSkill(userDefs.skills[i])
 		
 		if (!skillDefs.passive && skillDefs.type != "passive") {
 			if (userDefs.status === "ego") {
@@ -5530,8 +5562,8 @@ function enemyMove(enmID, btl, channel) {
 		}
 	}
 	
-	var useskill;
-	var skill;
+	let useskill;
+	let skill;
 	if (possibleSkills.length > 0) {
 		skill = Math.round(Math.random() * (possibleSkills.length - 1))
 		if (possibleSkills[skill]) {
@@ -5543,18 +5575,18 @@ function enemyMove(enmID, btl, channel) {
 	}
 	*/
 	
-	var thinkerFunc = enemyFuncs.thinkerFunc(userDefs, allySide, opposingSide)
+	let thinkerFunc = enemyFuncs.thinkerFunc(userDefs, allySide, opposingSide)
 	let useSkill = thinkerFunc[0], oppDefs = thinkerFunc[1], oppNum = thinkerFunc[2]
 
 	const skillPath = dataPath+'/skills.json'
 	const skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
 	const skillFile = JSON.parse(skillRead);
 
-	var skillName = useSkill
-	var skillDefs = skillFile[useSkill] ? skillFile[useSkill] : {name: userDefs.melee[0], pow: 30, type: userDefs.melee[1], crit: 20, atktype: "physical", melee: true}
+	let skillName = useSkill
+	let skillDefs = skillFile[useSkill] ? skillFile[useSkill] : {name: userDefs.melee[0], pow: 30, type: userDefs.melee[1], crit: 20, atktype: "physical", melee: true}
 	
 	if ((userDefs.status === 'silence' && (!skillDefs.atktype || skillDefs.atktype === 'magic')) || userDefs.status === 'dazed' && skillDefs.atktype === 'physical') {
-		var embedText = attackFuncs.meleeFoe(userDefs, oppDefs, channel.guild.id, null, btl)
+		let embedText = attackFuncs.meleeFoe(userDefs, oppDefs, channel.guild.id, null, btl)
 		const DiscordEmbed = new Discord.MessageEmbed()
 			.setColor('#fcba03')
 			.setTitle(`${embedText.targetText}`)
@@ -5573,9 +5605,9 @@ function enemyMove(enmID, btl, channel) {
 		return
 	}
 
-	var itemPath = dataPath+'/items.json'
-	var itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
-	var itemFile = JSON.parse(itemRead);
+	let itemPath = dataPath+'/items.json'
+	let itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
+	let itemFile = JSON.parse(itemRead);
 
 	if (userDefs.boss && userDefs.limitbreak) {
 		if (userDefs.lb >= userDefs.limitbreak.cost) {
@@ -5602,14 +5634,14 @@ function enemyMove(enmID, btl, channel) {
 				if (userDefs.atk > userDefs.mag)
 					skillDefs.atktype = "physical";
 
-   				var embedText = {}
+   				let embedText = {}
 				if (skillDefs.target === "allopposing") {
-					var embedTexts = []
+					let embedTexts = []
 					for (const i in opposingSide) {
-						var targDefs = opposingSide[i]
+						let targDefs = opposingSide[i]
 
 						if (userDefs.hp > 0) {
-							var embedTxt = attackFuncs.attackFoe(enmName, targDefs.name, userDefs, targDefs, skillDefs, false, channel.guild.id, btl);
+							let embedTxt = attackFuncs.attackFoe(enmName, targDefs.name, userDefs, targDefs, skillDefs, false, channel.guild.id, btl);
 							embedTexts.push(embedTxt)
 						}
 						
@@ -5645,11 +5677,11 @@ function enemyMove(enmID, btl, channel) {
 	}
 
 	if (skillDefs.copyskill) {
-		var possibleSkills = []
+		let possibleSkills = []
 		for (const val in allySide) {
 			if (allySide[val].id != userDefs.id) {
 				for (const i in allySide[val].skills) {
-					var skillDefs = skillFile[allySide[val].skills[i]]
+					let skillDefs = skillFile[allySide[val].skills[i]]
 					if (skillDefs && skillDefs.type != "heal" && (skillDefs.type != "status" && !skillDefs.buff) && skillFile[val].type != "passive") {
 						possibleSkills.push(val)
 					}
@@ -5658,8 +5690,8 @@ function enemyMove(enmID, btl, channel) {
 		}
 		
 		if (possibleSkills.length > 0) {
-			var skillVal = possibleSkills[Math.round(Math.random() * (possibleSkills.length-1))]
-			var copySkill = skillFile[skillVal]
+			let skillVal = possibleSkills[Math.round(Math.random() * (possibleSkills.length-1))]
+			let copySkill = skillFile[skillVal]
 			
 			console.log(`Chosen skill ${skillVal} of ${possibleSkills.length-1} skills`)
 			
@@ -5676,15 +5708,15 @@ function enemyMove(enmID, btl, channel) {
 	}
 	
 	if (skillDefs.metronome) {
-		var possibleSkill = []
+		let possibleSkill = []
 		for (const val in skillFile) {
 			if (skillFile[val].type != "heal" && (skillFile[val].type != "status" && !skillFile[val].buff) && skillFile[val].type != "passive") {
 				possibleSkill.push(val)
 			}
 		}
 
-		var skillVal = possibleSkill[Math.round(Math.random() * (possibleSkill.length-1))]
-		var metronomeSkill = skillFile[skillVal]
+		let skillVal = possibleSkill[Math.round(Math.random() * (possibleSkill.length-1))]
+		let metronomeSkill = skillFile[skillVal]
 		
 		console.log(`Chosen skill ${skillVal} of ${possibleSkill.length-1} skills`)
 		
@@ -5699,7 +5731,7 @@ function enemyMove(enmID, btl, channel) {
 	if (skillDefs.cost && skillDefs.costtype) {
 		if (skillDefs.costtype === "hp" && ! userDefs.boss && ! userDefs.miniboss && ! userDefs.bigboss) {
 			if (userDefs.hp <= skillDefs.cost) {
-				var embedText = attackFuncs.meleeFoe(userDefs, oppDefs, channel.guild.id, null, btl)
+				let embedText = attackFuncs.meleeFoe(userDefs, oppDefs, channel.guild.id, null, btl)
 				const DiscordEmbed = new Discord.MessageEmbed()
 					.setColor('#fcba03')
 					.setTitle(`${embedText.targetText}`)
@@ -5719,7 +5751,7 @@ function enemyMove(enmID, btl, channel) {
 			}
 		} else if (skillDefs.costtype === "mp") {
 			if (userDefs.mp < skillDefs.cost) {
-				var embedText = attackFuncs.meleeFoe(userDefs, oppDefs, channel.guild.id, null, btl)
+				let embedText = attackFuncs.meleeFoe(userDefs, oppDefs, channel.guild.id, null, btl)
 				const DiscordEmbed = new Discord.MessageEmbed()
 					.setColor('#fcba03')
 					.setTitle(`${embedText.targetText}`)
@@ -5739,7 +5771,7 @@ function enemyMove(enmID, btl, channel) {
 			}
 		} else if (skillDefs.costtype === "mppercent") {
 			if (userDefs.mp < ((userDefs.maxmp / 100) * skillDefs.cost)) {
-				var embedText = attackFuncs.meleeFoe(userDefs, oppDefs, channel.guild.id, null, btl)
+				let embedText = attackFuncs.meleeFoe(userDefs, oppDefs, channel.guild.id, null, btl)
 				const DiscordEmbed = new Discord.MessageEmbed()
 					.setColor('#fcba03')
 					.setTitle(`${embedText.targetText}`)
@@ -5759,7 +5791,7 @@ function enemyMove(enmID, btl, channel) {
 			}
 		} else if (!userDefs.boss && ! userDefs.miniboss && ! userDefs.bigboss) {
 			if (userDefs.hp < ((userDefs.maxhp / 100) * skillDefs.cost)) {
-				var embedText = attackFuncs.meleeFoe(userDefs, oppDefs, channel.guild.id, null, btl)
+				let embedText = attackFuncs.meleeFoe(userDefs, oppDefs, channel.guild.id, null, btl)
 				const DiscordEmbed = new Discord.MessageEmbed()
 					.setColor('#fcba03')
 					.setTitle(`${embedText.targetText}`)
@@ -5785,7 +5817,7 @@ function enemyMove(enmID, btl, channel) {
 		if (skillDefs.healall || skillDefs.target && skillDefs.target === "allallies") {
 			if (skillDefs.fullheal) {
 				for (const i in allySide) {
-					var partyDef = allySide[i]
+					let partyDef = allySide[i]
 					if (partyDef.hp > 0) {
 						partyDef.hp = partyDef.maxhp
 					}
@@ -5799,7 +5831,7 @@ function enemyMove(enmID, btl, channel) {
 				channel.send({embeds: [DiscordEmbed]});
 			} else if (skillDefs.statusheal) {
 				for (const i in allySide) {
-					var partyDef = allySide[i]
+					let partyDef = allySide[i]
 					if (partyDef.hp > 0) {
 						if (partyDef.status === "hunger") {
 							partyDef.atk = Math.round(partyDef.atk*2)
@@ -5820,9 +5852,9 @@ function enemyMove(enmID, btl, channel) {
 					.setFooter(`${enmName}'s turn`);
 				channel.send({embeds: [DiscordEmbed]});
 			} else if (skillDefs.healmp) {
-				var txt = ``
+				let txt = ``
 				for (const i in allySide) {
-					var partyDef = allySide[i]
+					let partyDef = allySide[i]
 					partyDef.mp = Math.min(partyDef.maxmp, partyDef.mp + skillDefs.pow)
 					txt += `\n${partyDef.name}'s MP was restored by ${skillDefs.pow}. (${partyDef.mp}/${partyDef.maxmp}MP)`
 				}
@@ -5834,9 +5866,9 @@ function enemyMove(enmID, btl, channel) {
 					.setFooter(`${enmName}'s turn`);
 				channel.send({embeds: [DiscordEmbed]});
 			} else {
-				var txt = ``;
+				let txt = ``;
 				for (const i in allySide) {
-					var partyDef = allySide[i]
+					let partyDef = allySide[i]
 					if (partyDef.hp > 0) {
 						partyDef.hp = Math.min(partyDef.maxhp, partyDef.hp + skillDefs.pow)
 						txt += `\n${partyDef.name}'s HP was restored by ${skillDefs.pow}. (${partyDef.hp}/${partyDef.maxhp}HP)`
@@ -5851,8 +5883,8 @@ function enemyMove(enmID, btl, channel) {
 				channel.send({embeds: [DiscordEmbed]});
 			}
 		} else {
-			var allyDefs = userDefs
-			var allyName = enmName
+			let allyDefs = userDefs
+			let allyName = enmName
 
 			if (skillDefs.revive) {
 				for (const i in allySide) {
@@ -5970,28 +6002,28 @@ function enemyMove(enmID, btl, channel) {
 			channel.send({embeds: [DiscordEmbed]})
 		} else if (skillDefs.status && skillDefs.statuschance) {
 			if (skillDefs.statuschance > 0) {
-				var statusChance = Math.round(skillDefs.statuschance);
+				let statusChance = Math.round(skillDefs.statuschance);
 				if (userDefs.mainElement === 'status')
 					statusChance *= 1.1;
 
-				var targChance = (statusChance + (userDefs.chr - oppDefs.luk));
+				let targChance = (statusChance + (userDefs.chr - oppDefs.luk));
 				if (attackFuncs.physStatus(skillDefs.status))
 					targChance = (statusChance + (userDefs.luk - oppDefs.luk));
 
-				var chance = Math.round(Math.random()*100);
+				let chance = Math.round(Math.random()*100);
 
-				var finaltext = `${enmName} used ${skillName} on ${oppDefs.name}!`;
+				let finaltext = `${enmName} used ${skillName} on ${oppDefs.name}!`;
 				if (chance > targChance || statusChance >= 100) {
 					finaltext += ' ' + attackFuncs.inflictStatus(oppDefs, skillDefs)
 				} else {
 					finaltext += " But they dodged it!"
 
 					if (userDefs.missquote && userDefs.missquote.length > 0) {
-						var possibleQuote = Math.round(Math.random() * (userDefs.missquote.length-1))
+						let possibleQuote = Math.round(Math.random() * (userDefs.missquote.length-1))
 						finaltext += `\n*${enmName}: "${userDefs.missquote[possibleQuote]}"*`
 					}
 					if (oppDefs.dodgequote && oppDefs.dodgequote.length > 0) {
-						var possibleQuote = Math.round(Math.random() * (oppDefs.dodgequote.length-1))
+						let possibleQuote = Math.round(Math.random() * (oppDefs.dodgequote.length-1))
 						finaltext += `\n*${oppDefs.name}: "${oppDefs.dodgequote[possibleQuote]}"*`
 					}
 				}
@@ -6011,13 +6043,13 @@ function enemyMove(enmID, btl, channel) {
 				channel.send({embeds: [DiscordEmbed]})
 			}
 		} else if (skillDefs.buff) {
-			var buffCount = skillDefs.buffCount ? skillDefs.buffCount : 1
-			var buffTxt = ['', '', ' twice', ' three times', ' four times', ' five times', ' completely']
+			let buffCount = skillDefs.buffCount ? skillDefs.buffCount : 1
+			let buffTxt = ['', '', ' twice', ' three times', ' four times', ' five times', ' completely']
 
 			if (skillDefs.target == "allallies") {
 				for (let i = 0; i < buffCount; i++) {
 					for (const i in allySide) {
-						var charDefs = allySide[i]
+						let charDefs = allySide[i]
 						if (skillDefs.buff == "all") {
 							charDefs.buffs.atk = Math.min(3, charDefs.buffs.atk+1)
 							charDefs.buffs.mag = Math.min(3, charDefs.buffs.mag+1)
@@ -6059,7 +6091,7 @@ function enemyMove(enmID, btl, channel) {
 		} else if (skillDefs.debuff) {
 			if (skillDefs.target == "allopposing") {
 				for (const i in opposingSide) {
-					var charDefs = opposingSide[i]
+					let charDefs = opposingSide[i]
 					if (skillDefs.debuff == "all") {
 						charDefs.buffs.atk = Math.max(-3, charDefs.buffs.atk-1)
 						charDefs.buffs.mag = Math.max(-3, charDefs.buffs.mag-1)
@@ -6095,10 +6127,10 @@ function enemyMove(enmID, btl, channel) {
 				channel.send({embeds: [DiscordEmbed]})
 			}
 		} else if (skillDefs.dualbuff) {
-			var statStuff = '';
+			let statStuff = '';
 			if (skillDefs.target == "allallies") {
 				for (const i in allySide) {
-					var charDefs2 = allySide[i]
+					let charDefs2 = allySide[i]
 
 					for (const k in skillDefs.dualbuff) {
 						charDefs2.buffs[skillDefs.dualbuff[k]] = Math.min(3, charDefs2.buffs[skillDefs.dualbuff[k]]+1);
@@ -6140,10 +6172,10 @@ function enemyMove(enmID, btl, channel) {
 				channel.send({embeds: [DiscordEmbed]})
 			}
 		} else if (skillDefs.dekaja) {
-			var debuffStats = ['atk', 'mag', 'end', 'agl', 'prc']
+			let debuffStats = ['atk', 'mag', 'end', 'agl', 'prc']
 			if (skillDefs.target == "allopposing") {
 				for (const i in opposingSide) {
-					var charDefs2 = oppSide[i]
+					let charDefs2 = oppSide[i]
 					for (const k in debuffStats) {
 						if (charDefs2.buffs[debuffStats[k]] > 0)
 							charDefs2.buffs[debuffStats[k]] = 0;
@@ -6180,14 +6212,14 @@ function enemyMove(enmID, btl, channel) {
 				.setDescription(`${enmName} used ${skillDefs.name}!\n${oppDefs.name} is going to be affected by ${enmName}'s future attack.`)
 			channel.send({embeds: [DiscordEmbed]})
 		} else if (skillDefs.clone) {
-			var cloneDefs = utilityFuncs.cloneObj(userDefs)
+			let cloneDefs = utilityFuncs.cloneObj(userDefs)
 			cloneDefs.hp = 100
 			cloneDefs.maxhp = 100
 			cloneDefs.mp = 80
 			cloneDefs.maxmp = 80
 			cloneDefs.npc = true
 			
-			var battlerID = 0
+			let battlerID = 0
 			for (const i in allySide)
 				battlerID++;
 			for (const i in opposingSide)
@@ -6225,7 +6257,7 @@ function enemyMove(enmID, btl, channel) {
 				.setDescription(`${enmName} is no-longer mimicking their target.`);
 			channel.send({embeds: [DiscordEmbed]})
 		} else if (skillDefs.weather) {
-			var weatherMessage = {
+			let weatherMessage = {
 				rain: 'It begun to rain!',
 				thunder: 'Thunder begun, coming out of nowhere!',
 				sunlight: 'The sun shone brightly.',
@@ -6283,7 +6315,7 @@ function enemyMove(enmID, btl, channel) {
 			}
 
 			// ok go
-			var newChar = utilityFuncs.cloneObj(userDefs)
+			let newChar = utilityFuncs.cloneObj(userDefs)
 
 			//Starting Name
 			newChar.maxhp = Math.round(userDefs.maxhp / 4)
@@ -6330,13 +6362,13 @@ function enemyMove(enmID, btl, channel) {
 				'Orangutan', 'Beaver', 'Ibis', 'Mongoose', 'Tamandua', 'Scorpio'
 			]
 
-			var name1 = statusOfLivingList[Math.floor(Math.random() * (statusOfLivingList.length - 1))]
-			var name2 = speciesList[Math.floor(Math.random() * (speciesList.length - 1))]
+			let name1 = statusOfLivingList[Math.floor(Math.random() * (statusOfLivingList.length - 1))]
+			let name2 = speciesList[Math.floor(Math.random() * (speciesList.length - 1))]
 
 			newChar.name = `${name1} ${name2}`
 
 			//Assign the new member an ID
-			var battlerID = 0
+			let battlerID = 0
 			for (const i in allySide)
 				battlerID++;
 			for (const i in opposingSide)
@@ -6347,14 +6379,14 @@ function enemyMove(enmID, btl, channel) {
 			// Assign Stats
 			const stats = ["atk", "mag", "end", "chr", "int", "luk", "prc", "agl"]
 			for (const k in stats) {
-				var statNum = utilityFuncs.randNum(33)
+				let statNum = utilityFuncs.randNum(33)
 				newChar[stats[k]] = statNum
 			}
 
 			// Assigning Skills
 			newChar.skills = []
 
-			var possibleSkills = ["Agilao", "Bufula", "Zionga", "Garula", "Hanama", "Aques", "Psio", "Jino", "Diarama", "Makakaja", "Tarukaja"]
+			let possibleSkills = ["Agilao", "Bufula", "Zionga", "Garula", "Hanama", "Aques", "Psio", "Jino", "Diarama", "Makakaja", "Tarukaja"]
 			for (let k = 0; k < 2; k++) {
 				const skillName = possibleSkills[Math.round(Math.random() * (possibleSkills.length-1))]
 				newChar.skills.push(skillName)
@@ -6371,7 +6403,7 @@ function enemyMove(enmID, btl, channel) {
 			const affinities = ["superweak", "weak", "weak", "weak", "normal", "normal", "normal", "normal", "normal", "normal", "normal", "normal", "normal", "resist", "resist", "block", "repel", "drain"]
 			for (const k in Elements) {
 				if (Elements[k].type != "heal" && Elements[k].type != "status" && Elements[k].type != "passive" && Elements[k].type != "almighty"){
-					var statusNum = Math.floor(Math.random() * (affinities.length-1))
+					let statusNum = Math.floor(Math.random() * (affinities.length-1))
 					if (affinities[statusNum] != "normal") {newChar[affinities[statusNum]].push(Elements[k])}
 				}
 			}
@@ -6486,9 +6518,9 @@ client.once('ready', () => {
     }, 10000);
 
     setInterval(() => {
-        var relicPath = dataPath+'/RelicSearch/relicData.json'
-        var relicRead = fs.readFileSync(relicPath, {flag: 'as+'});
-        var relicData = JSON.parse(relicRead);
+        let relicPath = dataPath+'/RelicSearch/relicData.json'
+        let relicRead = fs.readFileSync(relicPath, {flag: 'as+'});
+        let relicData = JSON.parse(relicRead);
         for (const player in relicData) {
             relicData[player].findcooldown = relicData[player].findcooldown - 1
 
@@ -6505,16 +6537,16 @@ client.once('ready', () => {
     }, 60000);
 
     setInterval(() => {
-        var relicPath = dataPath+'/RelicSearch/relicFight.json'
-        var relicRead = fs.readFileSync(relicPath, {flag: 'as+'});
-        var relicFight = JSON.parse(relicRead);
+        let relicPath = dataPath+'/RelicSearch/relicFight.json'
+        let relicRead = fs.readFileSync(relicPath, {flag: 'as+'});
+        let relicFight = JSON.parse(relicRead);
 
         for (const key in relicFight) {
             if (relicFight[key].fighting == true) {
 				if (relicFight[key].finish)
 					delete relicFight[key];
 				else {
-					var readyMove = 0;
+					let readyMove = 0;
 					for (const i in relicFight[key].fighters) {
 						if (relicFight[key].fighters[i].move || relicFight[key].fighters[i].bot) {
 							readyMove += 1
@@ -6522,7 +6554,7 @@ client.once('ready', () => {
 					}
 
 					if (readyMove >= relicFight[key].fighters.length) {
-						var txt = ``
+						let txt = ``
 
 						const moves = ["phys", "mag", "guard"]
 						for (const i in relicFight[key].fighters) {
@@ -6542,19 +6574,19 @@ client.once('ready', () => {
 						if (txt === ``) 
 							txt = 'No actions...?';
 
-						var fighters = ``;
+						let fighters = ``;
 						for (const i in relicFight[key].fighters) {
 							fighters = fighters + `${relicFight[key].fighters[i].name} ❤${Math.max(0, relicFight[key].fighters[i].hp)}\n`;
 							relicFight[key].fighters[i].guard = null;
 						}
 
 						// Events
-						var eventTable = [
+						let eventTable = [
 							{
 								txt: 'A group of small gremins swarm in',
 								func: function(rb) {
 									for (let i = 0; i < 3; i++) {
-										var charDefs = RF.genChar('Gremlin', null, 6, 6, 6)
+										let charDefs = RF.genChar('Gremlin', null, 6, 6, 6)
 										charDefs.hp = 5
 										rb.fighters.push(charDefs)
 									}
@@ -6626,7 +6658,7 @@ client.once('ready', () => {
 						]
 
 						if (Math.random() < 0.2) {
-							var eventVal = eventTable[utilityFuncs.randNum(eventTable.length-1)]
+							let eventVal = eventTable[utilityFuncs.randNum(eventTable.length-1)]
 
 							txt += eventVal.txt
 							eventVal.func(relicFight[key])
@@ -6635,13 +6667,13 @@ client.once('ready', () => {
 						if (fighters === ``) 
 							fighters = 'No fighters...?';
 
-						var newFighterArray = []
+						let newFighterArray = []
 						for (const i in relicFight[key].fighters) {
 							if (relicFight[key].fighters[i].hp > 0)
 								newFighterArray.push(relicFight[key].fighters[i]);
 						}
 
-						var result = 0; // 0 - continue, 1 - win, 2 - tie
+						let result = 0; // 0 - continue, 1 - win, 2 - tie
 						if (newFighterArray.length == 1)
 							result = 1;
 						else if (newFighterArray.length <= 0)
@@ -6649,7 +6681,7 @@ client.once('ready', () => {
 
 						relicFight[key].fighters = newFighterArray
 
-						var embed = new Discord.MessageEmbed()
+						let embed = new Discord.MessageEmbed()
 							.setColor('#c2907e')
 							.setTitle('Relic Battle!')
 							.setDescription(`${txt}`)
@@ -6692,8 +6724,8 @@ client.on('messageCreate', async message => {
             const gsm = JSON.parse(gsmRead);
 
             if (message.author.id === gsm.init.id && gsm.words && gsm.setword == null) {
-                var gotWord = false;
-                var i = 0;
+                let gotWord = false;
+                let i = 0;
                 for (i = 0; i < gsm.words.length; i++) {
                     if (gsm.words[i].toLowerCase() === message.content.toLowerCase()) {
                         gsm.setword = gsm.words[i]
@@ -6751,9 +6783,9 @@ client.on('messageCreate', async message => {
             if (uno[i] && uno[i].playing) {
                 for (const j in uno[i].players) {
                     if (j == message.author.id) {
-                        var msg = message.content.toLowerCase().split(/ +/)
+                        let msg = message.content.toLowerCase().split(/ +/)
 
-                        var card = ["red", "0"]
+                        let card = ["red", "0"]
                         if (msg.includes("red")) {
                             card[0] = "red"
                         } else if (msg.includes("yellow")) {
@@ -6766,8 +6798,8 @@ client.on('messageCreate', async message => {
                             card[0] = "black"
                         }
 
-                        var k;
-                        var chosen = false;
+                        let k;
+                        let chosen = false;
                         for (k = 0; k <= 9; k++) {
                             if (msg.includes(k.toString())) {
                                 card[1] = k.toString();
@@ -6808,7 +6840,7 @@ client.on('messageCreate', async message => {
                                                 uno[i].danger = card[1];
                                         }
 
-                                        var newTable = []
+                                        let newTable = []
                                         if (uno[i].players[j].cards[k] != card)
                                             newTable.push(uno[i].players[j].cards[k]);
 
@@ -6834,9 +6866,9 @@ client.on('messageCreate', async message => {
 	}
 
     // Now normal commands.
-    var servPath = dataPath+'/Server Settings/server.json'
-    var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-    var servFile = JSON.parse(servRead);
+    let servPath = dataPath+'/Server Settings/server.json'
+    let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+    let servFile = JSON.parse(servRead);
 
     if (message && message.guild && message.guild.id) {
         if (!servFile[message.guild.id]) {
@@ -6881,10 +6913,10 @@ client.on('messageCreate', async message => {
     const prefix = (message.guild && servFile[message.guild.id]) ? servFile[message.guild.id].prefix : 'rpg!'
 	
 	if (message.mentions.users.first()) {
-		var bloomBattler = message.mentions.users.first();
+		let bloomBattler = message.mentions.users.first();
 
 		if (bloomBattler.id == "776480348757557308") {
-			var content = message.content.toLowerCase()
+			let content = message.content.toLowerCase()
 
 			if (content.includes("hello") || content.includes("hi") || content.includes("hewwo") || content.includes("heya")) {
 				message.channel.send('Hiiii! :)');
@@ -6925,16 +6957,16 @@ client.on('messageCreate', async message => {
 
 	// Set up Battle JSONs for this server
 	if (message.guild && message.guild.id) {
-		var btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
-		var btlCheck = fs.readFileSync(btlPath, {flag: 'as+'});
+		let btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
+		let btlCheck = fs.readFileSync(btlPath, {flag: 'as+'});
 		
 		if (btlCheck == '') {
 			btlCheck = '{}'
 			fs.writeFileSync(btlPath, btlCheck);
 		}
 
-		var enmPath = `${dataPath}/Enemies/enemies-${message.guild.id}.json`
-		var enmCheck = fs.readFileSync(enmPath, {flag: 'as+'});
+		let enmPath = `${dataPath}/Enemies/enemies-${message.guild.id}.json`
+		let enmCheck = fs.readFileSync(enmPath, {flag: 'as+'});
 
 		if (enmCheck == '') {
 			enmCheck = '{}'
@@ -7008,7 +7040,7 @@ client.on('messageCreate', async message => {
 					message.channel.send("This embed is super long, so, it's been split into pages. Please enter a number from 1-3 after ''battle''.");
 					return
 				} else {
-					var pageNum = parseInt(arg[2])
+					let pageNum = parseInt(arg[2])
 					
 					if (pageNum <= 1) {
 						DiscordEmbed = new Discord.MessageEmbed()
@@ -7175,10 +7207,10 @@ client.on('messageCreate', async message => {
     // Fun Commands //
     //////////////////
     if (command === 'ping') {
-		var pingVal = Date.now() - message.createdTimestamp
-		var latencyVal = Math.round(client.ws.ping)
+		let pingVal = Date.now() - message.createdTimestamp
+		let latencyVal = Math.round(client.ws.ping)
 		
-		var hit = "There! I hit it!"
+		let hit = "There! I hit it!"
 		if (pingVal > 50 || pingVal < -50 || latencyVal < 20) {
 			hit = "Darn, guess I missed."
 		}
@@ -7210,8 +7242,8 @@ client.on('messageCreate', async message => {
 			else if (num2 > 300)
                 return message.channel.send(`Your 2nd number (${num2}) has got to be a number below 300.`);
 
-			var totalNum = 0;
-			var resultsNums = [];
+			let totalNum = 0;
+			let resultsNums = [];
 			for (let i = 0; i < num2; i++) {
 				const resultNum = Math.ceil(Math.random() * num1)
 				resultsNums.push(resultNum)
@@ -7220,9 +7252,9 @@ client.on('messageCreate', async message => {
 
 			resultsNums.sort(function(a, b) {return a + b})
 
-			var resultsTxt = `(${resultsNums})`
+			let resultsTxt = `(${resultsNums})`
 
-			var endTxt = `Your result after multiple rolls is ${totalNum} ${resultsTxt} after rolling a ${num2}d${num1}.`
+			let endTxt = `Your result after multiple rolls is ${totalNum} ${resultsTxt} after rolling a ${num2}d${num1}.`
 			if (totalNum == 69)
 				endTxt += ' Therefore, I have a [prize](https://www.youtube.com/watch?v=ub82Xb1C8os) for you :)';
 
@@ -7235,7 +7267,7 @@ client.on('messageCreate', async message => {
 			if (num1 < 1)
                 return message.channel.send(`Your number (${num1}) has got to be a number above 1.`);
 
-            var resultNum = Math.ceil(Math.random() * num1)
+            let resultNum = Math.ceil(Math.random() * num1)
 			const DiscordEmbed = new Discord.MessageEmbed()
                 .setColor('#0099ff')
                 .setTitle(`${prefix}diceroll`)
@@ -7321,9 +7353,9 @@ client.on('messageCreate', async message => {
         if (arg[1]) {
             if (message.mentions.users.first()) {
                 const taggedUser = message.mentions.users.first();
-                var sceneText = `${message.author.username} & ${taggedUser.username} `
+                let sceneText = `${message.author.username} & ${taggedUser.username} `
 
-				var scenario = duoScenarios[Math.round(Math.random() * (duoScenarios.length - 1))]
+				let scenario = duoScenarios[Math.round(Math.random() * (duoScenarios.length - 1))]
 				sceneText = sceneText + scenario
 				const DiscordEmbed = new Discord.MessageEmbed()
 					.setColor('#0099ff')
@@ -7339,8 +7371,8 @@ client.on('messageCreate', async message => {
                 message.channel.send({embeds: [DiscordEmbed]})
             }
         } else {
-            var sceneText = `${message.author.username} `
-            var scenario = soloScenarios[Math.round(Math.random() * (soloScenarios.length - 1))]
+            let sceneText = `${message.author.username} `
+            let scenario = soloScenarios[Math.round(Math.random() * (soloScenarios.length - 1))]
             sceneText = sceneText + scenario
             const DiscordEmbed = new Discord.MessageEmbed()
                 .setColor('#0099ff')
@@ -7450,13 +7482,13 @@ client.on('messageCreate', async message => {
         gsm.words = [];
         gsm.setword = null;
 
-        var i;
+        let i;
         for (i = 0; i < 3; i++) {
             gsm.words.push(gsmWords[Math.round(Math.random() * (gsmWords.length - 1))])
         }
 
         message.author.send(`Choose from the **${gsm.words.length}** words:`)
-        var k;
+        let k;
         for (k = 0; k < gsm.words.length; k++) {
             message.author.send(`**${gsm.words[k]}**`)
         }
@@ -7485,7 +7517,7 @@ client.on('messageCreate', async message => {
     ]
 
     if (command === 'rq' || command === 'randquote' || command === 'randomquote' || command === 'quote') {
-        var quoteText = quotes[Math.round(Math.random() * (quotes.length - 1))]
+        let quoteText = quotes[Math.round(Math.random() * (quotes.length - 1))]
         const DiscordEmbed = new Discord.MessageEmbed()
             .setColor('#ffffff')
             .setDescription(`${quoteText}`)
@@ -7534,8 +7566,8 @@ client.on('messageCreate', async message => {
         if (mafiaFile[message.guild.id].players.length < 6)
             return message.channel.send("Not enough players! **6** is required!");
 
-        var mafia1 = Math.round(Math.random() * mafiaFile[message.guild.id].players.length)
-        var mafia2 = Math.round(Math.random() * mafiaFile[message.guild.id].players.length)
+        let mafia1 = Math.round(Math.random() * mafiaFile[message.guild.id].players.length)
+        let mafia2 = Math.round(Math.random() * mafiaFile[message.guild.id].players.length)
         while (mafia1 == mafia2)
             mafia2 = Math.round(Math.random() * mafiaFile[message.guild.id].players.length);
 
@@ -7603,7 +7635,7 @@ client.on('messageCreate', async message => {
 		}
 		
 		// Undefined
-		var allUndefined = true;
+		let allUndefined = true;
 		for (const i in arg) {
 			if (i < 1)
 				continue;
@@ -7614,7 +7646,7 @@ client.on('messageCreate', async message => {
 		
 		if (allUndefined) {
 			// Getting Candidates
-			var resulttext = "**Candidates:** \n"
+			let resulttext = "**Candidates:** \n"
 			for (const i in arg) {
 				if (i < 1)
 					continue;
@@ -7665,31 +7697,31 @@ client.on('messageCreate', async message => {
 		}
 
 		// Getting Candidates
-		var resulttext = "**Candidates:** \n"
+		let resulttext = "**Candidates:** \n"
 		for (i in shipCandidates)
 			resulttext = resulttext + `:small_orange_diamond: ${shipCandidates[i]} \n`
 		
 		//Splicing Name
-		var splicedName = ""
+		let splicedName = ""
 		for (i in shipCandidates) {
-			var nameToCut
+			let nameToCut
 			nameToCut = shipCandidates[i].slice(Math.floor(shipCandidates[i].length / shipCandidates.length * i), Math.round(shipCandidates[i].length / shipCandidates.length * (i + 1)))
 			splicedName += nameToCut
 		}
 
 		// Filtering Duplicates
-		var filtered = new Set(shipCandidates);
+		let filtered = new Set(shipCandidates);
 		shipCandidates = [...filtered]
 
 		//Fetching Love
-		var shipPath = dataPath+'/Ship/shipParameters.json'
-		var shipRead = fs.readFileSync(shipPath, {flag: 'as+'});
-		var shipFile = JSON.parse(shipRead);
+		let shipPath = dataPath+'/Ship/shipParameters.json'
+		let shipRead = fs.readFileSync(shipPath, {flag: 'as+'});
+		let shipFile = JSON.parse(shipRead);
 
-		var loveParameters = []
-		var loveResults = []
-		var loveCloseness = 0
-		var finalLoveCloseness = 0
+		let loveParameters = []
+		let loveResults = []
+		let loveCloseness = 0
+		let finalLoveCloseness = 0
 
 		for (i in shipCandidates) {
 			if (!shipFile[shipCandidates[i]]) {
@@ -7700,13 +7732,13 @@ client.on('messageCreate', async message => {
 				fs.writeFileSync(shipPath, JSON.stringify(shipFile, null, '    '));
 			}
 
-			var candidate = shipFile[shipCandidates[i]]
+			let candidate = shipFile[shipCandidates[i]]
 
 			loveParameters.push(candidate.loveParameter)
 		}
 
 		for (i in loveParameters) {
-			var secondID = parseInt(i) + 1
+			let secondID = parseInt(i) + 1
 
 			if (loveParameters.length > 1) {
 				if (loveParameters[secondID] != undefined) {
@@ -7730,7 +7762,7 @@ client.on('messageCreate', async message => {
         const loveLevel = ":white_medium_square:".repeat(loveIndex) + ":black_medium_square:".repeat(10 - loveIndex);
 
 		//footer reactions
-		var footerConditions = [
+		let footerConditions = [
 			`${(love <= 0) ? true : false}`,
 			`${(love <= 10 && love > 0) ? true : false}`,
 			`${(love <= 20 && love > 10) ? true : false}`,
@@ -7743,7 +7775,7 @@ client.on('messageCreate', async message => {
 			`${(love <= 90 && love > 80) ? true : false}`,
 			`${(love <= 99 && love > 90) ? true : false}`
 		]
-		var footerText = ""
+		let footerText = ""
 		
 		const footerTexts = [
 			[
@@ -7836,18 +7868,18 @@ client.on('messageCreate', async message => {
 	}
 
 	if (command === 'randomship') {    
-		var charPath = dataPath+'/characters.json'
-		var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-		var charFile = JSON.parse(charRead);
-		var arg = message.content.slice(prefix.length).trim().split(/ +/);
+		let charPath = dataPath+'/characters.json'
+		let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+		let charFile = JSON.parse(charRead);
+		let arg = message.content.slice(prefix.length).trim().split(/ +/);
 		
-		var possibleChars = []
+		let possibleChars = []
 		for (const i in charFile) {
 			if (!charFile[i].hidden)
 				possibleChars.push(charFile[i].name);
 		}
 
-		var shipCount = arg[1] ? parseInt(arg[1]) : 2
+		let shipCount = arg[1] ? parseInt(arg[1]) : 2
 		
 		arg = []
 		for (i = 0; i <= Math.min(2, shipCount); i++) {
@@ -7861,31 +7893,31 @@ client.on('messageCreate', async message => {
 			shipCandidates.push(arg[i]);
 
 		// Getting Candidates
-		var resulttext = "**Candidates:** \n"
+		let resulttext = "**Candidates:** \n"
 		for (i in shipCandidates)
 			resulttext += `:small_orange_diamond: ${shipCandidates[i]} \n`
 		
 		//Splicing Name
-		var splicedName = ""
+		let splicedName = ""
 		for (i in shipCandidates) {
-			var nameToCut
+			let nameToCut
 			nameToCut = shipCandidates[i].slice(Math.floor(shipCandidates[i].length / shipCandidates.length * i), Math.round(shipCandidates[i].length / shipCandidates.length * (i + 1)))
 			splicedName += nameToCut
 		}
 
 		// Filtering Duplicates
-		var filtered = new Set(shipCandidates);
+		let filtered = new Set(shipCandidates);
 		shipCandidates = [...filtered]
 
 		//Fetching Love
-		var shipPath = dataPath+'/Ship/shipParameters.json'
-		var shipRead = fs.readFileSync(shipPath, {flag: 'as+'});
-		var shipFile = JSON.parse(shipRead);
+		let shipPath = dataPath+'/Ship/shipParameters.json'
+		let shipRead = fs.readFileSync(shipPath, {flag: 'as+'});
+		let shipFile = JSON.parse(shipRead);
 
-		var loveParameters = []
-		var loveResults = []
-		var loveCloseness = 0
-		var finalLoveCloseness = 0
+		let loveParameters = []
+		let loveResults = []
+		let loveCloseness = 0
+		let finalLoveCloseness = 0
 
 		for (i in shipCandidates) {
 			if (!shipFile[shipCandidates[i]]) {
@@ -7896,13 +7928,13 @@ client.on('messageCreate', async message => {
 				fs.writeFileSync(shipPath, JSON.stringify(shipFile, null, '    '));
 			}
 
-			var candidate = shipFile[shipCandidates[i]]
+			let candidate = shipFile[shipCandidates[i]]
 
 			loveParameters.push(candidate.loveParameter)
 		}
 
 		for (i in loveParameters) {
-			var secondID = parseInt(i) + 1
+			let secondID = parseInt(i) + 1
 
 			if (loveParameters.length > 1) {
 				if (loveParameters[secondID] != undefined) {
@@ -7926,7 +7958,7 @@ client.on('messageCreate', async message => {
         const loveLevel = ":white_medium_square:".repeat(loveIndex) + ":black_medium_square:".repeat(10 - loveIndex);
 
 		//footer reactions
-		var footerConditions = [
+		let footerConditions = [
 			`${(love <= 0) ? true : false}`,
 			`${(love <= 10 && love > 0) ? true : false}`,
 			`${(love <= 20 && love > 10) ? true : false}`,
@@ -7939,7 +7971,7 @@ client.on('messageCreate', async message => {
 			`${(love <= 90 && love > 80) ? true : false}`,
 			`${(love <= 99 && love > 90) ? true : false}`
 		]
-		var footerText = ""
+		let footerText = ""
 		
 		const footerTexts = [
 			[
@@ -8045,9 +8077,9 @@ client.on('messageCreate', async message => {
 			return false
 		}
 
-		var foodPath = dataPath+'/foodConfig.json'
-		var foodRead = fs.readFileSync(foodPath, {flag: 'as+'});
-		var foodFile = JSON.parse(foodRead);
+		let foodPath = dataPath+'/foodConfig.json'
+		let foodRead = fs.readFileSync(foodPath, {flag: 'as+'});
+		let foodFile = JSON.parse(foodRead);
 
 		let scoopNumber
 		let repeatscoops
@@ -8063,7 +8095,7 @@ client.on('messageCreate', async message => {
 		//User-Based
 		for (const i in list) {
 			if (foodFile[list[i]] && foodFile[list[i]]['iceCream'] && foodFile[list[i]]['iceCream']['flavors']) {
-				var user = list[i]
+				let user = list[i]
 				for (const flavor in foodFile[list[i]]['iceCream']['flavors']) {
 					iceCreamFlavors.push(flavor)
 					iceCreamIDs.push(user)
@@ -8137,7 +8169,7 @@ client.on('messageCreate', async message => {
 		async function getIceCream(scoops, repeatScoops, message) {
 			let iceCreamResults = []
 			let iceCreamIDList = []
-			var iceCreamFlavorList = ''
+			let iceCreamFlavorList = ''
 
 			if (!isFinite(scoops)) {
 				for (const i in scoops) {
@@ -8145,8 +8177,8 @@ client.on('messageCreate', async message => {
 
 					iceCreamResults.push(scoops[i])
 
-					var failureLevel = 0
-					var userRandTable = []
+					let failureLevel = 0
+					let userRandTable = []
 
 					//if this flavor exists in your personal list
 					if (Math.round(Math.random() * 100) <= 40) { //which will look into 40% of the time
@@ -8155,7 +8187,7 @@ client.on('messageCreate', async message => {
 						else
 						failureLevel = 1
 					} else
-					failureLevel = 1
+						failureLevel = 1
 					
 					//if not, then it will search through the user list first
 					if (failureLevel == 1) {
@@ -8184,12 +8216,12 @@ client.on('messageCreate', async message => {
 
 				scoops = scoops.length
 			} else {
-				var iceCreamInput = [...iceCreamFlavors]
-				var IDInput = [...iceCreamIDs]
+				let iceCreamInput = [...iceCreamFlavors]
+				let IDInput = [...iceCreamIDs]
 				iceCreamResults = []
 				iceCreamFlavorList = ''
 			
-				for (var i = 1; i <= scoops; i++) {
+				for (let i = 1; i <= scoops; i++) {
 			
 					if (iceCreamInput.length < 1) {
 						iceCreamInput = [...iceCreamFlavors]
@@ -8197,7 +8229,7 @@ client.on('messageCreate', async message => {
 						console.log(`Oops. Ran out of ice cream flavors. Repeating the list.`)
 					}
 			
-					var flavorNum = Math.floor(Math.random() * iceCreamInput.length)
+					let flavorNum = Math.floor(Math.random() * iceCreamInput.length)
 			
 					iceCreamResults.push(iceCreamInput[flavorNum])
 					iceCreamIDList.push(IDInput[flavorNum])
@@ -8212,9 +8244,9 @@ client.on('messageCreate', async message => {
 		
 			console.log(`Flavors: ${iceCreamResults}\nIDs: ${iceCreamIDList}`)
 		
-			var filtered = new Set(iceCreamResults);
-			var iceCreamFiltered = [...filtered]
-			var iceCreamName = iceCreamFiltered.join(' ');
+			let filtered = new Set(iceCreamResults);
+			let iceCreamFiltered = [...filtered]
+			let iceCreamName = iceCreamFiltered.join(' ');
 		
 			///////////
 			// IMAGE //
@@ -8227,12 +8259,12 @@ client.on('messageCreate', async message => {
 			const cone = await Canvas.loadImage('./images/foodgenerators/icecream/cone.png')
 		
 			// This uses the canvas dimensions to stretch the image onto the entire canvas
-			var coneY = canvas.height - 240
+			let coneY = canvas.height - 240
 			context.drawImage(cone, 20, coneY, 161, 231);
 		
-			var lastScoopY
-			for (var i = 1; i <= scoops; i++) {
-				var scoop
+			let lastScoopY
+			for (let i = 1; i <= scoops; i++) {
+				let scoop
 
 				if (iceCreamIDList[iceCreamIDList.length - i] == 'official')
 					try {
@@ -8296,9 +8328,9 @@ client.on('messageCreate', async message => {
 	}
 
 	if (command == 'foodprivacy') {
-		var foodPath = dataPath+'/foodConfig.json'
-		var foodRead = fs.readFileSync(foodPath, {flag: 'as+'});
-		var foodFile = JSON.parse(foodRead);
+		let foodPath = dataPath+'/foodConfig.json'
+		let foodRead = fs.readFileSync(foodPath, {flag: 'as+'});
+		let foodFile = JSON.parse(foodRead);
 
 		if (!foodFile[message.author.id]) {
 			foodFile[message.author.id] = {}
@@ -8334,8 +8366,8 @@ client.on('messageCreate', async message => {
 			let categoryBlock = ``
 
 			for (i in foodFile[message.author.id]['privacy'][message.guild.id].blockedCategories) {
-				var categoryID = foodFile[message.author.id]['privacy'][message.guild.id].blockedCategories[i]
-				var category = message.guild.channels.cache.get(categoryID)
+				let categoryID = foodFile[message.author.id]['privacy'][message.guild.id].blockedCategories[i]
+				let category = message.guild.channels.cache.get(categoryID)
 				categoryBlock += `\n- ${category.name} *(${category.isText() ? 'Thread Parent' : 'Category'})*`
 			}
 
@@ -8345,8 +8377,8 @@ client.on('messageCreate', async message => {
 			let channelBlock = ``
 
 			for (i in foodFile[message.author.id]['privacy'][message.guild.id].blockedChannels) {
-				var channelID = foodFile[message.author.id]['privacy'][message.guild.id].blockedChannels[i]
-				var channel = message.guild.channels.cache.get(channelID)
+				let channelID = foodFile[message.author.id]['privacy'][message.guild.id].blockedChannels[i]
+				let channel = message.guild.channels.cache.get(channelID)
 				channelBlock += `\n- ${channel.name} *(${channel.isThread() ? 'Thread' : 'Channel'})*`
 			}
 
@@ -8383,12 +8415,12 @@ client.on('messageCreate', async message => {
 
 		if (arg[1] == 'category') {
 			
-			var categoryID = message.channel.parentId
+			let categoryID = message.channel.parentId
 
 			if (categoryID == null)
 			return message.channel.send(`There isn't a category this channel is appended to.`)
 
-			var addOrReduce = "add"
+			let addOrReduce = "add"
 			
 			for (i in foodFile[message.author.id]['privacy'][message.guild.id].blockedCategories) {
 				if (foodFile[message.author.id]['privacy'][message.guild.id].blockedCategories[i] == categoryID)
@@ -8408,9 +8440,9 @@ client.on('messageCreate', async message => {
 
 		if (arg[1] == 'channel') {
 			
-			var channelID = message.channel.id
+			let channelID = message.channel.id
 
-			var addOrReduce = "add"
+			let addOrReduce = "add"
 			
 			for (i in foodFile[message.author.id]['privacy'][message.guild.id].blockedChannels) {
 				if (foodFile[message.author.id]['privacy'][message.guild.id].blockedChannels[i] == channelID)
@@ -8441,13 +8473,13 @@ client.on('messageCreate', async message => {
             return false
 		}
 
-		var foodPath = dataPath+'/foodConfig.json'
-		var foodRead = fs.readFileSync(foodPath, {flag: 'as+'});
-		var foodFile = JSON.parse(foodRead);
+		let foodPath = dataPath+'/foodConfig.json'
+		let foodRead = fs.readFileSync(foodPath, {flag: 'as+'});
+		let foodFile = JSON.parse(foodRead);
 
-		var skillTxt = []
-		var nameTxt = []
-		var ownerTxt = []
+		let skillTxt = []
+		let nameTxt = []
+		let ownerTxt = []
 
 		if ((arg[1] && arg[1].toLowerCase() !== 'ic_flavor' && arg[1].toLowerCase() !== 'pi_sauce' && arg[1].toLowerCase() !== 'pi_cheese' && arg[1].toLowerCase() !== 'pi_topping'
 		&& arg[1].toLowerCase() !== 'pi_condiment') || !arg[1]) {
@@ -8466,12 +8498,12 @@ client.on('messageCreate', async message => {
         return false
 		}
 
-		var category = arg[1].toLowerCase()
+		let category = arg[1].toLowerCase()
 
-		var catText = ''
+		let catText = ''
 
-		var begmean = ''
-		var midmean = ''
+		let begmean = ''
+		let midmean = ''
 
 		if (category.startsWith(`ic_`)) {
 			begmean = 'iceCream'
@@ -8515,7 +8547,7 @@ client.on('messageCreate', async message => {
 				for (const i in list) {
 					if (list[i] == userID) {
 
-						var skip = false
+						let skip = false
 
 						//global block
 						if (foodFile[userID]['privacy'].globalBlock == true)
@@ -8552,8 +8584,8 @@ client.on('messageCreate', async message => {
 		}
 
 		if (arg[2] == 'me') {
-			var userID = message.author.id
-			var userName = message.author.username
+			let userID = message.author.id
+			let userName = message.author.username
 
 			if (!foodFile[userID] || !foodFile[userID][begmean] || !foodFile[userID][begmean][midmean] || foodFile[userID][begmean][midmean] == {})
 			return message.channel.send(`You don't have any ${catText} set.`)
@@ -8575,13 +8607,13 @@ client.on('messageCreate', async message => {
 			return message.channel.send(`Please provide a valid member ID, or mention someone.`)
 			}
 
-			var userID = arg[3].id
-			var userName = arg[3].username
+			let userID = arg[3].id
+			let userName = arg[3].username
 
 			if (!foodFile[userID] || !foodFile[userID][begmean] || !foodFile[userID][begmean][midmean] || foodFile[userID][begmean][midmean] == {})
 			return message.channel.send(`${userName} doesn't have any ${catText} set.`)
 
-			var skip = false
+			let skip = false
 
 			if (userID !== message.author.id) {
 				//global block
@@ -8632,13 +8664,13 @@ client.on('messageCreate', async message => {
             return false
 		}
 
-		var foodPath = dataPath+'/foodConfig.json'
-		var foodRead = fs.readFileSync(foodPath, {flag: 'as+'});
-		var foodFile = JSON.parse(foodRead);
+		let foodPath = dataPath+'/foodConfig.json'
+		let foodRead = fs.readFileSync(foodPath, {flag: 'as+'});
+		let foodFile = JSON.parse(foodRead);
 
-		var skillTxt = []
-		var nameTxt = []
-		var ownerTxt = []
+		let skillTxt = []
+		let nameTxt = []
+		let ownerTxt = []
 
 		let input = message.content.slice(prefix.length).trim()
 		input = input.slice(command.length).trim()
@@ -8672,12 +8704,12 @@ client.on('messageCreate', async message => {
 		}
 
 		let searchP = arguments[1]
-		var category = arguments[0]
+		let category = arguments[0]
 
-		var catText = ''
+		let catText = ''
 
-		var begmean = ''
-		var midmean = ''
+		let begmean = ''
+		let midmean = ''
 
 		if (category.startsWith(`ic_`)) {
 			begmean = 'iceCream'
@@ -8720,7 +8752,7 @@ client.on('messageCreate', async message => {
 			for (const i in list) {
 				if (list[i] == userID) {
 
-					var skip = false
+					let skip = false
 
 					//global block
 					if (foodFile[userID]['privacy'].globalBlock == true)
@@ -8806,9 +8838,9 @@ client.on('messageCreate', async message => {
         return false
 		}
 
-		var name = arguments[0]
-		var category = arguments[1].toLowerCase()
-		var imageFile
+		let name = arguments[0]
+		let category = arguments[1].toLowerCase()
+		let imageFile
 
 		if (message.attachments.first() && 
 		(   message.attachments.first().url.endsWith('.png') || message.attachments.first().url.endsWith('.jpg') || message.attachments.first().url.endsWith('.jpeg') ||
@@ -8830,9 +8862,9 @@ client.on('messageCreate', async message => {
 		} else
 			return message.channel.send("Please send a valid URL or image.");
 
-		var foodPath = dataPath+'/foodConfig.json'
-		var foodRead = fs.readFileSync(foodPath, {flag: 'as+'});
-		var foodFile = JSON.parse(foodRead);
+		let foodPath = dataPath+'/foodConfig.json'
+		let foodRead = fs.readFileSync(foodPath, {flag: 'as+'});
+		let foodFile = JSON.parse(foodRead);
 
 		if (!foodFile[message.author.id]) {
 			foodFile[message.author.id] = {}
@@ -8840,11 +8872,11 @@ client.on('messageCreate', async message => {
 			fs.writeFileSync(foodPath, JSON.stringify(foodFile, null, '    '));
 		}
 
-		var catText = ''
-		var smalltext = ''
+		let catText = ''
+		let smalltext = ''
 
-		var begmean = ''
-		var midmean = ''
+		let begmean = ''
+		let midmean = ''
 
 		if (category.startsWith(`ic_`)) {
 			begmean = 'iceCream'
@@ -8929,10 +8961,10 @@ client.on('messageCreate', async message => {
         return false
 		}
 
-		var category = arg[1]
+		let category = arg[1]
 
-		var catText = ''
-		var attachment
+		let catText = ''
+		let attachment
 
 		if (category.startsWith(`ic_`)) {
 			if (category.includes(`flavor`)) {
@@ -9005,17 +9037,17 @@ client.on('messageCreate', async message => {
         return false
 		}
 
-		var name = arguments[1]
-		var category = arguments[0].toLowerCase()
+		let name = arguments[1]
+		let category = arguments[0].toLowerCase()
 
-		var foodPath = dataPath+'/foodConfig.json'
-		var foodRead = fs.readFileSync(foodPath, {flag: 'as+'});
-		var foodFile = JSON.parse(foodRead);
+		let foodPath = dataPath+'/foodConfig.json'
+		let foodRead = fs.readFileSync(foodPath, {flag: 'as+'});
+		let foodFile = JSON.parse(foodRead);
 
-		var catText = ''
+		let catText = ''
 
-		var begmean = ''
-		var midmean = ''
+		let begmean = ''
+		let midmean = ''
 
 		if (category.startsWith(`ic_`)) {
 			begmean = 'iceCream'
@@ -9048,7 +9080,7 @@ client.on('messageCreate', async message => {
 		if (!foodFile[message.author.id][begmean][midmean][name])
 		return message.channel.send(`The **${name}** ${catText} doesn't exist in your list.`)
 
-		var length = 0
+		let length = 0
 
 		for (const i in foodFile[message.author.id][begmean][midmean])
 		length++
@@ -9106,22 +9138,22 @@ client.on('messageCreate', async message => {
         return false
 		}
 
-		var category = arguments[0]
-		var name = arguments[1]
+		let category = arguments[0]
+		let name = arguments[1]
 		
 		if (!arguments[2])
 		return message.channel.send(`Please specify the new name for that flavor.`)
 
-		var newname = arguments[2]
+		let newname = arguments[2]
 
-		var foodPath = dataPath+'/foodConfig.json'
-		var foodRead = fs.readFileSync(foodPath, {flag: 'as+'});
-		var foodFile = JSON.parse(foodRead);
+		let foodPath = dataPath+'/foodConfig.json'
+		let foodRead = fs.readFileSync(foodPath, {flag: 'as+'});
+		let foodFile = JSON.parse(foodRead);
 
-		var catText = ''
+		let catText = ''
 
-		var begmean = ''
-		var midmean = ''
+		let begmean = ''
+		let midmean = ''
 
 		if (category.startsWith(`ic_`)) {
 			begmean = 'iceCream'
@@ -9207,9 +9239,9 @@ client.on('messageCreate', async message => {
         return false
 		}
 
-		var name = arguments[1]
-		var category = arguments[0]
-		var imageFile
+		let name = arguments[1]
+		let category = arguments[0]
+		let imageFile
 
 		if (message.attachments.first() && 
 		(   message.attachments.first().url.endsWith('.png') || message.attachments.first().url.endsWith('.jpg') || message.attachments.first().url.endsWith('.jpeg') ||
@@ -9231,14 +9263,14 @@ client.on('messageCreate', async message => {
 		} else
 			return message.channel.send("Please send a valid URL or image.");
 
-		var foodPath = dataPath+'/foodConfig.json'
-		var foodRead = fs.readFileSync(foodPath, {flag: 'as+'});
-		var foodFile = JSON.parse(foodRead);
+		let foodPath = dataPath+'/foodConfig.json'
+		let foodRead = fs.readFileSync(foodPath, {flag: 'as+'});
+		let foodFile = JSON.parse(foodRead);
 
-		var catText = ''
+		let catText = ''
 
-		var begmean = ''
-		var midmean = ''
+		let begmean = ''
+		let midmean = ''
 
 		if (category.startsWith(`ic_`)) {
 			begmean = 'iceCream'
@@ -9305,9 +9337,9 @@ client.on('messageCreate', async message => {
             return false
 		}
 
-		var foodPath = dataPath+'/foodConfig.json'
-		var foodRead = fs.readFileSync(foodPath, {flag: 'as+'});
-		var foodFile = JSON.parse(foodRead);
+		let foodPath = dataPath+'/foodConfig.json'
+		let foodRead = fs.readFileSync(foodPath, {flag: 'as+'});
+		let foodFile = JSON.parse(foodRead);
 
 		let users = await message.guild.members.fetch().catch(console.error);
 		let list = users.map(m => m.id)
@@ -9336,7 +9368,7 @@ client.on('messageCreate', async message => {
 		//User-Based
 		for (const i in list) {
 			if (foodFile[list[i]] && foodFile[list[i]]['pizza']) {
-				var user = list[i]
+				let user = list[i]
 				for (const flavor in foodFile[list[i]]['pizza']['crusts']) {
 					crusts.push(flavor)
 					crustIDs.push(user)
@@ -9435,7 +9467,7 @@ client.on('messageCreate', async message => {
 			let toppingPick
 			let condimentPick
 
-			var whatwentwrong = ``
+			let whatwentwrong = ``
 
 			if (crusts.indexOf(crustPick) < 0 && crustPick !== 'None') {
 				whatwentwrong += (`\n-${crustPick} is not a valid crust. Defaulting to 'Standard'.`)
@@ -9458,8 +9490,8 @@ client.on('messageCreate', async message => {
 				setTimeout(() => msg.delete(), 5000)
 			})
 
-			var onetoListenTo = message.author.id
-			var contentOfMessage
+			let onetoListenTo = message.author.id
+			let contentOfMessage
 
 			message.channel.send(`👍 Now please, specify the toppings. You have 5 minutes.\nIf you don't want any toppigns, please type 'None'.`)
 			.then(msg => {
@@ -9592,42 +9624,40 @@ client.on('messageCreate', async message => {
 
 		async function getPizzaByNumber(toppings, repeatToppings, condiments, repeatCondiments, allowCheese, allowSauce, message) {
 			
-			var crustNumber = Math.floor(Math.random() * crusts.length)
-			var crust = crusts[crustNumber]
-			var crustID = crustIDs[crustNumber]
+			let crustNumber = Math.floor(Math.random() * crusts.length)
+			let crust = crusts[crustNumber]
+			let crustID = crustIDs[crustNumber]
 			
+			let sauce = "No Sauce"
 			if (allowSauce == 'true') {
-				var sauceNumber = Math.floor(Math.random() * sauces.length)
-				var sauce = sauces[sauceNumber]
-				var sauceID = sauceIDs[sauceNumber]
+				let sauceNumber = Math.floor(Math.random() * sauces.length)
+				sauce = sauces[sauceNumber]
+				let sauceID = sauceIDs[sauceNumber]
 			}
-			else
-				var sauce = "No Sauce"
 		
+			let cheese = "No Cheese"
 			if (allowCheese == 'true') {
-				var cheeseNumber = Math.floor(Math.random() * cheeses.length)
-				var cheese = cheeses[cheeseNumber]
-				var cheeseID = cheeseIDs[cheeseNumber]
+				let cheeseNumber = Math.floor(Math.random() * cheeses.length)
+				cheese = cheeses[cheeseNumber]
+				let cheeseID = cheeseIDs[cheeseNumber]
 			}
-			else
-				var cheese = "No Cheese"
+				
 		
 			//Toppings
-			var toppingInput = [...toppingTypes]
+			let toppingInput = [...toppingTypes]
 			let toppingIDList = []
-			var TIDInput = [...toppingIDs]
+			let TIDInput = [...toppingIDs]
 			let toppingResults = []
-			var toppingList = ''
+			let toppingList = ''
 		
-			for (var i = 1; i <= toppings; i++) {
-		
+			for (let i = 1; i <= toppings; i++) {
 				if (toppingInput.length < 1) {
 					toppingInput = [...toppingTypes]
 					TIDInput = [...toppingIDs]
 					console.log(`Oops. Ran out of pizza toppings. Repeating the list.`)
 				}
 		
-				var toppingNum = Math.floor(Math.random() * toppingInput.length)
+				let toppingNum = Math.floor(Math.random() * toppingInput.length)
 		
 				toppingResults.push(toppingInput[toppingNum])
 				toppingIDList.push(TIDInput[toppingNum])
@@ -9641,18 +9671,18 @@ client.on('messageCreate', async message => {
 		
 			console.log(`Toppings: ${toppingResults}\nIDs: ${toppingIDList}`)
 		
-			var filteredA = new Set(toppingResults);
-			var toppingsFilteres = [...filteredA]
-			var toppingName = toppingsFilteres.join(' ');
+			let filteredA = new Set(toppingResults);
+			let toppingsFilteres = [...filteredA]
+			let toppingName = toppingsFilteres.join(' ');
 		
 			//Condiments
-			var condimentInput = [...condimentTypes]
+			let condimentInput = [...condimentTypes]
 			let condimentResults = []
 			let condimentIDList = []
-			var CIDInput = [...condimentIDs]
-			var condimentList = ''
+			let CIDInput = [...condimentIDs]
+			let condimentList = ''
 		
-			for (var i = 1; i <= condiments; i++) {
+			for (let i = 1; i <= condiments; i++) {
 		
 				if (condimentInput.length < 1) {
 					condimentInput = [...condimentTypes]
@@ -9660,7 +9690,7 @@ client.on('messageCreate', async message => {
 					console.log(`Oops. Ran out of pizza condiments. Repeating the list.`)
 				}
 		
-				var condimentNum = Math.floor(Math.random() * condimentInput.length)
+				let condimentNum = Math.floor(Math.random() * condimentInput.length)
 		
 				condimentResults.push(condimentInput[condimentNum])
 				condimentIDList.push(CIDInput[condimentNum])
@@ -9694,7 +9724,7 @@ client.on('messageCreate', async message => {
 			}
 		
 			//crust
-			var crustDraw
+			let crustDraw
 
 			if (crustID == 'official')
 				try {
@@ -9712,7 +9742,7 @@ client.on('messageCreate', async message => {
 			drawRotated(0, crustDraw)
 			//sauce
 			if (allowSauce == 'true') {
-				var sauceDraw
+				let sauceDraw
 
 				if (sauceID == 'official')
 					try {
@@ -9731,7 +9761,7 @@ client.on('messageCreate', async message => {
 			}
 			//cheese
 			if (allowCheese == 'true') {
-				var cheeseDraw
+				let cheeseDraw
 
 				if (sauceID == 'official')
 					try {
@@ -9749,8 +9779,8 @@ client.on('messageCreate', async message => {
 				drawRotated(Math.random() * 360, cheeseDraw)
 			}
 			//toppings
-			for (var i = 1; i <= toppings; i++) {
-				var toppingDraw
+			for (let i = 1; i <= toppings; i++) {
+				let toppingDraw
 
 				if (toppingIDList[toppingIDList.length - i] == 'official')
 					try {
@@ -9768,8 +9798,8 @@ client.on('messageCreate', async message => {
 				drawRotated(Math.random() * 360, toppingDraw)
 			}
 			//condiments
-			for (var i = 1; i <= condiments; i++) {
-				var condimentDraw
+			for (let i = 1; i <= condiments; i++) {
+				let condimentDraw
 
 				if (condimentIDList[condimentIDList.length - i] == 'official')
 					try {
@@ -9848,11 +9878,11 @@ client.on('messageCreate', async message => {
 
 			if (crust == 'None') {
 				crust = 'Standard'
-				var crustID = 'official'
+				let crustID = 'official'
 			} else {
-				var crustID
-				var failureLevelC = 0
-				var userRandTable = []
+				let crustID
+				let failureLevelC = 0
+				let userRandTable = []
 
 				//if this flavor exists in your personal list
 				if (Math.round(Math.random() * 100) <= 40) { //which will look into 40% of the time
@@ -9890,9 +9920,9 @@ client.on('messageCreate', async message => {
 			if (sauce == 'None')
 				sauce = 'No Sauce'
 			else {
-				var sauceID
-				var failureLevelS = 0
-				var userRandTable = []
+				let sauceID
+				let failureLevelS = 0
+				let userRandTable = []
 
 				//if this flavor exists in your personal list
 				if (Math.round(Math.random() * 100) <= 40) { //which will look into 40% of the time
@@ -9929,9 +9959,9 @@ client.on('messageCreate', async message => {
 			if (cheese == 'None')
 				cheese = 'No Cheese'
 			else {
-				var cheeseID
-				var failureLevel = 0
-				var userRandTable = []
+				let cheeseID
+				let failureLevel = 0
+				let userRandTable = []
 
 				//if this flavor exists in your personal list
 				if (Math.round(Math.random() * 100) <= 40) { //which will look into 40% of the time
@@ -9967,15 +9997,15 @@ client.on('messageCreate', async message => {
 
 			let toppingResults = []
 			let toppingIDList = []
-			var toppingList = ''
+			let toppingList = ''
 			
 			for (const i in toppings) {
 				toppings[i].slice(1,toppings[i].length - 1)
 
 				toppingResults.push(toppings[i])
 
-				var failureLevelT = 0
-				var userRandTable = []
+				let failureLevelT = 0
+				let userRandTable = []
 
 				//if this flavor exists in your personal list
 				if (Math.round(Math.random() * 100) <= 40) { //which will look into 40% of the time
@@ -10014,22 +10044,22 @@ client.on('messageCreate', async message => {
 
 			console.log(`Toppings: ${toppingResults}\nIDs: ${toppingIDList}`)
 		
-			var filteredA = new Set(toppingResults);
-			var toppingsFilteres = [...filteredA]
-			var toppingName = toppingsFilteres.join(' ');
+			let filteredA = new Set(toppingResults);
+			let toppingsFilteres = [...filteredA]
+			let toppingName = toppingsFilteres.join(' ');
 		
 			//Condiments
 			let condimentResults = []
 			let condimentIDList = []
-			var condimentList = ''
+			let condimentList = ''
 			
 			for (const i in condiments) {
 				condiments[i].slice(1,condiments[i].length - 1)
 
 				condimentResults.push(condiments[i])
 
-				var failureLevelC = 0
-				var userRandTable = []
+				let failureLevelC = 0
+				let userRandTable = []
 
 				//if this flavor exists in your personal list
 				if (Math.round(Math.random() * 100) <= 40) { //which will look into 40% of the time
@@ -10088,7 +10118,7 @@ client.on('messageCreate', async message => {
 			}
 		
 			//crust
-			var crustDraw
+			let crustDraw
 
 			if (crustID == 'official')
 				try {
@@ -10106,7 +10136,7 @@ client.on('messageCreate', async message => {
 			drawRotated(0, crustDraw)
 			//sauce
 			if (sauce !== 'No Sauce') {
-				var sauceDraw
+				let sauceDraw
 
 				if (sauceID == 'official')
 					try {
@@ -10125,7 +10155,7 @@ client.on('messageCreate', async message => {
 			}
 			//cheese
 			if (cheese !== 'No Cheese') {
-				var cheeseDraw
+				let cheeseDraw
 
 				if (cheeseID == 'official')
 					try {
@@ -10143,8 +10173,8 @@ client.on('messageCreate', async message => {
 				drawRotated(Math.random() * 360, cheeseDraw)
 			}
 			//toppings
-			for (var i = 1; i <= toppings; i++) {
-				var toppingDraw
+			for (let i = 1; i <= toppings; i++) {
+				let toppingDraw
 
 				if (toppingIDList[toppingIDList.length - i] == 'official')
 					try {
@@ -10162,8 +10192,8 @@ client.on('messageCreate', async message => {
 				drawRotated(Math.random() * 360, toppingDraw)
 			}
 			//condiments
-			for (var i = 1; i <= condiments; i++) {
-				var condimentDraw
+			for (let i = 1; i <= condiments; i++) {
+				let condimentDraw
 
 				if (condimentIDList[condimentIDList.length - i] == 'official')
 					try {
@@ -10243,9 +10273,9 @@ client.on('messageCreate', async message => {
     // Relic Search! //
     ///////////////////
     if (command === 'relicsearch') {
-        var relicPath = dataPath+'/RelicSearch/relicData.json'
-        var relicRead = fs.readFileSync(relicPath, {flag: 'as+'});
-        var relicData = JSON.parse(relicRead);
+        let relicPath = dataPath+'/RelicSearch/relicData.json'
+        let relicRead = fs.readFileSync(relicPath, {flag: 'as+'});
+        let relicData = JSON.parse(relicRead);
 
         if (!relicData[message.author.id]) {
             relicData[message.author.id] = {
@@ -10269,10 +10299,10 @@ client.on('messageCreate', async message => {
 
         relicPath = dataPath+'/RelicSearch/relicDefs.json'
         relicRead = fs.readFileSync(relicPath, {flag: 'as+'});
-        var relicDefs = JSON.parse(relicRead);
+        let relicDefs = JSON.parse(relicRead);
 
-        var itemArr = []
-        var getItem;
+        let itemArr = []
+        let getItem;
         for (const itemName in relicDefs) {
             if (relicDefs[itemName].rarity >= 5) {
                 itemArr.push(`${itemName}`)
@@ -10305,21 +10335,21 @@ client.on('messageCreate', async message => {
 
         getItem = relicDefs[itemArr[Math.round(Math.random() * (itemArr.length-1))]]
 
-        var itemName = `${getItem.name}`
-        var itemStars = "⭐"
+        let itemName = `${getItem.name}`
+        let itemStars = "⭐"
         if (getItem.rarity == 5) {
-            var itemStars = "🌟🌟🌟🌟🌟"
+            let itemStars = "🌟🌟🌟🌟🌟"
         } else if (getItem.rarity == 4) {
-            var itemStars = "✨✨✨✨"
+            let itemStars = "✨✨✨✨"
         } else if (getItem.rarity == 3) {
-            var itemStars = "⭐⭐⭐"
+            let itemStars = "⭐⭐⭐"
         } else if (getItem.rarity == 2) {
-            var itemStars = "⭐⭐"
+            let itemStars = "⭐⭐"
         }
-        var itemSeries = `${getItem.series}`
-        var itemAtk = getItem.atk
-        var itemDef = getItem.def
-        var itemMag = getItem.mag
+        let itemSeries = `${getItem.series}`
+        let itemAtk = getItem.atk
+        let itemDef = getItem.def
+        let itemMag = getItem.mag
         const DiscordEmbed = new Discord.MessageEmbed()
             .setColor('#0099ff')
             .setTitle(`${itemName}`)
@@ -10330,24 +10360,24 @@ client.on('messageCreate', async message => {
     }
 
     if (command === 'checkrelics' || command === 'cr' || command === 'rr') {
-        var relicPath = dataPath+'/RelicSearch/relicData.json'
-        var relicRead = fs.readFileSync(relicPath, {flag: 'as+'});
-        var relicData = JSON.parse(relicRead);
-        var relicPath2 = dataPath+'/RelicSearch/relicDefs.json'
-        var relicRead2 = fs.readFileSync(relicPath2, {flag: 'as+'});
-        var relicDefs = JSON.parse(relicRead2);
+        let relicPath = dataPath+'/RelicSearch/relicData.json'
+        let relicRead = fs.readFileSync(relicPath, {flag: 'as+'});
+        let relicData = JSON.parse(relicRead);
+        let relicPath2 = dataPath+'/RelicSearch/relicDefs.json'
+        let relicRead2 = fs.readFileSync(relicPath2, {flag: 'as+'});
+        let relicDefs = JSON.parse(relicRead2);
 
         if (!relicData[message.author.id] || !relicData[message.author.id].relics) {
             message.channel.send("No relics!")
             return
         }
 
-        var m = ``;
+        let m = ``;
         for (const i in relicData[message.author.id].relics) {
             const relic = relicData[message.author.id].relics[i]
             const relicDef = relicDefs[relic]
 
-            var stars = "⭐"
+            let stars = "⭐"
             if (relicDef.rarity == 5) {
                 stars = "🌟🌟🌟🌟🌟"
             } else if (relicDef.rarity == 4) {
@@ -10375,35 +10405,35 @@ client.on('messageCreate', async message => {
     }
 
     if (command === 'getrelic') {
-        var relicPath = dataPath+'/RelicSearch/relicDefs.json'
-        var relicRead = fs.readFileSync(relicPath, {flag: 'as+'});
-        var relicDefs = JSON.parse(relicRead);
-        var relicPath2 = dataPath+'/RelicSearch/relicData.json'
-        var relicRead2 = fs.readFileSync(relicPath2, {flag: 'as+'});
-        var relicData = JSON.parse(relicRead2);
+        let relicPath = dataPath+'/RelicSearch/relicDefs.json'
+        let relicRead = fs.readFileSync(relicPath, {flag: 'as+'});
+        let relicDefs = JSON.parse(relicRead);
+        let relicPath2 = dataPath+'/RelicSearch/relicData.json'
+        let relicRead2 = fs.readFileSync(relicPath2, {flag: 'as+'});
+        let relicData = JSON.parse(relicRead2);
 
         const argument = message.content.slice(13)
-        var arg = argument
+        let arg = argument
 
         if (relicDefs[arg]) {
             const getItem = relicDefs[arg]
 
-            var itemName = `${getItem.name}`
-            var itemStars = "⭐"
+            let itemName = `${getItem.name}`
+            let itemStars = "⭐"
             if (getItem.rarity == 5) {
-                var itemStars = "🌟🌟🌟🌟🌟"
+                let itemStars = "🌟🌟🌟🌟🌟"
             } else if (getItem.rarity == 4) {
-                var itemStars = "✨✨✨✨"
+                let itemStars = "✨✨✨✨"
             } else if (getItem.rarity == 3) {
-                var itemStars = "⭐⭐⭐"
+                let itemStars = "⭐⭐⭐"
             } else if (getItem.rarity == 2) {
-                var itemStars = "⭐⭐"
+                let itemStars = "⭐⭐"
             }
-            var itemSeries = `${getItem.series}`
-            var itemAtk = getItem.atk
-            var itemDef = getItem.def
-            var itemMag = getItem.mag
-            var owned = "Not Owned"
+            let itemSeries = `${getItem.series}`
+            let itemAtk = getItem.atk
+            let itemDef = getItem.def
+            let itemMag = getItem.mag
+            let owned = "Not Owned"
             for (const relic in relicData[message.author.id].relics) {
                 if (relicData[message.author.id].relics[relic] === arg) {
                     owned = "**Owned**"
@@ -10428,18 +10458,18 @@ client.on('messageCreate', async message => {
 
     if (command === 'equip') {
         const argument = message.content.slice(prefix.length+5)
-        var arg = argument
+        let arg = argument
 
-        var relicPath = dataPath+'/RelicSearch/relicData.json'
-        var relicRead = fs.readFileSync(relicPath, {flag: 'as+'});
-        var relicData = JSON.parse(relicRead);
+        let relicPath = dataPath+'/RelicSearch/relicData.json'
+        let relicRead = fs.readFileSync(relicPath, {flag: 'as+'});
+        let relicData = JSON.parse(relicRead);
 
         if (!relicData[message.author.id] || !relicData[message.author.id].relics) {
             message.channel.send("No relics!")
             return
         }
 
-        var equip = ``;
+        let equip = ``;
         for (const i in relicData[message.author.id].relics) {
             if (arg === relicData[message.author.id].relics[i]) {
                 equip = relicData[message.author.id].relics[i]
@@ -10459,23 +10489,23 @@ client.on('messageCreate', async message => {
     }
 
     if (command === 'relicbattle' || command === 'rb') {
-		var relicPath = dataPath+'/RelicSearch/relicFight.json';
-		var relicRead = fs.readFileSync(relicPath, {flag: 'as+'});
-		var relicFight = JSON.parse(relicRead);
-		var relicEquipPath = dataPath+'/RelicSearch/relicData.json';
-		var relicEquipRead = fs.readFileSync(relicEquipPath, {flag: 'as+'});
-		var relicData = JSON.parse(relicEquipRead);
-		var relicDefsPath = dataPath+'/RelicSearch/relicDefs.json';
-		var relicDefsRead = fs.readFileSync(relicDefsPath, {flag: 'as+'});
-		var relicDefs = JSON.parse(relicDefsRead);
+		let relicPath = dataPath+'/RelicSearch/relicFight.json';
+		let relicRead = fs.readFileSync(relicPath, {flag: 'as+'});
+		let relicFight = JSON.parse(relicRead);
+		let relicEquipPath = dataPath+'/RelicSearch/relicData.json';
+		let relicEquipRead = fs.readFileSync(relicEquipPath, {flag: 'as+'});
+		let relicData = JSON.parse(relicEquipRead);
+		let relicDefsPath = dataPath+'/RelicSearch/relicDefs.json';
+		let relicDefsRead = fs.readFileSync(relicDefsPath, {flag: 'as+'});
+		let relicDefs = JSON.parse(relicDefsRead);
 		
 		var DiscordEmbed = {}
 
         if (!message.mentions.users.first()) {
             message.channel.send("Very well, I'll train you. \nPS: I'm a cheater.")
 
-            var player = message.author;
-            var enemy = message.mentions.users.first();
+            let player = message.author;
+            let enemy = message.mentions.users.first();
 			
 			if (relicFight[message.channel.id])
 				return message.channel.send('There is a battle happening in this channel already!')
@@ -10499,7 +10529,7 @@ client.on('messageCreate', async message => {
             relicFight[message.channel.id].fighters = [];
 
 			// You
-			var charDefs = RF.genChar(player.username, player.id, relicDefs[relicData[player.id].userelic].atk, relicDefs[relicData[player.id].userelic].mag, relicDefs[relicData[player.id].userelic].def)
+			let charDefs = RF.genChar(player.username, player.id, relicDefs[relicData[player.id].userelic].atk, relicDefs[relicData[player.id].userelic].mag, relicDefs[relicData[player.id].userelic].def)
             relicFight[message.channel.id].fighters.push(charDefs)
 
 			// The Foe
@@ -10512,7 +10542,7 @@ client.on('messageCreate', async message => {
 
             fs.writeFileSync(relicPath, JSON.stringify(relicFight, null, '    '));
 
-            var fighters = ``
+            let fighters = ``
             for (const i in relicFight[message.channel.id].fighters)
                 fighters = fighters + `${relicFight[message.channel.id].fighters[i].name} ❤️${relicFight[message.channel.id].fighters[i].hp}\n`
 
@@ -10548,15 +10578,15 @@ client.on('messageCreate', async message => {
 			relicFight[message.channel.id].battlechannel = message.channel.id;
 
 			// You
-			var charDefs = RF.genChar(message.author.username, message.author.id, relicDefs[relicData[message.author.id].userelic].atk, relicDefs[relicData[message.author.id].userelic].mag, relicDefs[relicData[message.author.id].userelic].def)
+			let charDefs = RF.genChar(message.author.username, message.author.id, relicDefs[relicData[message.author.id].userelic].atk, relicDefs[relicData[message.author.id].userelic].mag, relicDefs[relicData[message.author.id].userelic].def)
 			relicFight[message.channel.id].fighters.push(charDefs)
 
 			// The Foes
 			for (const i in arg) {
 				if (i > 0) {
-					var enemy;
+					let enemy;
 					if (arg[i].startsWith('<@') && arg[i].endsWith('>')) {
-						var mention = arg[i].slice(2, -1);
+						let mention = arg[i].slice(2, -1);
 
 						if (mention.startsWith('!'))
 							mention = mention.slice(1);
@@ -10582,7 +10612,7 @@ client.on('messageCreate', async message => {
 
 			fs.writeFileSync(relicPath, JSON.stringify(relicFight, null, '    '));
 
-			var fighters = ``
+			let fighters = ``
 			for (const i in relicFight[message.channel.id].fighters)
 				fighters = fighters + `${relicFight[message.channel.id].fighters[i].name} ❤️${relicFight[message.channel.id].fighters[i].hp}\n`
 
@@ -10597,9 +10627,9 @@ client.on('messageCreate', async message => {
 		}
 
 		message.channel.send({embeds: [DiscordEmbed]}).then(message => {
-			var relicPath = dataPath+'/RelicSearch/relicFight.json';
-			var relicRead = fs.readFileSync(relicPath, {flag: 'as+'});
-			var relicFight = JSON.parse(relicRead);
+			let relicPath = dataPath+'/RelicSearch/relicFight.json';
+			let relicRead = fs.readFileSync(relicPath, {flag: 'as+'});
+			let relicFight = JSON.parse(relicRead);
 
 			relicFight[message.channel.id].message = message.id
 			message.react("👊")
@@ -10644,15 +10674,15 @@ client.on('messageCreate', async message => {
 			return message.channel.send("Please specify a valid channel.");
 
 		const shopChannel = client.channels.cache.get(arg[2])
-		var shopPath = `${dataPath}/Shops/shops-${message.guild.id}.json`
-		var shopRead = fs.readFileSync(shopPath, {flag: 'as+'});
-		var shopFile = JSON.parse(shopRead);
-        var itemPath = dataPath+'/items.json'
-        var itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
-        var itemFile = JSON.parse(itemRead);
-        var servPath = dataPath+'/Server Settings/server.json'
-        var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-        var servFile = JSON.parse(servRead);
+		let shopPath = `${dataPath}/Shops/shops-${message.guild.id}.json`
+		let shopRead = fs.readFileSync(shopPath, {flag: 'as+'});
+		let shopFile = JSON.parse(shopRead);
+        let itemPath = dataPath+'/items.json'
+        let itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
+        let itemFile = JSON.parse(itemRead);
+        let servPath = dataPath+'/Server Settings/server.json'
+        let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+        let servFile = JSON.parse(servRead);
 		
         if (!servFile[message.guild.id]) {
             servFile[message.guild.id] = {
@@ -10710,13 +10740,13 @@ client.on('messageCreate', async message => {
 
 		fs.writeFileSync(shopPath, JSON.stringify(shopFile, null, '    '));
 		
-		var itemString = ''
+		let itemString = ''
 		for (const i in shopFile[message.guild.id][shopChannel.id].items) {
-			var itemDefs = itemFile[shopFile[message.guild.id][shopChannel.id].items[i]]
+			let itemDefs = itemFile[shopFile[message.guild.id][shopChannel.id].items[i]]
 			itemString += `\n**${itemDefs.name}**\nCosts ${itemDefs.cost} ${servFile[message.guild.id].currency}s.\n*${itemDefs.desc}*\n`
 		}
 
-		var itemEmbed = new Discord.MessageEmbed()
+		let itemEmbed = new Discord.MessageEmbed()
 			.setColor('#c2907e')
 			.setTitle(`${shopFile[message.guild.id][shopChannel.id].name}`)
 			.setDescription(`*The shop has been opened!*\n${itemString}`)
@@ -10740,18 +10770,18 @@ client.on('messageCreate', async message => {
             return false
         }
 		
-		var shopPath = `${dataPath}/Shops/shops-${message.guild.id}.json`
-		var shopRead = fs.readFileSync(shopPath, {flag: 'as+'});
-		var shopFile = JSON.parse(shopRead);   
-		var btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
-		var btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
-		var btl = JSON.parse(btlRead);
-        var itemPath = dataPath+'/items.json'
-        var itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
-        var itemFile = JSON.parse(itemRead);
-        var servPath = dataPath+'/Server Settings/server.json'
-        var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-        var servFile = JSON.parse(servRead);
+		let shopPath = `${dataPath}/Shops/shops-${message.guild.id}.json`
+		let shopRead = fs.readFileSync(shopPath, {flag: 'as+'});
+		let shopFile = JSON.parse(shopRead);   
+		let btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
+		let btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
+		let btl = JSON.parse(btlRead);
+        let itemPath = dataPath+'/items.json'
+        let itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
+        let itemFile = JSON.parse(itemRead);
+        let servPath = dataPath+'/Server Settings/server.json'
+        let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+        let servFile = JSON.parse(servRead);
 		
         if (!servFile[message.guild.id]) {
             servFile[message.guild.id] = {
@@ -10789,20 +10819,20 @@ client.on('messageCreate', async message => {
 			}
         }
 		
-		var shop = shopFile[message.guild.id][message.channel.id]
-		var servBtl = btl[message.guild.id]
+		let shop = shopFile[message.guild.id][message.channel.id]
+		let servBtl = btl[message.guild.id]
 
 		if (servBtl.parties[arg[1]]) {
 			shop.party = arg[1]
 			fs.writeFileSync(shopPath, JSON.stringify(shopFile, null, '    '));
 		
-			var itemString = `${servBtl.parties[arg[1]].rings} ${servFile[message.guild.id].currency}s\n\n`
+			let itemString = `${servBtl.parties[arg[1]].rings} ${servFile[message.guild.id].currency}s\n\n`
 			for (const i in shop.items) {
-				var itemDefs = itemFile[shop.items[i]]
+				let itemDefs = itemFile[shop.items[i]]
 				itemString += `\n**${itemDefs.name}**\nCosts ${itemDefs.cost} ${servFile[message.guild.id].currency}s.\n*${itemDefs.desc}*\n`
 			}
 
-			var itemEmbed = new Discord.MessageEmbed()
+			let itemEmbed = new Discord.MessageEmbed()
 				.setColor('#c2907e')
 				.setTitle(`${shop.name}`)
 				.setDescription(`*The shop has been opened!*\n${itemString}`)
@@ -10816,10 +10846,10 @@ client.on('messageCreate', async message => {
 	}
 
     if (command === 'leaveshop') {
-		var shopPath = `${dataPath}/Shops/shops-${message.guild.id}.json`
-		var shopRead = fs.readFileSync(shopPath, {flag: 'as+'});
-		var shopFile = JSON.parse(shopRead);
-		var shop = shopFile[message.guild.id][message.channel.id];
+		let shopPath = `${dataPath}/Shops/shops-${message.guild.id}.json`
+		let shopRead = fs.readFileSync(shopPath, {flag: 'as+'});
+		let shopFile = JSON.parse(shopRead);
+		let shop = shopFile[message.guild.id][message.channel.id];
 		
         if (!message.member.permissions.serialize().ADMINISTRATOR) {
             message.channel.send("You lack sufficient permissions, I'm so sorry!");
@@ -10845,18 +10875,18 @@ client.on('messageCreate', async message => {
         }
 
 		// so much shit ffs
-		var shopPath = `${dataPath}/Shops/shops-${message.guild.id}.json`
-        var itemPath = dataPath+'/items.json'
-        var servPath = dataPath+'/Server Settings/server.json'
-		var btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
-		var shopRead = fs.readFileSync(shopPath, {flag: 'as+'});
-        var itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
-        var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-		var btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
-		var shopFile = JSON.parse(shopRead);
-        var itemFile = JSON.parse(itemRead);
-        var servFile = JSON.parse(servRead);
-		var btl = JSON.parse(btlRead);
+		let shopPath = `${dataPath}/Shops/shops-${message.guild.id}.json`
+        let itemPath = dataPath+'/items.json'
+        let servPath = dataPath+'/Server Settings/server.json'
+		let btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
+		let shopRead = fs.readFileSync(shopPath, {flag: 'as+'});
+        let itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
+        let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+		let btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
+		let shopFile = JSON.parse(shopRead);
+        let itemFile = JSON.parse(itemRead);
+        let servFile = JSON.parse(servRead);
+		let btl = JSON.parse(btlRead);
 		
 		if (!shopFile[message.guild.id][message.channel.id].party || shopFile[message.guild.id][message.channel.id].party === "none") {
 			message.channel.send("There's nobody in the shop!")
@@ -10870,9 +10900,9 @@ client.on('messageCreate', async message => {
 			return false
 		}
 		
-		var hasItem = false
+		let hasItem = false
 		for (const i in shopFile[message.guild.id][message.channel.id].items) {
-			var itemName = shopFile[message.guild.id][message.channel.id].items[i]
+			let itemName = shopFile[message.guild.id][message.channel.id].items[i]
 			if (arg[1] == itemName) {
 				hasItem = true
 			}
@@ -10884,12 +10914,12 @@ client.on('messageCreate', async message => {
 			return false
 		}
 		
-		var totalCost = 0;
-		var totalQuantity = arg[2] ? parseInt(arg[2]) : 1
+		let totalCost = 0;
+		let totalQuantity = arg[2] ? parseInt(arg[2]) : 1
 		for (i = 1; i <= parseInt(arg[2]); i++)
 			totalCost += itemFile[arg[1]].cost;
 		
-		var party = btl[message.guild.id].parties[shopFile[message.guild.id][message.channel.id].party]
+		let party = btl[message.guild.id].parties[shopFile[message.guild.id][message.channel.id].party]
 		
 		if (party.rings < totalCost) {
 			message.channel.send(`The party doesn't have enough ${servFile[message.guild.id].currency}s! (Need ${totalCost})`)
@@ -10897,7 +10927,7 @@ client.on('messageCreate', async message => {
 			return false
 		}
 		
-		var itemName = itemFile[arg[1]].name
+		let itemName = itemFile[arg[1]].name
 		
 		party.rings -= totalCost
 		if (!party.items[arg[1]])
@@ -10936,19 +10966,19 @@ client.on('messageCreate', async message => {
 			return message.channel.send("Please specify a valid channel.");
 
 		const shopChannel = client.channels.cache.get(arg[2])
-		var blacksmithPath = `${dataPath}/BlackSmiths/blacksmith-${arg[2]}.json`
-		var blacksmithRead = fs.readFileSync(blacksmithPath, {flag: 'as+'});
+		let blacksmithPath = `${dataPath}/BlackSmiths/blacksmith-${arg[2]}.json`
+		let blacksmithRead = fs.readFileSync(blacksmithPath, {flag: 'as+'});
 		
 		if (blacksmithRead == '' || blacksmithRead == ' ')
 			blacksmithRead = '{}';
 
-		var blacksmithFile = JSON.parse(blacksmithRead);
-        var itemPath = dataPath+'/items.json'
-        var itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
-        var itemFile = JSON.parse(itemRead);
-        var servPath = dataPath+'/Server Settings/server.json'
-        var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-        var servFile = JSON.parse(servRead);
+		let blacksmithFile = JSON.parse(blacksmithRead);
+        let itemPath = dataPath+'/items.json'
+        let itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
+        let itemFile = JSON.parse(itemRead);
+        let servPath = dataPath+'/Server Settings/server.json'
+        let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+        let servFile = JSON.parse(servRead);
 		
         if (!servFile[message.guild.id]) {
             servFile[message.guild.id] = {
@@ -11010,7 +11040,7 @@ client.on('messageCreate', async message => {
 
 		fs.writeFileSync(blacksmithPath, JSON.stringify(blacksmithFile, null, '    '));
 
-		var itemEmbed = new Discord.MessageEmbed()
+		let itemEmbed = new Discord.MessageEmbed()
 			.setColor('#c2907e')
 			.setTitle(`${blacksmithFile.name}`)
 			.setDescription(`*The blacksmith has been opened!*`)
@@ -11018,18 +11048,18 @@ client.on('messageCreate', async message => {
 	}
 	
     if (command === 'enterblacksmith') {
-		var blacksmithPath = `${dataPath}/BlackSmiths/${message.guild.id}/blacksmith-${arg[2]}.json`
-		var blacksmithRead = fs.readFileSync(blacksmithPath, {flag: 'as+'});
-		var blacksmithFile = JSON.parse(blacksmithRead);
-		var btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
-		var btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
-		var btl = JSON.parse(btlRead);
-        var itemPath = dataPath+'/items.json'
-        var itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
-        var itemFile = JSON.parse(itemRead);
-        var servPath = dataPath+'/Server Settings/server.json'
-        var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-        var servFile = JSON.parse(servRead);
+		let blacksmithPath = `${dataPath}/BlackSmiths/${message.guild.id}/blacksmith-${arg[2]}.json`
+		let blacksmithRead = fs.readFileSync(blacksmithPath, {flag: 'as+'});
+		let blacksmithFile = JSON.parse(blacksmithRead);
+		let btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
+		let btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
+		let btl = JSON.parse(btlRead);
+        let itemPath = dataPath+'/items.json'
+        let itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
+        let itemFile = JSON.parse(itemRead);
+        let servPath = dataPath+'/Server Settings/server.json'
+        let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+        let servFile = JSON.parse(servRead);
 		
         if (!servFile[message.guild.id]) {
             servFile[message.guild.id] = {
@@ -11089,7 +11119,7 @@ client.on('messageCreate', async message => {
 		blacksmithFile.party = arg[1]
 		blacksmithFile.state = 'enter'
 
-		var bEmbed = new Discord.MessageEmbed()
+		let bEmbed = new Discord.MessageEmbed()
 			.setColor('#c2907e')
 			.setTitle(`${blacksmithFile.blacksmith}`)
 			.setDescription(`"${blacksmithFile.enter[Math.round(Math.random()*blacksmithFile.enter.length-1)]}"`)
@@ -11157,15 +11187,15 @@ client.on('messageCreate', async message => {
 			return false
 		}
 
-		var chestPath = dataPath+'/chests.json'
-		var chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
-		var chestFile = JSON.parse(chestRead);
-        var itemPath = dataPath+'/items.json'
-        var itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
-        var itemFile = JSON.parse(itemRead);
-		var lootPath = `${dataPath}/Loot/lootTables-${message.guild.id}.json`
-		var lootRead = fs.readFileSync(lootPath, {flag: 'as+'});
-		var lootFile = JSON.parse(lootRead);
+		let chestPath = dataPath+'/chests.json'
+		let chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
+		let chestFile = JSON.parse(chestRead);
+        let itemPath = dataPath+'/items.json'
+        let itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
+        let itemFile = JSON.parse(itemRead);
+		let lootPath = `${dataPath}/Loot/lootTables-${message.guild.id}.json`
+		let lootRead = fs.readFileSync(lootPath, {flag: 'as+'});
+		let lootFile = JSON.parse(lootRead);
 
 		const chestName = arg[1]
 		const chestChannel = client.channels.cache.get(arg[2])
@@ -11293,7 +11323,7 @@ client.on('messageCreate', async message => {
 
 		if (underSpoiler == 'true') {
 			message.delete()
-			var chestEmbed = new Discord.MessageEmbed()
+			let chestEmbed = new Discord.MessageEmbed()
 			.setColor('#c2907e')
 			.setTitle(`Contents of ${chestName}!`)
 			.setFields(
@@ -11308,7 +11338,7 @@ client.on('messageCreate', async message => {
 			itemText = '*Spoilered. You should get a DM with the chest contents.*'
 		}
 
-		var chestEmbed = new Discord.MessageEmbed()
+		let chestEmbed = new Discord.MessageEmbed()
 			.setColor('#c2907e')
 			.setTitle(`A new chest has been created!`)
 			.setFields(
@@ -11349,9 +11379,9 @@ client.on('messageCreate', async message => {
 			return false
 		}
 
-		var chestPath = dataPath+'/chests.json'
-		var chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
-		var chestFile = JSON.parse(chestRead);
+		let chestPath = dataPath+'/chests.json'
+		let chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
+		let chestFile = JSON.parse(chestRead);
 
 		for (const channelID in chestFile[message.guild.id]) {
 			for (const chest in chestFile[message.guild.id][channelID]) {
@@ -11395,9 +11425,9 @@ client.on('messageCreate', async message => {
 			return false
 		}
 
-		var chestPath = dataPath+'/chests.json'
-		var chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
-		var chestFile = JSON.parse(chestRead);
+		let chestPath = dataPath+'/chests.json'
+		let chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
+		let chestFile = JSON.parse(chestRead);
 
 		for (const channelID in chestFile[message.guild.id]) {
 			for (const chest in chestFile[message.guild.id][channelID]) {
@@ -11438,9 +11468,9 @@ client.on('messageCreate', async message => {
 			return false
 		}
 
-		var chestPath = dataPath+'/chests.json'
-		var chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
-		var chestFile = JSON.parse(chestRead);
+		let chestPath = dataPath+'/chests.json'
+		let chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
+		let chestFile = JSON.parse(chestRead);
 
 		for (const channelID in chestFile[message.guild.id]) {
 			for (const chest in chestFile[message.guild.id][channelID]) {
@@ -11493,9 +11523,9 @@ client.on('messageCreate', async message => {
 			return false
 		}
 
-		var chestPath = dataPath+'/chests.json'
-		var chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
-		var chestFile = JSON.parse(chestRead);
+		let chestPath = dataPath+'/chests.json'
+		let chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
+		let chestFile = JSON.parse(chestRead);
 
 		if (!chestFile[message.guild.id][chestChannel.id])
 			chestFile[message.guild.id][chestChannel.id] = {}
@@ -11551,9 +11581,9 @@ client.on('messageCreate', async message => {
 			return false
 		}
 
-		var chestPath = dataPath+'/chests.json'
-		var chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
-		var chestFile = JSON.parse(chestRead);
+		let chestPath = dataPath+'/chests.json'
+		let chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
+		let chestFile = JSON.parse(chestRead);
 
 		for (const channelID in chestFile[message.guild.id]) {
 			for (const chest in chestFile[message.guild.id][channelID]) {
@@ -11598,12 +11628,12 @@ client.on('messageCreate', async message => {
 		if (!utilityFuncs.getChest(arg[1],message))
 			return message.channel.send(`${arg[1]} is not a valid chest.`);
 
-		var lootPath = `${dataPath}/Loot/lootTables-${message.guild.id}.json`
-		var lootRead = fs.readFileSync(lootPath, {flag: 'as+'});
-		var lootFile = JSON.parse(lootRead);
-		var chestPath = dataPath+'/chests.json'
-		var chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
-		var chestFile = JSON.parse(chestRead);
+		let lootPath = `${dataPath}/Loot/lootTables-${message.guild.id}.json`
+		let lootRead = fs.readFileSync(lootPath, {flag: 'as+'});
+		let lootFile = JSON.parse(lootRead);
+		let chestPath = dataPath+'/chests.json'
+		let chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
+		let chestFile = JSON.parse(chestRead);
 	
 		if (!lootFile[arg[2]]) {
 			message.channel.send(`${arg[2]} is not a loot table.`)
@@ -11658,7 +11688,7 @@ client.on('messageCreate', async message => {
 					if (newItems.length < 1)
 						newItems = '\nNone'
 
-					var chestEmbed = new Discord.MessageEmbed()
+					let chestEmbed = new Discord.MessageEmbed()
 						.setColor('#c2907e')
 						.setTitle(`The loot table has changed for ${arg[1]}!`)
 						.setDescription(`Items:${newItems}`)
@@ -11701,9 +11731,9 @@ client.on('messageCreate', async message => {
 		if (!utilityFuncs.getChest(arg[1],message))
 			return message.channel.send(`${arg[1]} is not a valid chest.`);
 
-		var chestPath = dataPath+'/chests.json'
-		var chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
-		var chestFile = JSON.parse(chestRead);
+		let chestPath = dataPath+'/chests.json'
+		let chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
+		let chestFile = JSON.parse(chestRead);
 
 		for (const channelID in chestFile[message.guild.id]) {
 			for (const chest in chestFile[message.guild.id][channelID]) {
@@ -11736,7 +11766,7 @@ client.on('messageCreate', async message => {
 					if (newItems.length < 1)
 						newItems = '\nNone'
 
-					var chestEmbed = new Discord.MessageEmbed()
+					let chestEmbed = new Discord.MessageEmbed()
 						.setColor('#c2907e')
 						.setTitle(`The loot table has been removed for ${arg[1]}!`)
 						.setDescription(`Items:${newItems}`)
@@ -11779,12 +11809,12 @@ client.on('messageCreate', async message => {
 		if (!utilityFuncs.getChest(arg[1],message))
 			return message.channel.send(`${arg[1]} is not a valid chest.`);
 
-		var chestPath = dataPath+'/chests.json'
-		var chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
-		var chestFile = JSON.parse(chestRead);
-		var itemPath = dataPath+'/items.json'
-        var itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
-        var itemFile = JSON.parse(itemRead);
+		let chestPath = dataPath+'/chests.json'
+		let chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
+		let chestFile = JSON.parse(chestRead);
+		let itemPath = dataPath+'/items.json'
+        let itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
+        let itemFile = JSON.parse(itemRead);
 
 		let incorrectItems = ""
 		let chosenItems = []
@@ -11807,7 +11837,7 @@ client.on('messageCreate', async message => {
 					if (chestFile[message.guild.id][channelID][arg[1]]) {
 	
 						for (const i in chestFile[message.guild.id][channelID][arg[1]].inputItems) {
-							var item = chestFile[message.guild.id][channelID][arg[1]].inputItems[i]
+							let item = chestFile[message.guild.id][channelID][arg[1]].inputItems[i]
 
 							if (chestFile[message.guild.id][channelID][arg[1]].items[item] > 0)
 								chestFile[message.guild.id][channelID][arg[1]].items[item]--
@@ -11834,7 +11864,7 @@ client.on('messageCreate', async message => {
 						if (newItems.length < 1)
 						newItems = '\nNone'
 	
-						var chestEmbed = new Discord.MessageEmbed()
+						let chestEmbed = new Discord.MessageEmbed()
 							.setColor('#c2907e')
 							.setTitle(`The base items have been changed for ${arg[1]}!`)
 							.setDescription(`Items:${newItems}`)
@@ -11877,9 +11907,9 @@ client.on('messageCreate', async message => {
 		if (!utilityFuncs.getChest(arg[1],message))
 			return message.channel.send(`${arg[1]} is not a valid chest.`)
 
-		var chestPath = dataPath+'/chests.json'
-		var chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
-		var chestFile = JSON.parse(chestRead);
+		let chestPath = dataPath+'/chests.json'
+		let chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
+		let chestFile = JSON.parse(chestRead);
 
 		for (const channelID in chestFile[message.guild.id]) {
 			for (const chest in chestFile[message.guild.id][channelID]) {
@@ -11889,7 +11919,7 @@ client.on('messageCreate', async message => {
 						return message.channel.send(`${arg[1]} already doesn't have base items to begin with.`);
 
 					for (const i in chestFile[message.guild.id][channelID][arg[1]].inputItems) {
-						var item = chestFile[message.guild.id][channelID][arg[1]].inputItems[i]
+						let item = chestFile[message.guild.id][channelID][arg[1]].inputItems[i]
 
 						if (chestFile[message.guild.id][channelID][arg[1]].items[item] > 0)
 							chestFile[message.guild.id][channelID][arg[1]].items[item]--
@@ -11908,7 +11938,7 @@ client.on('messageCreate', async message => {
 					if (newItems.length < 1)
 					newItems = '\nNone'
 
-					var chestEmbed = new Discord.MessageEmbed()
+					let chestEmbed = new Discord.MessageEmbed()
 						.setColor('#c2907e')
 						.setTitle(`The base items have been removed for ${arg[1]}!`)
 						.setDescription(`Items:${newItems}`)
@@ -11960,12 +11990,12 @@ client.on('messageCreate', async message => {
 			return false
 		}
 
-		var chestPath = dataPath+'/chests.json'
-		var chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
-		var chestFile = JSON.parse(chestRead);
-		var itemPath = dataPath+'/items.json'
-        var itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
-        var itemFile = JSON.parse(itemRead);
+		let chestPath = dataPath+'/chests.json'
+		let chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
+		let chestFile = JSON.parse(chestRead);
+		let itemPath = dataPath+'/items.json'
+        let itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
+        let itemFile = JSON.parse(itemRead);
 
 		if (!itemFile[arg[2]]) {
 			message.channel.send(`${arg[2]} is not a valid item.`)
@@ -12020,9 +12050,9 @@ client.on('messageCreate', async message => {
 			return false
 		}
 
-		var chestPath = dataPath+'/chests.json'
-		var chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
-		var chestFile = JSON.parse(chestRead);
+		let chestPath = dataPath+'/chests.json'
+		let chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
+		let chestFile = JSON.parse(chestRead);
 
 		for (const channelID in chestFile[message.guild.id]) {
 			for (const chest in chestFile[message.guild.id][channelID]) {
@@ -12066,11 +12096,11 @@ client.on('messageCreate', async message => {
 			return false
 		}
 
-		var chestPath = dataPath+'/chests.json'
-		var chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
-		var chestFile = JSON.parse(chestRead);
+		let chestPath = dataPath+'/chests.json'
+		let chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
+		let chestFile = JSON.parse(chestRead);
 
-		var canSkip = false
+		let canSkip = false
 		if (message.member.permissions.serialize().ADMINISTRATOR || utilityFuncs.RPGBotAdmin(message.author.id))
 			canSkip = true
 
@@ -12086,7 +12116,7 @@ client.on('messageCreate', async message => {
 					return message.channel.send({embeds: [DiscordEmbed]})
 					}
 
-					var chestChannel = client.channels.cache.get(channelID)
+					let chestChannel = client.channels.cache.get(channelID)
 					let spoilerText = (chestFile[message.guild.id][channelID][arg[1]].spoiler == true ? `Yes` : `No`)
 					let lootText = chestFile[message.guild.id][channelID][arg[1]].inputLoot
 					if (lootText == "")
@@ -12108,7 +12138,7 @@ client.on('messageCreate', async message => {
 					let lockText = (chestFile[message.guild.id][channelID][arg[1]].locked == true ? `Yes` : `No`)
 					let keyText = (chestFile[message.guild.id][channelID][arg[1]].lockOpener !== "" ? chestFile[message.guild.id][channelID][arg[1]].lockOpener : `None`)
 
-					var chestEmbed = new Discord.MessageEmbed()
+					let chestEmbed = new Discord.MessageEmbed()
 					.setColor('#c2907e')
 					.setTitle(`${arg[1]}`)
 					.setFields(
@@ -12141,11 +12171,11 @@ client.on('messageCreate', async message => {
             return false
         }
 
-		var chestPath = dataPath+'/chests.json'
-		var chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
-		var chestFile = JSON.parse(chestRead);
+		let chestPath = dataPath+'/chests.json'
+		let chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
+		let chestFile = JSON.parse(chestRead);
 
-		var skillTxt = []
+		let skillTxt = []
 		for (const channelID in chestFile[message.guild.id]) {
 			for (const chest in chestFile[message.guild.id][channelID]) {
 				if (chest.includes(arg[1])) {
@@ -12158,11 +12188,11 @@ client.on('messageCreate', async message => {
 	}
 
 	if (command == 'listchests') {
-		var chestPath = dataPath+'/chests.json'
-		var chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
-		var chestFile = JSON.parse(chestRead);
+		let chestPath = dataPath+'/chests.json'
+		let chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
+		let chestFile = JSON.parse(chestRead);
 		
-		var skillTxt = []
+		let skillTxt = []
 		for (const channelID in chestFile[message.guild.id]) {
 			for (const chest in chestFile[message.guild.id][channelID]) {
 				skillTxt.push(chestFile[message.guild.id][channelID][chest])
@@ -12200,12 +12230,12 @@ client.on('messageCreate', async message => {
             return
         }
 
-		var chestPath = dataPath+'/chests.json'
-		var chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
-		var chestFile = JSON.parse(chestRead);
-		var btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
-		var btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
-		var btl = JSON.parse(btlRead);
+		let chestPath = dataPath+'/chests.json'
+		let chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
+		let chestFile = JSON.parse(chestRead);
+		let btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
+		let btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
+		let btl = JSON.parse(btlRead);
 
 		if (!chestFile[message.guild.id][message.channel.id][arg[1]]) {
 			message.channel.send(`${arg[1]} does not exist in this channel. Please try somewhere else.`);
@@ -12217,8 +12247,8 @@ client.on('messageCreate', async message => {
 			return false
 		}
 
-		var chestInput = chestFile[message.guild.id][message.channel.id][arg[1]]
-		var partyInput = btl[message.guild.id].parties[arg[2]]
+		let chestInput = chestFile[message.guild.id][message.channel.id][arg[1]]
+		let partyInput = btl[message.guild.id].parties[arg[2]]
 
 		let canOpen = false
 
@@ -12248,7 +12278,7 @@ client.on('messageCreate', async message => {
 		if (itemText == '')
 			itemText = `None`
 
-		var chestEmbed = new Discord.MessageEmbed()
+		let chestEmbed = new Discord.MessageEmbed()
 			.setColor('#c2907e')
 			.setTitle(`${arg[2]} has successfully opened ${arg[1]}`)
 			.setFields(
@@ -12280,19 +12310,19 @@ client.on('messageCreate', async message => {
             return false
         }
 
-		var chestPath = dataPath+'/chests.json'
-		var chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
-		var chestFile = JSON.parse(chestRead);
-		var btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
-		var btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
-		var btl = JSON.parse(btlRead);
+		let chestPath = dataPath+'/chests.json'
+		let chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
+		let chestFile = JSON.parse(chestRead);
+		let btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
+		let btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
+		let btl = JSON.parse(btlRead);
 
 		if (!chestFile[message.guild.id][message.channel.id][arg[1]]) {
 			message.channel.send(`${arg[1]} does not exist in this channel. Please try somewhere else.`);
             return
 		}
 
-		var chestInput = chestFile[message.guild.id][message.channel.id][arg[1]]
+		let chestInput = chestFile[message.guild.id][message.channel.id][arg[1]]
 
 		if (chestInput.party == "") {
 			message.channel.send(`${arg[1]} is not open yet. Please open it first.`);
@@ -12327,29 +12357,29 @@ client.on('messageCreate', async message => {
 			return false
 		}
 
-		var chestPath = dataPath+'/chests.json'
-		var chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
-		var chestFile = JSON.parse(chestRead);
-		var itemPath = dataPath+'/items.json'
-		var itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
-		var itemFile = JSON.parse(itemRead);
-		var btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
-		var btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
-		var btl = JSON.parse(btlRead);
+		let chestPath = dataPath+'/chests.json'
+		let chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
+		let chestFile = JSON.parse(chestRead);
+		let itemPath = dataPath+'/items.json'
+		let itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
+		let itemFile = JSON.parse(itemRead);
+		let btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
+		let btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
+		let btl = JSON.parse(btlRead);
 
 		if (!chestFile[message.guild.id][message.channel.id][arg[1]]) {
 			message.channel.send(`${arg[1]} does not exist in this channel. Please try somewhere else.`);
             return
 		}
 
-		var chestInput = chestFile[message.guild.id][message.channel.id][arg[1]]
+		let chestInput = chestFile[message.guild.id][message.channel.id][arg[1]]
 
 		if (chestInput.party == "") {
 			message.channel.send(`${arg[1]} is not open yet. Please open it first.`);
             return
 		}
 
-		var partyInput = btl[message.guild.id].parties[chestInput.party]
+		let partyInput = btl[message.guild.id].parties[chestInput.party]
 
 		if (arg[2] == 'All') {
 			for (const item in itemFile) {
@@ -12425,7 +12455,7 @@ client.on('messageCreate', async message => {
 		if (itemText == '')
 			itemText = `None`
 
-		var chestEmbed = new Discord.MessageEmbed()
+		let chestEmbed = new Discord.MessageEmbed()
 			.setColor('#c2907e')
 			.setTitle(`${chestInput.party} has successfully taken items from ${chestInput.name}`)
 			.setFields(
@@ -12457,29 +12487,29 @@ client.on('messageCreate', async message => {
 			return false
 		}
 
-		var chestPath = dataPath+'/chests.json'
-		var chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
-		var chestFile = JSON.parse(chestRead);
-		var itemPath = dataPath+'/items.json'
-		var itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
-		var itemFile = JSON.parse(itemRead);
-		var btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
-		var btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
-		var btl = JSON.parse(btlRead);
+		let chestPath = dataPath+'/chests.json'
+		let chestRead = fs.readFileSync(chestPath, {flag: 'as+'});
+		let chestFile = JSON.parse(chestRead);
+		let itemPath = dataPath+'/items.json'
+		let itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
+		let itemFile = JSON.parse(itemRead);
+		let btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
+		let btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
+		let btl = JSON.parse(btlRead);
 
 		if (!chestFile[message.guild.id][message.channel.id][arg[1]]) {
 			message.channel.send(`${arg[1]} does not exist in this channel. Please try somewhere else.`);
             return
 		}
 
-		var chestInput = chestFile[message.guild.id][message.channel.id][arg[1]]
+		let chestInput = chestFile[message.guild.id][message.channel.id][arg[1]]
 
 		if (chestInput.party == "") {
 			message.channel.send(`${arg[1]} is not open yet. Please open it first.`);
             return
 		}
 
-		var partyInput = btl[message.guild.id].parties[chestInput.party]
+		let partyInput = btl[message.guild.id].parties[chestInput.party]
 
 		if (arg[2] == 'All') {
 			for (const item in itemFile) {
@@ -12556,7 +12586,7 @@ client.on('messageCreate', async message => {
 		if (itemText == '')
 			itemText = `None`
 
-		var chestEmbed = new Discord.MessageEmbed()
+		let chestEmbed = new Discord.MessageEmbed()
 			.setColor('#c2907e')
 			.setTitle(`${chestInput.party} has successfully put items from ${chestInput.name}`)
 			.setFields(
@@ -12570,17 +12600,17 @@ client.on('messageCreate', async message => {
     /////////////////////
 	if (command === 'guide') {
 		const arg = message.content.slice(prefix.length).trim().split(/ +/);
-		var pageNum = parseInt(arg[1])
+		let pageNum = parseInt(arg[1])
 		
-		var guidePath = dataPath+'/guide.json'
-		var guideRead = fs.readFileSync(guidePath, {flag: 'as+'});
-		var guide = JSON.parse(guideRead);
-        var charPath = dataPath+'/characters.json';
-        var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-        var charFile = JSON.parse(charRead);
-		var skillPath = dataPath+'/skills.json';
-		var skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-		var skillFile = JSON.parse(skillRead);
+		let guidePath = dataPath+'/guide.json'
+		let guideRead = fs.readFileSync(guidePath, {flag: 'as+'});
+		let guide = JSON.parse(guideRead);
+        let charPath = dataPath+'/characters.json';
+        let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+        let charFile = JSON.parse(charRead);
+		let skillPath = dataPath+'/skills.json';
+		let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+		let skillFile = JSON.parse(skillRead);
 		
 		if (!guide[pageNum])
 			pageNum = 0;
@@ -12602,19 +12632,19 @@ client.on('messageCreate', async message => {
 				DiscordEmbed.addFields()
 
 				for (const i in guideTxt.fields) {
-					var titleTxt = guideTxt.fields[i].title ? guideTxt.fields[i].title : `Section ${i}`
-					var descTxt = guideTxt.fields[i].text ? guideTxt.fields[i].text : 'Description Text'
-					var inline = guideTxt.fields[i].inline ? true : false
+					let titleTxt = guideTxt.fields[i].title ? guideTxt.fields[i].title : `Section ${i}`
+					let descTxt = guideTxt.fields[i].text ? guideTxt.fields[i].text : 'Description Text'
+					let inline = guideTxt.fields[i].inline ? true : false
 					
 					if (descTxt.includes('%RANDOMSKILL%')) {
-						var possibleSkills = []
+						let possibleSkills = []
 						for (const val in skillFile) {
 							if (skillFile[val].type != "heal" && (skillFile[val].type != "status" && !skillFile[val].buff) && skillFile[val].type != "passive" && val != "Metronome") {
 								possibleSkills.push(val)
 							}
 						}
 
-						var skillVal = possibleSkills[Math.round(Math.random() * (possibleSkills.length-1))]
+						let skillVal = possibleSkills[Math.round(Math.random() * (possibleSkills.length-1))]
 						skillDefs = skillFile[skillVal]
 
 						descTxt = descTxt.replace('%RANDOMSKILL%', `${elementEmoji[skillDefs.type]}${skillDefs.name ? skillDefs.name : skillVal}\n`)
@@ -12684,7 +12714,7 @@ client.on('messageCreate', async message => {
 			if (!arg[10])
 				return message.channel.send('Please specify either "Physical" or "Magic" for argument 10.');
 
-            var skilltype = "physical"
+            let skilltype = "physical"
             if (arg[10].toLowerCase() === "magic" ||
                 arg[10].toLowerCase() === "ranged" ||
                 arg[10].toLowerCase() === "special" ||
@@ -12697,7 +12727,7 @@ client.on('messageCreate', async message => {
 			if (!arg[3])
 				return message.channel.send("Please specify HP or MP for argument 3.");
 
-            var costType = "mp"
+            let costType = "mp"
             if (arg[3].toLowerCase() === "hp" || arg[3].toLowerCase() === "health") {
                 costType = "hp"
             } else if (arg[3].toLowerCase() === "mp%" || arg[3].toLowerCase() === "mppercent" || arg[3].toLowerCase() === "percentofmp") {
@@ -12708,7 +12738,7 @@ client.on('messageCreate', async message => {
                 costType = "money"
             }
 
-            var targType = "one"
+            let targType = "one"
             if (arg[11].toLowerCase() === "allenemies" || arg[11].toLowerCase() === "allfoes" || arg[11].toLowerCase() === "allopposing") {
                 targType = "allopposing"
             } else if (arg[11].toLowerCase() === "ally" || arg[11].toLowerCase() === "friend" || arg[11].toLowerCase() === "player") {
@@ -12725,15 +12755,15 @@ client.on('messageCreate', async message => {
                 targType = "randomopposing"
             }
 			
-			var skillDesc = message.content.slice(prefix.length).trim().split('"')[1]
+			let skillDesc = message.content.slice(prefix.length).trim().split('"')[1]
 			
 			// Name
 			/*
 			const isUpperCase = (string) => /^[A-Z]*$/.test(string)
 
-			var newName = arg[1].split('');
+			let newName = arg[1].split('');
 			for (let i = 1; i < arg[1].length; i++) {
-				var charStr = arg[1].charAt(i)
+				let charStr = arg[1].charAt(i)
 				if (isUpperCase(charStr)) {
 					newName.splice(i, 0, ' ')
 				}
@@ -12743,147 +12773,21 @@ client.on('messageCreate', async message => {
 			*/
 
             writeSkill(message, arg[1], arg[1], parseInt(arg[2]), costType, parseInt(arg[4]), parseInt(arg[5]), parseInt(arg[6]), arg[7].toLowerCase(), arg[8], parseInt(arg[9]), skilltype, targType, parseInt(arg[12]), arg[13], arg[14], arg[15], skillDesc)
-            if (readSkill(arg[1])) {
-                const skillName = arg[1]
-                const skillDefs = readSkill(arg[1])
-                message.channel.send(`${arg[1]} is good to go!`);
+			if (readSkill(arg[1])) {
+				const skillName = arg[1]
+				const skillDefs = readSkill(skillName)
 
-				var finalText = ``;
-				if (skillDefs.pow && skillDefs.type != "status") {
-					if (skillDefs.ohko && skillDefs.type != "heal")
-						finalText += 'Can **instantly defeat** the foe.';
-					else
-						finalText += `Has **${skillDefs.pow}** Power`;
-
-					if (skillDefs.hits && skillDefs.hits > 1 && skillDefs.type != "heal" && !skillDefs.ohko) 
-						finalText += ` and hits **${skillDefs.hits}** times.`
-
-					finalText += "\n";
-				}			
-			
-				switch(skillDefs.target) {
-					case "allopposing":
-						finalText += "Targets **all foes**.\n";
-						break;
-					case "allallies":
-						finalText += "Targets **all allies**.\n";
-						break;
-					case "ally":
-						finalText += "Targets **an ally**.\n";
-						break;
-					case "everyone":
-						finalText += "Targets **all fighters** in-battle.\n";
-						break;
-					case "caster":
-						finalText += "Targets **the user**.\n";
-						break;
-					case "random":
-						finalText += "Targets a **random fighter** in-battle.\n";
-						break;
-					default:
-						finalText += "Targets **one foe**.\n";
-				}
-
-				if (skillDefs.cost && skillDefs.costtype) {
-					switch(skillDefs.costtype) {
-						case "hp":
-							finalText += `Costs **${skillDefs.cost}HP**.\n`;
-							break;
-						case "hppercent":
-							finalText += `Costs **${skillDefs.cost}% of the user's Max HP**.\n`;
-							break;
-						case "mppercent":
-							finalText += `Costs **${skillDefs.cost}% of the user's Max MP**.\n`;
-							break;
-						case "money":
-							finalText += `Costs **${skillDefs.cost} of the team's money**.\n`;
-							break;
-						default:
-							finalText += `Costs **${skillDefs.cost}MP**.\n`;
-					}
-				}
-				
-				if (skillDefs.acc && skillDefs.type != "heal" && skillDefs.type != "status" && skillDefs.type != "passive")
-					finalText += `Has **${skillDefs.acc}%** Accuracy.\n`;
-
-				if (skillDefs.drain) {
-					if (skillDefs.drain > 1)
-						finalText += `Drains 1/${skillDefs.drain} of damage dealt.\n`;
-					else
-						finalText += `Drains all damage dealt.\n`;
-				}
-
-				if (skillDefs.crit)
-					finalText += `**${skillDefs.crit}%**☄\n`;
-
-				if (skillDefs.status) {
-					if (typeof skillDefs.status === 'object') {
-						if (skillDefs.statuschance) {
-							finalText += `Has a **${skillDefs.statuschance}%** chance of inflicting either `;
-						} else if (!skillDefs.statuschance || skillDefs.statuschance >= 100) {
-							finalText += '**Guaranteed** to inflict either ';
-						}
-
-						for (const i in skillDefs.status) {
-							finalText += `**${skillDefs.status[i]}**`
-							if (i == skillDefs.status.length-2)
-								finalText += ' or '
-							else if (i >= skillDefs.status.length-1)
-								finalText += '.\n'
-							else
-								finalText += ', '
-						}
-					} else if (skillDefs.status !== "none" && skillDefs.type != "heal") {
-						if (skillDefs.statuschance) {
-							finalText += `Has a **${skillDefs.statuschance}%** chance of inflicting **${skillDefs.status}**.\n`;
-						} else if (!skillDefs.statuschance || skillDefs.statuschance >= 100) {
-							finalText += `Guaranteed to inflict **${skillDefs.status}**.\n`;
-						}
-					}
-				}
-
-				if (skillDefs.type === "status") {
-					if (skillDefs.autoguard && skillDefs.protectitem)
-						finalText += `Protects **one** party member with ${skillDefs.protectitem}.\n`;
-					else if (skillDefs.autoguardall && skillDefs.protectitem)
-						finalText += `Protects **all** party members with ${skillDefs.protectitem}.\n`;
-				}
-
-				if (skillDefs.mimic)
-					finalText += 'Transforms into **one ally/foe**.\n';
-
-				if (skillDefs.copyskill)
-					finalText += 'Uses a **randomly known ally skill**.\n';
-
-				if (skillDefs.sketch)
-					finalText += "Copies a **random skill of the opponent's**.\n";
-
-				if (skillDefs.metronome)
-					finalText += 'Uses a **randomly defined skill**.\n';
-				
-				if (skillDefs.futuresight)
-					finalText += `Will deal damage in **${skillDefs.futuresight.turns} turns**.\n`;
-
-				if (skillDefs.atktype) {
-					var attackArray = skillDefs.atktype.split('');
-					attackArray[0] = attackArray[0].toUpperCase()
-					
-					var attackString = attackArray.join('');
-					finalText += `**${attackString}** attack.\n`;
-				}
-				
-				if (skillDefs.desc)
-					finalText += `\n*${skillDefs.desc}*`;
+				let finalText = skillFuncs.skillDesc(skillDefs, arg[1], message.guild.id)
 
 				const DiscordEmbed = new Discord.MessageEmbed()
 					.setColor('#4b02c9')
 					.setTitle(`${elementEmoji[skillDefs.type]} ${skillName}`)
 					.setDescription(`${finalText}`)
-                message.channel.send({embeds: [DiscordEmbed]});
-            } else {
-                message.channel.send(`There's been an issue creating your skill!`);
-                return
-            }
+				message.channel.send({content: `${skillName} is good to go!`, embeds: [DiscordEmbed]});
+			} else {
+				message.channel.send(`There's been an issue creating your skill!`);
+				return
+			}
         } else {
             message.channel.send(`${arg[5]} is not a valid type.`)
         }
@@ -12926,7 +12830,7 @@ client.on('messageCreate', async message => {
 		if (!arg[3])
 			return message.channel.send("Please specify HP or MP for argument 3.");
 
-		var costType = "mp"
+		let costType = "mp"
 		if (arg[3].toLowerCase() === "hp" || arg[3].toLowerCase() === "health") {
 			costType = "hp"
 		} else if (arg[3].toLowerCase() === "mp%" || arg[3].toLowerCase() === "mppercent" || arg[3].toLowerCase() === "percentofmp") {
@@ -12937,7 +12841,7 @@ client.on('messageCreate', async message => {
 			costType = "money"
 		}
 
-		var targType = "one"
+		let targType = "one"
 		if (arg[5].toLowerCase() === "allenemies" || arg[5].toLowerCase() === "allfoes" || arg[5].toLowerCase() === "allopposing") {
 			targType = "allopposing"
 		} else if (arg[5].toLowerCase() === "ally" || arg[5].toLowerCase() === "friend" || arg[5].toLowerCase() === "player") {
@@ -12954,126 +12858,24 @@ client.on('messageCreate', async message => {
 			targType = "randomopposing"
 		}
 			
-		var skillDesc = message.content.slice(prefix.length).trim().split('"')[1]
+		let skillDesc = message.content.slice(prefix.length).trim().split('"')[1]
 
 		writeHeal(message, arg[1], arg[1], parseInt(arg[2]), costType, parseInt(arg[4]), targType, arg[6], arg[7], arg[8], skillDesc)
 		if (readSkill(arg[1])) {
 			const skillName = arg[1]
-			const skillDefs = readSkill(arg[1])
-			message.channel.send(`${arg[1]} is good to go!`);
+			const skillDefs = readSkill(skillName)
 
-			var finalText = ``;
-			if (skillDefs.pow && skillDefs.type != "status") {
-				if (skillDefs.ohko && skillDefs.type != "heal")
-					finalText += 'Can **instantly defeat** the foe.';
-				else
-					finalText += `Has **${skillDefs.pow}** Power`;
-
-				if (skillDefs.hits && skillDefs.hits > 1 && skillDefs.type != "heal" && !skillDefs.ohko) 
-					finalText += ` and hits **${skillDefs.hits}** times.`
-
-				finalText += "\n";
-			}			
-		
-			switch(skillDefs.target) {
-				case "allopposing":
-					finalText += "Targets **all foes**.\n";
-					break;
-				case "allallies":
-					finalText += "Targets **all allies**.\n";
-					break;
-				case "ally":
-					finalText += "Targets **an ally**.\n";
-					break;
-				case "everyone":
-					finalText += "Targets **all fighters** in-battle.\n";
-					break;
-				case "caster":
-					finalText += "Targets **the user**.\n";
-					break;
-				case "random":
-					finalText += "Targets a **random fighter** in-battle.\n";
-					break;
-				case "randomopposing":
-					finalText += "Targets a **random foe** in-battle.\n";
-					break;
-				default:
-					finalText += "Targets **one foe**.\n";
-			}
-
-			if (skillDefs.cost && skillDefs.costtype) {
-				switch(skillDefs.costtype) {
-					case "hp":
-						finalText += `Costs **${skillDefs.cost}HP**.\n`;
-						break;
-					case "hppercent":
-						finalText += `Costs **${skillDefs.cost}% of the user's Max HP**.\n`;
-						break;
-					case "mppercent":
-						finalText += `Costs **${skillDefs.cost}% of the user's Max MP**.\n`;
-						break;
-					case "money":
-						finalText += `Costs **${skillDefs.cost} of the team's money**.\n`;
-						break;
-					default:
-						finalText += `Costs **${skillDefs.cost}MP**.\n`;
-				}
-			}
-
-			if (skillDefs.crit)
-				finalText += `**${skillDefs.crit}%**☄\n`;
-
-			if (skillDefs.status) {
-				if (typeof skillDefs.status === 'object') {
-					if (skillDefs.statuschance) {
-						finalText += `Has a **${skillDefs.statuschance}%** chance of inflicting either `;
-					} else if (!skillDefs.statuschance || skillDefs.statuschance >= 100) {
-						finalText += '**Guaranteed** to inflict either ';
-					}
-
-					for (const i in skillDefs.status) {
-						finalText += `**${skillDefs.status[i]}**`
-						if (i == skillDefs.status.length-2)
-							finalText += ' or '
-						else if (i >= skillDefs.status.length-1)
-							finalText += '.\n'
-						else
-							finalText += ', '
-					}
-				} else if (skillDefs.status !== "none" && skillDefs.type != "heal") {
-					if (skillDefs.statuschance) {
-						finalText += `Has a **${skillDefs.statuschance}%** chance of inflicting **${skillDefs.status}**.\n`;
-					} else if (!skillDefs.statuschance || skillDefs.statuschance >= 100) {
-						finalText += `Guaranteed to inflict **${skillDefs.status}**.\n`;
-					}
-				}
-			}
-
-			if (skillDefs.type === "status") {
-				if (skillDefs.autoguard && skillDefs.protectitem)
-					finalText += `Protects **one** party member with ${skillDefs.protectitem}.\n`;
-				else if (skillDefs.autoguardall && skillDefs.protectitem)
-					finalText += `Protects **all** party members with ${skillDefs.protectitem}.\n`;
-			}
-
-			if (skillDefs.atktype) {
-				var attackArray = skillDefs.atktype.split('');
-				attackArray[0] = attackArray[0].toUpperCase()
-				
-				var attackString = attackArray.join('');
-				finalText += `**${attackString}** attack.\n`;
-			}
-			
-			if (skillDefs.desc)
-				finalText += `\n*${skillDefs.desc}*`;
+			let finalText = skillFuncs.skillDesc(skillDefs, arg[1], message.guild.id)
 
 			const DiscordEmbed = new Discord.MessageEmbed()
 				.setColor('#4b02c9')
 				.setTitle(`${elementEmoji[skillDefs.type]} ${skillName}`)
 				.setDescription(`${finalText}`)
-			message.channel.send({embeds: [DiscordEmbed]});
-		} else
-			return message.channel.send(`There's been an issue creating your skill!`);
+			message.channel.send({content: `${skillName} is good to go!`, embeds: [DiscordEmbed]});
+		} else {
+			message.channel.send(`There's been an issue creating your skill!`);
+			return
+		}
     }
 
     if (command === 'registerstatus') {
@@ -13113,7 +12915,7 @@ client.on('messageCreate', async message => {
 			message.channel.send('Please specify a status type.')
 		}
 
-		var costType = "mp"
+		let costType = "mp"
 		if (arg[3].toLowerCase() === "hp" || arg[3].toLowerCase() === "health") {
 			costType = "hp"
 		} else if (arg[3].toLowerCase() === "mp%" || arg[3].toLowerCase() === "mppercent" || arg[3].toLowerCase() === "percentofmp") {
@@ -13122,15 +12924,15 @@ client.on('messageCreate', async message => {
 			costType = "hppercent"
 		}
 		
-		var skillDesc = message.content.slice(prefix.length).trim().split('"')[1]	
+		let skillDesc = message.content.slice(prefix.length).trim().split('"')[1]	
 
 		// Name
 		/*
 		const isUpperCase = (string) => /^[A-Z]*$/.test(string)
 
-		var newName = arg[1].split('');
+		let newName = arg[1].split('');
 		for (let i = 1; i < arg[1].length; i++) {
-			var charStr = arg[1].charAt(i)
+			let charStr = arg[1].charAt(i)
 			if (isUpperCase(charStr)) {
 				newName.splice(i, 0, ' ')
 			}
@@ -13139,9 +12941,9 @@ client.on('messageCreate', async message => {
 		newName = newName.join('')
 		*/
 
-		var statusType = arg[4].toLowerCase()
+		let statusType = arg[4].toLowerCase()
 		if (statusType === 'buff' || statusType === 'debuff') {
-			var buffType = arg[5].toLowerCase()
+			let buffType = arg[5].toLowerCase()
 			if (buffType != 'atk' && buffType != 'mag' && buffType != 'end' && buffType != 'agl' && buffType != 'prc' && buffType != 'crit' && buffType != 'all')
 				return message.channel.send(`${buffType} is an invalid stat ${statusType}.`);
 		}
@@ -13150,84 +12952,14 @@ client.on('messageCreate', async message => {
 		if (readSkill(arg[1])) {
 			const skillName = arg[1]
 			const skillDefs = readSkill(skillName)
-			message.channel.send(`${skillName} is good to go!`);
 
-			var finalText = ``;
-			if (skillDefs.cost && skillDefs.costtype) {
-				switch(skillDefs.costtype) {
-					case "hp":
-						finalText += `Costs **${skillDefs.cost}HP**.\n`;
-						break;
-					case "hppercent":
-						finalText += `Costs **${skillDefs.cost}% of the user's Max HP**.\n`;
-						break;
-					case "mppercent":
-						finalText += `Costs **${skillDefs.cost}% of the user's Max MP**.\n`;
-						break;
-					case "money":
-						finalText += `Costs **${skillDefs.cost} of the team's money**.\n`;
-						break;
-					default:
-						finalText += `Costs **${skillDefs.cost}MP**.\n`;
-				}
-			}
-
-			if (skillDefs.status) {
-				if (typeof skillDefs.status === 'object') {
-					if (skillDefs.statuschance) {
-						finalText += `Has a **${skillDefs.statuschance}%** chance of inflicting either `;
-					} else if (!skillDefs.statuschance || skillDefs.statuschance >= 100) {
-						finalText += '**Guaranteed** to inflict either ';
-					}
-
-					for (const i in skillDefs.status) {
-						finalText += `**${skillDefs.status[i]}**`
-						if (i == skillDefs.status.length-2)
-							finalText += ' or '
-						else if (i >= skillDefs.status.length-1)
-							finalText += '.\n'
-						else
-							finalText += ', '
-					}
-				} else if (skillDefs.status !== "none" && skillDefs.type != "heal") {
-					if (skillDefs.statuschance) {
-						finalText += `Has a **${skillDefs.statuschance}%** chance of inflicting **${skillDefs.status}**.\n`;
-					} else if (!skillDefs.statuschance || skillDefs.statuschance >= 100) {
-						finalText += `Guaranteed to inflict **${skillDefs.status}**.\n`;
-					}
-				}
-			}
-
-			if (skillDefs.type === "status") {
-				if (skillDefs.autoguard && skillDefs.protectitem) {
-					finalText += `Protects **one** party member with ${skillDefs.protectitem}.\n`;
-				} else if (skillDefs.autoguardall && skillDefs.protectitem) {
-					finalText += `Protects **all** party members with ${skillDefs.protectitem}.\n`;
-				} else if (skillDefs.mimic) {				
-					finalText += `\nMimics **one ally/foe**.`;
-				}
-			}
-
-			if (skillDefs.copyskill)
-				finalText += `\nUses a **randomly known ally skill**.`;
-
-			if (skillDefs.sketch)
-				finalText += "\nCopies a **random skill of the opponent's**.";
-
-			if (skillDefs.metronome)
-				finalText += `\nUses a **randomly defined skill**.`;
-			
-			if (skillDefs.futuresight)
-				finalText += `\nWill deal damage in **${skillDefs.futuresight.turns} turns**.`;
-			
-			if (skillDefs.desc)
-				finalText += `\n*${skillDefs.desc}*`;
+			let finalText = skillFuncs.skillDesc(skillDefs, arg[1], message.guild.id)
 
 			const DiscordEmbed = new Discord.MessageEmbed()
 				.setColor('#4b02c9')
 				.setTitle(`${elementEmoji[skillDefs.type]} ${skillName}`)
 				.setDescription(`${finalText}`)
-			message.channel.send({embeds: [DiscordEmbed]});
+			message.channel.send({content: `${skillName} is good to go!`, embeds: [DiscordEmbed]});
 		} else {
 			message.channel.send(`There's been an issue creating your skill!`);
 			return
@@ -13268,15 +13000,15 @@ client.on('messageCreate', async message => {
 			message.channel.send('Please specify a passive type.')
 		}
 		
-		var skillDesc = message.content.slice(prefix.length).trim().split('"')[1]
+		let skillDesc = message.content.slice(prefix.length).trim().split('"')[1]
 
 		// Name
 		/*
 		const isUpperCase = (string) => /^[A-Z]*$/.test(string)
 
-		var newName = arg[1].split('');
+		let newName = arg[1].split('');
 		for (let i = 1; i < arg[1].length; i++) {
-			var charStr = arg[1].charAt(i)
+			let charStr = arg[1].charAt(i)
 			if (isUpperCase(charStr)) {
 				newName.splice(i, 0, ' ')
 			}
@@ -13291,7 +13023,7 @@ client.on('messageCreate', async message => {
 			const skillDefs = readSkill(skillName)
 			message.channel.send(`${skillName} is good to go!`);
 
-			var finalText = ``;				
+			let finalText = ``;				
 			if (skillDefs.desc) {				
 				finalText += `\n*${skillDefs.desc}*`;
 			}
@@ -13340,15 +13072,15 @@ client.on('messageCreate', async message => {
             if (readSkill(arg[1])) return message.channel.send("This skill exists already, and you aren't it's original author, therefore, You have insufficient permissions to overwrite it.");
         }
 
-        var skillPath = dataPath+'/skills.json'
-        var skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-        var skillFile = JSON.parse(skillRead);
+        let skillPath = dataPath+'/skills.json'
+        let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+        let skillFile = JSON.parse(skillRead);
 		
 		if (!skillFile[arg[1]]) return message.channel.send(`${arg[1]} is an invalid skill!`)
 		if (arg[2] === 'name' && skillFile[arg[3]]) return message.channel.send(`${arg[3]} exists, so you can't change ${arg[1]}'s name to that.`)
 		if (!arg[2]) return message.channel.send("You're missing a valid argument for the skill's attribute")
 		
-		var attr = arg[2].toLowerCase()
+		let attr = arg[2].toLowerCase()
 		if (attr === 'cost' || attr === 'pow' || attr === 'acc' || attr === 'crit' || attr === 'statuschance' || attr === 'affinitypow')
 			skillFile[arg[1]][attr] = Math.max(1, parseInt(arg[3]));
 		else if (attr === 'hits')
@@ -13359,14 +13091,14 @@ client.on('messageCreate', async message => {
 			if (utilityFuncs.validType(arg[3].toLowerCase()))
 				skillFile[arg[1]].type = arg[3].toLowerCase();
 		} else if (attr === 'name' || attr === 'desc') {
-			var quotationMarks = message.content.slice(prefix.length).trim().split('"')[1]
+			let quotationMarks = message.content.slice(prefix.length).trim().split('"')[1]
 			skillFile[arg[1]][attr] = quotationMarks
 		} else if (attr === 'levellock' || attr === 'level') {
+			let lockLvl = parseInt(arg[3])
+
 			if (lockLvl && typeof lockLvl === 'string' && lockLvl.toLowerCase() === 'none')
 				delete skillFile[arg[1]].levelLock
 			else {
-				var lockLvl = parseInt(arg[3])
-
 				if (lockLvl > 100 || lockLvl < 1)
 					return message.channel.send('This level is invalid!')
 				
@@ -13395,18 +13127,18 @@ client.on('messageCreate', async message => {
     if (command === 'unregisterskill' || command === 'deleteskill' || command === 'purgeskill') {
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
 
-        var enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json';
-        var enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
-        var enmJSON = JSON.parse(enmRead);
-		var enmFile = enmJSON[message.guild.id];
+        let enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json';
+        let enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
+        let enmJSON = JSON.parse(enmRead);
+		let enmFile = enmJSON[message.guild.id];
 
-        var skillPath = dataPath+'/skills.json'
-        var skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-        var skillFile = JSON.parse(skillRead);
+        let skillPath = dataPath+'/skills.json'
+        let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+        let skillFile = JSON.parse(skillRead);
 
-		var charPath = dataPath+'/characters.json'
-		var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-		var charFile = JSON.parse(charRead);
+		let charPath = dataPath+'/characters.json'
+		let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+		let charFile = JSON.parse(charRead);
 
         if (skillFile[arg[1]]) {
 			if (!utilityFuncs.RPGBotAdmin(message.author.id) && message.author.id != skillFile[arg[1]].originalAuthor)
@@ -13458,9 +13190,9 @@ client.on('messageCreate', async message => {
             if (readSkill(arg[1])) return message.channel.send("This skill exists already, and you aren't it's original author, therefore, You have insufficient permissions to overwrite it.");
         }
 
-        var skillPath = dataPath+'/skills.json'
-        var skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-        var skillFile = JSON.parse(skillRead);
+        let skillPath = dataPath+'/skills.json'
+        let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+        let skillFile = JSON.parse(skillRead);
 		
 		if (!skillFile[arg[1]]) return message.channel.send(`${arg[1]} is an invalid skill!`)
 		if (!arg[2]) return message.channel.send('Please enter a valid extra effect.')
@@ -13490,9 +13222,9 @@ client.on('messageCreate', async message => {
             if (readSkill(arg[1])) return message.channel.send("This skill exists already, and you aren't it's original author, therefore, You have insufficient permissions to overwrite it.");
         }
 
-        var skillPath = dataPath+'/skills.json'
-        var skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-        var skillFile = JSON.parse(skillRead);
+        let skillPath = dataPath+'/skills.json'
+        let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+        let skillFile = JSON.parse(skillRead);
 		
 		if (!skillFile[arg[1]]) return message.channel.send(`${arg[1]} is an invalid skill!`)
 		if (!arg[2]) return message.channel.send("You're missing a valid argument for the skill's evo-skill")
@@ -13511,7 +13243,7 @@ client.on('messageCreate', async message => {
 		skillFile[arg[1]].evoSkill = [arg[2], parseInt(arg[3])]
 
 		if (arg[4]) {
-			var yes = arg[4].toLowerCase()
+			let yes = arg[4].toLowerCase()
 			if (yes === 'y' || yes === 'yes' || yes === 'true')
 				skillFile[arg[2]].preSkill = [arg[1], parseInt(arg[3])-1];
 		}
@@ -13538,9 +13270,9 @@ client.on('messageCreate', async message => {
             if (readSkill(arg[1])) return message.channel.send("This skill exists already, and you aren't it's original author, therefore, You have insufficient permissions to overwrite it.");
         }
 
-        var skillPath = dataPath+'/skills.json'
-        var skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-        var skillFile = JSON.parse(skillRead);
+        let skillPath = dataPath+'/skills.json'
+        let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+        let skillFile = JSON.parse(skillRead);
 		
 		if (!skillFile[arg[1]]) return message.channel.send(`${arg[1]} is an invalid skill!`)
 		if (!arg[2]) return message.channel.send("You're missing a valid argument for the skill's pre-skill")
@@ -13567,7 +13299,7 @@ client.on('messageCreate', async message => {
 		skillFile[arg[1]].preSkill = [arg[2], parseInt(arg[3])]
 
 		if (arg[4]) {
-			var yes = arg[4].toLowerCase()
+			let yes = arg[4].toLowerCase()
 			if (yes === 'y' || yes === 'yes' || yes === 'true')
 				skillFile[arg[2]].evoSkill = [arg[1], parseInt(arg[3])+1];
 		}
@@ -13577,13 +13309,13 @@ client.on('messageCreate', async message => {
 	}
 
     if (command === 'listskills') {
-        var skillPath = dataPath+'/skills.json'
-        var skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-        var skillFile = JSON.parse(skillRead);
+        let skillPath = dataPath+'/skills.json'
+        let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+        let skillFile = JSON.parse(skillRead);
 		
-		var user = message.mentions.users.first() ? message.mentions.users.first() : null
+		let user = message.mentions.users.first() ? message.mentions.users.first() : null
 
-		var skillArray = []
+		let skillArray = []
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
         if (!arg[1] || arg[1] === ' ' || arg[1] === 'null' || user) {
 			for (const i in skillFile) {
@@ -13671,11 +13403,11 @@ client.on('messageCreate', async message => {
             return false
         }
 
-        var skillPath = dataPath+'/skills.json'
-        var skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-        var skillFile = JSON.parse(skillRead);
+        let skillPath = dataPath+'/skills.json'
+        let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+        let skillFile = JSON.parse(skillRead);
 
-        var skillTxt = []
+        let skillTxt = []
         for (const skillName in skillFile) {
             if (skillName.includes(arg[1]))
                 skillTxt.push(skillFile[skillName]);
@@ -13689,7 +13421,7 @@ client.on('messageCreate', async message => {
 			.setColor('#0099ff')
 			.setTitle('List of usable elements:')
 
-		var elementTxt = ''
+		let elementTxt = ''
 		for (const i in Elements)
 			elementTxt += `${elementEmoji[Elements[i]]} **${[Elements[i]]}**\n`;
 		
@@ -13704,7 +13436,7 @@ client.on('messageCreate', async message => {
 			.setDescription('Extra effects to buff your attacking skills')
 			.addFields()
 
-		var atkDesc = {
+		let atkDesc = {
 			ohko: '<Skill Accuracy>% Chance to instantly down the target.',
 			rest: 'Force the target to skip their next turn after using this skill.',
 			stealmp: 'Turns the attack into a skill that steals <Power> MP from the target.',
@@ -13741,7 +13473,7 @@ client.on('messageCreate', async message => {
 			.setDescription('Types of Status Type Skills that fighters can learn.')
 			.addFields()
 
-		var statusDesc = {
+		let statusDesc = {
 			status: '(Args <Status> <Chance>) <Chance>% chance to inflict <Status> on your target.',
 			buff: '(Args <Stat> <Target> <Amount of Buffs>) Buffs <Stat> for <Target> <Amount of Buffs> times. Not all stats can be buffed & debuffed, only **ATK**, **MAG**, **END**, **AGL** & **PRC** can be buffed. Enter **ALL** to buff all stats.',
 			debuff: '(Args <Stat> <Target>) Debuffs <Stat> for <Target> once. Not all stats can be buffed & debuffed, only **ATK**, **MAG**, **END**, **AGL** & **PRC** can be debuffed. Enter **ALL** to debuff all stats.',
@@ -13773,7 +13505,7 @@ client.on('messageCreate', async message => {
 			.setDescription('Types of Passive Skills that fighters can learn.')
 			.addFields()
 
-		var passiveDesc = {
+		let passiveDesc = {
 			damagephys: '(Args <Damage>) Damages fighters using physical attacks against the user by <Damage>.',
 			damagemag: '(Args <Damage>) Damages fighters using magical attacks against the user by <Damage>.',
 			dodgephys: '(Args <Chance>) Increased chance of dodging a physical attack.',
@@ -13809,7 +13541,7 @@ client.on('messageCreate', async message => {
 			.setDescription('Status affects will affect fighters in-battle and can be fatal if not cured.')
 			.addFields()
 		
-		var elementTechs = {
+		let elementTechs = {
 			burn: ['water', 'earth', 'nuclear'],
 			bleed: ['slash', 'poison', 'nuclear', 'heal'],
 			freeze: ['strike', 'fire', 'earth'],
@@ -13830,7 +13562,7 @@ client.on('messageCreate', async message => {
 			blind: ['curse', 'bless', 'gravity']
 		}
 
-		var statusDesc = {
+		let statusDesc = {
 			burn: '💥Take 1/10th of max HP damage each turn until cured, or you reach one hp. Halves ATK stat.',
 			bleed: '💥Take 1/10th of max HP damage each until cured, or the inflicted is defeated.',
 			freeze: '💥Immobilized for one turn.',
@@ -13854,7 +13586,7 @@ client.on('messageCreate', async message => {
 		}
 
 		for (const i in statusEffects) {
-			var techTxt = ''
+			let techTxt = ''
 			for (const k in elementTechs[statusEffects[i]]) {
 				if (elementTechs[statusEffects[i]][k] === 'all') {
 					techTxt = 'ALL';
@@ -13882,209 +13614,22 @@ client.on('messageCreate', async message => {
             return false
         }
 
-        var skillPath = dataPath+'/skills.json'
-        var skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-        var skillFile = JSON.parse(skillRead);
+        let skillPath = dataPath+'/skills.json'
+        let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+        let skillFile = JSON.parse(skillRead);
 
         const skillName = arg[1]
 
         if (skillFile[arg[1]]) {
-            const skillDefs = skillFile[skillName];
+            const skillDefs = skillFile[arg[1]];
+			let finalText = skillFuncs.skillDesc(skillDefs, arg[1], message.guild.id)
 
-            var finalText = ``;
-			if (skillDefs.pow && skillDefs.type != "status" && skillDefs.type != "passive") {
-				if (skillDefs.ohko && skillDefs.type != "heal")
-					finalText += 'Defeats the foe in **one shot**!';
-				else {
-					if (skillDefs.type === 'heal') {
-						if (skillDefs.fullheal)
-							finalText += '**Fully heals**';
-						else if (skillDefs.statusheal)
-							finalText += '**Cures status ailments**';
-						else
-							finalText += `Heals **around ${skillDefs.pow}HP**`;
-					} else
-						finalText += `Has **${skillDefs.pow}** Power`;
-				}
-
-				if (skillDefs.hits && skillDefs.hits > 1 && skillDefs.type != "heal" && !skillDefs.ohko) 
-					finalText += ` and hits **${skillDefs.hits}** times.`;
-
-				finalText += "\n";
-			}
-
-			switch(skillDefs.target) {
-				case "allopposing":
-					finalText += "Targets **all foes**.\n";
-					break;
-				case "allallies":
-					finalText += "Targets **all allies**.\n";
-					break;
-				case "ally":
-					finalText += "Targets **an ally**.\n";
-					break;
-				case "everyone":
-					finalText += "Targets **all fighters** in-battle.\n";
-					break;
-				case "caster":
-					finalText += "Targets **the user**.\n";
-					break;
-				case "random":
-					finalText += "Targets a **random fighter** in-battle.\n";
-					break;
-				case "randomopposing":
-					finalText += "Targets a **random opponent** in-battle.\n";
-					break;
-				default:
-					finalText += "Targets **one foe**.\n";
-			}
-
-            if (skillDefs.cost && skillDefs.costtype) {
-				switch(skillDefs.costtype) {
-					case "hp":
-						finalText += `Costs **${skillDefs.cost}HP**.\n`;
-						break;
-					case "hppercent":
-						finalText += `Costs **${skillDefs.cost}% of the user's Max HP**.\n`;
-						break;
-					case "mppercent":
-						finalText += `Costs **${skillDefs.cost}% of the user's Max MP**.\n`;
-						break;
-					case "money":
-						finalText += `Costs **${skillDefs.cost} of the team's money**.\n`;
-						break;
-					default:
-						finalText += `Costs **${skillDefs.cost}MP**.\n`;
-                }
-            }
-			
-			if (skillDefs.acc && skillDefs.type != "heal" && skillDefs.type != "passive")
-				finalText += `Has **${skillDefs.acc}%** Accuracy.\n`;
-
-			if (skillDefs.drain && skillDefs.type != "heal") {
-				if (skillDefs.drain > 1) {
-					finalText += `Drains 1/${skillDefs.drain} of damage dealt.\n`;
-				} else {
-					finalText += `Drains all damage dealt.\n`;
-				}
-			}
-
-            if (skillDefs.crit && skillDefs.type != "heal" && skillDefs.type != "status" && skillDefs.type != "passive")
-                finalText += `**${skillDefs.crit}%**<:crit:876905905248145448>\n`;
-
-			if (skillDefs.status) {
-				if (typeof skillDefs.status === 'object') {
-					if (skillDefs.statuschance) {
-						finalText += `Has a **${skillDefs.statuschance}%** chance of inflicting either `;
-					} else if (!skillDefs.statuschance || skillDefs.statuschance >= 100) {
-						finalText += '**Guaranteed** to inflict either ';
-					}
-
-					for (const i in skillDefs.status) {
-						finalText += `**${skillDefs.status[i]}**`
-						if (i == skillDefs.status.length-2)
-							finalText += ' or '
-						else if (i >= skillDefs.status.length-1)
-							finalText += '.\n'
-						else
-							finalText += ', '
-					}
-				} else if (skillDefs.status !== "none" && skillDefs.type != "heal") {
-					if (skillDefs.statuschance) {
-						finalText += `Has a **${skillDefs.statuschance}%** chance of inflicting **${skillDefs.status}**.\n`;
-					} else if (!skillDefs.statuschance || skillDefs.statuschance >= 100) {
-						finalText += `Guaranteed to inflict **${skillDefs.status}**.\n`;
-					}
-				}
-			}
-
-			if (skillDefs.autoguard && skillDefs.protectitem)
-				finalText += `Protects **one** party member with ${skillDefs.protectitem}.\n`;
-			else if (skillDefs.autoguardall && skillDefs.protectitem)
-				finalText += `Protects **all** party members with ${skillDefs.protectitem}.\n`;
-
-			if (skillDefs.mimic)
-				finalText += 'Mimics **one ally/foe**.\n';
-
-			if (skillDefs.copyskill)
-				finalText += 'Uses a **randomly known ally skill**.\n';
-
-			if (skillDefs.sketch)
-				finalText += "Copies a **random skill of the opponent's**.\n";
-
-			if (skillDefs.metronome)
-				finalText += 'Uses a **randomly defined skill**.\n';
-			
-			if (skillDefs.futuresight)
-				finalText += 'Will deal damage in **${skillDefs.futuresight.turns} turns**.\n';
-
-			if (skillDefs.reincarnate)
-				finalText += 'Adds an **undead ally** to the party temporarily.\n';
-
-			if (skillDefs.affinitypow)
-				finalText += `Affected by **<:passive:906874477210648576>SpiritCharge** or **<:passive:906874477210648576>Teamwork**, by **${skillDefs.affinitypow} power**.\n`;
-
-			if (skillDefs.atktype) {
-				var attackArray = skillDefs.atktype.split('');
-				attackArray[0] = attackArray[0].toUpperCase()
-				
-				var attackString = attackArray.join('');
-				finalText += `**${attackString}** attack.\n`;
-			}
-
-            if (skillDefs.preSkill)
-                finalText += `**Previous Tier**: *${skillDefs.preSkill[0]}, LV${skillDefs.preSkill[1]}*\n`;
-
-            if (skillDefs.evoSkill)
-                finalText += `**Next Tier**: *${skillDefs.evoSkill[0]}, LV${skillDefs.evoSkill[1]}*\n`;
-
-            if (skillDefs.levelLock)
-                finalText += `🔒 *Skill Locked until level **${skillDefs.levelLock}***`;
-			
-			finalText += '\n'
-			
-			if (skillDefs.desc)
-				finalText += `\n*${skillDefs.desc}*`;
-			
-			finalText += '\n\n**Known By**:'
-
-			var charPath = dataPath+'/characters.json'
-			var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-			var charFile = JSON.parse(charRead);
-			var enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
-			var enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
-			var enmFile = JSON.parse(enmRead);
-			
-			var knownBy = ""
-
-			for (const i in charFile) {
-				for (const k in charFile[i].skills) {
-					if (!charFile[i].hidden && charFile[i].skills[k] == skillName) {
-						if (knownBy != "") knownBy += ", ";
-						knownBy += `${i}`
-					}
-				}
-			}
-
-			for (const i in enmFile[message.guild.id]) {
-				if (enemyFuncs.encounteredEnemy(i, message.guild.id)) {
-					for (const k in enmFile[message.guild.id][i].skills) {
-						if (enmFile[message.guild.id][i].skills[k] == skillName) {
-							if (knownBy != "") knownBy += ", ";
-							knownBy += `${i}`
-						}
-					}
-				}
-			}
-
-			finalText += `\n${knownBy}`
-
-			var userTxt = ''
+			let userTxt = ''
 			if (skillDefs.originalAuthor) {
 				if (skillDefs.originalAuthor === 'Default')
 					userTxt = 'Default/Official';
 				else {
-					var user = await client.users.fetch(skillDefs.originalAuthor);
+					let user = await client.users.fetch(skillDefs.originalAuthor);
 					userTxt = user.username;
 				}
 			} else
@@ -14101,193 +13646,28 @@ client.on('messageCreate', async message => {
     }
 
     if (command === 'randskill') {
-        var skillPath = dataPath+'/skills.json'
-        var skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-        var skillFile = JSON.parse(skillRead);
+        let skillPath = dataPath+'/skills.json'
+        let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+        let skillFile = JSON.parse(skillRead);
 		
-		var possibleSkills = []
+		let possibleSkills = []
 		for (const val in skillFile) {
 			if (skillFile[val].type != "heal" && (skillFile[val].type != "status" && !skillFile[val].buff) && skillFile[val].type != "passive" && val != "Metronome") {
 				possibleSkills.push(val)
 			}
 		}
 
-		var skillName = possibleSkills[Math.round(Math.random() * (possibleSkills.length-1))]
+		let skillName = possibleSkills[Math.round(Math.random() * (possibleSkills.length-1))]
+		
 		const skillDefs = skillFile[skillName]
+		let finalText = skillFuncs.skillDesc(skillDefs, skillName, message.guild.id)
 
-		var finalText = ``;
-		if (skillDefs.pow && skillDefs.type != "status" && skillDefs.type != "passive") {
-			if (skillDefs.ohko && skillDefs.type != "heal")
-				finalText += 'Defeats the foe in **one shot**';
-			else
-				finalText += `Has **${skillDefs.pow}** Power`;
-
-			if (skillDefs.hits && skillDefs.hits > 1 && skillDefs.type != "heal" && !skillDefs.ohko) 
-				finalText += ` and hits **${skillDefs.hits}** times.`;
-
-			finalText += "\n";
-		}
-
-		switch(skillDefs.target) {
-			case "allopposing":
-				finalText += "Targets **all foes**.\n";
-				break;
-			case "allallies":
-				finalText += "Targets **all allies**.\n";
-				break;
-			case "allallies":
-				finalText += "Targets **an ally**.\n";
-				break;
-			case "everyone":
-				finalText += "Targets **all fighters** in-battle.\n";
-				break;
-			case "caster":
-				finalText += "Targets **the user**.\n";
-				break;
-			case "random":
-				finalText += "Targets a **random fighter** in-battle.\n";
-				break;
-			case "randomopposing":
-				finalText += "Targets a **random opponent** in-battle.\n";
-				break;
-			default:
-				finalText += "Targets **one foe**.\n";
-		}
-
-		if (skillDefs.cost && skillDefs.costtype) {
-			switch(skillDefs.costtype) {
-				case "hp":
-					finalText += `Costs **${skillDefs.cost}HP**.\n`;
-					break;
-				case "hppercent":
-					finalText += `Costs **${skillDefs.cost}% of the user's Max HP**.\n`;
-					break;
-				case "mppercent":
-					finalText += `Costs **${skillDefs.cost}% of the user's Max MP**.\n`;
-					break;
-				case "money":
-					finalText += `Costs **${skillDefs.cost} of the team's money**.\n`;
-					break;
-				default:
-					finalText += `Costs **${skillDefs.cost}MP**.\n`;
-			}
-		}
-		
-		if (skillDefs.acc && skillDefs.type != "heal" && skillDefs.type != "passive")
-			finalText += `Has **${skillDefs.acc}%** Accuracy.\n`;
-
-		if (skillDefs.drain && skillDefs.type != "heal") {
-			if (skillDefs.drain > 1) {
-				finalText += `Drains 1/${skillDefs.drain} of damage dealt.\n`;
-			} else {
-				finalText += `Drains all damage dealt.\n`;
-			}
-		}
-
-		if (skillDefs.crit && skillDefs.type != "heal" && skillDefs.type != "status" && skillDefs.type != "passive")
-			finalText += `**${skillDefs.crit}%**<:crit:876905905248145448>\n`;
-
-		if (skillDefs.status) {
-			if (typeof skillDefs.status === 'object') {
-				if (skillDefs.statuschance) {
-					finalText += `Has a **${skillDefs.statuschance}%** chance of inflicting either `;
-				} else if (!skillDefs.statuschance || skillDefs.statuschance >= 100) {
-					finalText += '**Guaranteed** to inflict either ';
-				}
-
-				for (const i in skillDefs.status) {
-					finalText += `**${skillDefs.status[i]}**`
-					if (i == skillDefs.status.length-2)
-						finalText += ' or '
-					else if (i >= skillDefs.status.length-1)
-						finalText += '.\n'
-					else
-						finalText += ', '
-				}
-			} else if (skillDefs.status !== "none" && skillDefs.type != "heal") {
-				if (skillDefs.statuschance) {
-					finalText += `Has a **${skillDefs.statuschance}%** chance of inflicting **${skillDefs.status}**.\n`;
-				} else if (!skillDefs.statuschance || skillDefs.statuschance >= 100) {
-					finalText += `Guaranteed to inflict **${skillDefs.status}**.\n`;
-				}
-			}
-		}
-
-		if (skillDefs.atktype) {
-			var attackArray = skillDefs.atktype.split('');
-			attackArray[0] = attackArray[0].toUpperCase()
-			
-			var attackString = attackArray.join('');
-			finalText += `**${attackString}** attack.\n`;
-		}
-
-		if (skillDefs.autoguard && skillDefs.protectitem)
-			finalText += `Protects **one** party member with ${skillDefs.protectitem}.\n`;
-		else if (skillDefs.autoguardall && skillDefs.protectitem)
-			finalText += `Protects **all** party members with ${skillDefs.protectitem}.\n`;
-
-		if (skillDefs.mimic)
-			finalText += 'Mimics **one ally/foe**.\n';
-
-		if (skillDefs.copyskill)
-			finalText += 'Uses a **randomly known ally skill**.\n';
-
-		if (skillDefs.sketch)
-			finalText += "Copies a **random skill of the opponent's**.\n";
-
-		if (skillDefs.metronome)
-			finalText += 'Uses a **randomly defined skill**.\n';
-		
-		if (skillDefs.futuresight)
-			finalText += 'Will deal damage in **${skillDefs.futuresight.turns} turns**.\n';
-
-		if (skillDefs.reincarnate)
-			finalText += 'Adds an **undead ally** to the party temporarily.\n';
-		
-		finalText += '\n'
-		
-		if (skillDefs.desc)
-			finalText += `\n*${skillDefs.desc}*`;
-		
-		finalText += '\n\n**Known By**:'
-
-		var charPath = dataPath+'/characters.json'
-		var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-		var charFile = JSON.parse(charRead);
-		var enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
-		var enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
-		var enmFile = JSON.parse(enmRead);
-		
-		var knownBy = ""
-
-		for (const i in charFile) {
-			for (const k in charFile[i].skills) {
-				if (!charFile[i].hidden && charFile[i].skills[k] == skillName) {
-					if (knownBy != "") {knownBy += ", "}
-					knownBy += `${i}`
-				}
-			}
-		}
-
-		for (const i in enmFile[message.guild.id]) {
-			if (enemyFuncs.encounteredEnemy(i, message.guild.id)) {
-				for (const k in enmFile[message.guild.id][i].skills) {
-					if (enmFile[message.guild.id][i].skills[k] == skillName) {
-						if (knownBy != "") knownBy += ", ";
-						knownBy += `${i}`
-					}
-				}
-			}
-		}
-
-		finalText += `\n${knownBy}`
-
-		var userTxt = ''
+		let userTxt = ''
 		if (skillDefs.originalAuthor) {
 			if (skillDefs.originalAuthor === 'Default')
 				userTxt = 'Default/Official';
 			else {
-				var user = await client.users.fetch(skillDefs.originalAuthor);
+				let user = await client.users.fetch(skillDefs.originalAuthor);
 				userTxt = user.username;
 			}
 		} else
@@ -14301,222 +13681,35 @@ client.on('messageCreate', async message => {
     }
 
     if (command === 'dailyskill') {
-        var skillPath = dataPath+'/skills.json'
-        var skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-        var skillFile = JSON.parse(skillRead);
+        let skillPath = dataPath+'/skills.json'
+        let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+        let skillFile = JSON.parse(skillRead);
 		
 		if (!dailySkill)
 			dailySkill = 'none';
 
-		var notice = 'Here is the daily skill, again.'
+		let notice = 'Here is the daily skill, again.'
 		if (dailySkill === 'none') {
-			var possibleSkills = [];
+			let possibleSkills = [];
 			for (const i in skillFile)
 				possibleSkills.push(i);
 			
-			var skillName = possibleSkills[utilityFuncs.randNum(possibleSkills.length-1)];
+			let skillName = possibleSkills[utilityFuncs.randNum(possibleSkills.length-1)];
 			dailySkill = skillName.toString();
 			
-			var authorTxt = skillFile[skillName].originalAuthor ? `<@${skillFile[skillName].originalAuthor}>` : '<@776480348757557308>'
+			let authorTxt = skillFile[skillName].originalAuthor ? `<@${skillFile[skillName].originalAuthor}>` : '<@776480348757557308>'
 			notice = `${authorTxt}, your skill is the daily skill for today!`;
 		}
 
 		setTimeout(function() {
 			if (skillFile[dailySkill]) {
 				const skillDefs = skillFile[dailySkill];
-
-				var finalText = ``;
-				if (skillDefs.pow && skillDefs.type != "status" && skillDefs.type != "passive") {
-					if (skillDefs.ohko && skillDefs.type != "heal")
-						finalText += 'Defeats the foe in **one shot**!';
-					else {
-						if (skillDefs.type === 'heal') {
-							if (skillDefs.fullheal)
-								finalText += '**Fully heals**';
-							else if (skillDefs.statusheal)
-								finalText += '**Cures status ailments**';
-							else
-								finalText += `Heals **around ${skillDefs.pow}HP**`;
-						} else
-							finalText += `Has **${skillDefs.pow}** Power`;
-					}
-
-					if (skillDefs.hits && skillDefs.hits > 1 && skillDefs.type != "heal" && !skillDefs.ohko) 
-						finalText += ` and hits **${skillDefs.hits}** times.`;
-
-					finalText += "\n";
-				}
-
-				switch(skillDefs.target) {
-					case "allopposing":
-						finalText += "Targets **all foes**.\n";
-						break;
-					case "allallies":
-						finalText += "Targets **all allies**.\n";
-						break;
-					case "ally":
-						finalText += "Targets **an ally**.\n";
-						break;
-					case "everyone":
-						finalText += "Targets **all fighters** in-battle.\n";
-						break;
-					case "caster":
-						finalText += "Targets **the user**.\n";
-						break;
-					case "random":
-						finalText += "Targets a **random fighter** in-battle.\n";
-						break;
-					case "randomopposing":
-						finalText += "Targets a **random opponent** in-battle.\n";
-						break;
-					default:
-						finalText += "Targets **one foe**.\n";
-				}
-
-				if (skillDefs.cost && skillDefs.costtype) {
-					switch(skillDefs.costtype) {
-						case "hp":
-							finalText += `Costs **${skillDefs.cost}HP**.\n`;
-							break;
-						case "hppercent":
-							finalText += `Costs **${skillDefs.cost}% of the user's Max HP**.\n`;
-							break;
-						case "mppercent":
-							finalText += `Costs **${skillDefs.cost}% of the user's Max MP**.\n`;
-							break;
-						case "money":
-							finalText += `Costs **${skillDefs.cost} of the team's money**.\n`;
-							break;
-						default:
-							finalText += `Costs **${skillDefs.cost}MP**.\n`;
-					}
-				}
+				let finalText = skillFuncs.skillDesc(skillDefs, dailySkill, message.guild.id)
 				
-				if (skillDefs.acc && skillDefs.type != "heal" && skillDefs.type != "passive")
-					finalText += `Has **${skillDefs.acc}%** Accuracy.\n`;
-
-				if (skillDefs.drain && skillDefs.type != "heal") {
-					if (skillDefs.drain > 1) {
-						finalText += `Drains 1/${skillDefs.drain} of damage dealt.\n`;
-					} else {
-						finalText += `Drains all damage dealt.\n`;
-					}
-				}
-
-				if (skillDefs.crit && skillDefs.type != "heal" && skillDefs.type != "status" && skillDefs.type != "passive")
-					finalText += `**${skillDefs.crit}%**<:crit:876905905248145448>\n`;
-
-				if (skillDefs.status) {
-					if (typeof skillDefs.status === 'object') {
-						if (skillDefs.statuschance) {
-							finalText += `Has a **${skillDefs.statuschance}%** chance of inflicting either `;
-						} else if (!skillDefs.statuschance || skillDefs.statuschance >= 100) {
-							finalText += '**Guaranteed** to inflict either ';
-						}
-
-						for (const i in skillDefs.status) {
-							finalText += `**${skillDefs.status[i]}**`
-							if (i == skillDefs.status.length-2)
-								finalText += ' or '
-							else if (i >= skillDefs.status.length-1)
-								finalText += '.\n'
-							else
-								finalText += ', '
-						}
-					} else if (skillDefs.status !== "none" && skillDefs.type != "heal") {
-						if (skillDefs.statuschance) {
-							finalText += `Has a **${skillDefs.statuschance}%** chance of inflicting **${skillDefs.status}**.\n`;
-						} else if (!skillDefs.statuschance || skillDefs.statuschance >= 100) {
-							finalText += `Guaranteed to inflict **${skillDefs.status}**.\n`;
-						}
-					}
-				}
-
-				if (skillDefs.autoguard && skillDefs.protectitem)
-					finalText += `Protects **one** party member with ${skillDefs.protectitem}.\n`;
-				else if (skillDefs.autoguardall && skillDefs.protectitem)
-					finalText += `Protects **all** party members with ${skillDefs.protectitem}.\n`;
-
-				if (skillDefs.mimic)
-					finalText += 'Mimics **one ally/foe**.\n';
-
-				if (skillDefs.copyskill)
-					finalText += 'Uses a **randomly known ally skill**.\n';
-
-				if (skillDefs.sketch)
-					finalText += "Copies a **random skill of the opponent's**.\n";
-
-				if (skillDefs.metronome)
-					finalText += 'Uses a **randomly defined skill**.\n';
-				
-				if (skillDefs.futuresight)
-					finalText += 'Will deal damage in **${skillDefs.futuresight.turns} turns**.\n';
-
-				if (skillDefs.reincarnate)
-					finalText += 'Adds an **undead ally** to the party temporarily.\n';
-
-				if (skillDefs.affinitypow)
-					finalText += `Affected by **<:passive:906874477210648576>SpiritCharge** or **<:passive:906874477210648576>Teamwork**, by **${skillDefs.affinitypow} power**.\n`;
-
-				if (skillDefs.atktype) {
-					var attackArray = skillDefs.atktype.split('');
-					attackArray[0] = attackArray[0].toUpperCase()
-					
-					var attackString = attackArray.join('');
-					finalText += `**${attackString}** attack.\n`;
-				}
-
-				if (skillDefs.preSkill)
-					finalText += `**Previous Tier**: *${skillDefs.preSkill[0]}, LV${skillDefs.preSkill[1]}*\n`;
-
-				if (skillDefs.evoSkill)
-					finalText += `**Next Tier**: *${skillDefs.evoSkill[0]}, LV${skillDefs.evoSkill[1]}*\n`;
-
-				if (skillDefs.levelLock)
-					finalText += `🔒 *Skill Locked until level **${skillDefs.levelLock}***`;
-				
-				finalText += '\n'
-				
-				if (skillDefs.desc)
-					finalText += `\n*${skillDefs.desc}*`;
-				
-				finalText += '\n\n**Known By**:'
-
-				var charPath = dataPath+'/characters.json'
-				var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-				var charFile = JSON.parse(charRead);
-				var enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
-				var enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
-				var enmFile = JSON.parse(enmRead);
-				
-				var knownBy = ""
-
-				for (const i in charFile) {
-					for (const k in charFile[i].skills) {
-						if (!charFile[i].hidden && charFile[i].skills[k] == skillName) {
-							if (knownBy != "") knownBy += ", ";
-							knownBy += `${i}`
-						}
-					}
-				}
-
-				for (const i in enmFile[message.guild.id]) {
-					if (enemyFuncs.encounteredEnemy(i, message.guild.id)) {
-						for (const k in enmFile[message.guild.id][i].skills) {
-							if (enmFile[message.guild.id][i].skills[k] == skillName) {
-								if (knownBy != "") knownBy += ", ";
-								knownBy += `${i}`
-							}
-						}
-					}
-				}
-
-				finalText += `\n${knownBy}`			
-				
-				var today = new Date();
-				var dd = String(today.getDate()).padStart(2, '0');
-				var mm = String(today.getMonth() + 1).padStart(2, '0');
-				var yyyy = today.getFullYear();
+				let today = new Date();
+				let dd = String(today.getDate()).padStart(2, '0');
+				let mm = String(today.getMonth() + 1).padStart(2, '0');
+				let yyyy = today.getFullYear();
 
 				today = mm + '/' + dd + '/' + yyyy;
 				
@@ -14545,7 +13738,7 @@ client.on('messageCreate', async message => {
 					.setDescription(`${finalText}`)
 				message.channel.send({content: notice, embeds: [DiscordEmbed]});			
 
-				var dailyRead = fs.readFileSync(dataPath+'/dailyskill.txt', {flag: 'as+'});
+				let dailyRead = fs.readFileSync(dataPath+'/dailyskill.txt', {flag: 'as+'});
 
 				dailyRead = dailySkill.toString();
 				fs.writeFileSync(dataPath+'/dailyskill.txt', dailyRead);
@@ -14580,12 +13773,12 @@ client.on('messageCreate', async message => {
         if (message.content.includes("@everyone") || message.content.includes("@here") || message.mentions.users.first())
             return message.channel.send(`You're really mean, you know that?`);
 		
-        var itemPath = dataPath+'/items.json'
-        var itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
-        var itemFile = JSON.parse(itemRead);
-        var skillPath = dataPath+'/skills.json'
-        var skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-        var skillFile = JSON.parse(skillRead);
+        let itemPath = dataPath+'/items.json'
+        let itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
+        let itemFile = JSON.parse(itemRead);
+        let skillPath = dataPath+'/skills.json'
+        let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+        let skillFile = JSON.parse(skillRead);
 
         if (!utilityFuncs.RPGBotAdmin(message.author.id)) {
             if (itemFile[arg[1]] && message.author.id != itemFile[arg[1]].originalAuthor)
@@ -14597,8 +13790,8 @@ client.on('messageCreate', async message => {
 		else if (!arg[3])
 			message.channel.send('Please specify the item type.');
 			
-		var splicedTxt = message.content.slice(prefix.length).trim().split('"')
-		var itemDesc = splicedTxt ? splicedTxt[1] : ''
+		let splicedTxt = message.content.slice(prefix.length).trim().split('"')
+		let itemDesc = splicedTxt ? splicedTxt[1] : ''
 
         itemFile[arg[1]] = {
 			name: arg[1],
@@ -14678,12 +13871,12 @@ client.on('messageCreate', async message => {
         if (message.content.includes("@everyone") || message.content.includes("@here") || message.mentions.users.first())
             return message.channel.send(`You're really mean, you know that?`);
 		
-        var weapPath = dataPath+'/Equipment/weapons.json'
-        var weapRead = fs.readFileSync(weapPath, {flag: 'as+'});
-        var weapFile = JSON.parse(weapRead);
-        var skillPath = dataPath+'/skills.json'
-        var skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-        var skillFile = JSON.parse(skillRead);
+        let weapPath = dataPath+'/Equipment/weapons.json'
+        let weapRead = fs.readFileSync(weapPath, {flag: 'as+'});
+        let weapFile = JSON.parse(weapRead);
+        let skillPath = dataPath+'/skills.json'
+        let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+        let skillFile = JSON.parse(skillRead);
 
         if (!utilityFuncs.RPGBotAdmin(message.author.id)) {
             if (weapFile[arg[1]] && message.author.id != weapFile[arg[1]].originalAuthor)
@@ -14693,8 +13886,8 @@ client.on('messageCreate', async message => {
 		if (!arg[2])
 			message.channel.send('Please specify the cost.');
 			
-		var splicedTxt = message.content.slice(prefix.length).trim().split('"')
-		var weapDesc = splicedTxt ? splicedTxt[1] : ''
+		let splicedTxt = message.content.slice(prefix.length).trim().split('"')
+		let weapDesc = splicedTxt ? splicedTxt[1] : ''
 
         weapFile[arg[1]] = {
 			name: arg[1],
@@ -14705,9 +13898,9 @@ client.on('messageCreate', async message => {
 			originalAuthor: message.author.id
 		}
 		
-		var melBuff = parseInt(arg[4])
-		var atkBuff = parseInt(arg[5])
-		var magBuff = parseInt(arg[6])
+		let melBuff = parseInt(arg[4])
+		let atkBuff = parseInt(arg[5])
+		let magBuff = parseInt(arg[6])
 		
 		if (melBuff > 0)
 			weapFile[arg[1]].melee = melBuff
@@ -14749,12 +13942,12 @@ client.on('messageCreate', async message => {
         if (message.content.includes("@everyone") || message.content.includes("@here") || message.mentions.users.first())
             return message.channel.send(`You're really mean, you know that?`);
 		
-        var armrPath = dataPath+'/Equipment/armors.json'
-        var armrRead = fs.readFileSync(armrPath, {flag: 'as+'});
-        var armrFile = JSON.parse(armrRead);
-        var skillPath = dataPath+'/skills.json'
-        var skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-        var skillFile = JSON.parse(skillRead);
+        let armrPath = dataPath+'/Equipment/armors.json'
+        let armrRead = fs.readFileSync(armrPath, {flag: 'as+'});
+        let armrFile = JSON.parse(armrRead);
+        let skillPath = dataPath+'/skills.json'
+        let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+        let skillFile = JSON.parse(skillRead);
 
         if (!utilityFuncs.RPGBotAdmin(message.author.id)) {
             if (armrFile[arg[1]] && message.author.id != armrFile[arg[1]].originalAuthor)
@@ -14764,8 +13957,8 @@ client.on('messageCreate', async message => {
 		if (!arg[2])
 			message.channel.send('Please specify the cost.');
 			
-		var splicedTxt = message.content.slice(prefix.length).trim().split('"')
-		var weapDesc = splicedTxt ? splicedTxt[1] : ''
+		let splicedTxt = message.content.slice(prefix.length).trim().split('"')
+		let weapDesc = splicedTxt ? splicedTxt[1] : ''
 
         armrFile[arg[1]] = {
 			name: arg[1],
@@ -14776,7 +13969,7 @@ client.on('messageCreate', async message => {
 			originalAuthor: message.author.id
 		}
 		
-		var defBuff = parseInt(arg[4])
+		let defBuff = parseInt(arg[4])
 		if (defBuff > 0)
 			armrFile[arg[1]].def = defBuff
 
@@ -14806,19 +13999,19 @@ client.on('messageCreate', async message => {
         if (message.content.includes("@everyone") || message.content.includes("@here") || message.mentions.users.first())
             return message.channel.send(`You're really mean, you know that?`);
 		
-        var itemPath = dataPath+'/items.json'
-        var itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
-        var itemFile = JSON.parse(itemRead);
+        let itemPath = dataPath+'/items.json'
+        let itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
+        let itemFile = JSON.parse(itemRead);
 		
 		if (itemFile[arg[1]]) {
-			var itemDefs = itemFile[arg[1]];
+			let itemDefs = itemFile[arg[1]];
 			if (message.author.id != itemDefs.originalAuthor)
 				return message.channel.send('Apologies, but you do not own this item, therefore, you cannot assign a fusion to it.');
 
 			itemDefs.fusion = {}
 
-			var theItem = ""
-			for (var i = 2; i <= arg.length-1; i++) {
+			let theItem = ""
+			for (let i = 2; i <= arg.length-1; i++) {
 				if (!(i & 1)) {
 					theItem = arg[i]
 				} else {
@@ -14846,23 +14039,23 @@ client.on('messageCreate', async message => {
 			return message.channel.send({embeds: [DiscordEmbed]})
         }
 		
-        var itemPath = dataPath+'/items.json'
-        var itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
-        var itemFile = JSON.parse(itemRead);
-		var btlPath = `${dataPath}/Battles/battle-${message.guild.id}.json`
-		var btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
-		var btl = JSON.parse(btlRead);
+        let itemPath = dataPath+'/items.json'
+        let itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
+        let itemFile = JSON.parse(itemRead);
+		let btlPath = `${dataPath}/Battles/battle-${message.guild.id}.json`
+		let btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
+		let btl = JSON.parse(btlRead);
 		
 		if (itemFile[arg[2]]) {
-			var itemDefs = itemFile[arg[2]];
+			let itemDefs = itemFile[arg[2]];
 
 			if (!itemDefs.fusion || itemDefs.fusion === {})
 				return message.channel.send(`${arg[2]} cannot be created.`)
 
-			var partyDefs = btl[message.guild.id].parties[arg[1]];
+			let partyDefs = btl[message.guild.id].parties[arg[1]];
 			
 			// Check if the party has the items required.
-			var notEnough = false;
+			let notEnough = false;
 			for (const i in itemDefs.fusion) {
 				if (partyDefs.items[i] && partyDefs.items[i] >= itemDefs.fusion[i]) {
 					partyDefs.items[i] -= itemDefs.fusion[i];
@@ -14874,7 +14067,7 @@ client.on('messageCreate', async message => {
 			}
 			
 			if (notEnough == true) {
-				var itemsRequired = '```diff'
+				let itemsRequired = '```diff'
 				for (const i in itemDefs.fusion)
 					itemsRequired += `\n${itemFile[i] ? itemFile[i].name : i} x${itemDefs.fusion[i]} (${partyDefs.items[i] ? partyDefs.items[i] : '0'}/${itemDefs.fusion[i]})`;
 				
@@ -14905,14 +14098,14 @@ client.on('messageCreate', async message => {
 	}
 
     if (command === 'getitem') {
-        var itemPath = dataPath+'/items.json'
-        var itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
-        var itemFile = JSON.parse(itemRead);
+        let itemPath = dataPath+'/items.json'
+        let itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
+        let itemFile = JSON.parse(itemRead);
 		
-		var servPath = dataPath+'/Server Settings/server.json'
-        var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-        var servFile = JSON.parse(servRead);
-        var servDefs = servFile[message.guild.id];
+		let servPath = dataPath+'/Server Settings/server.json'
+        let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+        let servFile = JSON.parse(servRead);
+        let servDefs = servFile[message.guild.id];
 
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
         if (!arg[1]) {
@@ -14925,9 +14118,9 @@ client.on('messageCreate', async message => {
         }
 
         if (itemFile[arg[1]]) {
-			var itemDefs = itemFile[arg[1]];
+			let itemDefs = itemFile[arg[1]];
 
-			var descTxt = ''
+			let descTxt = ''
 
 			if (itemDefs.cost)
 				descTxt += `Costs **${itemDefs.cost} ${servDefs.currency}**s.\n`;
@@ -14949,12 +14142,12 @@ client.on('messageCreate', async message => {
 				descTxt += '_';
 			}
 
-			var userTxt = ''
+			let userTxt = ''
 			if (itemDefs.originalAuthor) {
 				if (itemDefs.originalAuthor === 'Default')
 					userTxt = 'Default/Official';
 				else {
-					var user = await client.users.fetch(itemDefs.originalAuthor);
+					let user = await client.users.fetch(itemDefs.originalAuthor);
 					userTxt = user.username;
 				}
 			} else
@@ -14971,11 +14164,11 @@ client.on('messageCreate', async message => {
     }
 	
     if (command === 'listitems') {
-        var itemPath = dataPath+'/items.json'
-        var itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
-        var itemFile = JSON.parse(itemRead);
+        let itemPath = dataPath+'/items.json'
+        let itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
+        let itemFile = JSON.parse(itemRead);
 
-		var itemArray = []
+		let itemArray = []
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
         if (!arg[1] || arg[1] === ' ' || arg[1] === 'null') {
 			for (const i in itemFile)
@@ -14996,12 +14189,12 @@ client.on('messageCreate', async message => {
 	}
 
     if (command === 'obtainitem') {
-        var itemPath = dataPath+'/items.json'
-        var itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
-        var itemFile = JSON.parse(itemRead);
-		var btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
-		var btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
-		var btl = JSON.parse(btlRead);
+        let itemPath = dataPath+'/items.json'
+        let itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
+        let itemFile = JSON.parse(itemRead);
+		let btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
+		let btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
+		let btl = JSON.parse(btlRead);
 
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
         if (!arg[1]) {
@@ -15014,7 +14207,7 @@ client.on('messageCreate', async message => {
         }
 
         if (itemFile[arg[2]]) {
-			var itemDefs = itemFile[arg[2]];
+			let itemDefs = itemFile[arg[2]];
 			
 			if (!btl[message.guild.id].parties[arg[1]])
 				return message.channel.send(`${arg[1]} is an invalid party!`);
@@ -15048,12 +14241,12 @@ client.on('messageCreate', async message => {
     }
 
     if (command === 'transferitems') {
-        var itemPath = dataPath+'/items.json'
-        var itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
-        var itemFile = JSON.parse(itemRead);
-		var btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
-		var btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
-		var btl = JSON.parse(btlRead);
+        let itemPath = dataPath+'/items.json'
+        let itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
+        let itemFile = JSON.parse(itemRead);
+		let btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
+		let btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
+		let btl = JSON.parse(btlRead);
 
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
         if (!arg[1]) {
@@ -15097,14 +14290,14 @@ client.on('messageCreate', async message => {
     }
 
     if (command === 'getweapon') {
-        var weapPath = dataPath+'/Equipment/weapons.json'
-        var weapRead = fs.readFileSync(weapPath, {flag: 'as+'});
-        var weapFile = JSON.parse(weapRead);
+        let weapPath = dataPath+'/Equipment/weapons.json'
+        let weapRead = fs.readFileSync(weapPath, {flag: 'as+'});
+        let weapFile = JSON.parse(weapRead);
 
-		var servPath = dataPath+'/Server Settings/server.json'
-        var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-        var servFile = JSON.parse(servRead);
-        var servDefs = servFile[message.guild.id];
+		let servPath = dataPath+'/Server Settings/server.json'
+        let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+        let servFile = JSON.parse(servRead);
+        let servDefs = servFile[message.guild.id];
 
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
         if (!arg[1]) {
@@ -15117,8 +14310,8 @@ client.on('messageCreate', async message => {
         }
 
         if (weapFile[arg[1]]) {
-			var weapDefs = weapFile[arg[1]];
-			var descTxt = ''
+			let weapDefs = weapFile[arg[1]];
+			let descTxt = ''
 
 			if (weapDefs.cost)
 				descTxt += `Costs **${weapDefs.cost} ${servDefs.currency}**s.\n`;
@@ -15133,12 +14326,12 @@ client.on('messageCreate', async message => {
 			if (weapDefs.desc)
 				descTxt += `\n\n*${weapDefs.desc}*`;
 
-			var userTxt = ''
+			let userTxt = ''
 			if (weapDefs.originalAuthor) {
 				if (weapDefs.originalAuthor === 'Default')
 					userTxt = 'Default/Official';
 				else {
-					var user = await client.users.fetch(weapDefs.originalAuthor);
+					let user = await client.users.fetch(weapDefs.originalAuthor);
 					userTxt = user.username;
 				}
 			} else
@@ -15155,11 +14348,11 @@ client.on('messageCreate', async message => {
     }
 	
     if (command === 'listweapons') {
-        var weapPath = dataPath+'/Equipment/weapons.json'
-        var weapRead = fs.readFileSync(weapPath, {flag: 'as+'});
-        var weapFile = JSON.parse(weapRead);
+        let weapPath = dataPath+'/Equipment/weapons.json'
+        let weapRead = fs.readFileSync(weapPath, {flag: 'as+'});
+        let weapFile = JSON.parse(weapRead);
 
-		var itemArray = []
+		let itemArray = []
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
         if (!arg[1] || arg[1] === ' ' || arg[1] === 'null') {
 			for (const i in weapFile)
@@ -15180,14 +14373,14 @@ client.on('messageCreate', async message => {
 	}
 
     if (command === 'getarmor') {
-        var armrPath = dataPath+'/Equipment/armors.json'
-        var armrRead = fs.readFileSync(armrPath, {flag: 'as+'});
-        var armrFile = JSON.parse(armrRead);
+        let armrPath = dataPath+'/Equipment/armors.json'
+        let armrRead = fs.readFileSync(armrPath, {flag: 'as+'});
+        let armrFile = JSON.parse(armrRead);
 		
-		var servPath = dataPath+'/Server Settings/server.json'
-        var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-        var servFile = JSON.parse(servRead);
-        var servDefs = servFile[message.guild.id];
+		let servPath = dataPath+'/Server Settings/server.json'
+        let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+        let servFile = JSON.parse(servRead);
+        let servDefs = servFile[message.guild.id];
 
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
         if (!arg[1]) {
@@ -15200,8 +14393,8 @@ client.on('messageCreate', async message => {
         }
 
         if (armrFile[arg[1]]) {
-			var armrDefs = armrFile[arg[1]];
-			var descTxt = '';
+			let armrDefs = armrFile[arg[1]];
+			let descTxt = '';
 
 			if (armrDefs.cost)
 				descTxt += `Costs **${armrDefs.cost} ${servDefs.currency}**s.\n`;
@@ -15214,12 +14407,12 @@ client.on('messageCreate', async message => {
 			if (armrDefs.desc)
 				descTxt += `\n\n*${armrDefs.desc}*`;
 
-			var userTxt = ''
+			let userTxt = ''
 			if (armrDefs.originalAuthor) {
 				if (armrDefs.originalAuthor === 'Default')
 					userTxt = 'Default/Official';
 				else {
-					var user = await client.users.fetch(armrDefs.originalAuthor);
+					let user = await client.users.fetch(armrDefs.originalAuthor);
 					userTxt = user.username;
 				}
 			} else
@@ -15236,11 +14429,11 @@ client.on('messageCreate', async message => {
     }
 	
     if (command === 'listarmors') {
-        var armrPath = dataPath+'/Equipment/armors.json'
-        var armrRead = fs.readFileSync(armrPath, {flag: 'as+'});
-        var armrFile = JSON.parse(armrRead);
+        let armrPath = dataPath+'/Equipment/armors.json'
+        let armrRead = fs.readFileSync(armrPath, {flag: 'as+'});
+        let armrFile = JSON.parse(armrRead);
 
-		var itemArray = []
+		let itemArray = []
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
         if (!arg[1] || arg[1] === ' ' || arg[1] === 'null') {
 			for (const i in armrFile)
@@ -15261,11 +14454,11 @@ client.on('messageCreate', async message => {
 	}
 	
     if (command === 'listcharms') {
-        var charmPath = dataPath+'/charms.json'
-        var charmRead = fs.readFileSync(charmPath, {flag: 'as+'});
-        var charmFile = JSON.parse(charmRead);
+        let charmPath = dataPath+'/charms.json'
+        let charmRead = fs.readFileSync(charmPath, {flag: 'as+'});
+        let charmFile = JSON.parse(charmRead);
 
-		var itemArray = []
+		let itemArray = []
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
         if (!arg[1] || arg[1] === ' ' || arg[1] === 'null') {
 			for (const i in charmFile)
@@ -15286,12 +14479,12 @@ client.on('messageCreate', async message => {
 	}
 
     if (command === 'obtainweapon') {
-        var weapPath = dataPath+'/Equipment/weapons.json'
-        var weapRead = fs.readFileSync(weapPath, {flag: 'as+'});
-        var weapFile = JSON.parse(weapRead);
-		var btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
-		var btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
-		var btl = JSON.parse(btlRead);
+        let weapPath = dataPath+'/Equipment/weapons.json'
+        let weapRead = fs.readFileSync(weapPath, {flag: 'as+'});
+        let weapFile = JSON.parse(weapRead);
+		let btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
+		let btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
+		let btl = JSON.parse(btlRead);
 
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
         if (!arg[1]) {
@@ -15304,7 +14497,7 @@ client.on('messageCreate', async message => {
         }
 
         if (weapFile[arg[2]]) {
-			var weapDefs = weapFile[arg[2]];
+			let weapDefs = weapFile[arg[2]];
 			
 			if (!btl[message.guild.id].parties[arg[1]])
 				return message.channel.send(`${arg[1]} is an invalid party!`);
@@ -15332,12 +14525,12 @@ client.on('messageCreate', async message => {
     }
 
     if (command === 'obtainarmor') {
-        var armrPath = dataPath+'/Equipment/armors.json'
-        var armrRead = fs.readFileSync(armrPath, {flag: 'as+'});
-        var armrFile = JSON.parse(armrRead);
-		var btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
-		var btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
-		var btl = JSON.parse(btlRead);
+        let armrPath = dataPath+'/Equipment/armors.json'
+        let armrRead = fs.readFileSync(armrPath, {flag: 'as+'});
+        let armrFile = JSON.parse(armrRead);
+		let btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
+		let btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
+		let btl = JSON.parse(btlRead);
 
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
         if (!arg[1]) {
@@ -15350,8 +14543,8 @@ client.on('messageCreate', async message => {
         }
 
         if (armrFile[arg[2]]) {
-			var armrDefs = armrFile[arg[2]];
-			var descTxt = ''
+			let armrDefs = armrFile[arg[2]];
+			let descTxt = ''
 
 			if (!btl[message.guild.id].parties[arg[1]])
 				return message.channel.send(`${arg[1]} is an invalid party!`);
@@ -15391,20 +14584,20 @@ client.on('messageCreate', async message => {
             return message.channel.send({embeds: [DiscordEmbed]})
         }
 
-		var charPath = dataPath+'/characters.json'
-		var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-		var charFile = JSON.parse(charRead);
-		var btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
-		var btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
-		var btl = JSON.parse(btlRead);
+		let charPath = dataPath+'/characters.json'
+		let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+		let charFile = JSON.parse(charRead);
+		let btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
+		let btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
+		let btl = JSON.parse(btlRead);
 
         if (btl[message.guild.id].parties[arg[2]]) {
-			var partyDefs = btl[message.guild.id].parties[arg[2]];
+			let partyDefs = btl[message.guild.id].parties[arg[2]];
 			
 			if (!charFile[arg[1]])
 				return message.channel.send(`${arg[1]} is an invalid character!`);
 			
-			var inParty = false;
+			let inParty = false;
 			for (const i in partyDefs.members) {
 				if (partyDefs.members[i] === arg[1])
 					inParty = true;
@@ -15413,7 +14606,7 @@ client.on('messageCreate', async message => {
 			if (inParty == false)
 				return message.channel.send(`${arg[1]} isn't in Team ${arg[2]}.`);
 
-			var charDefs = charFile[arg[1]]
+			let charDefs = charFile[arg[1]]
 
 			if (!partyDefs.weapons)
 				return message.channel.send(`Team ${arg[2]} doesn't have any weapons.`);
@@ -15444,20 +14637,20 @@ client.on('messageCreate', async message => {
             return message.channel.send({embeds: [DiscordEmbed]})
         }
 
-		var charPath = dataPath+'/characters.json'
-		var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-		var charFile = JSON.parse(charRead);
-		var btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
-		var btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
-		var btl = JSON.parse(btlRead);
+		let charPath = dataPath+'/characters.json'
+		let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+		let charFile = JSON.parse(charRead);
+		let btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
+		let btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
+		let btl = JSON.parse(btlRead);
 
         if (btl[message.guild.id].parties[arg[2]]) {
-			var partyDefs = btl[message.guild.id].parties[arg[2]];
+			let partyDefs = btl[message.guild.id].parties[arg[2]];
 			
 			if (!charFile[arg[1]])
 				return message.channel.send(`${arg[1]} is an invalid character!`);
 			
-			var inParty = false;
+			let inParty = false;
 			for (const i in partyDefs.members) {
 				if (partyDefs.members[i] === arg[1])
 					inParty = true;
@@ -15466,7 +14659,7 @@ client.on('messageCreate', async message => {
 			if (inParty == false)
 				return message.channel.send(`${arg[1]} isn't in Team ${arg[2]}.`);
 
-			var charDefs = charFile[arg[1]]
+			let charDefs = charFile[arg[1]]
 
 			if (!partyDefs.weapons)
 				return message.channel.send(`Team ${arg[2]} doesn't have any weapons.`);
@@ -15494,20 +14687,20 @@ client.on('messageCreate', async message => {
             return message.channel.send({embeds: [DiscordEmbed]})
         }
 
-		var charPath = dataPath+'/characters.json'
-		var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-		var charFile = JSON.parse(charRead);
-		var btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
-		var btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
-		var btl = JSON.parse(btlRead);
+		let charPath = dataPath+'/characters.json'
+		let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+		let charFile = JSON.parse(charRead);
+		let btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
+		let btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
+		let btl = JSON.parse(btlRead);
 
         if (btl[message.guild.id].parties[arg[2]]) {
-			var partyDefs = btl[message.guild.id].parties[arg[2]];
+			let partyDefs = btl[message.guild.id].parties[arg[2]];
 
 			if (!charFile[arg[1]])
 				return message.channel.send(`${arg[1]} is an invalid character!`);
 
-			var inParty = false;
+			let inParty = false;
 			for (const i in partyDefs.members) {
 				if (partyDefs.members[i] === arg[1])
 					inParty = true;
@@ -15516,7 +14709,7 @@ client.on('messageCreate', async message => {
 			if (inParty == false)
 				return message.channel.send(`${arg[1]} isn't in Team ${arg[2]}.`);
 
-			var charDefs = charFile[arg[1]]
+			let charDefs = charFile[arg[1]]
 
 			if (!partyDefs.armors)
 				return message.channel.send(`Team ${arg[2]} doesn't have any armors.`);
@@ -15547,20 +14740,20 @@ client.on('messageCreate', async message => {
             return message.channel.send({embeds: [DiscordEmbed]})
         }
 
-		var charPath = dataPath+'/characters.json'
-		var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-		var charFile = JSON.parse(charRead);
-		var btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
-		var btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
-		var btl = JSON.parse(btlRead);
+		let charPath = dataPath+'/characters.json'
+		let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+		let charFile = JSON.parse(charRead);
+		let btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
+		let btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
+		let btl = JSON.parse(btlRead);
 
         if (btl[message.guild.id].parties[arg[2]]) {
-			var partyDefs = btl[message.guild.id].parties[arg[2]];
+			let partyDefs = btl[message.guild.id].parties[arg[2]];
 			
 			if (!charFile[arg[1]])
 				return message.channel.send(`${arg[1]} is an invalid character!`);
 			
-			var inParty = false;
+			let inParty = false;
 			for (const i in partyDefs.members) {
 				if (partyDefs.members[i] === arg[1])
 					inParty = true;
@@ -15569,7 +14762,7 @@ client.on('messageCreate', async message => {
 			if (inParty == false)
 				return message.channel.send(`${arg[1]} isn't in Team ${arg[2]}.`);
 
-			var charDefs = charFile[arg[1]]
+			let charDefs = charFile[arg[1]]
 
 			if (!partyDefs.armors)
 				return message.channel.send(`Team ${arg[2]} doesn't have any armors.`);
@@ -15597,18 +14790,18 @@ client.on('messageCreate', async message => {
 
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
 		
-		var charPath = dataPath+'/characters.json'
-		var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-		var charFile = JSON.parse(charRead);
+		let charPath = dataPath+'/characters.json'
+		let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+		let charFile = JSON.parse(charRead);
 		if (!arg[1]) {
 			for (const i in charFile) {
 				charFile[i].hp = charFile[i].maxhp
 				charFile[i].mp = charFile[i].maxmp
 			}
 		} else {
-			var btlPath = `${dataPath}/Battles/battle-${message.guild.id}.json`
-			var btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
-			var btl = JSON.parse(btlRead);
+			let btlPath = `${dataPath}/Battles/battle-${message.guild.id}.json`
+			let btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
+			let btl = JSON.parse(btlRead);
 
 			if (!btl[message.guild.id].parties[arg[1]])
 				return message.channel.send(`${arg[1]} is a nonexistant team!`)
@@ -15617,7 +14810,7 @@ client.on('messageCreate', async message => {
 				return message.channel.send(`${arg[1]} is an empty party!`)
 
 			for (const i in btl[message.guild.id].parties[arg[1]].members) {
-				var name = btl[message.guild.id].parties[arg[1]].members[i];
+				let name = btl[message.guild.id].parties[arg[1]].members[i];
 
 				if (charFile[name]) {
 					charFile[name].hp = charFile[name].maxhp
@@ -15688,17 +14881,17 @@ client.on('messageCreate', async message => {
 		else if ((parseInt(arg[2]) + parseInt(arg[3])) > 65)
 			return message.channel.send('Base HP + Base MP should be below 65. ' + (parseInt(arg[2]) + parseInt(arg[3])) + ' is not below 65.')
 		else {
-			var BST = 0;
-			var highStats = 0;
-			var lowStats = 0;
-			var midStats = 0;
+			let BST = 0;
+			let highStats = 0;
+			let lowStats = 0;
+			let midStats = 0;
 			for (i = 4; i <= 11; i++) {
 				if (parseInt(arg[i]) > 10)
 					return message.channel.send('One of your 8 stats are over 10.');
 				else if (parseInt(arg[i]) <= 0)
 					return message.channel.send('One of your 8 stats are less than 0.');
 				else {
-					var statNum = parseInt(arg[i])
+					let statNum = parseInt(arg[i])
 					if (statNum <= 3) {
 						lowStats++;
 					} else if (statNum <= 6) {
@@ -15762,9 +14955,9 @@ client.on('messageCreate', async message => {
             return false
         }
 		
-		var charPath = dataPath+'/characters.json'
-		var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-		var charFile = JSON.parse(charRead);
+		let charPath = dataPath+'/characters.json'
+		let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+		let charFile = JSON.parse(charRead);
 		
 		if (!charFile[arg[1]]) {
 			message.channel.send("This is a nonexistant character.")
@@ -15782,14 +14975,14 @@ client.on('messageCreate', async message => {
 			message.channel.send('Base HP + Base MP should be below 65.')
 			return false
 		} else {
-			var BST = 0;
+			let BST = 0;
 			for (i = 4; i <= 11; i++) {
 				if (parseInt(arg[i]) > 10)
 					return message.channel.send('One of your 8 stats are over 10.');
 				else if (parseInt(arg[i]) <= 0)
 					return message.channel.send('One of your 8 stats are less than 0.');
 				else {
-					var statNum = parseInt(arg[i])
+					let statNum = parseInt(arg[i])
 					if (statNum <= 3) {
 						lowStats++;
 					} else if (statNum <= 6) {
@@ -15814,8 +15007,8 @@ client.on('messageCreate', async message => {
 			}
 		}
 		
-		var oldLvl = charFile[arg[1]].level
-		var oldXP = charFile[arg[1]].xp
+		let oldLvl = charFile[arg[1]].level
+		let oldXP = charFile[arg[1]].xp
 
 		charFile[arg[1]].level = 1
 		charFile[arg[1]].basehp = parseInt(arg[2])
@@ -15874,13 +15067,13 @@ client.on('messageCreate', async message => {
 		message.channel.send("This will take a while, so be patient! I will react with 👍 once I'm done.")
 
 		setTimeout(function() {
-			var charPath = dataPath+'/characters.json'
-			var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-			var charFile = JSON.parse(charRead);
+			let charPath = dataPath+'/characters.json'
+			let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+			let charFile = JSON.parse(charRead);
 			
 			for (const i in charFile) {
 				// Stat Updates
-				var newCharDefs = utilityFuncs.cloneObj(charFile[i])
+				let newCharDefs = utilityFuncs.cloneObj(charFile[i])
 
 				newCharDefs.level = 1
 				newCharDefs.xp = 0
@@ -15933,7 +15126,7 @@ client.on('messageCreate', async message => {
 					}
 				}
 				
-				var bioDef = [
+				let bioDef = [
 					'species',
 					'gender',
 					'age',
@@ -15969,7 +15162,7 @@ client.on('messageCreate', async message => {
 					charFile[i].mpMeter = ['Magic Points', 'MP'];
 				
 				// AutoLearn
-				var newAutoLearn = utilityFuncs.cloneObj(charFile[i].autoLearn);
+				let newAutoLearn = utilityFuncs.cloneObj(charFile[i].autoLearn);
 				
 				charFile[i].autoLearn = {}
 				for (const k in newAutoLearn)
@@ -16008,8 +15201,8 @@ client.on('messageCreate', async message => {
 			message.channel.send('This is too much of a HP buff. Try below 20.')
 			return false
 		} else {
-			var BST = 0;
-			var allowedMore = 0;
+			let BST = 0;
+			let allowedMore = 0;
 			for (i = 5; i <= 12; i++) {
 				if (parseInt(arg[i]) > 10) return message.channel.send(`${arg[i]} is too much of a stat buff!`);
 				if (parseInt(arg[i]) < -20) return message.channel.send(`${arg[i]} is too much of a stat debuff!`);
@@ -16025,23 +15218,23 @@ client.on('messageCreate', async message => {
 				return message.channel.send(`<:warning:878094052208296007>${BST} is more than ${Math.round(Math.min(25, 15+allowedMore))}. 15 is the Maximum for Transformations, but gets modified if you have negative stats..`);
 		}
 		
-		var charPath = dataPath+'/characters.json'
-		var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-		var charFile = JSON.parse(charRead);
+		let charPath = dataPath+'/characters.json'
+		let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+		let charFile = JSON.parse(charRead);
 		
 		if (!charFile[arg[1]])
 			return message.channel.send(`${arg[1]} is an invalid character.`);
 		
-		var charDefs = charFile[arg[1]]
+		let charDefs = charFile[arg[1]]
 
-		var reqTable = ['allydown', 'onlystanding', 'belowhalfhp', 'outofmp', 'leaderdown', 'trusteddown']
+		let reqTable = ['allydown', 'onlystanding', 'belowhalfhp', 'outofmp', 'leaderdown', 'trusteddown']
 
 		if (!arg[3])
 			return message.channel.send('Please specify a requirement value (See with no arguments)')
 		
 		if (arg[3].toLowerCase()) {
-			var validArg;
-			var argument = arg[3].toLowerCase()
+			let validArg;
+			let argument = arg[3].toLowerCase()
 		
 			for (const i in reqTable) {
 				if (reqTable[i] && argument == reqTable[i].toLowerCase()) {
@@ -16058,7 +15251,7 @@ client.on('messageCreate', async message => {
         fs.writeFileSync(charPath, JSON.stringify(charFile, null, '    '));
 
 		if (charDefs.transformations[arg[2]]) {
-			var transDefs = charDefs.transformations[arg[2]]
+			let transDefs = charDefs.transformations[arg[2]]
 
             const DiscordEmbed = new Discord.MessageEmbed()
                 .setColor('#f2c055')
@@ -16096,33 +15289,33 @@ client.on('messageCreate', async message => {
 			message.channel.send('This is too much of a HP buff. Try below 20.')
 			return false
 		} else {
-			var BST = 0;
+			let BST = 0;
 			for (i = 5; i <= 12; i++)
 				BST += Math.max(0, parseInt(arg[i]));
 			if (BST > 15)
 				return message.channel.send(`<:warning:878094052208296007>${BST} is more than 15. 15 is the Maximum for Transformations.`);
 		}
 		
-		var charPath = dataPath+'/characters.json'
-		var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-		var charFile = JSON.parse(charRead);
+		let charPath = dataPath+'/characters.json'
+		let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+		let charFile = JSON.parse(charRead);
 		
 		if (!charFile[arg[1]])
 			return message.channel.send(`${arg[1]} is an invalid character.`);
 		
-		var charDefs = charFile[arg[1]]
+		let charDefs = charFile[arg[1]]
 		
 		if (!charDefs.transformations[arg[1]])
 			return message.channel.send(`${arg[2]} is an invalid transformation for ${arg[1]}.`)
 
-		var reqTable = ['allydown', 'onlystanding', 'belowhalfhp', 'outofmp', 'leaderdown', 'trusteddown']
+		let reqTable = ['allydown', 'onlystanding', 'belowhalfhp', 'outofmp', 'leaderdown', 'trusteddown']
 
 		if (!arg[3])
 			return message.channel.send('Please specify a requirement value (See with no arguments)')
 		
 		if (arg[3].toLowerCase()) {
-			var validArg;
-			var argument = arg[3].toLowerCase()
+			let validArg;
+			let argument = arg[3].toLowerCase()
 		
 			for (const i in reqTable) {
 				if (reqTable[i] && argument == reqTable[i].toLowerCase()) {
@@ -16135,7 +15328,7 @@ client.on('messageCreate', async message => {
 				return message.channel.send('Please specify a valid requirement value (See with no arguments)');
 		}
 
-		var name = message.content.slice(prefix.length).trim().split('"');
+		let name = message.content.slice(prefix.length).trim().split('"');
 		if (!name[1])
 			return message.channel.send('Please surround the transformation name in Quotation Marks ("")');
 
@@ -16153,7 +15346,7 @@ client.on('messageCreate', async message => {
 		fs.writeFileSync(charPath, JSON.stringify(charFile, null, '    '));
 
 		if (charDefs.transformations[arg[2]]) {
-			var transDefs = charDefs.transformations[arg[2]]
+			let transDefs = charDefs.transformations[arg[2]]
 
             const DiscordEmbed = new Discord.MessageEmbed()
                 .setColor('#f2c055')
@@ -16177,9 +15370,9 @@ client.on('messageCreate', async message => {
             return message.channel.send({embeds: [DiscordEmbed]})
         }
 
-		var charPath = dataPath+'/characters.json'
-		var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-		var charFile = JSON.parse(charRead);
+		let charPath = dataPath+'/characters.json'
+		let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+		let charFile = JSON.parse(charRead);
 
         if (charFile[arg[1]]) {
 			const charDefs = charFile[arg[1]]
@@ -16193,7 +15386,7 @@ client.on('messageCreate', async message => {
 			if (!arg[2])
 				return message.channel.send("You're missing a 2nd argument.")
 
-			var quotationMarks = message.content.slice(prefix.length).trim().split('"')[1]
+			let quotationMarks = message.content.slice(prefix.length).trim().split('"')[1]
 			charDefs.nickname = quotationMarks
 
 			message.channel.send(`👍 ${arg[1]}'s nickname is set to ${quotationMarks}`);
@@ -16215,9 +15408,9 @@ client.on('messageCreate', async message => {
             return message.channel.send({embeds: [DiscordEmbed]})
         }
 
-		var charPath = dataPath+'/characters.json'
-		var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-		var charFile = JSON.parse(charRead);
+		let charPath = dataPath+'/characters.json'
+		let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+		let charFile = JSON.parse(charRead);
 
         if (charFile[arg[1]]) {
 			const charDefs = charFile[arg[1]]
@@ -16249,9 +15442,9 @@ client.on('messageCreate', async message => {
             return message.channel.send({embeds: [DiscordEmbed]})
         }
 
-		var charPath = dataPath+'/characters.json'
-		var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-		var charFile = JSON.parse(charRead);
+		let charPath = dataPath+'/characters.json'
+		let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+		let charFile = JSON.parse(charRead);
 
         if (charFile[arg[1]]) {
 			const charDefs = charFile[arg[1]]
@@ -16289,12 +15482,12 @@ client.on('messageCreate', async message => {
             return message.channel.send({embeds: [DiscordEmbed]})
         }
 
-		var charPath = dataPath+'/characters.json'
-		var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-		var charFile = JSON.parse(charRead);
-		var enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
-		var enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
-		var enmFile = JSON.parse(enmRead);
+		let charPath = dataPath+'/characters.json'
+		let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+		let charFile = JSON.parse(charRead);
+		let enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
+		let enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
+		let enmFile = JSON.parse(enmRead);
 		
 		if (!enmFile[message.guild.id]) {
 			enmFile[message.guild.id] = {}
@@ -16335,12 +15528,12 @@ client.on('messageCreate', async message => {
 
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
 
-		var charPath = dataPath+'/characters.json'
-		var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-		var charFile = JSON.parse(charRead);
-		var enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
-		var enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
-		var enmFile = JSON.parse(enmRead);
+		let charPath = dataPath+'/characters.json'
+		let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+		let charFile = JSON.parse(charRead);
+		let enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
+		let enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
+		let enmFile = JSON.parse(enmRead);
 
         if (charFile[arg[1]] || enmFile[message.guild.id][arg[1]]) {
 			const charDefs = charFile[arg[1]] ? charFile[arg[1]] : enmFile[message.guild.id][arg[1]]
@@ -16385,9 +15578,9 @@ client.on('messageCreate', async message => {
 
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
 		
-		var charPath = dataPath+'/characters.json'
-		var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-		var charFile = JSON.parse(charRead);
+		let charPath = dataPath+'/characters.json'
+		let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+		let charFile = JSON.parse(charRead);
 		if (charFile[arg[1]] && charFile[arg[2]]) {
 			if (parseInt(arg[3]) > 999999) message.channel.send('The value added was lowered to 999999, as adding too much at one time would slow me down!');
 
@@ -16438,12 +15631,12 @@ client.on('messageCreate', async message => {
 		}
 
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
-		var charPath = dataPath+'/characters.json'
-		var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-		var charFile = JSON.parse(charRead);
+		let charPath = dataPath+'/characters.json'
+		let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+		let charFile = JSON.parse(charRead);
 
         if (charFile[arg[1]]) {
-			var charDefs = charFile[arg[1]];
+			let charDefs = charFile[arg[1]];
             if (!utilityFuncs.RPGBotAdmin(message.author.id)) {
                 if (message.author.id != charDefs.owner) {
                     message.channel.send("You can't edit someone else's character!")
@@ -16451,9 +15644,9 @@ client.on('messageCreate', async message => {
                 }
             }
 
-			var lvlQuote = ""
+			let lvlQuote = ""
 			if (charDefs.lvlquote && charDefs.lvlquote.length > 0) {
-				var possibleQuote = Math.round(Math.random() * (charDefs.lvlquote.length-1))
+				let possibleQuote = Math.round(Math.random() * (charDefs.lvlquote.length-1))
 				lvlQuote = `*${arg[1]}: "${charDefs.lvlquote[possibleQuote]}"*\n\n`
 			}
 
@@ -16496,12 +15689,12 @@ client.on('messageCreate', async message => {
 		}
 
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
-		var charPath = dataPath+'/characters.json'
-		var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-		var charFile = JSON.parse(charRead);
+		let charPath = dataPath+'/characters.json'
+		let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+		let charFile = JSON.parse(charRead);
 
         if (charFile[arg[1]]) {
-			var charDefs = charFile[arg[1]];
+			let charDefs = charFile[arg[1]];
             if (!utilityFuncs.RPGBotAdmin(message.author.id)) {
                 if (message.author.id != charDefs.owner) {
                     message.channel.send("You can't edit someone else's character!")
@@ -16545,12 +15738,12 @@ client.on('messageCreate', async message => {
 		}
 
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
-		var charPath = dataPath+'/characters.json'
-		var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-		var charFile = JSON.parse(charRead);
-		var enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
-		var enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
-		var enmFile = JSON.parse(enmRead);
+		let charPath = dataPath+'/characters.json'
+		let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+		let charFile = JSON.parse(charRead);
+		let enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
+		let enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
+		let enmFile = JSON.parse(enmRead);
 
         if (charFile[arg[1]] || enmFile[message.guild.id][arg[1]]) {
 			const charDefs = charFile[arg[1]] ? charFile[arg[1]] : enmFile[message.guild.id][arg[1]]
@@ -16562,7 +15755,7 @@ client.on('messageCreate', async message => {
             }
 
             if (arg[2] && arg[3] && utilityFuncs.validType(arg[3].toLowerCase())) {
-				var type = arg[3].toLowerCase()
+				let type = arg[3].toLowerCase()
 				if (type != 'strike' && type != 'slash' && type != 'pierce')
 					return message.channel.send('You can only have "Strike", "Slash" or "Pierce" type melee skills.');
 	
@@ -16590,14 +15783,14 @@ client.on('messageCreate', async message => {
             return message.channel.send({embeds: [DiscordEmbed]})
         }
 
-		var charPath = dataPath+'/characters.json'
-		var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-		var charFile = JSON.parse(charRead);
-		var enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
-		var enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
-		var enmFile = JSON.parse(enmRead);
+		let charPath = dataPath+'/characters.json'
+		let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+		let charFile = JSON.parse(charRead);
+		let enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
+		let enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
+		let enmFile = JSON.parse(enmRead);
 		
-		var wasEnemy = false
+		let wasEnemy = false
 		
 		if (!enmFile[message.guild.id]) {
 			enmFile[message.guild.id] = {}
@@ -16618,13 +15811,13 @@ client.on('messageCreate', async message => {
 			else if (charDefs.creator)
 				wasEnemy = true;
 
-			var skillPath = dataPath+'/skills.json'
-			var skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-			var skillFile = JSON.parse(skillRead);
-			var learnString = `👍 ${arg[1]} learned `
+			let skillPath = dataPath+'/skills.json'
+			let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+			let skillFile = JSON.parse(skillRead);
+			let learnString = `👍 ${arg[1]} learned `
 			
-			var skillLearn = []
-			var setAutoLearn = []
+			let skillLearn = []
+			let setAutoLearn = []
 
 			for (let i = 2; i < arg.length; i++) {
 				if (i > 1) {
@@ -16725,13 +15918,13 @@ client.on('messageCreate', async message => {
 		if (utilityFuncs.isBanned(message.author.id, message.guild.id) && !utilityFuncs.RPGBotAdmin(message.author.id))
 			return message.channel.send("I've been told you were banned from using the RPG sections of the bot, sorry!");
 
-        var arg = message.content.slice(prefix.length).trim().split(/ +/);
-        var charPath = dataPath+'/characters.json'
-        var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-        var charFile = JSON.parse(charRead);
-		var enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
-		var enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
-		var enmFile = JSON.parse(enmRead);
+        let arg = message.content.slice(prefix.length).trim().split(/ +/);
+        let charPath = dataPath+'/characters.json'
+        let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+        let charFile = JSON.parse(charRead);
+		let enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
+		let enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
+		let enmFile = JSON.parse(enmRead);
 
         if (charFile[arg[1]] || enmFile[message.guild.id][arg[1]]) {
 			const charDefs = charFile[arg[1]] ? charFile[arg[1]] : enmFile[message.guild.id][arg[1]]
@@ -16748,13 +15941,13 @@ client.on('messageCreate', async message => {
 			if (!readSkill(arg[3]))
 				return message.channel.send(`${arg[3]} is an invalid skill.`);
 			
-			var wasEnemy = false
+			let wasEnemy = false
 			if (charDefs.owner)
 				wasEnemy = false;
 			else if (charDefs.creator)
 				wasEnemy = true;
 			
-			var skillDefs = readSkill(arg[3]);
+			let skillDefs = readSkill(arg[3]);
 			if (!wasEnemy && skillDefs.levelLock && charDefs.level < skillDefs.levelLock) {
 				if (skillDefs.levelLock < 100)
 					return message.channel.send(`${charDefs.name} is level ${charDefs.level}, however, they must be at level ${skillDefs.levelLock} to know this skill.`)
@@ -16763,7 +15956,7 @@ client.on('messageCreate', async message => {
 			}
 			
 			// Now replace the skill.
-			var setAutoLearn = 0
+			let setAutoLearn = 0
 			for (const i in charDefs.skills) {
 				if (charDefs.skills[i] === arg[2]) {
 					charDefs.skills[i] = arg[3];
@@ -16816,13 +16009,13 @@ client.on('messageCreate', async message => {
 		if (utilityFuncs.isBanned(message.author.id, message.guild.id) && !utilityFuncs.RPGBotAdmin(message.author.id))
 			return message.channel.send("I've been told you were banned from using the RPG sections of the bot, sorry!");
 
-        var arg = message.content.slice(prefix.length).trim().split(/ +/);
-        var charPath = dataPath+'/characters.json'
-        var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-        var charFile = JSON.parse(charRead);
+        let arg = message.content.slice(prefix.length).trim().split(/ +/);
+        let charPath = dataPath+'/characters.json'
+        let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+        let charFile = JSON.parse(charRead);
 
         if (charFile[arg[1]]) {
-			var charDefs = charFile[arg[1]];
+			let charDefs = charFile[arg[1]];
             if (!utilityFuncs.RPGBotAdmin(message.author.id)) {
                 if (message.author.id != charDefs.owner) {
                     message.channel.send("You can't edit someone else's character!")
@@ -16840,7 +16033,7 @@ client.on('messageCreate', async message => {
 			} else if (arg[2].toLowerCase() == 'none')
 				charDefs.autoLearn = {};
 			else {
-				var autoLearn = -1
+				let autoLearn = -1
 				for (const i in charDefs.skills) {
 					if (charDefs.skills[i].toLowerCase() == arg[2].toLowerCase())
 						autoLearn = i;
@@ -16868,13 +16061,13 @@ client.on('messageCreate', async message => {
 		if (utilityFuncs.isBanned(message.author.id, message.guild.id) && !utilityFuncs.RPGBotAdmin(message.author.id))
 			return message.channel.send("I've been told you were banned from using the RPG sections of the bot, sorry!");
 
-        var arg = message.content.slice(prefix.length).trim().split(/ +/);
-        var charPath = dataPath+'/characters.json'
-        var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-        var charFile = JSON.parse(charRead);
-		var enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
-		var enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
-		var enmFile = JSON.parse(enmRead);
+        let arg = message.content.slice(prefix.length).trim().split(/ +/);
+        let charPath = dataPath+'/characters.json'
+        let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+        let charFile = JSON.parse(charRead);
+		let enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
+		let enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
+		let enmFile = JSON.parse(enmRead);
 
         if (charFile[arg[1]] || enmFile[message.guild.id][arg[1]]) {
 			const charDefs = charFile[arg[1]] ? charFile[arg[1]] : enmFile[message.guild.id][arg[1]]
@@ -16927,10 +16120,10 @@ client.on('messageCreate', async message => {
 			return false
 		}
 
-        var arg = message.content.slice(prefix.length).trim().split(/ +/);
-        var charPath = dataPath+'/characters.json'
-        var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-        var charFile = JSON.parse(charRead);
+        let arg = message.content.slice(prefix.length).trim().split(/ +/);
+        let charPath = dataPath+'/characters.json'
+        let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+        let charFile = JSON.parse(charRead);
 
         if (arg[1] == null) {
             const DiscordEmbed = new Discord.MessageEmbed()
@@ -17002,7 +16195,7 @@ client.on('messageCreate', async message => {
 					break
 					
 				case "buff":
-					var input = arg[4].toLowerCase()
+					let input = arg[4].toLowerCase()
 					if (input != 'atk' && input != 'end' && input != 'mag' && input != 'prc' && input != 'agl' && input != 'all')
 						return message.channel.send('Invalid stat.');
 
@@ -17036,10 +16229,10 @@ client.on('messageCreate', async message => {
 			return false
 		}
 
-        var arg = message.content.slice(prefix.length).trim().split(/ +/);
-        var charPath = dataPath+'/characters.json'
-        var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-        var charFile = JSON.parse(charRead);
+        let arg = message.content.slice(prefix.length).trim().split(/ +/);
+        let charPath = dataPath+'/characters.json'
+        let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+        let charFile = JSON.parse(charRead);
 
         if (arg[1] == null) {
             const DiscordEmbed = new Discord.MessageEmbed()
@@ -17073,7 +16266,7 @@ client.on('messageCreate', async message => {
 		}
 
         if (charFile[arg[1]]) {
-            var charDefs = charFile[arg[1]]
+            let charDefs = charFile[arg[1]]
 
             if (parseInt(arg[7]) == 1) {
                 if (parseInt(arg[4]) < 100)
@@ -17109,7 +16302,7 @@ client.on('messageCreate', async message => {
 						return message.channel.send('Limit Break power should be less than 600 for level 2 ATK Class Limit Breaks.');
 				}
 
-                var i;
+                let i;
                 for (i = 1; i < 2; i++) {
                     if (!charDefs["lb" + i]) {
 						message.channel.send(`Set a Level ${i} before moving onto level 2.`)
@@ -17149,7 +16342,7 @@ client.on('messageCreate', async message => {
 						return message.channel.send('Limit Break power should be less than 800 for level 3 ATK Class Limit Breaks.');
 				}
 
-                var i;
+                let i;
                 for (i = 1; i < 3; i++) {
                     if (!charDefs["lb" + i]) {
 						message.channel.send(`Set a Level ${i} before moving onto level 3.`)
@@ -17189,7 +16382,7 @@ client.on('messageCreate', async message => {
 						return message.channel.send('Limit Break power should be less than 1000 for level 4 ATK Class Limit Breaks.');
 				}
 
-                var i;
+                let i;
                 for (i = 1; i < 4; i++) {
                     if (!charDefs["lb" + i]) {
 						message.channel.send(`Set a Level ${i} before moving onto level 4.`)
@@ -17232,12 +16425,12 @@ client.on('messageCreate', async message => {
 
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
 
-		var charPath = dataPath+'/characters.json'
-		var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-		var charFile = JSON.parse(charRead);
-		var enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
-		var enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
-		var enmFile = JSON.parse(enmRead);
+		let charPath = dataPath+'/characters.json'
+		let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+		let charFile = JSON.parse(charRead);
+		let enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
+		let enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
+		let enmFile = JSON.parse(enmRead);
 
         if (charFile[arg[1]] || enmFile[message.guild.id][arg[1]]) {
 			const charDefs = charFile[arg[1]] ? charFile[arg[1]] : enmFile[message.guild.id][arg[1]]
@@ -17272,7 +16465,7 @@ client.on('messageCreate', async message => {
 			if (!charDefs.imfinequote) {charDefs.imfinequote = []}
 			if (!charDefs.lvlquote) {charDefs.lvlquote = []}
 
-			var quote = message.content.slice(prefix.length).trim().split('"');
+			let quote = message.content.slice(prefix.length).trim().split('"');
 			
 			if (!quote[1]) {
 				quote = message.content.slice(prefix.length).trim().split("'");
@@ -17352,12 +16545,12 @@ client.on('messageCreate', async message => {
 
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
 
-		var charPath = dataPath+'/characters.json'
-		var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-		var charFile = JSON.parse(charRead);
-		var enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
-		var enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
-		var enmFile = JSON.parse(enmRead);
+		let charPath = dataPath+'/characters.json'
+		let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+		let charFile = JSON.parse(charRead);
+		let enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
+		let enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
+		let enmFile = JSON.parse(enmRead);
 
         if (charFile[arg[1]] || enmFile[message.guild.id][arg[1]]) {
 			const charDefs = charFile[arg[1]] ? charFile[arg[1]] : enmFile[message.guild.id][arg[1]]
@@ -17466,12 +16659,12 @@ client.on('messageCreate', async message => {
 	if (command === 'showquotes' || command === 'getquotes' || command === 'listquotes') {
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
 
-		var charPath = dataPath+'/characters.json'
-		var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-		var charFile = JSON.parse(charRead);
-		var enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
-		var enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
-		var enmFile = JSON.parse(enmRead);
+		let charPath = dataPath+'/characters.json'
+		let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+		let charFile = JSON.parse(charRead);
+		let enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
+		let enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
+		let enmFile = JSON.parse(enmRead);
 
         if (charFile[arg[1]] || enmFile[message.guild.id][arg[1]]) {
 			const charDefs = charFile[arg[1]] ? charFile[arg[1]] : enmFile[message.guild.id][arg[1]]
@@ -17493,7 +16686,7 @@ client.on('messageCreate', async message => {
 			if (!charDefs.helpedquote) {charDefs.helpedquote = []}
 			if (!charDefs.lvlquote) {charDefs.lvlquote = []}
 			
-			var quoteText = {
+			let quoteText = {
 				melee: "",
 				phys: "",
 				mag: "",
@@ -17730,11 +16923,11 @@ client.on('messageCreate', async message => {
 	
 	if (command === 'randcharquote') {
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
-		var charPath = dataPath+'/characters.json'
-		var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-		var charFile = JSON.parse(charRead);
+		let charPath = dataPath+'/characters.json'
+		let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+		let charFile = JSON.parse(charRead);
 		
-		var quoteText = {
+		let quoteText = {
 			melee: [],
 			phys: [],
 			mag: [],
@@ -17757,7 +16950,7 @@ client.on('messageCreate', async message => {
 			lvl: []
 		}
 		
-		var possibleQuotes = []
+		let possibleQuotes = []
 		for (const i in quoteText) {
 			for (const k in charFile) {
 				if (!charFile[k].hidden && charFile[k][`${i}quote`] && charFile[k][`${i}quote`].length > 1) {
@@ -17766,8 +16959,8 @@ client.on('messageCreate', async message => {
 			}
 		}
 
-		var quoteData = possibleQuotes[utilityFuncs.randNum(possibleQuotes.length-1)]   
-		var randQuote = `"*${quoteData[2]}*"\n**${quoteData[0]}**, ${quoteData[1].toUpperCase()} Quote`;
+		let quoteData = possibleQuotes[utilityFuncs.randNum(possibleQuotes.length-1)]   
+		let randQuote = `"*${quoteData[2]}*"\n**${quoteData[0]}**, ${quoteData[1].toUpperCase()} Quote`;
 
 		const DiscordEmbed = new Discord.MessageEmbed()
 			.setColor('#4b02c9')
@@ -17778,14 +16971,14 @@ client.on('messageCreate', async message => {
 	
 	if (command === 'dailyquote') {
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
-		var preQuoteTxt = "Here's the daily quote for today, again.";
+		let preQuoteTxt = "Here's the daily quote for today, again.";
 
 		if (!dailyQuote || dailyQuote == 'none' || dailyQuote == '') {
-			var charPath = dataPath+'/characters.json'
-			var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-			var charFile = JSON.parse(charRead);
+			let charPath = dataPath+'/characters.json'
+			let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+			let charFile = JSON.parse(charRead);
 			
-			var quoteText = {
+			let quoteText = {
 				melee: [],
 				phys: [],
 				mag: [],
@@ -17808,7 +17001,7 @@ client.on('messageCreate', async message => {
 				lvl: []
 			}
 			
-			var possibleQuotes = []
+			let possibleQuotes = []
 			for (const i in quoteText) {
 				for (const k in charFile) {
 					if (!charFile[k].hidden && charFile[k][`${i}quote`] && charFile[k][`${i}quote`].length > 1) {
@@ -17817,7 +17010,7 @@ client.on('messageCreate', async message => {
 				}
 			}
 
-			var quoteData = possibleQuotes[utilityFuncs.randNum(possibleQuotes.length-1)]   
+			let quoteData = possibleQuotes[utilityFuncs.randNum(possibleQuotes.length-1)]   
 			let harassedUser = client.users.fetch(charFile[quoteData[0]].owner)
 			harassedUser.then(function(user) {
 				preQuoteTxt = `${user}, your character is featured as the daily quote today!`;
@@ -17827,10 +17020,10 @@ client.on('messageCreate', async message => {
 		}
 
 		setTimeout(function() {
-			var today = new Date();
-			var dd = String(today.getDate()).padStart(2, '0');
-			var mm = String(today.getMonth() + 1).padStart(2, '0');
-			var yyyy = today.getFullYear();
+			let today = new Date();
+			let dd = String(today.getDate()).padStart(2, '0');
+			let mm = String(today.getMonth() + 1).padStart(2, '0');
+			let yyyy = today.getFullYear();
 
 			today = mm + '/' + dd + '/' + yyyy;
 			
@@ -17859,8 +17052,8 @@ client.on('messageCreate', async message => {
 				.setDescription(dailyQuote)
 			message.channel.send({content: preQuoteTxt, embeds: [DiscordEmbed]});
 
-			var quotePath = dataPath+'/dailyquote.txt'
-			var quoteRead = fs.readFileSync(quotePath, {flag: 'as+'});
+			let quotePath = dataPath+'/dailyquote.txt'
+			let quoteRead = fs.readFileSync(quotePath, {flag: 'as+'});
 
 			quoteRead = dailyQuote
 			fs.writeFileSync(quotePath, quoteRead);
@@ -17871,7 +17064,7 @@ client.on('messageCreate', async message => {
 		if (utilityFuncs.isBanned(message.author.id, message.guild.id) && !utilityFuncs.RPGBotAdmin(message.author.id))
 			return message.channel.send("I've been told you were banned from using the RPG sections of the bot, sorry!");
 
-        var arg = message.content.slice(prefix.length).trim().split(/ +/);
+        let arg = message.content.slice(prefix.length).trim().split(/ +/);
         if (arg[1] == null) {
             const DiscordEmbed = new Discord.MessageEmbed()
                 .setColor('#4b02c9')
@@ -17880,12 +17073,12 @@ client.on('messageCreate', async message => {
             return message.channel.send({embeds: [DiscordEmbed]})
         }
 
-        var charPath = dataPath+'/characters.json'
-        var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-        var charFile = JSON.parse(charRead);
-		var btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
-		var btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
-		var btl = JSON.parse(btlRead);
+        let charPath = dataPath+'/characters.json'
+        let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+        let charFile = JSON.parse(charRead);
+		let btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
+		let btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
+		let btl = JSON.parse(btlRead);
 
 		if (!btl[message.guild.id].parties[arg[1]]) 
 			return message.channel.send(`${arg[1]} is an invalid party.`)
@@ -17906,7 +17099,7 @@ client.on('messageCreate', async message => {
 		if (utilityFuncs.isBanned(message.author.id, message.guild.id) && !utilityFuncs.RPGBotAdmin(message.author.id))
 			return message.channel.send("I've been told you were banned from using the RPG sections of the bot, sorry!");
 
-        var arg = message.content.slice(prefix.length).trim().split(/ +/);
+        let arg = message.content.slice(prefix.length).trim().split(/ +/);
         if (arg[1] == null) {
             const DiscordEmbed = new Discord.MessageEmbed()
                 .setColor('#4b02c9')
@@ -17915,12 +17108,12 @@ client.on('messageCreate', async message => {
             return message.channel.send({embeds: [DiscordEmbed]})
         }
 
-        var charPath = dataPath+'/characters.json'
-        var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-        var charFile = JSON.parse(charRead);
-		var btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
-		var btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
-		var btl = JSON.parse(btlRead);
+        let charPath = dataPath+'/characters.json'
+        let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+        let charFile = JSON.parse(charRead);
+		let btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
+		let btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
+		let btl = JSON.parse(btlRead);
 
 		if (!btl[message.guild.id].parties[arg[1]]) 
 			return message.channel.send(`${arg[1]} is an invalid party.`)
@@ -17951,9 +17144,9 @@ client.on('messageCreate', async message => {
             return message.channel.send({embeds: [DiscordEmbed]})
         }
 
-        var charPath = dataPath+'/characters.json'
-        var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-        var charFile = JSON.parse(charRead);
+        let charPath = dataPath+'/characters.json'
+        let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+        let charFile = JSON.parse(charRead);
 
         if (charFile[arg[1]]) {
             const charDefs = charFile[arg[1]]
@@ -18017,7 +17210,7 @@ client.on('messageCreate', async message => {
 					if (!arg[3])
 						return message.channel.send('No gender supplied, please enter "Male", "Female" or "Other".');
 
-					var gender = arg[3].toLowerCase()
+					let gender = arg[3].toLowerCase()
 					if (gender === 'male' || gender === 'female' || gender === 'other')
 						charDefs.bio.gender = gender
 					else
@@ -18053,9 +17246,9 @@ client.on('messageCreate', async message => {
             return message.channel.send({embeds: [DiscordEmbed]})
         }
 
-		var charPath = dataPath+'/characters.json'
-		var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-		var charFile = JSON.parse(charRead);
+		let charPath = dataPath+'/characters.json'
+		let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+		let charFile = JSON.parse(charRead);
 
         if (charFile[arg[1]]) {
 			const charDefs = charFile[arg[1]]
@@ -18067,7 +17260,7 @@ client.on('messageCreate', async message => {
                 }
             }
 
-			var hasCharm
+			let hasCharm
 			for (const i in charDefs.curCharms) {
 				if (arg[2] && charDefs.curCharms[i] == arg[2])
 					hasCharm = true;
@@ -18079,9 +17272,9 @@ client.on('messageCreate', async message => {
 				return false
 			}
 
-			var charmPath = dataPath+'/charms.json'
-			var charmRead = fs.readFileSync(charmPath, {flag: 'as+'});
-			var charmFile = JSON.parse(charmRead);
+			let charmPath = dataPath+'/charms.json'
+			let charmRead = fs.readFileSync(charmPath, {flag: 'as+'});
+			let charmFile = JSON.parse(charmRead);
 
 			if (!charmFile[arg[2]]) {
 				message.channel.send(`${arg[2]} is an invalid charm.`)
@@ -18112,9 +17305,9 @@ client.on('messageCreate', async message => {
             return message.channel.send({embeds: [DiscordEmbed]})
         }
 
-		var charPath = dataPath+'/characters.json'
-		var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-		var charFile = JSON.parse(charRead);
+		let charPath = dataPath+'/characters.json'
+		let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+		let charFile = JSON.parse(charRead);
 
         if (charFile[arg[1]]) {
 			const charDefs = charFile[arg[1]]
@@ -18125,7 +17318,7 @@ client.on('messageCreate', async message => {
                 }
             }
 
-			var hasCharm
+			let hasCharm
 			for (const i in charDefs.curCharms) {
 				if (arg[2] && charDefs.curCharms[i] == arg[2])
 					hasCharm = true;
@@ -18134,14 +17327,14 @@ client.on('messageCreate', async message => {
 			if (!hasCharm)
 				return message.channel.send(`${arg[1]} does not have ${arg[2]}!`);
 
-			var charmPath = dataPath+'/charms.json'
-			var charmRead = fs.readFileSync(charmPath, {flag: 'as+'});
-			var charmFile = JSON.parse(charmRead);
+			let charmPath = dataPath+'/charms.json'
+			let charmRead = fs.readFileSync(charmPath, {flag: 'as+'});
+			let charmFile = JSON.parse(charmRead);
 
 			if (!charmFile[arg[2]])
 				return message.channel.send(`${arg[2]} is an invalid charm.`)
 			
-			var notches = 0
+			let notches = 0
 			for (const i in charDefs.charms)
 				notches += charmFile[charDefs.charms[i]].notches
 			
@@ -18159,13 +17352,13 @@ client.on('messageCreate', async message => {
     }
 	
     if (command === 'listchars') {
-        var charPath = dataPath+'/characters.json'
-        var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-        var charFile = JSON.parse(charRead);
+        let charPath = dataPath+'/characters.json'
+        let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+        let charFile = JSON.parse(charRead);
 		
-		var user = message.mentions.users.first() ? message.mentions.users.first() : null
+		let user = message.mentions.users.first() ? message.mentions.users.first() : null
 
-		var charArray = []
+		let charArray = []
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
         if (!arg[2] || arg[2] === ' ' || arg[2] === 'null') {
 			for (const i in charFile) {
@@ -18202,18 +17395,18 @@ client.on('messageCreate', async message => {
     if (command === 'getchar') {
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
 
-        var charPath = dataPath+'/characters.json';
-        var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-        var charFile = JSON.parse(charRead);
-		var skillPath = dataPath+'/skills.json';
-		var skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-		var skillFile = JSON.parse(skillRead);
+        let charPath = dataPath+'/characters.json';
+        let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+        let charFile = JSON.parse(charRead);
+		let skillPath = dataPath+'/skills.json';
+		let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+		let skillFile = JSON.parse(skillRead);
 
         if (charFile[arg[1]]) {
             const charName = arg[1]
             const charDefs = utilityFuncs.cloneObj(charFile[arg[1]])
 
-            var charSkills = ``;
+            let charSkills = ``;
             for (const i in charDefs.skills) {
 				if (skillFile[charDefs.skills[i]]) {
 					charSkills += `${elementEmoji[skillFile[charDefs.skills[i]].type]}${skillFile[charDefs.skills[i]].name ? skillFile[charDefs.skills[i]].name : charDefs.skills[i]}`;
@@ -18227,12 +17420,12 @@ client.on('messageCreate', async message => {
             if (charSkills === ``)
 				charSkills = "none";
 
-            var charLBs = ``;
+            let charLBs = ``;
             for (i = 0; i <= 4; i++) {
                 if (charDefs["lb" + i]) {
                     if (charDefs["lb" + i].name && charDefs["lb" + i].name.toLowerCase() != "none") {
 						charLBs += `\n**${i}**:`
-						var lbSkill = charDefs["lb" + i]
+						let lbSkill = charDefs["lb" + i]
 
                         charLBs += `**${lbSkill.name}** *(${lbSkill.class ? lbSkill.class.toUpperCase() : "ATK"} Class)*\n**${(lbSkill.class === 'heal' && i >= 4) ? '∞' : lbSkill.pow}** Power, ${lbSkill.cost} LB%.`
 						
@@ -18251,7 +17444,7 @@ client.on('messageCreate', async message => {
             if (charLBs === ``)
 				charLBs = "None.";
 
-            var charAffs = "";
+            let charAffs = "";
             for (const i in charDefs.superweak) charAffs += `${elementEmoji[charDefs.superweak[i]]} <:supereffective:939053172528394252>\n`;
             for (const i in charDefs.weak) charAffs += `${elementEmoji[charDefs.weak[i]]} <:effective:876899270731628584>\n`;
             for (const i in charDefs.resist) charAffs += `${elementEmoji[charDefs.resist[i]]} <:resist:877132670784647238>\n`;
@@ -18260,9 +17453,9 @@ client.on('messageCreate', async message => {
             for (const i in charDefs.drain) charAffs += `${elementEmoji[charDefs.drain[i]]} <:drain:879801979138895904>\n`;
             if (charAffs === ``) charAffs = "None.";
 			
-			var leaderSkill = 'None.';
+			let leaderSkill = 'None.';
 			if (charDefs.leaderSkill) {
-				var skillTxt = {
+				let skillTxt = {
 					boost: 'Boosts the specified type.',
 					discount: 'Takes away the amount of cost specified to the specified type.',
 					buff: 'Start the battle with the specified stat buff',
@@ -18270,7 +17463,7 @@ client.on('messageCreate', async message => {
 					crit: 'Increased crit chance to the specified element'
 				}
 				
-				var usesPercent = {
+				let usesPercent = {
 					buff: false,
 					
 					boost: true,
@@ -18279,19 +17472,19 @@ client.on('messageCreate', async message => {
 					discount: true
 				}
 
-				var skill = charDefs.leaderSkill
+				let skill = charDefs.leaderSkill
 				leaderSkill = `**${skill.name}**\n*${skillTxt[skill.type]}\n${skill.percent}${(usesPercent[skill.type] == true) ? '%' : ''} ${skill.type} toward ${skill.target.toUpperCase()}*`;
 			}
 
-			var charmPath = dataPath+'/charms.json'
-			var charmRead = fs.readFileSync(charmPath, {flag: 'as+'});
-			var charmFile = JSON.parse(charmRead);
+			let charmPath = dataPath+'/charms.json'
+			let charmRead = fs.readFileSync(charmPath, {flag: 'as+'});
+			let charmFile = JSON.parse(charmRead);
 			
-			var notches = 0
+			let notches = 0
 			for (const i in charDefs.charms)
 				notches += charmFile[charDefs.charms[i]].notches
 			
-			var charms = ''
+			let charms = ''
 			for (const i in charDefs.curCharms) {
 				if (charFuncs.equippedCharm(charDefs, charDefs.curCharms[i]))
 					charms += `**${charmFile[charDefs.curCharms[i]].name}**\n`
@@ -18304,12 +17497,12 @@ client.on('messageCreate', async message => {
 			else
 				charms += `*${notches} Notches taken.*`
 			
-			var transTxt = '';
+			let transTxt = '';
 			if (charDefs.transformations) {
 				for (const i in charDefs.transformations) {
 					transTxt += `**${charDefs.transformations[i].name}** *(${charDefs.transformations[i].requirement})*\n`
 									
-					var addStats = [
+					let addStats = [
 						"hp",
 						"atk",
 						"mag",
@@ -18322,8 +17515,8 @@ client.on('messageCreate', async message => {
 					]
 					
 					for (const k in addStats) {
-						var addTxt = `+${charDefs.transformations[i][addStats[k]]} ${addStats[k]}`
-						var subTxt = `${charDefs.transformations[i][addStats[k]]} ${addStats[k]}`
+						let addTxt = `+${charDefs.transformations[i][addStats[k]]} ${addStats[k]}`
+						let subTxt = `${charDefs.transformations[i][addStats[k]]} ${addStats[k]}`
 						transTxt += `${(charDefs.transformations[i][addStats[k]] >= 0) ? addTxt : subTxt}`;
 						if (k < addStats.length-1)
 							transTxt += ', '
@@ -18336,25 +17529,25 @@ client.on('messageCreate', async message => {
 			if (transTxt === '')
 				transTxt = 'None';
 
-			var isNPC = charDefs.npcchar ? true : false;
+			let isNPC = charDefs.npcchar ? true : false;
 			
 			const DiscordEmbed = new Discord.MessageEmbed()
 				.setColor('#12de6a')
 			
 			if (arg[2]) {
-				var toLevel = parseInt(arg[2])
+				let toLevel = parseInt(arg[2])
 				
 				if (toLevel > 99 || toLevel < 1)
 					return message.channel.send("You can't go over 99 or less than 1.")
 				
 				if (toLevel > charDefs.level) {
-					var levelsLeft = toLevel-charDefs.level
+					let levelsLeft = toLevel-charDefs.level
 					for (i = 1; i <= levelsLeft; i++) {
 						charDefs.xp = charDefs.maxxp
 						charFuncs.lvlUp(charDefs, false, message.guild.id);
 					}
 				} else if (toLevel < charDefs.level) {
-					var levelsLeft = charDefs.level-toLevel
+					let levelsLeft = charDefs.level-toLevel
 					for (i = 1; i <= levelsLeft; i++) {
 						charDefs.xp = 0
 						charFuncs.lvlDown(charDefs, message.guild.id);
@@ -18362,7 +17555,7 @@ client.on('messageCreate', async message => {
 				}
 			}
 
-			var title = `${elementEmoji[charDefs.mainElement] ? elementEmoji[charDefs.mainElement] : '🛑'} ${charName} `
+			let title = `${elementEmoji[charDefs.mainElement] ? elementEmoji[charDefs.mainElement] : '🛑'} ${charName} `
 			
 			if (charDefs.nickname && charDefs.nickname != '')
 				title += `[${charDefs.nickname}] `
@@ -18370,7 +17563,7 @@ client.on('messageCreate', async message => {
 			if (isNPC)
 				title += `*(NPC)*`;
 			else {
-				var user = await client.users.fetch(charDefs.owner);
+				let user = await client.users.fetch(charDefs.owner);
 				title += `*(${user.username})*`
 			}
 			
@@ -18379,9 +17572,9 @@ client.on('messageCreate', async message => {
 			
 			DiscordEmbed.setTitle(title)
 
-			var xpPercent = Math.floor((charDefs.xp/charDefs.maxxp)*100)
-			var xpSquares = xpPercent/12.5
-			var xpStr = `[${'🟦'.repeat(xpSquares)}${'⬛'.repeat(8 - xpSquares)}]`
+			let xpPercent = Math.floor((charDefs.xp/charDefs.maxxp)*100)
+			let xpSquares = xpPercent/12.5
+			let xpStr = `[${'🟦'.repeat(xpSquares)}${'⬛'.repeat(8 - xpSquares)}]`
 
 			DiscordEmbed.addFields(
 				{ name: 'Stats', value: `Level ${charDefs.level}\n${charDefs.xp}/${charDefs.maxxp}XP\n${xpStr}\n\n${charDefs.hp}/${charDefs.maxhp}HP (${charDefs.basehp} Base)\n${charDefs.mp}/${charDefs.maxmp}${charDefs.mpMeter[1]} (${charDefs.basemp} Base)\n\n${charDefs.atk}ATK (${charDefs.baseatk} Base)\n${charDefs.mag}MAG (${charDefs.basemag} Base)\n${charDefs.prc}PRC (${charDefs.baseprc} Base)\n${charDefs.end}END (${charDefs.baseend} Base)\n${charDefs.chr}CHR (${charDefs.basechr} Base)\n${charDefs.int}INT (${charDefs.baseint} Base)\n${charDefs.agl}AGL (${charDefs.baseagl} Base)\n${charDefs.luk}LUK (${charDefs.baseluk} Base)`, inline: true },
@@ -18404,14 +17597,14 @@ client.on('messageCreate', async message => {
     if (command === 'getbio') {
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
 		
-        var charPath = dataPath+'/characters.json'
-        var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-        var charFile = JSON.parse(charRead);
+        let charPath = dataPath+'/characters.json'
+        let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+        let charFile = JSON.parse(charRead);
         if (charFile[arg[1]]) {
             const charName = arg[1]
             const charDefs = charFile[arg[1]]
 			
-			var bioTxt = `<Name> ${charName}\n`
+			let bioTxt = `<Name> ${charName}\n`
 			
 			if (charDefs.nickname && charDefs.nickname != '')
 				bioTxt += `<Nickname> ${charDefs.nickname}\n`;
@@ -18462,10 +17655,10 @@ client.on('messageCreate', async message => {
 			
 			bioTxt += '\n'
 			
-			var charTrust = ''
+			let charTrust = ''
 			for (const i in charDefs.trust) {
-				var trustVal = charDefs.trust[i]
-				var percent = (trustVal.value/trustVal.nextLevel)*100
+				let trustVal = charDefs.trust[i]
+				let percent = (trustVal.value/trustVal.nextLevel)*100
 				percent = roundNum(percent, 2)
 
 				charTrust += `**${i}**: *${percent}/100%* Trust, Trust Level *${trustVal.level}*\n`
@@ -18528,17 +17721,17 @@ client.on('messageCreate', async message => {
 		
 		const journalEntry = message.content.slice(prefix.length).trim().split('"')[1];
 
-		var enmDefs = enemyFuncs.writeEnemy(message.author, message.guild.id, arg[1], parseInt(arg[2]), parseInt(arg[3]), parseInt(arg[4]), parseInt(arg[5]), parseInt(arg[6]), parseInt(arg[7]), parseInt(arg[8]), parseInt(arg[9]), parseInt(arg[10]), parseInt(arg[11]), parseInt(arg[12]), parseInt(arg[13]), arg[14].toLowerCase(), journalEntry)
+		let enmDefs = enemyFuncs.writeEnemy(message.author, message.guild.id, arg[1], parseInt(arg[2]), parseInt(arg[3]), parseInt(arg[4]), parseInt(arg[5]), parseInt(arg[6]), parseInt(arg[7]), parseInt(arg[8]), parseInt(arg[9]), parseInt(arg[10]), parseInt(arg[11]), parseInt(arg[12]), parseInt(arg[13]), arg[14].toLowerCase(), journalEntry)
 		message.channel.send(`👍 ${arg[1]} has been created!`)
     }
 
     if (command === 'unregisterenemy' || command === 'deleteenemy') {
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
 
-        var enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json';
-        var enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
-        var enmJSON = JSON.parse(enmRead);
-		var enmFile = enmJSON[message.guild.id]
+        let enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json';
+        let enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
+        let enmJSON = JSON.parse(enmRead);
+		let enmFile = enmJSON[message.guild.id]
 
         if (enmFile[arg[1]]) {
 			if (!enmFile[arg[1]].creator || enmFile[arg[1]].creator != message.author.id)
@@ -18587,16 +17780,16 @@ client.on('messageCreate', async message => {
             return message.channel.send({embeds: [DiscordEmbed]})
         }
 
-		var enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
-		var enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
-		var enmFile = JSON.parse(enmRead);
+		let enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
+		let enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
+		let enmFile = JSON.parse(enmRead);
 
         if (enmFile[message.guild.id][arg[1]]) {
 			const enmDefs = enmFile[message.guild.id][arg[1]]
 
 			for (i = 1; i < 4; i++) {
 				if (!arg[i]) {
-					var ext = ['th', 'st', 'nd', 'rd', 'th', 'th', 'th']
+					let ext = ['th', 'st', 'nd', 'rd', 'th', 'th', 'th']
 					return message.channel.send(`You're missing a ${i}${ext[i]} argument.`)
 				}
 			}
@@ -18638,16 +17831,16 @@ client.on('messageCreate', async message => {
             return message.channel.send({embeds: [DiscordEmbed]})
         }
 
-		var enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
-		var enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
-		var enmFile = JSON.parse(enmRead);
+		let enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
+		let enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
+		let enmFile = JSON.parse(enmRead);
 
         if (enmFile[message.guild.id][arg[1]]) {
 			const enmDefs = enmFile[message.guild.id][arg[1]]
 
 			for (i = 2; i < 6; i++) {
 				if (!arg[i]) {
-					var ext = ['th', 'st', 'nd', 'rd', 'th', 'th', 'th']
+					let ext = ['th', 'st', 'nd', 'rd', 'th', 'th', 'th']
 					return message.channel.send(`You're missing a ${i}${ext[i]} argument.`)
 				}
 			}
@@ -18686,9 +17879,9 @@ client.on('messageCreate', async message => {
             return message.channel.send({embeds: [DiscordEmbed]})
         }
 
-		var enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
-		var enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
-		var enmFile = JSON.parse(enmRead);
+		let enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
+		let enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
+		let enmFile = JSON.parse(enmRead);
 
         if (enmFile[message.guild.id][arg[1]]) {
 			if (message.attachments.first()) {
@@ -18724,7 +17917,7 @@ client.on('messageCreate', async message => {
 				message.channel.send({embeds: [DiscordEmbed]})
 			}
 
-            var enmSkills = ``;
+            let enmSkills = ``;
             for (i = 0; i < enmDefs.skills.length; i++) {
 				const skillDefs = readSkill(enmDefs.skills[i])
                 enmSkills += `${elementEmoji[skillDefs.type]}${skillDefs.name}\n`
@@ -18733,10 +17926,10 @@ client.on('messageCreate', async message => {
             if (enmSkills === ``)
 				enmSkills = "none";
 
-            var enmLB = ``;
+            let enmLB = ``;
             if (enmDefs.lb) {
                 if (enmDefs.lb.name && enmDefs.lb.name.toLowerCase() != "none") {
-					var lbSkill = enmDefs.lb
+					let lbSkill = enmDefs.lb
 					enmLB += `**${lbSkill.name}** *(ATK Class)*\n**${lbSkill.pow}** Power, ${lbSkill.cost} LB%.`
 
 					if (lbSkill.target && lbSkill.target === "allopposing")
@@ -18751,7 +17944,7 @@ client.on('messageCreate', async message => {
             if (enmLB === ``) 
 				enmLB = "No Limit Break Skill.";
 
-			var charAffs = "";
+			let charAffs = "";
 			for (const i in enmDefs.superweak) charAffs += `${elementEmoji[enmDefs.superweak[i]]} <:supereffective:939053172528394252>\n`;
 			for (const i in enmDefs.weak) charAffs += `${elementEmoji[enmDefs.weak[i]]} <:effective:876899270731628584>\n`;
 			for (const i in enmDefs.resist) charAffs += `${elementEmoji[enmDefs.resist[i]]} <:resist:877132670784647238>\n`
@@ -18760,14 +17953,14 @@ client.on('messageCreate', async message => {
 			for (const i in enmDefs.drain) charAffs += `${elementEmoji[enmDefs.drain[i]]} <:drain:879801979138895904>\n`;
 			if (charAffs === ``) charAffs = "None.";
 
-			var enmLoot = ``
+			let enmLoot = ``
 			if (!enmDefs.loot || enmDefs.loot == '' || enmDefs.loot == undefined)
 				enmLoot = `No possible loot.`
 			
 			if (enmDefs.loot) {
-				var lootPath = `${dataPath}/Loot/lootTables-${message.guild.id}.json`
-				var lootRead = fs.readFileSync(lootPath, {flag: 'as+'});
-				var lootFile = JSON.parse(lootRead);
+				let lootPath = `${dataPath}/Loot/lootTables-${message.guild.id}.json`
+				let lootRead = fs.readFileSync(lootPath, {flag: 'as+'});
+				let lootFile = JSON.parse(lootRead);
 
 				let lootVar=0;
 
@@ -18795,8 +17988,8 @@ client.on('messageCreate', async message => {
 				DiscordEmbed.fields.push({ name: `${enmName}'s Possible Loot:`, value: `${enmLoot}`, inline: true });
 
 			if (enmDefs.negotiateDefs && enmDefs.negotiateDefs.qualities) {
-				var enmQualities = enmDefs.negotiateDefs.qualities
-				var qualityString = ''
+				let enmQualities = enmDefs.negotiateDefs.qualities
+				let qualityString = ''
 				
 				if (enmQualities.atk)
 					qualityString += `${enmQualities.atk} ATK\n`
@@ -18814,11 +18007,10 @@ client.on('messageCreate', async message => {
 			}
 
 			if (enmDefs.negotiate) {
-				var negDefs = enmDefs.negotiate
-				var negString = ''
-				for (const i in enmDefs.negotiate) {
-					negString += `\n**${i}**: **${negDefs[i].name}**\n*${negDefs[i].desc}*\n*+${negDefs[i].convince ? negDefs[i].convince : 0}%*`
-				}
+				let negDefs = enmDefs.negotiate
+				let negString = ''
+				for (const i in enmDefs.negotiate)
+					negString += `\n**${i}**: **${negDefs[i].name}**\n*${negDefs[i].desc}*\n*+${negDefs[i].convince ? negDefs[i].convince : 0}%*`;
 				
 				if (negString === '')
 					negString = 'Nothing.'
@@ -18846,12 +18038,12 @@ client.on('messageCreate', async message => {
     }
 	
     if (command === 'listenemies') {
-		var enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
-		var enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
-		var enmFile = JSON.parse(enmRead); 
-		var user = message.mentions.users.first() ? message.mentions.users.first() : null
+		let enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
+		let enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
+		let enmFile = JSON.parse(enmRead); 
+		let user = message.mentions.users.first() ? message.mentions.users.first() : null
 
-		var enmArray = []
+		let enmArray = []
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
         if (!arg[2] || arg[2] === ' ' || arg[2] === 'null') {
 			for (const i in enmFile[message.guild.id])
@@ -18892,18 +18084,18 @@ client.on('messageCreate', async message => {
 	}
 
     if (command === 'randomenemy') {
-		var enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
-		var enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
-		var enmFile = JSON.parse(enmRead); 
+		let enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
+		let enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
+		let enmFile = JSON.parse(enmRead); 
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
 		
-		var possibleEnemies = [];
+		let possibleEnemies = [];
 		for (const i in enmFile[message.guild.id]) {
 			if (enemyFuncs.encounteredEnemy(i, message.guild.id))
 				possibleEnemies.push(i);
 		}
 
-		var enemy = possibleEnemies[utilityFuncs.randNum(possibleEnemies.length-1)];
+		let enemy = possibleEnemies[utilityFuncs.randNum(possibleEnemies.length-1)];
 		console.log(`Enemy Rolled: ${enemy}`)
 
         if (enmFile[message.guild.id][enemy]) {
@@ -18920,7 +18112,7 @@ client.on('messageCreate', async message => {
 				message.channel.send({embeds: [DiscordEmbed]})
 			}
 
-            var enmSkills = ``;
+            let enmSkills = ``;
             for (i = 0; i < enmDefs.skills.length; i++) {
 				const skillDefs = readSkill(enmDefs.skills[i])
                 enmSkills += `${elementEmoji[skillDefs.type]}${skillDefs.name}\n`
@@ -18929,10 +18121,10 @@ client.on('messageCreate', async message => {
             if (enmSkills === ``)
 				enmSkills = "none";
 
-            var enmLB = ``;
+            let enmLB = ``;
             if (enmDefs.lb) {
                 if (enmDefs.lb.name && enmDefs.lb.name.toLowerCase() != "none") {
-					var lbSkill = enmDefs.lb
+					let lbSkill = enmDefs.lb
 					enmLB += `**${lbSkill.name}** *(ATK Class)*\n**${lbSkill.pow}** Power, ${lbSkill.cost} LB%.`
 
 					if (lbSkill.target && lbSkill.target === "allopposing")
@@ -18947,7 +18139,7 @@ client.on('messageCreate', async message => {
             if (enmLB === ``) 
 				enmLB = "No Limit Break Skill.";
 
-			var charAffs = "";
+			let charAffs = "";
 			for (const i in enmDefs.superweak) charAffs += `${elementEmoji[enmDefs.superweak[i]]} <:supereffective:939053172528394252>\n`;
 			for (const i in enmDefs.weak) charAffs += `${elementEmoji[enmDefs.weak[i]]} <:effective:876899270731628584>\n`;
 			for (const i in enmDefs.resist) charAffs += `${elementEmoji[enmDefs.resist[i]]} <:resist:877132670784647238>\n`
@@ -18956,14 +18148,14 @@ client.on('messageCreate', async message => {
 			for (const i in enmDefs.drain) charAffs += `${elementEmoji[enmDefs.drain[i]]} <:drain:879801979138895904>\n`;
 			if (charAffs === ``) charAffs = "None.";
 
-			var enmLoot = ``
+			let enmLoot = ``
 			if (!enmDefs.loot || enmDefs.loot == '' || enmDefs.loot == undefined)
 				enmLoot = `No possible loot.`
 			
 			if (enmDefs.loot) {
-				var lootPath = `${dataPath}/Loot/lootTables-${message.guild.id}.json`
-				var lootRead = fs.readFileSync(lootPath, {flag: 'as+'});
-				var lootFile = JSON.parse(lootRead);
+				let lootPath = `${dataPath}/Loot/lootTables-${message.guild.id}.json`
+				let lootRead = fs.readFileSync(lootPath, {flag: 'as+'});
+				let lootFile = JSON.parse(lootRead);
 
 				let lootVar=0;
 
@@ -18991,8 +18183,8 @@ client.on('messageCreate', async message => {
 				DiscordEmbed.fields.push({ name: `${enmName}'s Possible Loot:`, value: `${enmLoot}`, inline: true });
 
 			if (enmDefs.negotiateDefs && enmDefs.negotiateDefs.qualities) {
-				var enmQualities = enmDefs.negotiateDefs.qualities
-				var qualityString = ''
+				let enmQualities = enmDefs.negotiateDefs.qualities
+				let qualityString = ''
 				
 				if (enmQualities.atk)
 					qualityString += `${enmQualities.atk} ATK\n`
@@ -19010,8 +18202,8 @@ client.on('messageCreate', async message => {
 			}
 
 			if (enmDefs.negotiate) {
-				var negDefs = enmDefs.negotiate
-				var negString = ''
+				let negDefs = enmDefs.negotiate
+				let negString = ''
 				for (const i in enmDefs.negotiate) {
 					negString += `\n**${i}**: **${negDefs[i].name}**\n*${negDefs[i].desc}*\n*+${negDefs[i].convince ? negDefs[i].convince : 0}%*`
 				}
@@ -19051,9 +18243,9 @@ client.on('messageCreate', async message => {
 		message.channel.send("This will take a while, so be patient! I will react with 👍 once I'm done.")
 
 		setTimeout(function() {
-			var enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
-			var enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
-			var enmFile = JSON.parse(enmRead);
+			let enmPath = dataPath+'/Enemies/enemies-' + message.guild.id + '.json'
+			let enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
+			let enmFile = JSON.parse(enmRead);
 			
 			for (const i in enmFile[message.guild.id]) {
 				if (!enmFile[message.guild.id][i].name)
@@ -19077,8 +18269,8 @@ client.on('messageCreate', async message => {
 		const weather = btl[message.guild.id].changeweather ? btl[message.guild.id].changeweather.weather : btl[message.guild.id].weather
 		const terrain = btl[message.guild.id].changeterrain ? btl[message.guild.id].changeterrain.terrain : btl[message.guild.id].terrain
 		
-		var weatherTxt = "Clear"
-		var terrainTxt = "Clear"
+		let weatherTxt = "Clear"
+		let terrainTxt = "Clear"
 		if (weather != "clear")
 			weatherTxt = `${weather.toUpperCase()}`;
 		if (terrain != "normal")
@@ -19093,7 +18285,7 @@ client.on('messageCreate', async message => {
 		for (const i in btl[message.guild.id].allies.members) {
 			const charDefs = btl[message.guild.id].allies.members[i]
 
-			var buffTxt = ''
+			let buffTxt = ''
 			for (const k in charDefs.buffs)
 				buffTxt += `\n${charDefs.buffs[k]} ${k.toUpperCase()} buffs`;
 
@@ -19103,7 +18295,7 @@ client.on('messageCreate', async message => {
 		for (const i in btl[message.guild.id].enemies.members) {
 			const charDefs = btl[message.guild.id].enemies.members[i]
 
-			var buffTxt = ''
+			let buffTxt = ''
 			for (const k in charDefs.buffs)
 				buffTxt += `\n${charDefs.buffs[k]} ${k} buffs`;
 
@@ -19120,9 +18312,9 @@ client.on('messageCreate', async message => {
 
         console.log('BattleStatus: Starting Test Battle');
 
-        var charPath = dataPath+'/characters.json'
-        var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-        var charFile = JSON.parse(charRead);
+        let charPath = dataPath+'/characters.json'
+        let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+        let charFile = JSON.parse(charRead);
 
 		if (!charFile[arg[1]])
 			return message.channel.send(`${arg[1]} is an invalid character!`);
@@ -19167,13 +18359,13 @@ client.on('messageCreate', async message => {
 			return message.channel.send(`You can't reset a battle!`);
 
 		// Ally Character
-		var charDefs = utilityFuncs.cloneObj(charFile[arg[1]])
+		let charDefs = utilityFuncs.cloneObj(charFile[arg[1]])
 		delete charDefs.lb
 		delete charDefs.guard
 		delete charDefs.status
 		delete charDefs.statusturns
 
-		var battlerDefs = charFuncs.genChar(charDefs, true, {})
+		let battlerDefs = charFuncs.genChar(charDefs, true, {})
 		battlerDefs.agl = 99
 		battlerDefs.prc = 99
 		battlerDefs.id = 0
@@ -19183,13 +18375,13 @@ client.on('messageCreate', async message => {
 			btl[message.guild.id].allies.backup = []
 		
 		// Enemy character
-		var servPath = dataPath+'/Server Settings/server.json'
-        var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-        var servFile = JSON.parse(servRead);
+		let servPath = dataPath+'/Server Settings/server.json'
+        let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+        let servFile = JSON.parse(servRead);
 
         btl[message.guild.id].enemies.members = [];
 		if (readEnm(arg[2], message.guild.id)) {
-			var enemyDefs = enemyFuncs.genEnm(arg[2], message.guild.id)
+			let enemyDefs = enemyFuncs.genEnm(arg[2], message.guild.id)
 			enemyDefs.agl = 1
 			enemyDefs.prc = 1
 			enemyDefs.id = battlerID
@@ -19250,11 +18442,11 @@ client.on('messageCreate', async message => {
 
         console.log('BattleStatus: Starting Battle');
 
-        var charPath = dataPath+'/characters.json'
-        var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-        var charFile = JSON.parse(charRead);
+        let charPath = dataPath+'/characters.json'
+        let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+        let charFile = JSON.parse(charRead);
 		
-		var battlerID = 0;
+		let battlerID = 0;
 
         if (!btl[message.guild.id]) {
             btl[message.guild.id] = {
@@ -19300,7 +18492,7 @@ client.on('messageCreate', async message => {
 		
         btl[message.guild.id].allies.members = [];
         for (const k in btl[message.guild.id].parties[arg[1]].members) {
-			var charDefs = charFile[btl[message.guild.id].parties[arg[1]].members[k]]
+			let charDefs = charFile[btl[message.guild.id].parties[arg[1]].members[k]]
             delete charDefs.lb
             delete charDefs.guard
 			delete charDefs.status
@@ -19309,14 +18501,14 @@ client.on('messageCreate', async message => {
 			if (!charDefs.name)
 				charDefs.name = btl[message.guild.id].parties[arg[1]].members[k];
 
-			var pet
+			let pet
 			for (const j in btl[message.guild.id].parties[arg[1]].negotiateAllies) {
 				if (btl[message.guild.id].parties[arg[1]].negotiateAllies[j].owner == btl[message.guild.id].parties[arg[1]].members[k]) {
 					pet = btl[message.guild.id].parties[arg[1]].negotiateAllies[j]
 				}
 			}
 
-			var battlerDefs = charFuncs.genChar(charDefs, (k <= 0) ? true : false, btl[message.guild.id].parties[arg[1]])
+			let battlerDefs = charFuncs.genChar(charDefs, (k <= 0) ? true : false, btl[message.guild.id].parties[arg[1]])
 			battlerDefs.id = battlerID
 
 			btl[message.guild.id].allies.members.push(battlerDefs)
@@ -19327,7 +18519,7 @@ client.on('messageCreate', async message => {
 			btl[message.guild.id].allies.backup = []
 
         for (const k in btl[message.guild.id].parties[arg[1]].backup) {
-			var charDefs = charFile[btl[message.guild.id].parties[arg[1]].backup[k]]
+			let charDefs = charFile[btl[message.guild.id].parties[arg[1]].backup[k]]
             delete charDefs.lb
             delete charDefs.guard
 			delete charDefs.status
@@ -19336,16 +18528,16 @@ client.on('messageCreate', async message => {
 			if (!charDefs.name)
 				charDefs.name = btl[message.guild.id].parties[arg[1]].members[k];
 
-			var battlerDefs = charFuncs.genChar(charDefs, false, btl[message.guild.id].parties[arg[1]])
+			let battlerDefs = charFuncs.genChar(charDefs, false, btl[message.guild.id].parties[arg[1]])
 			battlerDefs.id = battlerID
 
 			btl[message.guild.id].allies.backup.push(battlerDefs)
 			battlerID++;
         }
 		       
-		var servPath = dataPath+'/Server Settings/server.json'
-        var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-        var servFile = JSON.parse(servRead);
+		let servPath = dataPath+'/Server Settings/server.json'
+        let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+        let servFile = JSON.parse(servRead);
 		
 		if (!servFile[message.guild.id].encountered)
 			servFile[message.guild.id].encountered = [];
@@ -19353,7 +18545,7 @@ client.on('messageCreate', async message => {
         btl[message.guild.id].enemies.members = [];
         for (let i = 5; i < arg.length; i++) {
             if (readEnm(arg[i], message.guild.id)) {
-                var enemyDefs = enemyFuncs.genEnm(arg[i], message.guild.id)
+                let enemyDefs = enemyFuncs.genEnm(arg[i], message.guild.id)
 				enemyDefs.id = battlerID
 				btl[message.guild.id].enemies.members.push(enemyDefs)
 				
@@ -19387,7 +18579,7 @@ client.on('messageCreate', async message => {
         message.channel.send(`Team ${arg[1]} encountered some enemies!`);
         console.log('BattleStatus: Battle has Begun.');
 		
-		var themeType = "battle"
+		let themeType = "battle"
 		for (const i in btl[message.guild.id].enemies.members) {
 			enemyDefs = btl[message.guild.id].enemies.members[i]
 			if (enemyDefs.miniboss)
@@ -19398,16 +18590,16 @@ client.on('messageCreate', async message => {
 				themeType = "finalboss"
 			else {
 				// Check for Strong Foe
-				var BST = 0
+				let BST = 0
 				const stats = ["atk", "mag", "end", "chr", "int", "luk", "prc", "agl"]
 				for (const k in stats)
 					BST += enemyDefs[stats[k]];
 
-				var strongestChar = [0, 0]
+				let strongestChar = [0, 0]
 				for (const k in btl[message.guild.id].allies.members) {
-					var charDefs = btl[message.guild.id].allies.members[k]
+					let charDefs = btl[message.guild.id].allies.members[k]
 				
-					var charBST = 0
+					let charBST = 0
 					const stats = ["atk", "mag", "end", "chr", "int", "luk", "prc", "agl"]
 					for (const key in stats)
 						charBST += charDefs[stats[key]];
@@ -19464,7 +18656,7 @@ client.on('messageCreate', async message => {
 
         console.log('BattleStatus: Starting Battle');
 		
-		var battlerID = 0;
+		let battlerID = 0;
 
         if (!btl[message.guild.id]) {
             btl[message.guild.id] = {
@@ -19503,7 +18695,7 @@ client.on('messageCreate', async message => {
         btl[message.guild.id].enemies.members = [];
  
 		if (readEnm(arg[1], message.guild.id)) {
-			var enemyDefs = enemyFuncs.genEnm(arg[1], message.guild.id)
+			let enemyDefs = enemyFuncs.genEnm(arg[1], message.guild.id)
 			enemyDefs.id = battlerID
 			btl[message.guild.id].allies.members.push(enemyDefs)
 			console.log(`BattleStatus: ${arg[1]} generated.`);
@@ -19514,7 +18706,7 @@ client.on('messageCreate', async message => {
 		}
 
 		if (readEnm(arg[2], message.guild.id)) {
-			var enemyDefs = enemyFuncs.genEnm(arg[2], message.guild.id)
+			let enemyDefs = enemyFuncs.genEnm(arg[2], message.guild.id)
 			enemyDefs.id = battlerID
 			btl[message.guild.id].enemies.members.push(enemyDefs)
 			console.log(`BattleStatus: ${arg[2]} generated.`);
@@ -19589,12 +18781,12 @@ client.on('messageCreate', async message => {
 
         console.log('BattleStatus: Starting Battle in Colosseum');
 
-        var charPath = dataPath+'/characters.json'
-        var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-        var charFile = JSON.parse(charRead);
-		var skillPath = dataPath+'/skills.json'
-		var skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-		var skillFile = JSON.parse(skillRead);
+        let charPath = dataPath+'/characters.json'
+        let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+        let charFile = JSON.parse(charRead);
+		let skillPath = dataPath+'/skills.json'
+		let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+		let skillFile = JSON.parse(skillRead);
 
         if (!btl[message.guild.id]) {
             btl[message.guild.id] = {
@@ -19633,12 +18825,12 @@ client.on('messageCreate', async message => {
         if (!btl[message.guild.id].parties[arg[1]])
             return message.channel.send(`${arg[1]} is an invalid party.`);
 
-		var battlerID = 0;
-		var partyDefs = btl[message.guild.id].parties[arg[1]]
+		let battlerID = 0;
+		let partyDefs = btl[message.guild.id].parties[arg[1]]
 
         btl[message.guild.id].allies.members = [];
         for (const k in btl[message.guild.id].parties[arg[1]].members) {
-			var charDefs = charFile[btl[message.guild.id].parties[arg[1]].members[k]]
+			let charDefs = charFile[btl[message.guild.id].parties[arg[1]].members[k]]
 
 			// Reset some effects
             delete charDefs.lb
@@ -19650,7 +18842,7 @@ client.on('messageCreate', async message => {
 				charDefs.name = btl[message.guild.id].parties[arg[1]].members[k];
 			
 			// Generate Character
-			var battlerDefs = charFuncs.genChar(charDefs, (k <= 0) ? true : false, btl[message.guild.id].parties[arg[1]])
+			let battlerDefs = charFuncs.genChar(charDefs, (k <= 0) ? true : false, btl[message.guild.id].parties[arg[1]])
 			battlerDefs.id = battlerID
 			
 			if (btl[message.guild.id].trials[arg[2]].endless) {
@@ -19674,7 +18866,7 @@ client.on('messageCreate', async message => {
 
 				for (const i in battlerDefs.skills) {
 					while (skillFile[battlerDefs.skills[i]].preSkill) {
-						var oldSkill = skillFile[battlerDefs.skills[i]].preSkill[0]
+						let oldSkill = skillFile[battlerDefs.skills[i]].preSkill[0]
 						if (oldSkill === 'remove') {
 							if (!battlerDefs.lvlUpQueue)
 								battlerDefs.lvlUpQueue = [];
@@ -19696,7 +18888,7 @@ client.on('messageCreate', async message => {
 			btl[message.guild.id].allies.backup = []
 
         for (const k in btl[message.guild.id].parties[arg[1]].backup) {
-			var charDefs = charFile[btl[message.guild.id].parties[arg[1]].backup[k]]
+			let charDefs = charFile[btl[message.guild.id].parties[arg[1]].backup[k]]
             delete charDefs.lb
             delete charDefs.guard
 			delete charDefs.status
@@ -19705,7 +18897,7 @@ client.on('messageCreate', async message => {
 			if (!charDefs.name)
 				charDefs.name = btl[message.guild.id].parties[arg[1]].members[k];
 
-			var battlerDefs = charFuncs.genChar(charDefs, false, btl[message.guild.id].parties[arg[1]])
+			let battlerDefs = charFuncs.genChar(charDefs, false, btl[message.guild.id].parties[arg[1]])
 			battlerDefs.id = battlerID
 			
 			if (btl[message.guild.id].trials[arg[2]].endless) {
@@ -19729,7 +18921,7 @@ client.on('messageCreate', async message => {
 
 				for (const i in battlerDefs.skills) {
 					while (skillFile[battlerDefs.skills[i]].preSkill) {
-						var oldSkill = skillFile[battlerDefs.skills[i]].preSkill[0]
+						let oldSkill = skillFile[battlerDefs.skills[i]].preSkill[0]
 						if (oldSkill === 'remove') {
 							if (!battlerDefs.lvlUpQueue)
 								battlerDefs.lvlUpQueue = [];
@@ -19755,7 +18947,7 @@ client.on('messageCreate', async message => {
         btl[message.guild.id].colosseum[1] = 0;
         btl[message.guild.id].colosseum[2] = arg[2];
 		
-		var waveNum = 0;
+		let waveNum = 0;
 		const trialObj = btl[message.guild.id].trials[arg[2]]
 		if (arg[3]) {
 			if (partyDefs.endless.saves && partyDefs.endless.saves[arg[2]] && parseInt(arg[3]) <= partyDefs.endless.saves[arg[2]]) {
@@ -19801,7 +18993,7 @@ client.on('messageCreate', async message => {
 		const trialWave = trialObj.waves[waveNum]
         for (const i in trialWave) {
             if (readEnm(trialWave[i], message.guild.id)) {
-                var enemyDefs = enemyFuncs.genEnm(trialWave[i], message.guild.id)
+                let enemyDefs = enemyFuncs.genEnm(trialWave[i], message.guild.id)
 				enemyDefs.id = battlerID
 				
 				btl[message.guild.id].enemies.members.push(enemyDefs)
@@ -19852,21 +19044,21 @@ client.on('messageCreate', async message => {
 			fs.writeFileSync(servPath, JSON.stringify(servFile, null, '    '));
 		}
 
-		var gamemode = "none"
+		let gamemode = "none"
 		if (arg[1]) {
 			if (arg[1].toLowerCase() === "metronome" || arg[1].toLowerCase() === "randskills" || arg[1].toLowerCase() === "randstats" || arg[1].toLowerCase() === "charfuck") {
 				gamemode = arg[1].toLowerCase()
 			}
 		}
 
-		var leaderBoard = []
+		let leaderBoard = []
 		for (const i in servFile[message.guild.id].pvpstuff[gamemode]) {
 			leaderBoard.push([i, servFile[message.guild.id].pvpstuff[gamemode][i]])
 		}
 	
 		leaderBoard.sort(function(a, b) {return b[1].points - a[1].points});
 		
-		var leaderText = ""    
+		let leaderText = ""    
 		for (const i in leaderBoard) {
 			let boardUser = client.users.fetch(leaderBoard[i][0])
 			boardUser.then(function(user) {
@@ -19888,9 +19080,9 @@ client.on('messageCreate', async message => {
 	}
 
     if (command === 'startpvp' || command === 'pvp') {
-		var btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
-		var btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
-		var btl = JSON.parse(btlRead);
+		let btlPath = dataPath+'/Battles/battle-' + message.guild.id + '.json'
+		let btlRead = fs.readFileSync(btlPath, {flag: 'as+'});
+		let btl = JSON.parse(btlRead);
 		
 		if (!btl)
 			return message.channel.send('Something went wrong.')
@@ -19906,9 +19098,9 @@ client.on('messageCreate', async message => {
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
 
         console.log('BattleStatus: Starting Battle in PVP Mode');
-        var charPath = dataPath+'/characters.json'
-        var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-        var charFile = JSON.parse(charRead);
+        let charPath = dataPath+'/characters.json'
+        let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+        let charFile = JSON.parse(charRead);
 
         if (!btl[message.guild.id]) {
             btl[message.guild.id] = {
@@ -19954,10 +19146,10 @@ client.on('messageCreate', async message => {
 		if (btl[message.guild.id].parties[arg[1]].length > 4)
 			return message.channel.send('4 people must be in a party at maximum for PVP!');
 		
-		var battlerID = 0;
+		let battlerID = 0;
         btl[message.guild.id].allies.members = [];
         for (const k in btl[message.guild.id].parties[arg[1]].members) {
-			var charDefs = charFile[btl[message.guild.id].parties[arg[1]].members[k]]
+			let charDefs = charFile[btl[message.guild.id].parties[arg[1]].members[k]]
             delete charDefs.lb
             delete charDefs.guard
 			delete charDefs.status
@@ -19966,7 +19158,7 @@ client.on('messageCreate', async message => {
 			if (!charDefs.name)
 				charDefs.name = btl[message.guild.id].parties[arg[1]].members[k];
 
-			var battlerDefs = charFuncs.genChar(charDefs, false, btl[message.guild.id].parties[arg[1]])
+			let battlerDefs = charFuncs.genChar(charDefs, false, btl[message.guild.id].parties[arg[1]])
 
 			if (btl[message.guild.id].allies.members.includes(battlerDefs))
 				return message.channel.send("You can't battle yourself, " + battlerDefs.name)
@@ -19980,7 +19172,7 @@ client.on('messageCreate', async message => {
 
         btl[message.guild.id].enemies.members = [];
         for (const k in btl[message.guild.id].parties[arg[2]].members) {
-			var charDefs = charFile[btl[message.guild.id].parties[arg[2]].members[k]]
+			let charDefs = charFile[btl[message.guild.id].parties[arg[2]].members[k]]
             delete charDefs.lb
             delete charDefs.guard
 			delete charDefs.status
@@ -19989,7 +19181,7 @@ client.on('messageCreate', async message => {
 			if (!charDefs.name)
 				charDefs.name = btl[message.guild.id].parties[arg[2]].members[k];
 
-			var battlerDefs = charFuncs.genChar(charDefs, false, btl[message.guild.id].parties[arg[2]])
+			let battlerDefs = charFuncs.genChar(charDefs, false, btl[message.guild.id].parties[arg[2]])
 
 			if (btl[message.guild.id].enemies.members.includes(battlerDefs))
 				return message.channel.send("You can't battle yourself, " + battlerDefs.name)
@@ -20009,7 +19201,7 @@ client.on('messageCreate', async message => {
 		
 		// Owner Check
 		if (btl[message.guild.id].ranked == true) {
-			var ownerFighters = {}
+			let ownerFighters = {}
 			for (const i in btl[message.guild.id].allies.members) {
 				if (btl[message.guild.id].allies.members[i].owner) {
 					if (ownerFighters[btl[message.guild.id].allies.members[i].owner]) {
@@ -20056,8 +19248,8 @@ client.on('messageCreate', async message => {
 		charFuncs.startBattleLeaderSkill(btl[message.guild.id].enemies.members)
 		
 		if (arg[3]) {
-			var gameMode = arg[3].toLowerCase()
-			var battlers = []
+			let gameMode = arg[3].toLowerCase()
+			let battlers = []
 			for (const i in btl[message.guild.id].allies.members) {
 				battlers.push(btl[message.guild.id].allies.members[i])
 			}
@@ -20066,12 +19258,12 @@ client.on('messageCreate', async message => {
 			}
 
 			// for certain skillbased gamemodes
-			var skillPath = dataPath+'/skills.json'
-			var skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-			var skillFile = JSON.parse(skillRead);
+			let skillPath = dataPath+'/skills.json'
+			let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+			let skillFile = JSON.parse(skillRead);
 
 			for (const i in battlers) {
-				var charDefs = battlers[i]
+				let charDefs = battlers[i]
 				if (gameMode === "metronome") {
 					console.log('BattleStatus: Gamemode is Metronome')
 
@@ -20081,7 +19273,7 @@ client.on('messageCreate', async message => {
 					console.log('BattleStatus: Gamemode is RandSkills')
 					charDefs.skills = []
 
-					var possibleSkills = []
+					let possibleSkills = []
 					for (const val in skillFile)
 						possibleSkills.push(val);
 
@@ -20096,7 +19288,7 @@ client.on('messageCreate', async message => {
 
 					const stats = ["atk", "mag", "end", "chr", "int", "luk", "prc", "agl"]
 					for (const k in stats) {
-						var statNum = Math.floor(Math.random()*99)
+						let statNum = Math.floor(Math.random()*99)
 						charDefs[stats[k]] = statNum
 					}
 					
@@ -20109,7 +19301,7 @@ client.on('messageCreate', async message => {
 					
 					const affinities = ["superweak", "weak", "weak", "weak", "normal", "normal", "normal", "normal", "resist", "resist", "block", "repel", "drain"]
 					for (const k in Elements) {
-						var statusNum = Math.floor(Math.random() * (affinities.length-1))
+						let statusNum = Math.floor(Math.random() * (affinities.length-1))
 
 						if (affinities[statusNum] != "normal") 
 							charDefs[affinities[statusNum]].push(Elements[k]);
@@ -20121,7 +19313,7 @@ client.on('messageCreate', async message => {
 
 					charDefs.skills = []
 
-					var possibleSkills = []
+					let possibleSkills = []
 					for (const val in skillFile)
 						possibleSkills.push(val);
 
@@ -20137,7 +19329,7 @@ client.on('messageCreate', async message => {
 
 					const stats = ["atk", "mag", "end", "chr", "int", "luk", "prc", "agl"]
 					for (const k in stats) {
-						var statNum = Math.floor(Math.random()*99)
+						let statNum = Math.floor(Math.random()*99)
 						charDefs[stats[k]] = statNum
 					}
 					
@@ -20153,7 +19345,7 @@ client.on('messageCreate', async message => {
 						if (Elements[k] === "status" || Elements[k] === "heal" || Elements[k] === "passive" || Elements[k] === "almighty")
 							continue;
 		
-						var statusNum = Math.floor(Math.random() * (affinities.length-1))
+						let statusNum = Math.floor(Math.random() * (affinities.length-1))
 
 						if (affinities[statusNum] != "normal") 
 							charDefs[affinities[statusNum]].push(Elements[k]);
@@ -20163,11 +19355,11 @@ client.on('messageCreate', async message => {
 				} else if (gameMode === 'enemies' || gameMode === 'randomenemy') {
 					console.log('BattleStatus: Gamemode is Enemies');
 
-					var randEnm = ''
-					var possibleEnms = []
-					var enmPath = `${dataPath}/Enemies/enemies-${message.guild.id}.json`
-					var enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
-					var enmFile = JSON.parse(enmRead);
+					let randEnm = ''
+					let possibleEnms = []
+					let enmPath = `${dataPath}/Enemies/enemies-${message.guild.id}.json`
+					let enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
+					let enmFile = JSON.parse(enmRead);
 					for (const i in enmFile[message.guild.id]) {
 						if (enemyFuncs.encounteredEnemy(i, message.guild.id))
 							possibleEnms.push(i);
@@ -20223,9 +19415,9 @@ client.on('messageCreate', async message => {
     }
 
     if (command === 'startraid') {
-		var raidPath = dataPath+'/raidenemy.json'
-		var raidRead = fs.readFileSync(raidPath, {flag: 'as+'});
-		var raidFile = JSON.parse(raidRead);
+		let raidPath = dataPath+'/raidenemy.json'
+		let raidRead = fs.readFileSync(raidPath, {flag: 'as+'});
+		let raidFile = JSON.parse(raidRead);
 
 		if (!utilityFuncs.RPGBotAdmin(message.author.id))
             return message.channel.send('You lack sufficient permissions, apologies!');
@@ -20250,7 +19442,7 @@ client.on('messageCreate', async message => {
 		
 		const journalEntry = message.content.slice(prefix.length).trim().split('"')[1];
 
-		var raidDefs = enemyFuncs.writeRaidEnemy(message.author, message.guild.id, arg[1], parseInt(arg[2]), parseInt(arg[3]), parseInt(arg[4]), parseInt(arg[5]), parseInt(arg[6]), parseInt(arg[7]), parseInt(arg[8]), parseInt(arg[9]), parseInt(arg[10]), parseInt(arg[11]), parseInt(arg[12]), arg[13].toLowerCase(), journalEntry)
+		let raidDefs = enemyFuncs.writeRaidEnemy(message.author, message.guild.id, arg[1], parseInt(arg[2]), parseInt(arg[3]), parseInt(arg[4]), parseInt(arg[5]), parseInt(arg[6]), parseInt(arg[7]), parseInt(arg[8]), parseInt(arg[9]), parseInt(arg[10]), parseInt(arg[11]), parseInt(arg[12]), arg[13].toLowerCase(), journalEntry)
 		message.channel.send(`👍 ${arg[1]} has been created! Now, please specify all skills. Type "continue" when you want to continue.`)
     }
 
@@ -20265,7 +19457,7 @@ client.on('messageCreate', async message => {
 			return message.channel.send("It's the group's pet's turn!");
 
 		const tempTurnOrder = btl[message.guild.id].turnorder
-		var defs = getBattlerFromID(btl[message.guild.id], tempTurnOrder[btl[message.guild.id].doturn], message.author.id)
+		let defs = getBattlerFromID(btl[message.guild.id], tempTurnOrder[btl[message.guild.id].doturn], message.author.id)
 		
 		if (!defs) {
 			message.channel.send("Invalid Position: Either you don't own this character or this character does not exist.")
@@ -20274,11 +19466,11 @@ client.on('messageCreate', async message => {
 		}
 
         if (defs) {
-            var charDefs = defs
-			var charName = charDefs.name
+            let charDefs = defs
+			let charName = charDefs.name
 		
-			var allySide = btl[message.guild.id].allies.members
-			var opposingSide = btl[message.guild.id].enemies.members
+			let allySide = btl[message.guild.id].allies.members
+			let opposingSide = btl[message.guild.id].enemies.members
 			if (charFuncs.isOpposingSide(charDefs, btl[message.guild.id])) {
 				allySide = btl[message.guild.id].enemies.members
 				opposingSide = btl[message.guild.id].allies.members
@@ -20291,14 +19483,14 @@ client.on('messageCreate', async message => {
                 }
             }
 			
-			var preText = ""
+			let preText = ""
 			if (charDefs.meleequote && charDefs.meleequote.length > 0) {
-				var possibleQuote = Math.round(Math.random() * (charDefs.meleequote.length-1))
+				let possibleQuote = Math.round(Math.random() * (charDefs.meleequote.length-1))
 				preText = `*${charDefs.name}: "${charDefs.meleequote[possibleQuote]}"*\n`
 			}
 			
             if (opposingSide[parseInt(arg[2])]) {
-				var enmDefs = opposingSide[parseInt(arg[2])]				
+				let enmDefs = opposingSide[parseInt(arg[2])]				
 				if (enmDefs.hp <= 0) {
 					message.channel.send("You can't attack a dead foe!")
 					message.delete()
@@ -20309,7 +19501,7 @@ client.on('messageCreate', async message => {
 					btl[message.guild.id].canshowtime = false
 				}
 
-				var useText = attackFuncs.meleeFoe(charDefs, enmDefs, message.guild.id, null, btl)
+				let useText = attackFuncs.meleeFoe(charDefs, enmDefs, message.guild.id, null, btl)
 
                 const DiscordEmbed = new Discord.MessageEmbed()
                     .setColor('#e36b2b')
@@ -20344,27 +19536,27 @@ client.on('messageCreate', async message => {
         const btl = readBattle(message.guild.id);
         const arg = message.content.slice(prefix.length).trim().split(/ +/);
 
-        var itemPath = dataPath+'/items.json'
-        var itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
-        var itemFile = JSON.parse(itemRead);
+        let itemPath = dataPath+'/items.json'
+        let itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
+        let itemFile = JSON.parse(itemRead);
 		
-		var skillPath = dataPath+'/skills.json'
-        var skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-        var skillFile = JSON.parse(skillRead);
+		let skillPath = dataPath+'/skills.json'
+        let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+        let skillFile = JSON.parse(skillRead);
 
-		var charPath = dataPath+'/characters.json'
-		var charRead = fs.readFileSync(charPath, {flag: 'as+'});
-		var charFile = JSON.parse(charRead);
+		let charPath = dataPath+'/characters.json'
+		let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+		let charFile = JSON.parse(charRead);
 
         if (btl[message.guild.id].battling == false) //{
 			return message.channel.send('You can only do this in-battle!');
 		
 		/*
 			if (charFile[arg[1]]) {
-				var skillDefs = skillFile[arg[2]]
+				let skillDefs = skillFile[arg[2]]
 				if (!skillDefs.name) {skillDefs.name = arg[2]}
 
-				var charDefs = charFile[arg[1]]
+				let charDefs = charFile[arg[1]]
 
 				if (skillDefs.cost) {
 					if (skillDefs.costtype && skillDefs.costtype === "hp") {
@@ -20390,7 +19582,7 @@ client.on('messageCreate', async message => {
 					}
 				}
 
-				var finalText = ""
+				let finalText = ""
 				if (skillDefs.type === "heal") {
 					if (skillDefs.healmp) {
 						finalText = `${arg[1]} used ${arg[2]} on £{arg[3]} to restore ${skillDefs.pow}MP.`;
@@ -20413,14 +19605,14 @@ client.on('messageCreate', async message => {
 								end: 0
 							}
 
-							var dmg = attackFuncs.generateDmg(charFile[arg[1]], charFile[arg[3]], skillDefs, message.guild.id, null, btl)
+							let dmg = attackFuncs.generateDmg(charFile[arg[1]], charFile[arg[3]], skillDefs, message.guild.id, null, btl)
 							if (dmg <= 0) {
 								if (dmg[1] === 'miss')
 									finalText += `, but ${arg[3]} dodged it.`
 								else
 									finalText += `, but ${arg[3]} blocked it.`
 							} else {
-								var dmgVal = dmg[0] + utilityFuncs.randNum(10)
+								let dmgVal = dmg[0] + utilityFuncs.randNum(10)
 								finalText += `, dealing ${dmgVal}`
 								if (dmg[2] == true)
 									finalText += '<:effective:876899270731628584>';
@@ -20477,7 +19669,7 @@ client.on('messageCreate', async message => {
 			return message.channel.send("It's the group's pet's turn!")
 
 		const tempTurnOrder = btl[message.guild.id].turnorder
-		var defs = getBattlerFromID(btl[message.guild.id], tempTurnOrder[btl[message.guild.id].doturn], message.author.id)
+		let defs = getBattlerFromID(btl[message.guild.id], tempTurnOrder[btl[message.guild.id].doturn], message.author.id)
 		
 		if (!defs) {
 			message.channel.send("Invalid Position: Either you don't own this character or this character does not exist.")
@@ -20486,14 +19678,14 @@ client.on('messageCreate', async message => {
 		}
 
         if (defs) {
-            var charDefs = defs
-			var charName = charDefs.name
+            let charDefs = defs
+			let charName = charDefs.name
 
-			var allySide = btl[message.guild.id].allies.members ? btl[message.guild.id].allies.members : [];
-			var allyBackup = btl[message.guild.id].allies.backup ? btl[message.guild.id].allies.backup : [];
-			var opposingSide = btl[message.guild.id].enemies.members ? btl[message.guild.id].enemies.members : [];
-			var opposingBackup = btl[message.guild.id].enemies.backup ? btl[message.guild.id].enemies.backup : [];
-			var partyDefs = btl[message.guild.id].parties[btl[message.guild.id].battleteam] ? btl[message.guild.id].parties[btl[message.guild.id].battleteam] : {};
+			let allySide = btl[message.guild.id].allies.members ? btl[message.guild.id].allies.members : [];
+			let allyBackup = btl[message.guild.id].allies.backup ? btl[message.guild.id].allies.backup : [];
+			let opposingSide = btl[message.guild.id].enemies.members ? btl[message.guild.id].enemies.members : [];
+			let opposingBackup = btl[message.guild.id].enemies.backup ? btl[message.guild.id].enemies.backup : [];
+			let partyDefs = btl[message.guild.id].parties[btl[message.guild.id].battleteam] ? btl[message.guild.id].parties[btl[message.guild.id].battleteam] : {};
 			if (charFuncs.isOpposingSide(charDefs, btl[message.guild.id])) {
 				allySide = btl[message.guild.id].enemies.members ? btl[message.guild.id].enemies.members : [];
 				allyBackup = btl[message.guild.id].enemies.members ? btl[message.guild.id].enemies.backup : [];
@@ -20510,8 +19702,8 @@ client.on('messageCreate', async message => {
                 }
             }
 
-            var skillName = arg[3]
-            var skillDefs = skillFile[skillName]
+            let skillName = arg[3]
+            let skillDefs = skillFile[skillName]
 
 			if (!charFuncs.knowsSkill(charDefs, skillName)) {
 				message.channel.send(`${charName} doesn't know this skill!`)
@@ -20554,13 +19746,13 @@ client.on('messageCreate', async message => {
 			}	
 
 			// Skill's cost
-			var skillCostDefs = {
+			let skillCostDefs = {
 				cost: skillDefs.cost,
 				costType: skillDefs.costtype
 			}			
 			
 			// Leader Skill
-			var skillCost = skillCostDefs.cost ? skillCostDefs.cost : 0;
+			let skillCost = skillCostDefs.cost ? skillCostDefs.cost : 0;
 			console.log(`used ${skillCost}${skillCostDefs.costType}`);
 
 			for (const i in allySide) {
@@ -20570,7 +19762,7 @@ client.on('messageCreate', async message => {
 							allySide[i].leaderSkill.target === "all" ||
 							allySide[i].leaderSkill.target === "magic" && skillDefs.atktype === "magic" ||
 							allySide[i].leaderSkill.target === "physical" && skillDefs.atktype === "physical") {
-								var skillDeduct = Math.round((skillCost/100)*allySide[i].leaderSkill.percent)
+								let skillDeduct = Math.round((skillCost/100)*allySide[i].leaderSkill.percent)
 								console.log(`take away ${allySide[i].leaderSkill.percent}% - ${skillDeduct}`)
 
 								skillCost -= skillDeduct
@@ -20635,11 +19827,11 @@ client.on('messageCreate', async message => {
 			
 			// Copy Skill
 			if (skillDefs.copyskill) {
-				var possibleSkills = []
+				let possibleSkills = []
 				for (const val in allySide) {
 					if (allySide[val].id != charDefs.id) {
 						for (const i in allySide[val].skills) {
-							var skillDefs = skillFile[allySide[val].skills[i]]
+							let skillDefs = skillFile[allySide[val].skills[i]]
 							if (skillDefs.type != "heal" && skillDefs.type != "status" && skillDefs.type != "passive") {
 								possibleSkills.push(allySide[val].skills[i])
 							}
@@ -20648,7 +19840,7 @@ client.on('messageCreate', async message => {
 				}
 				
 				if (possibleSkills.length > 0) {
-					var skillVal = possibleSkills[Math.round(Math.random() * (possibleSkills.length-1))]
+					let skillVal = possibleSkills[Math.round(Math.random() * (possibleSkills.length-1))]
 					
 					skillDefs = skillFile[skillVal]
 					if (!skillDefs.name) {skillDefs.name = `${skillVal}`}
@@ -20666,14 +19858,14 @@ client.on('messageCreate', async message => {
 			
 			// Metronome
 			if (skillDefs.metronome) {
-				var possibleSkills = []
+				let possibleSkills = []
 				for (const val in skillFile) {
 					if (skillFile[val].type != "heal" && (skillFile[val].type != "status" && !skillFile[val].buff) && skillFile[val].type != "passive" && val != "Metronome") {
 						possibleSkills.push(val)
 					}
 				}
 
-				var skillVal = possibleSkills[Math.round(Math.random() * (possibleSkills.length-1))]
+				let skillVal = possibleSkills[Math.round(Math.random() * (possibleSkills.length-1))]
 				skillDefs = skillFile[skillVal]
 
 				console.log(`Metronome: Chosen skill ${skillVal} of ${possibleSkills.length-1} skills`)
@@ -20745,30 +19937,30 @@ client.on('messageCreate', async message => {
 			*/
 
             if (skillDefs.type == "heal") {
-				var healQuote = ""
+				let healQuote = ""
 				if (charDefs.healquote && charDefs.healquote.length > 0) {
-					var possibleQuote = Math.round(Math.random() * (charDefs.healquote.length-1))
+					let possibleQuote = Math.round(Math.random() * (charDefs.healquote.length-1))
 					healQuote = `*${charDefs.name}: "${charDefs.healquote[possibleQuote]}"*\n`
 				}
 				
-				var healedQuote = ""
+				let healedQuote = ""
 
-				var affinityMessage = ``;
+				let affinityMessage = ``;
                 if (skillDefs.healall || skillDefs.target && skillDefs.target === "allallies") {
 					while (healQuote.includes('%ALLY%'))
 						healQuote = healQuote.replace('%ALLY%', 'Allies')
 
                     if (skillDefs.fullheal) {
                         for (const i in allySide) {
-                            var partyDef = allySide[i]
+                            let partyDef = allySide[i]
                             if (partyDef.hp > 0) {
                                 partyDef.hp = partyDef.maxhp
 
 								affinityMessage += turnFuncs.healPassives(partyDef)
 							
 								if (partyDef != charDefs && partyDef.helpedquote && partyDef.helpedquote.length > 0) {
-									var possibleQuote = Math.round(Math.random() * (partyDef.helpedquote.length-1))
-									var theQuote = `\n*${partyDef.name}: "${partyDef.helpedquote[possibleQuote]}"*`
+									let possibleQuote = Math.round(Math.random() * (partyDef.helpedquote.length-1))
+									let theQuote = `\n*${partyDef.name}: "${partyDef.helpedquote[possibleQuote]}"*`
 
 									while (theQuote.includes('%ALLY%'))
 										theQuote = theQuote.replace('%ALLY%', charName)
@@ -20792,7 +19984,7 @@ client.on('messageCreate', async message => {
                             .setFooter(`${charName}'s turn`);
                     } else if (skillDefs.statusheal) {
                         for (const i in allySide) {
-                            var partyDef = allySide[i]
+                            let partyDef = allySide[i]
                             if (partyDef.hp > 0) {
 								if (partyDef.status === "hunger") {
 									partyDef.atk = Math.round(partyDef.atk*2)
@@ -20807,8 +19999,8 @@ client.on('messageCreate', async message => {
 								affinityMessage += turnFuncs.healPassives(partyDef)
 							
 								if (partyDef != charDefs && partyDef.helpedquote && partyDef.helpedquote.length > 0) {
-									var possibleQuote = Math.round(Math.random() * (partyDef.helpedquote.length-1))
-									var theQuote = `\n*${partyDef.name}: "${partyDef.helpedquote[possibleQuote]}"*`
+									let possibleQuote = Math.round(Math.random() * (partyDef.helpedquote.length-1))
+									let theQuote = `\n*${partyDef.name}: "${partyDef.helpedquote[possibleQuote]}"*`
 
 									while (theQuote.includes('%ALLY%'))
 										theQuote = theQuote.replace('%ALLY%', charName)
@@ -20831,11 +20023,11 @@ client.on('messageCreate', async message => {
 							.setDescription(`${healQuote}${charName} used ${skillName}!\nThe Party was cured of their status ailments.${healedQuote} ${affinityMessage}`)
                             .setFooter(`${charName}'s turn`);
                     } else if (skillDefs.healmp) {
-                        var txt = ``
+                        let txt = ``
                         for (const i in allySide) {
-                            var partyDef = allySide[i]								
+                            let partyDef = allySide[i]								
 
-							var heal = Math.round(skillDefs.pow-8 + Math.round(Math.random()*16))
+							let heal = Math.round(skillDefs.pow-8 + Math.round(Math.random()*16))
 							
 							// Trust Level 10+ will have 10% increased healing.
 							if (!btl[message.guild.id].pvp) {
@@ -20845,7 +20037,7 @@ client.on('messageCreate', async message => {
 
 							// Magic Buffs incease/decrease healing.
 							if (charDefs.buffs.mag) {
-								var aff = 1+parseFloat(charDefs.buffs.mag/10)
+								let aff = 1+parseFloat(charDefs.buffs.mag/10)
 								heal *= aff
 							}
 
@@ -20865,8 +20057,8 @@ client.on('messageCreate', async message => {
 							txt += turnFuncs.healPassives(partyDef)
 							
 							if (partyDef != charDefs && partyDef.helpedquote && partyDef.helpedquote.length > 0) {
-								var possibleQuote = Math.round(Math.random() * (partyDef.helpedquote.length-1))
-								var theQuote = `\n*${partyDef.name}: "${partyDef.helpedquote[possibleQuote]}"*`
+								let possibleQuote = Math.round(Math.random() * (partyDef.helpedquote.length-1))
+								let theQuote = `\n*${partyDef.name}: "${partyDef.helpedquote[possibleQuote]}"*`
 
 								while (theQuote.includes('%ALLY%'))
 									theQuote = theQuote.replace('%ALLY%', charName)
@@ -20888,9 +20080,9 @@ client.on('messageCreate', async message => {
 							.setDescription(`${healQuote}${charName} used ${skillName}!\nThe Party's MP was restored by ${skillDefs.pow}!\n${txt}`)
                             .setFooter(`${charName}'s turn`);
                     } else if (skillDefs.recarmdra) {
-                        var txt = ``
+                        let txt = ``
                         for (const i in allySide) {
-                            var partyDef = allySide[i];
+                            let partyDef = allySide[i];
 
                             partyDef.hp = partyDef.maxhp;
                             partyDef.mp = partyDef.maxmp;
@@ -20898,8 +20090,8 @@ client.on('messageCreate', async message => {
 							txt += turnFuncs.healPassives(partyDef)
 							
 							if (partyDef != charDefs && partyDef.helpedquote && partyDef.helpedquote.length > 0) {
-								var possibleQuote = Math.round(Math.random() * (partyDef.helpedquote.length-1))
-								var theQuote = `\n*${partyDef.name}: "${partyDef.helpedquote[possibleQuote]}"*`
+								let possibleQuote = Math.round(Math.random() * (partyDef.helpedquote.length-1))
+								let theQuote = `\n*${partyDef.name}: "${partyDef.helpedquote[possibleQuote]}"*`
 
 								while (theQuote.includes('%ALLY%'))
 									theQuote = theQuote.replace('%ALLY%', charName)
@@ -20921,11 +20113,11 @@ client.on('messageCreate', async message => {
 							.setDescription(`${healQuote}${charName} used ${skillName}!\nThe Party's HP & MP was fully restored!\n${txt}\n\n${charName} sacrificed themselves!`)
                             .setFooter(`${charName}'s turn`);
                     } else if (skillDefs.regnerate) {
-                        var txt = ``
+                        let txt = ``
                         for (const i in allySide) {
-                            var partyDef = allySide[i]								
+                            let partyDef = allySide[i]								
 
-							var heal = Math.round(skillDefs.pow-8 + Math.round(Math.random()*16))
+							let heal = Math.round(skillDefs.pow-8 + Math.round(Math.random()*16))
 							
 							// Trust Level 10+ will have 10% increased healing.
 							if (!btl[message.guild.id].pvp) {
@@ -20935,7 +20127,7 @@ client.on('messageCreate', async message => {
 
 							// Magic Buffs incease/decrease healing.
 							if (charDefs.buffs.mag) {
-								var aff = 1+parseFloat(charDefs.buffs.mag/10)
+								let aff = 1+parseFloat(charDefs.buffs.mag/10)
 								heal *= aff
 							}
 
@@ -20954,8 +20146,8 @@ client.on('messageCreate', async message => {
 
 							txt += turnFuncs.healPassives(partyDef)
 							if (partyDef != charDefs && partyDef.helpedquote && partyDef.helpedquote.length > 0) {
-								var possibleQuote = Math.round(Math.random() * (partyDef.helpedquote.length-1))
-								var theQuote = `\n*${partyDef.name}: "${partyDef.helpedquote[possibleQuote]}"*`
+								let possibleQuote = Math.round(Math.random() * (partyDef.helpedquote.length-1))
+								let theQuote = `\n*${partyDef.name}: "${partyDef.helpedquote[possibleQuote]}"*`
 
 								while (theQuote.includes('%ALLY%'))
 									theQuote = theQuote.replace('%ALLY%', charName)
@@ -20977,12 +20169,12 @@ client.on('messageCreate', async message => {
 							.setDescription(`${healQuote}${charName} used ${skillName}!\n${txt}`)
                             .setFooter(`${charName}'s turn`);
                     } else {
-                        var txt = ``;
+                        let txt = ``;
                         for (const i in allySide) {
-                            var partyDef = allySide[i]
+                            let partyDef = allySide[i]
                             if (partyDef.hp > 0) {
 								// Trust Level 10+ will have 10% increased healing.
-								var heal = Math.round(skillDefs.pow-8 + Math.round(Math.random()*16))
+								let heal = Math.round(skillDefs.pow-8 + Math.round(Math.random()*16))
 								if (!btl[message.guild.id].pvp) {
 									if (charDefs.id != partyDef.id && charDefs.trust[partyDef.truename] && charDefs.trust[partyDef.truename].level >= 10) {
 										heal *= 1.1
@@ -20991,7 +20183,7 @@ client.on('messageCreate', async message => {
 
 								// Magic Buffs incease/decrease healing.
 								if (charDefs.buffs.mag) {
-									var aff = 1+parseFloat(charDefs.buffs.mag/10)
+									let aff = 1+parseFloat(charDefs.buffs.mag/10)
 									heal *= aff
 								}
 
@@ -21011,8 +20203,8 @@ client.on('messageCreate', async message => {
 								txt += turnFuncs.healPassives(partyDef)
 							
 								if (partyDef != charDefs && partyDef.helpedquote && partyDef.helpedquote.length > 0) {
-									var possibleQuote = Math.round(Math.random() * (partyDef.helpedquote.length-1))
-									var theQuote = `\n*${partyDef.name}: "${partyDef.helpedquote[possibleQuote]}"*`
+									let possibleQuote = Math.round(Math.random() * (partyDef.helpedquote.length-1))
+									let theQuote = `\n*${partyDef.name}: "${partyDef.helpedquote[possibleQuote]}"*`
 
 									if (theQuote.includes('%ALLY%'))
 										theQuote = theQuote.replace('%ALLY%', charName)
@@ -21036,10 +20228,10 @@ client.on('messageCreate', async message => {
                             .setFooter(`${charName}'s turn`);
                     }
                 } else {
-//					var closerQuote = ''
+//					let closerQuote = ''
 
-					var charDefs2 = charDefs
-					var charName2 = charName
+					let charDefs2 = charDefs
+					let charName2 = charName
                     if (skillDefs.target != 'caster') {
 						if (allySide[arg[2]]) {
 							charDefs2 = allySide[arg[2]]
@@ -21064,8 +20256,8 @@ client.on('messageCreate', async message => {
 						charDefs2.hp = Math.floor(charDefs2.maxhp / skillDefs.revive)
 						
 						if (charDefs2.helpedquote && charDefs2.helpedquote.length > 0) {
-							var possibleQuote = Math.round(Math.random() * (charDefs2.helpedquote.length-1))
-							var theQuote = `\n*${charDefs2.name}: "${charDefs2.helpedquote[possibleQuote]}"*`
+							let possibleQuote = Math.round(Math.random() * (charDefs2.helpedquote.length-1))
+							let theQuote = `\n*${charDefs2.name}: "${charDefs2.helpedquote[possibleQuote]}"*`
 
 							if (theQuote.includes('%ALLY%'))
 								theQuote = theQuote.replace('%ALLY%', charName)
@@ -21094,11 +20286,11 @@ client.on('messageCreate', async message => {
 						}
 
 						charDefs2.hp = charDefs2.maxhp
-						var passives = turnFuncs.healPassives(charDefs2)
+						let passives = turnFuncs.healPassives(charDefs2)
 						
 						if (charDefs2.helpedquote && charDefs2.helpedquote.length > 0) {
-							var possibleQuote = Math.round(Math.random() * (charDefs2.helpedquote.length-1))
-							var theQuote = `\n*${charDefs2.name}: "${charDefs2.helpedquote[possibleQuote]}"*`
+							let possibleQuote = Math.round(Math.random() * (charDefs2.helpedquote.length-1))
+							let theQuote = `\n*${charDefs2.name}: "${charDefs2.helpedquote[possibleQuote]}"*`
 
 							if (theQuote.includes('%ALLY%'))
 								theQuote = theQuote.replace('%ALLY%', charName)
@@ -21135,11 +20327,11 @@ client.on('messageCreate', async message => {
 
 						charDefs2.status = "none";
 						charDefs2.statusturns = 0;
-						var passives = turnFuncs.healPassives(charDefs2)
+						let passives = turnFuncs.healPassives(charDefs2)
 						
 						if (charDefs2.helpedquote && charDefs2.helpedquote.length > 0) {
-							var possibleQuote = Math.round(Math.random() * (charDefs2.helpedquote.length-1))
-							var theQuote = `\n*${charDefs2.name}: "${charDefs2.helpedquote[possibleQuote]}"*`
+							let possibleQuote = Math.round(Math.random() * (charDefs2.helpedquote.length-1))
+							let theQuote = `\n*${charDefs2.name}: "${charDefs2.helpedquote[possibleQuote]}"*`
 
 							if (theQuote.includes('%ALLY%'))
 								theQuote = theQuote.replace('%ALLY%', charName)
@@ -21162,7 +20354,7 @@ client.on('messageCreate', async message => {
 							.setFooter(`${charName}'s turn`);
 					} else if (skillDefs.healmp) {
 						// Trust Level 10+ will have 10% increased healing.
-						var heal = Math.round(skillDefs.pow-8 + Math.round(Math.random()*16))
+						let heal = Math.round(skillDefs.pow-8 + Math.round(Math.random()*16))
 						if (!btl[message.guild.id].pvp) {
 							if (charDefs.id != charDefs2.id && charDefs.trust[charDefs2.truename] && charDefs.trust[charDefs2.truename].level >= 10) {
 								heal *= 1.1
@@ -21171,7 +20363,7 @@ client.on('messageCreate', async message => {
 
 						// Magic Buffs incease/decrease healing.
 						if (charDefs.buffs.mag) {
-							var aff = 1+parseFloat(charDefs.buffs.mag/10)
+							let aff = 1+parseFloat(charDefs.buffs.mag/10)
 							heal *= aff
 						}
 
@@ -21186,11 +20378,11 @@ client.on('messageCreate', async message => {
 							heal *= 0.8;
 
 						charDefs2.mp = Math.min(charDefs2.maxmp, charDefs2.mp + Math.round(heal))
-						var passives = turnFuncs.healPassives(charDefs2)
+						let passives = turnFuncs.healPassives(charDefs2)
 						
 						if (charDefs2.helpedquote && charDefs2.helpedquote.length > 0) {
-							var possibleQuote = Math.round(Math.random() * (charDefs2.helpedquote.length-1))
-							var theQuote = `\n*${charDefs2.name}: "${charDefs2.helpedquote[possibleQuote]}"*`
+							let possibleQuote = Math.round(Math.random() * (charDefs2.helpedquote.length-1))
+							let theQuote = `\n*${charDefs2.name}: "${charDefs2.helpedquote[possibleQuote]}"*`
 
 							if (theQuote.includes('%ALLY%'))
 								theQuote = theQuote.replace('%ALLY%', charName)
@@ -21215,11 +20407,11 @@ client.on('messageCreate', async message => {
 						charDefs2.hp = Math.min(charDefs2.maxhp, charDefs2.hp + charDefs.mp)
 						charDefs.mp = 0
 
-						var passives = turnFuncs.healPassives(charDefs2)
+						let passives = turnFuncs.healPassives(charDefs2)
 						
 						if (charDefs2.helpedquote && charDefs2.helpedquote.length > 0) {
-							var possibleQuote = Math.round(Math.random() * (charDefs2.helpedquote.length-1))
-							var theQuote = `\n*${charDefs2.name}: "${charDefs2.helpedquote[possibleQuote]}"*`
+							let possibleQuote = Math.round(Math.random() * (charDefs2.helpedquote.length-1))
+							let theQuote = `\n*${charDefs2.name}: "${charDefs2.helpedquote[possibleQuote]}"*`
 
 							if (theQuote.includes('%ALLY%'))
 								theQuote = theQuote.replace('%ALLY%', charName)
@@ -21246,11 +20438,11 @@ client.on('messageCreate', async message => {
 						
 						charDefs.hp = 0;
 
-						var passives = turnFuncs.healPassives(charDefs2)
+						let passives = turnFuncs.healPassives(charDefs2)
 						
 						if (charDefs2.helpedquote && charDefs2.helpedquote.length > 0) {
-							var possibleQuote = Math.round(Math.random() * (charDefs2.helpedquote.length-1))
-							var theQuote = `\n*${charDefs2.name}: "${charDefs2.helpedquote[possibleQuote]}"*`
+							let possibleQuote = Math.round(Math.random() * (charDefs2.helpedquote.length-1))
+							let theQuote = `\n*${charDefs2.name}: "${charDefs2.helpedquote[possibleQuote]}"*`
 
 							if (theQuote.includes('%ALLY%'))
 								theQuote = theQuote.replace('%ALLY%', charName)
@@ -21274,7 +20466,7 @@ client.on('messageCreate', async message => {
 						}
 
 						// Trust Level 10+ will have 10% increased healing.
-						var heal = Math.round(skillDefs.pow-8 + Math.round(Math.random()*16))
+						let heal = Math.round(skillDefs.pow-8 + Math.round(Math.random()*16))
 						if (!btl[message.guild.id].pvp) {
 							if (charDefs.id != charDefs2.id && charDefs.trust[charDefs2.truename] && charDefs.trust[charDefs2.truename].level >= 10) {
 								heal *= 1.1
@@ -21283,7 +20475,7 @@ client.on('messageCreate', async message => {
 
 						// Magic Buffs incease/decrease healing.
 						if (charDefs.buffs.mag) {
-							var aff = 1+parseFloat(charDefs.buffs.mag/10)
+							let aff = 1+parseFloat(charDefs.buffs.mag/10)
 							heal *= aff
 						}
 
@@ -21298,11 +20490,11 @@ client.on('messageCreate', async message => {
 							heal *= 0.8;
 
 						charDefs2.hp = Math.min(charDefs2.maxhp, charDefs2.hp + Math.round(heal))
-						var passivesMsg = turnFuncs.healPassives(charDefs2)
+						let passivesMsg = turnFuncs.healPassives(charDefs2)
 						
 						if (charDefs2.helpedquote && charDefs2.helpedquote.length > 0) {
-							var possibleQuote = Math.round(Math.random() * (charDefs2.helpedquote.length-1))
-							var theQuote = `\n*${charDefs2.name}: "${charDefs2.helpedquote[possibleQuote]}"*`
+							let possibleQuote = Math.round(Math.random() * (charDefs2.helpedquote.length-1))
+							let theQuote = `\n*${charDefs2.name}: "${charDefs2.helpedquote[possibleQuote]}"*`
 
 							if (theQuote.includes('%ALLY%'))
 								theQuote = theQuote.replace('%ALLY%', charName)
@@ -21341,7 +20533,7 @@ client.on('messageCreate', async message => {
 						.setDescription(`${charName} used ${skillName}!\n${charName} splashes!\n...If only this had an effect.`)
                 } else if (skillDefs.analyse) {
                     if (opposingSide[parseInt(arg[2])]) {
-                        var enmStats = opposingSide[parseInt(arg[2])]
+                        let enmStats = opposingSide[parseInt(arg[2])]
                         const enmName = enmStats.name
 						
 						if (readEnm(enmName), message.guild.id) {
@@ -21366,10 +20558,10 @@ client.on('messageCreate', async message => {
                         message.channel.send("This enemy isn't in battle!")
                     }
                 } else if (skillDefs.shield || skillDefs.makarakarn || skillDefs.tetrakarn || skillDefs.trap) {
-					var healedQuote = "";
-					var shieldMsg = '';
+					let healedQuote = "";
+					let shieldMsg = '';
 
-					var effect = 'shield'
+					let effect = 'shield'
 					if (skillDefs.makarakarn)
 						effect = 'makarakarn';
 					else if (skillDefs.tetrakarn)
@@ -21409,11 +20601,11 @@ client.on('messageCreate', async message => {
 									}
 								}
 
-								var charName2 = allySide[i].name
+								let charName2 = allySide[i].name
 									
 								if (allySide[i].helpedquote && allySide[i].helpedquote.length > 0) {
-									var possibleQuote = Math.round(Math.random() * (allySide[i].helpedquote.length-1))
-									var theQuote = `\n*${charName2}: "${allySide[i].helpedquote[possibleQuote]}"*`
+									let possibleQuote = Math.round(Math.random() * (allySide[i].helpedquote.length-1))
+									let theQuote = `\n*${charName2}: "${allySide[i].helpedquote[possibleQuote]}"*`
 
 									if (theQuote.includes('%ALLY%'))
 										theQuote = theQuote.replace('%ALLY%', charName)
@@ -21444,10 +20636,10 @@ client.on('messageCreate', async message => {
 								}
 							}
 
-							var charName2 = allySide[arg[2]].name
+							let charName2 = allySide[arg[2]].name
 							if (allySide[arg[2]].helpedquote && allySide[arg[2]].helpedquote.length > 0) {
-								var possibleQuote = Math.round(Math.random() * (allySide[arg[2]].helpedquote.length-1))
-								var theQuote = `\n*${charName2}: "${allySide[arg[2]].helpedquote[possibleQuote]}"*`
+								let possibleQuote = Math.round(Math.random() * (allySide[arg[2]].helpedquote.length-1))
+								let theQuote = `\n*${charName2}: "${allySide[arg[2]].helpedquote[possibleQuote]}"*`
 
 								if (theQuote.includes('%ALLY%'))
 									theQuote = theQuote.replace('%ALLY%', charName)
@@ -21518,49 +20710,49 @@ client.on('messageCreate', async message => {
 						.setTitle(`${charName} => Self`)
 						.setDescription(`${charName} used ${skillName}!\n${charName}'s ATK is doubled, but is stuck to melee attacking!`)
                 } else if (skillDefs.status && skillDefs.statuschance) {
-					var statusChance = Math.round(skillDefs.statuschance);
+					let statusChance = Math.round(skillDefs.statuschance);
 					if (charDefs.mainElement === 'status')
 						statusChance *= 1.1;
 
 					if (skillDefs.target == "allopposing") {
-						var hitSomeone = false;
-						var finaltext = `${charName} used ${skillName} on the foes!\n\n`;
+						let hitSomeone = false;
+						let finaltext = `${charName} used ${skillName} on the foes!\n\n`;
 						for (const i in opposingSide) {
-							var enmDefs = opposingSide[i]
+							let enmDefs = opposingSide[i]
 							if (enmDefs && enmDefs.status === "none") {
-								var enmName = enmDefs.name
+								let enmName = enmDefs.name
 
-								var targ = (statusChance + (charDefs.chr - enmDefs.luk));
+								let targ = (statusChance + (charDefs.chr - enmDefs.luk));
 								if (attackFuncs.physStatus(skillDefs.status))
 									targ = (statusChance + (charDefs.luk - enmDefs.luk));
 
-								var chance = Math.round(Math.random()*100);
+								let chance = Math.round(Math.random()*100);
 
 								if (chance <= targ || statusChance >= 100) {
 									finaltext += attackFuncs.inflictStatus(enmDefs, skillDefs);
 									if (charDefs.critquote && charDefs.critquote.length > 0) {
-										var possibleQuote = utilityFuncs.randNum(charDefs.critquote.length-1)
-										var critQuote = `\n*${charName}: "${charDefs.critquote[possibleQuote]}"*`
+										let possibleQuote = utilityFuncs.randNum(charDefs.critquote.length-1)
+										let critQuote = `\n*${charName}: "${charDefs.critquote[possibleQuote]}"*`
 
-										var possibleAlly = utilityFuncs.randNum(allySide.length-1)
+										let possibleAlly = utilityFuncs.randNum(allySide.length-1)
 										if (allySide[possibleAlly] && critQuote.includes('%ALLY%'))
 											critQuote.replace('%ALLY%', allySide[possibleAlly].name);
 
 										finaltext += critQuote
 									}
 									if (enmDefs.hitquote && enmDefs.hitquote.length > 0) {
-										var possibleQuote = utilityFuncs.randNum(enmDefs.hitquote.length-1)
+										let possibleQuote = utilityFuncs.randNum(enmDefs.hitquote.length-1)
 										finaltext += `\n*${enmName}: "${enmDefs.hitquote[possibleQuote]}"*`
 									}
 								} else {
 									finaltext += `${enmDefs.name} dodged it!`
 
 									if (charDefs.missquote && charDefs.missquote.length > 0) {
-										var possibleQuote = Math.round(Math.random() * (charDefs.missquote.length-1))
+										let possibleQuote = Math.round(Math.random() * (charDefs.missquote.length-1))
 										finaltext += `\n*${charName}: "${charDefs.missquote[possibleQuote]}"*`
 									}
 									if (enmDefs.dodgequote && enmDefs.dodgequote.length > 0) {
-										var possibleQuote = Math.round(Math.random() * (enmDefs.dodgequote.length-1))
+										let possibleQuote = Math.round(Math.random() * (enmDefs.dodgequote.length-1))
 										finaltext += `\n*${enmName}: "${enmDefs.dodgequote[possibleQuote]}"*`
 									}
 								}
@@ -21573,44 +20765,44 @@ client.on('messageCreate', async message => {
 						if (!hitSomeone)
 							return message.channel.send("This move will fail, don't use it! (All opponents have a status.)");
 					} else {
-						var enmDefs = opposingSide[parseInt(arg[2])]
+						let enmDefs = opposingSide[parseInt(arg[2])]
 						if (enmDefs && enmDefs.status === "none") {
-							var enmName = enmDefs.name
+							let enmName = enmDefs.name
 
-							var targ = (statusChance + (charDefs.chr - enmDefs.luk));
+							let targ = (statusChance + (charDefs.chr - enmDefs.luk));
 							if (attackFuncs.physStatus(skillDefs.status))
 								targ = (statusChance + (charDefs.luk - enmDefs.luk));
 
-							var chance = Math.round(Math.random()*100);
+							let chance = Math.round(Math.random()*100);
 
 							const movestatus = skillDefs.status
 
-							var finaltext = `${charName} used ${skillName} on ${enmDefs.name}!\n`;
+							let finaltext = `${charName} used ${skillName} on ${enmDefs.name}!\n`;
 							if (chance <= targ || statusChance >= 100) {
 								finaltext += attackFuncs.inflictStatus(enmDefs, skillDefs);
 								if (charDefs.critquote && charDefs.critquote.length > 0) {
-									var possibleQuote = utilityFuncs.randNum(charDefs.critquote.length-1)
-									var critQuote = `\n*${charName}: "${charDefs.critquote[possibleQuote]}"*`
+									let possibleQuote = utilityFuncs.randNum(charDefs.critquote.length-1)
+									let critQuote = `\n*${charName}: "${charDefs.critquote[possibleQuote]}"*`
 									
-									var possibleAlly = utilityFuncs.randNum(allySide.length-1)
+									let possibleAlly = utilityFuncs.randNum(allySide.length-1)
 									if (allySide[possibleAlly] && critQuote.includes('%ALLY%'))
 										critQuote.replace('%ALLY%', allySide[possibleAlly].name);
 									
 									finaltext += critQuote
 								}
 								if (enmDefs.hitquote && enmDefs.hitquote.length > 0) {
-									var possibleQuote = utilityFuncs.randNum(enmDefs.hitquote.length-1)
+									let possibleQuote = utilityFuncs.randNum(enmDefs.hitquote.length-1)
 									finaltext += `\n*${enmName}: "${enmDefs.hitquote[possibleQuote]}"*`
 								}
 							} else {
 								finaltext += " But they dodged it!"
 
 								if (charDefs.missquote && charDefs.missquote.length > 0) {
-									var possibleQuote = Math.round(Math.random() * (charDefs.missquote.length-1))
+									let possibleQuote = Math.round(Math.random() * (charDefs.missquote.length-1))
 									finaltext += `\n*${charName}: "${charDefs.missquote[possibleQuote]}"*`
 								}
 								if (enmDefs.dodgequote && enmDefs.dodgequote.length > 0) {
-									var possibleQuote = Math.round(Math.random() * (enmDefs.dodgequote.length-1))
+									let possibleQuote = Math.round(Math.random() * (enmDefs.dodgequote.length-1))
 									finaltext += `\n*${enmName}: "${enmDefs.dodgequote[possibleQuote]}"*`
 								}
 							}
@@ -21623,13 +20815,13 @@ client.on('messageCreate', async message => {
 						.setDescription(`${finaltext}`)
 						.setFooter(`${charName}'s turn`);
 				} else if (skillDefs.buff) {
-					var buffCount = skillDefs.buffCount ? skillDefs.buffCount : 1;
-					var buffTxt = ['', '', ' twice', ' three times', ' four times', ' five times', ' completely'];
-					var buffMsg = '';
+					let buffCount = skillDefs.buffCount ? skillDefs.buffCount : 1;
+					let buffTxt = ['', '', ' twice', ' three times', ' four times', ' five times', ' completely'];
+					let buffMsg = '';
 
 					if (skillDefs.target == "allallies") {
 						for (const i in allySide) {
-							var charDefs2 = allySide[i];
+							let charDefs2 = allySide[i];
 							for (let i = 0; i < buffCount; i++) {
 								if (skillDefs.buff == "all") {
 									charDefs2.buffs.atk = Math.min(3, charDefs2.buffs.atk+1)
@@ -21682,7 +20874,7 @@ client.on('messageCreate', async message => {
 							.setDescription(`${charName} buffed their own ${(skillDefs.buff == "all") ? "Stats" : skillDefs.buff.toUpperCase()}${buffTxt[buffCount]}!`)
 							.setFooter(`${charName}'s turn`);
 					} else {
-						var charDefs2 = allySide[arg[2]]
+						let charDefs2 = allySide[arg[2]]
 						for (let i = 0; i < buffCount; i++) {
 							if (skillDefs.buff == "all") {
 								charDefs2.buffs.atk = Math.min(3, charDefs2.buffs.atk+1)
@@ -21717,10 +20909,10 @@ client.on('messageCreate', async message => {
 							.setFooter(`${charName}'s turn`);
 					}
 				} else if (skillDefs.dualbuff) {
-					var statStuff = '';
+					let statStuff = '';
 					if (skillDefs.target == "allallies") {
 						for (const i in allySide) {
-							var charDefs2 = allySide[i]
+							let charDefs2 = allySide[i]
 
 							for (const k in skillDefs.dualbuff) {
 								charDefs2.buffs[skillDefs.dualbuff[k]] = Math.min(3, charDefs2.buffs[skillDefs.dualbuff[k]]+1);
@@ -21743,7 +20935,7 @@ client.on('messageCreate', async message => {
 					} else {
 						if (!allySide[arg[1]])
 							return message.channel.send('Invalid ally!')
-						var charDefs2 = allySide[arg[1]];
+						let charDefs2 = allySide[arg[1]];
 
 						for (const k in skillDefs.dualbuff) {
 							charDefs2.buffs[skillDefs.dualbuff[k]] = Math.min(3, charDefs2.buffs[skillDefs.dualbuff[k]]+1);
@@ -21766,7 +20958,7 @@ client.on('messageCreate', async message => {
 				} else if (skillDefs.debuff) {
 					if (skillDefs.target == "allopposing") {
 						for (const i in opposingSide) {
-							var charDefs2 = opposingSide[i]
+							let charDefs2 = opposingSide[i]
 							if (skillDefs.debuff == "all") {
 								charFuncs.buffStat(charDefs2, 'atk', -1)
 								charFuncs.buffStat(charDefs2, 'mag', -1)
@@ -21783,7 +20975,7 @@ client.on('messageCreate', async message => {
 							.setDescription(`${charName} debuffed the opposing side's ${(skillDefs.debuff == "all") ? "Stats" : skillDefs.debuff.toUpperCase()}!`)
 							.setFooter(`${charName}'s turn`);
 					} else {
-						var charDefs2 = opposingSide[arg[2]]
+						let charDefs2 = opposingSide[arg[2]]
 						if (skillDefs.debuff == "all") {
 							charDefs2.buffs.atk = Math.max(-3, charDefs2.buffs.atk-1)
 							charDefs2.buffs.mag = Math.max(-3, charDefs2.buffs.mag-1)
@@ -21813,10 +21005,10 @@ client.on('messageCreate', async message => {
 							.setFooter(`${charName}'s turn`);
 					}
 				} else if (skillDefs.dualdebuff) {
-					var statStuff = '';
+					let statStuff = '';
 					if (skillDefs.target == "allallies") {
 						for (const i in opposingSide) {
-							var charDefs2 = opposingSide[i]
+							let charDefs2 = opposingSide[i]
 
 							for (const k in skillDefs.dualbuff) {
 								charFuncs.buffStat(charDefs2, skillDefs.dualbuff[k].toUpperCase(), -1)
@@ -21837,7 +21029,7 @@ client.on('messageCreate', async message => {
 							.setDescription(`${charName} debuffed the opposing side's ${statStuff}!`)
 							.setFooter(`${charName}'s turn`);
 					} else {
-						var charDefs2 = opposingSide[arg[2]]
+						let charDefs2 = opposingSide[arg[2]]
 						for (const k in skillDefs.dualbuff) {
 							charFuncs.buffStat(charDefs2, skillDefs.dualbuff[k].toUpperCase(), -1)
 							statStuff += `${skillDefs.dualbuff[k]}`
@@ -21857,10 +21049,10 @@ client.on('messageCreate', async message => {
 							.setFooter(`${charName}'s turn`);
 					}
 				} else if (skillDefs.dekaja) {
-					var debuffStats = ['atk', 'mag', 'end', 'agl', 'prc']
+					let debuffStats = ['atk', 'mag', 'end', 'agl', 'prc']
 					if (skillDefs.target == "allopposing") {
 						for (const i in opposingSide) {
-							var charDefs2 = opposingSide[i]
+							let charDefs2 = opposingSide[i]
 							for (const k in debuffStats) {
 								if (charDefs2.buffs[debuffStats[k]] > 0)
 									charDefs2.buffs[debuffStats[k]] = 0;
@@ -21876,7 +21068,7 @@ client.on('messageCreate', async message => {
 						if (!opposingSide[arg[1]])
 							return message.channel.send('Invalid opponent!')
 
-						var charDefs2 = opposingSide[arg[1]]
+						let charDefs2 = opposingSide[arg[1]]
 						for (const k in debuffStats) {
 							if (charDefs2.buffs[debuffStats[k]] > 0)
 								charDefs2.buffs[debuffStats[k]] = 0;
@@ -21896,7 +21088,7 @@ client.on('messageCreate', async message => {
 					}
 
 					if (arg[4]) {
-						var copyDefs
+						let copyDefs
 						if (arg[4].toLowerCase() == "ally" || arg[4].toLowerCase() == "allies" || arg[4].toLowerCase() == "friends")
 							copyDefs = allySide[arg[2]];
 						else
@@ -21967,7 +21159,7 @@ client.on('messageCreate', async message => {
 						return false
 					}
 
-					var swapDefs = opposingSide[arg[2]];
+					let swapDefs = opposingSide[arg[2]];
 					
 					if (swapDefs.hp <= 0) {
 						message.channel.send("You can't swap bodies with downed foes!")
@@ -21994,7 +21186,7 @@ client.on('messageCreate', async message => {
 
 					charFuncs.swapBodies(charDefs, swapDefs, 2)
 */				} else if (skillDefs.futuresight) {
-					var oppDefs = opposingSide[arg[2]]
+					let oppDefs = opposingSide[arg[2]]
 					
 					if (oppDefs) {
 						oppDefs.futureSightSkill = skillDefs.futuresight
@@ -22010,7 +21202,7 @@ client.on('messageCreate', async message => {
 						return false
 					}
 				} else if (skillDefs.clone) {
-					var cloneDefs = utilityFuncs.cloneObj(charDefs)
+					let cloneDefs = utilityFuncs.cloneObj(charDefs)
 					
 					if (charDefs.mainElement === 'status') {
 						cloneDefs.hp = 150
@@ -22031,7 +21223,7 @@ client.on('messageCreate', async message => {
 							cloneDefs.skills.splice(i)
 					}
 
-					var battlerID = 1
+					let battlerID = 1
 					for (const i in allySide)
 						battlerID++;
 					for (const i in allyBackup)
@@ -22058,12 +21250,12 @@ client.on('messageCreate', async message => {
 						.setTitle(`${charName} => Self`)
 						.setDescription(`${charName} used ${skillDefs.name}!\n${charName} cloned themselves!`)
 				} else if (skillDefs.heartswap) {
-					var oppDefs = opposingSide[arg[2]]
+					let oppDefs = opposingSide[arg[2]]
 					
 					const stats = ["atkbuff", "magbuff", "endbuff", "prcbuff", "aglbuff"]
 					for (const i in stats) {
-						var stat1 = charDefs[stats[i]]
-						var stat2 = oppDefs[stats[i]]
+						let stat1 = charDefs[stats[i]]
+						let stat2 = oppDefs[stats[i]]
 
 						charDefs[stats[i]] = stat2
 						oppDefs[stats[i]] = stat1
@@ -22074,7 +21266,7 @@ client.on('messageCreate', async message => {
 						.setTitle(`${charName} => ${oppDefs.name}`)
 						.setDescription(`${charName} used ${skillDefs.name}!\n${charName} swapped stat buffs with ${oppDefs.name}!`)
 				} else if (skillDefs.weather) {
-					var weatherMessage = {
+					let weatherMessage = {
 						rain: 'It begun to rain!',
 						thunder: 'Thunder begun, coming out of nowhere!',
 						sunlight: 'The sun shone brightly.',
@@ -22108,7 +21300,7 @@ client.on('messageCreate', async message => {
 					}
 
 					// ok go
-					var newChar = utilityFuncs.cloneObj(charDefs)
+					let newChar = utilityFuncs.cloneObj(charDefs)
 
 					//Starting Stats
 					if (charDefs.mainElement === 'status') {
@@ -22155,13 +21347,13 @@ client.on('messageCreate', async message => {
 						'Orangutan', 'Beaver', 'Ibis', 'Mongoose', 'Tamandua', 'Scorpio'
 					]
 
-					var name1 = statusOfLivingList[Math.floor(Math.random() * (statusOfLivingList.length - 1))]
-					var name2 = speciesList[Math.floor(Math.random() * (speciesList.length - 1))]
+					let name1 = statusOfLivingList[Math.floor(Math.random() * (statusOfLivingList.length - 1))]
+					let name2 = speciesList[Math.floor(Math.random() * (speciesList.length - 1))]
 
 					newChar.name = `${name1} ${name2}`
 
 					//Assign the new member an ID
-					var battlerID = 0
+					let battlerID = 0
 					for (const i in allySide)
 						battlerID++;
 					for (const i in allyBackup)
@@ -22176,18 +21368,18 @@ client.on('messageCreate', async message => {
 					// Assign Stats
 					const stats = ["atk", "mag", "end", "chr", "int", "luk", "prc", "agl"]
 					for (const k in stats) {
-						var statNum = utilityFuncs.randNum(33)
+						let statNum = utilityFuncs.randNum(33)
 						newChar[stats[k]] = statNum
 					}
 
 					// Assigning Skills
-					var skillPath = dataPath+'/skills.json'
-        			var skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-        			var skillFile = JSON.parse(skillRead);
+					let skillPath = dataPath+'/skills.json'
+        			let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+        			let skillFile = JSON.parse(skillRead);
 
 					newChar.skills = []
 
-					var possibleSkills = ["Agilao", "Bufula", "Zionga", "Garula", "Hanama", "Aques", "Psio", "Jino", "Gryva", "Vocalao", "Dia", "Makakaja", "Tarukaja", "Rakukaja", "Visukaja", "Sukukaja", "Makanda", "Tarunda", "Rakunda", "Visunda", "Sukunda"]
+					let possibleSkills = ["Agilao", "Bufula", "Zionga", "Garula", "Hanama", "Aques", "Psio", "Jino", "Gryva", "Vocalao", "Dia", "Makakaja", "Tarukaja", "Rakukaja", "Visukaja", "Sukukaja", "Makanda", "Tarunda", "Rakunda", "Visunda", "Sukunda"]
 					for (let k = 0; k < 2; k++) {
 						const skillName = possibleSkills[Math.round(Math.random() * (possibleSkills.length-1))]
 						newChar.skills.push(skillName)
@@ -22204,7 +21396,7 @@ client.on('messageCreate', async message => {
 					const affinities = ["superweak", "weak", "weak", "weak", "normal", "normal", "normal", "normal", "normal", "normal", "normal", "normal", "normal", "resist", "resist", "block", "repel", "drain"]
 					for (const k in Elements) {
 						if (Elements[k].type != "heal" && Elements[k].type != "status" && Elements[k].type != "passive" && Elements[k].type != "almighty"){
-							var statusNum = Math.floor(Math.random() * (affinities.length-1))
+							let statusNum = Math.floor(Math.random() * (affinities.length-1))
 							if (affinities[statusNum] != "normal") {newChar[affinities[statusNum]].push(Elements[k])}
 						}
 					}
@@ -22266,7 +21458,7 @@ client.on('messageCreate', async message => {
 						.addFields()
 
 					for (const i in allyBackup) {
-						var backDefs = allyBackup[i]
+						let backDefs = allyBackup[i]
 						DiscordEmbed.fields.push({name: `${i}: ${backDefs.name}`, value: `${backDefs.hp}/${backDefs.maxhp}HP\n${backDefs.mp}/${backDefs.maxmp}MP`, inline: true});
 					}
 
@@ -22299,8 +21491,8 @@ client.on('messageCreate', async message => {
 
 									allyBackup[parseInt(m.content)].buffs = charDefs.buffs;
 
-									var curDefs = utilityFuncs.cloneObj(charDefs)
-									var newDefs = utilityFuncs.cloneObj(allyBackup[parseInt(m.content)])
+									let curDefs = utilityFuncs.cloneObj(charDefs)
+									let newDefs = utilityFuncs.cloneObj(allyBackup[parseInt(m.content)])
 
 									newDefs.id = curDefs.id
 
@@ -22342,7 +21534,7 @@ client.on('messageCreate', async message => {
                     return false
                 }
             } else {
-				var server = message.guild.id
+				let server = message.guild.id
 
 				/*
 				for (const i in allySide) {
@@ -22429,9 +21621,9 @@ client.on('messageCreate', async message => {
 		if (btl[message.guild.id].testing)
 			return message.channel.send('This is a test battle! No items!');
 
-        var itemPath = dataPath+'/items.json'
-        var itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
-        var itemFile = JSON.parse(itemRead);
+        let itemPath = dataPath+'/items.json'
+        let itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
+        let itemFile = JSON.parse(itemRead);
 
         if (!itemFile[arg[2]]) {
             message.channel.send(`**${arg[2]}** isn't a valid item.`);
@@ -22440,7 +21632,7 @@ client.on('messageCreate', async message => {
         }
 
 		const tempTurnOrder = btl[message.guild.id].turnorder
-		var defs = getBattlerFromID(btl[message.guild.id], tempTurnOrder[btl[message.guild.id].doturn], message.author.id)
+		let defs = getBattlerFromID(btl[message.guild.id], tempTurnOrder[btl[message.guild.id].doturn], message.author.id)
 		
 		if (!defs) {
 			message.channel.send("Invalid Position: Either you don't own this character or this character does not exist.")
@@ -22449,11 +21641,11 @@ client.on('messageCreate', async message => {
 		}
 
         if (defs) {
-            var charDefs = defs
-			var charName = charDefs.name
+            let charDefs = defs
+			let charName = charDefs.name
 			
-			var allySide = btl[message.guild.id].allies.members
-			var opposingSide = btl[message.guild.id].enemies.members
+			let allySide = btl[message.guild.id].allies.members
+			let opposingSide = btl[message.guild.id].enemies.members
 			if (charFuncs.isOpposingSide(charDefs, btl[message.guild.id])) {
 				allySide = btl[message.guild.id].enemies.members
 				opposingSide = btl[message.guild.id].allies.members
@@ -22477,13 +21669,15 @@ client.on('messageCreate', async message => {
 			if (itemDefs.type === 'material')
 				return message.channel.send("You can't use materials in-battle!");
 
-            var party = []
+            let party = []
 			if (charFuncs.isOpposingSide(charDefs, btl[message.guild.id]))
 				party = btl[message.guild.id].parties[btl[message.guild.id].battleteam2];
 			else
 				party = btl[message.guild.id].parties[btl[message.guild.id].battleteam];
 			
 			btl[message.guild.id].canshowtime = false
+			
+			let charDefs2 = charFighters[arg[3]]
 
 			switch(itemDefs.type.toLowerCase()) {
 				case 'heal':
@@ -22492,8 +21686,6 @@ client.on('messageCreate', async message => {
 						message.delete();
 						return false
 					}
-
-					var charDefs2 = charFighters[arg[3]]
 
 					if (charFighters[arg[3]]) {
 						if (charDefs2.hp <= 0) {
@@ -22523,8 +21715,6 @@ client.on('messageCreate', async message => {
 					break;
 				
 				case 'healmp':
-					var charDefs2 = charFighters[arg[3]]
-
 					if (charFighters[arg[3]]) {
 						if (charDefs2.hp <= 0) {
 							message.channel.send(`${charDefs2.name} is defeated! You cannot heal defeated characters!`)
@@ -22553,8 +21743,6 @@ client.on('messageCreate', async message => {
 					break;
 				
 				case 'healhpmp':
-					var charDefs2 = charFighters[arg[3]]
-
 					if (charFighters[arg[3]]) {
 						if (charDefs2.hp <= 0) {
 							message.channel.send(`${charDefs2.name} is defeated! You cannot heal defeated characters!`)
@@ -22584,13 +21772,13 @@ client.on('messageCreate', async message => {
 					break;
 				
 				case 'skill':
-					var skillPath = dataPath+'/skills.json'
-					var skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-					var skillFile = JSON.parse(skillRead);
+					let skillPath = dataPath+'/skills.json'
+					let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+					let skillFile = JSON.parse(skillRead);
 					if (!skillFile[itemDefs.skill])
 						return message.channel.send(`This item will fail, don't use it! (${itemDefs.skill} is an invalid skill)`)
 					
-					var skillDefs = skillFile[itemDefs.skill]
+					let skillDefs = skillFile[itemDefs.skill]
 					switch(skillDefs.target) {
 						case 'ally':
 							if (!allySide[arg[3]])
@@ -22615,8 +21803,6 @@ client.on('messageCreate', async message => {
 					break;
 				
 				case 'revive':
-					var charDefs2 = charFighters[arg[3]]
-
 					if (charFighters[arg[3]]) {
 						if (charDefs2.hp > 0) {
 							message.channel.send(`${charDefs2.name} is alive, so you cannot use this item on them.`)
@@ -22647,7 +21833,7 @@ client.on('messageCreate', async message => {
 						return message.channel.send("That's an invalid enemy!")
 
 					if (opposingSide[arg[3]].negotiatePercent >= itemDefs.pacify) {
-						var completelyConvinced = '';
+						let completelyConvinced = '';
 						if (!party.negotiates)
 							party.negotiates = {};
 
@@ -22671,7 +21857,7 @@ client.on('messageCreate', async message => {
 							if (party.negotiates[opposingSide[arg[3]].name] == opposingSide[arg[3]].negotiateDefs.required) {
 								completelyConvinced += '\n...but it returns to the group, it seems to like you!'
 
-								var enemyDefs = enemyFuncs.makePet(opposingSide[arg[3]])
+								let enemyDefs = enemyFuncs.makePet(opposingSide[arg[3]])
 								enemyDefs.name = opposingSide[arg[3]].name
 
 								partyDefs.negotiateAllies[opposingSide[arg[3]].name] = enemyDefs
@@ -22714,7 +21900,7 @@ client.on('messageCreate', async message => {
 
     if (command === 'guard') {
         const btl = readBattle(message.guild.id);
-        var arg = message.content.slice(prefix.length).trim().split(/ +/);
+        let arg = message.content.slice(prefix.length).trim().split(/ +/);
 
         if (btl[message.guild.id].battling == false)
             return message.channel.send("You can't cast a move out of battle!");
@@ -22729,7 +21915,7 @@ client.on('messageCreate', async message => {
 			arg[1] = btl[message.guild.id].doturn;
 
 		const tempTurnOrder = btl[message.guild.id].turnorder
-		var defs = getBattlerFromID(btl[message.guild.id], tempTurnOrder[btl[message.guild.id].doturn], message.author.id)
+		let defs = getBattlerFromID(btl[message.guild.id], tempTurnOrder[btl[message.guild.id].doturn], message.author.id)
 		
 		if (!defs) {
 			message.channel.send("Invalid Position: Either you don't own this character or this character does not exist.")
@@ -22738,11 +21924,11 @@ client.on('messageCreate', async message => {
 		}
 
         if (defs) {
-            var charDefs = defs
-			var charName = charDefs.name
+            let charDefs = defs
+			let charName = charDefs.name
 		
-			var allySide = btl[message.guild.id].allies.members
-			var opposingSide = btl[message.guild.id].enemies.members
+			let allySide = btl[message.guild.id].allies.members
+			let opposingSide = btl[message.guild.id].enemies.members
 			if (charFuncs.isOpposingSide(charDefs, btl[message.guild.id])) {
 				allySide = btl[message.guild.id].enemies.members
 				opposingSide = btl[message.guild.id].allies.members
@@ -22762,7 +21948,7 @@ client.on('messageCreate', async message => {
             charDefs.guard = true;
 			
 			// Restore MP
-			var guardString = ''
+			let guardString = ''
 			if (charDefs.level >= 20) {
 				charDefs.mp = Math.min(charDefs.maxmp, charDefs.mp+1);
 				guardString = '\n_(MP was also very slightly restored)_'
@@ -22805,12 +21991,12 @@ client.on('messageCreate', async message => {
 		if (btl[message.guild.id].testing)
 			return message.channel.send('This is a test battle! No tactics!');
 
-        var itemPath = dataPath+'/items.json'
-        var itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
-        var itemFile = JSON.parse(itemRead);
+        let itemPath = dataPath+'/items.json'
+        let itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
+        let itemFile = JSON.parse(itemRead);
 
 		const tempTurnOrder = btl[message.guild.id].turnorder
-		var defs = getBattlerFromID(btl[message.guild.id], tempTurnOrder[btl[message.guild.id].doturn], message.author.id)
+		let defs = getBattlerFromID(btl[message.guild.id], tempTurnOrder[btl[message.guild.id].doturn], message.author.id)
 		
 		if (!defs) {
 			message.channel.send("Invalid Position: Either you don't own this character or this character does not exist.")
@@ -22819,28 +22005,28 @@ client.on('messageCreate', async message => {
 		}
 
         if (defs) {
-            var charDefs = defs
-			var charName = charDefs.name
+            let charDefs = defs
+			let charName = charDefs.name
 
-			var allyDefs = btl[message.guild.id].allies
-			var oppDefs = btl[message.guild.id].enemies
+			let allyDefs = btl[message.guild.id].allies
+			let oppDefs = btl[message.guild.id].enemies
 			if (charFuncs.isOpposingSide(charDefs, btl[message.guild.id])) {
 				allyDefs = btl[message.guild.id].enemies
 				oppDefs = btl[message.guild.id].allies
 			}
 
-			var allySide = allyDefs.members
-			var opposingSide = oppDefs.members
+			let allySide = allyDefs.members
+			let opposingSide = oppDefs.members
 
 			if (arg[2]) {
-				var inputVal = arg[2].toLowerCase();
+				let inputVal = arg[2].toLowerCase();
 				var DiscordEmbed = {};
 
 				switch(inputVal) {
 					case 'run':
 					case 'flee':
 					case 'escape':
-						var avgSpd = 0
+						let avgSpd = 0
 						for (const i in opposingSide) {
 							if (opposingSide[i].hp > 0)
 								avgSpd += opposingSide[i].agl;
@@ -22896,7 +22082,7 @@ client.on('messageCreate', async message => {
 						if (!opposingSide[arg[3]].enemy)
 							return message.channel.send('You must negotiate with an enemy, not a player!');
 
-						var oppDefs = opposingSide[arg[3]]
+						let oppDefs = opposingSide[arg[3]]
 						if (!oppDefs.negotiatePercent)
 							oppDefs.negotiatePercent = 0
 						else {
@@ -22945,7 +22131,7 @@ client.on('messageCreate', async message => {
 								givenResponce = true
 								collector.stop()
 
-								var guildID = message.guild.id
+								let guildID = message.guild.id
 								if (doNegotiation(charDefs, oppDefs, parseInt(m.content), m.channel, btl)) {
 									setTimeout(function() {
 										advanceTurn(btl, guildID)
@@ -22982,7 +22168,7 @@ client.on('messageCreate', async message => {
 						if (!allySide[parseInt(arg[3])])
 							return message.channel.send('This is an invalid character to replace!')
 						
-						var switchDefs = allySide[parseInt(arg[3])]
+						let switchDefs = allySide[parseInt(arg[3])]
 						
 						if (charDefs.id == switchDefs.id)
 							return message.channel.send('You cannot switch out yourself!')
@@ -23000,7 +22186,7 @@ client.on('messageCreate', async message => {
 							.addFields()
 
 						for (const i in allyDefs.backup) {
-							var backDefs = allyDefs.backup[i]
+							let backDefs = allyDefs.backup[i]
 							DiscordEmbed.fields.push({name: `${i}: ${backDefs.name}`, value: `${backDefs.hp}/${backDefs.maxhp}HP\n${backDefs.mp}/${backDefs.maxmp}MP`, inline: true});
 						}
 
@@ -23028,8 +22214,8 @@ client.on('messageCreate', async message => {
 										for (const i in allySide[parseInt(arg[3])].buffs)
 											allySide[parseInt(arg[3])].buffs[i] = 0;
 
-										var curDefs = utilityFuncs.cloneObj(allySide[parseInt(arg[3])])
-										var newDefs = utilityFuncs.cloneObj(allyDefs.backup[parseInt(m.content)])
+										let curDefs = utilityFuncs.cloneObj(allySide[parseInt(arg[3])])
+										let newDefs = utilityFuncs.cloneObj(allyDefs.backup[parseInt(m.content)])
 
 										newDefs.id = curDefs.id
 
@@ -23107,12 +22293,12 @@ client.on('messageCreate', async message => {
 		if (!turnFuncs.limitBreaks(message.guild.id))
             return message.channel.send(`${message.guild.name} does not have Limit Break Skills enabled.`);
 
-        var itemPath = dataPath+'/items.json'
-        var itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
-        var itemFile = JSON.parse(itemRead);
+        let itemPath = dataPath+'/items.json'
+        let itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
+        let itemFile = JSON.parse(itemRead);
 
 		const tempTurnOrder = btl[message.guild.id].turnorder
-		var defs = getBattlerFromID(btl[message.guild.id], tempTurnOrder[btl[message.guild.id].doturn], message.author.id)
+		let defs = getBattlerFromID(btl[message.guild.id], tempTurnOrder[btl[message.guild.id].doturn], message.author.id)
 		
 		if (!defs) {
 			message.channel.send("Invalid Position: Either you don't own this character or this character does not exist.")
@@ -23121,11 +22307,11 @@ client.on('messageCreate', async message => {
 		}
 
         if (defs) {
-            var charDefs = defs
-			var charName = charDefs.name
+            let charDefs = defs
+			let charName = charDefs.name
 		
-			var allySide = btl[message.guild.id].allies.members
-			var opposingSide = btl[message.guild.id].enemies.members
+			let allySide = btl[message.guild.id].allies.members
+			let opposingSide = btl[message.guild.id].enemies.members
 			if (charFuncs.isOpposingSide(charDefs, btl[message.guild.id])) {
 				allySide = btl[message.guild.id].enemies.members
 				opposingSide = btl[message.guild.id].allies.members
@@ -23142,7 +22328,7 @@ client.on('messageCreate', async message => {
 			charFuncs.resetMimic(charDefs);
 
             // Check LBs
-            var lbSkill;
+            let lbSkill;
             if (charDefs.lb1) {
                 if (charDefs.lb < charDefs.lb1.cost) {
                     message.channel.send(`${charName} doesn't have enough of their LB meter filled (${charDefs.lb}/{$charDefs.lb1[2]}`);
@@ -23188,9 +22374,9 @@ client.on('messageCreate', async message => {
 			if (charDefs.atk >= charDefs.mag)
 				skillDefs.atktype = "physical";
 
-			var preText = ""
+			let preText = ""
 			if (charDefs.lbquote && charDefs.lbquote.length > 0) {
-				var possibleQuote = Math.round(Math.random() * (charDefs.lbquote.length-1))
+				let possibleQuote = Math.round(Math.random() * (charDefs.lbquote.length-1))
 				preText = `*${charDefs.name}: "${charDefs.lbquote[possibleQuote]}"*\n`
 			}
 			
@@ -23201,7 +22387,7 @@ client.on('messageCreate', async message => {
 				skillDefs.pow += Math.round(charDefs.lb/3);
 			
 			if (skillDefs.class && skillDefs.class === "heal") {
-				var healTxt = ''
+				let healTxt = ''
 				for (const i in allySide) {
 					if (allySide[i].hp > 0) {
 						if (skillDefs.level >= 4) {
@@ -23210,8 +22396,8 @@ client.on('messageCreate', async message => {
 							healTxt += `${allySide[i].name}'s HP & MP was fully restored`
 						} else {
 							if (skillDefs.level >= 1) {
-								var heal = skillDefs.pow
-								var hpToFull = allySide[i].maxhp-allySide[i].hp
+								let heal = skillDefs.pow
+								let hpToFull = allySide[i].maxhp-allySide[i].hp
 								if (heal > hpToFull) 
 									heal = hpToFull;
 
@@ -23220,8 +22406,8 @@ client.on('messageCreate', async message => {
 							}
 
 							if (skillDefs.level >= 2) {
-								var healmp = Math.round(skillDefs.pow/2)
-								var mpToFull = allySide[i].maxmp-allySide[i].mp
+								let healmp = Math.round(skillDefs.pow/2)
+								let mpToFull = allySide[i].maxmp-allySide[i].mp
 								if (healmp > mpToFull) 
 									healmp = mpToFull;
 
@@ -23249,8 +22435,8 @@ client.on('messageCreate', async message => {
 					if (skillDefs.level >= 4 && allySide[i].hp <= 0) {
 						allySide[i].hp = allySide[i].maxhp
 
-						var healmp = Math.round(skillDefs.pow/2)
-						var mpToFull = allySide[i].maxmp-allySide[i].mp
+						let healmp = Math.round(skillDefs.pow/2)
+						let mpToFull = allySide[i].maxmp-allySide[i].mp
 						if (healmp > mpToFull) 
 							healmp = mpToFull;
 
@@ -23264,7 +22450,7 @@ client.on('messageCreate', async message => {
 					healTxt += '\n'
 					
 					if (allySide[i].healedquote && allySide[i].healedquote.length > 0) {
-						var possibleQuote = Math.round(Math.random() * (allySide[i].healedquote.length-1))
+						let possibleQuote = Math.round(Math.random() * (allySide[i].healedquote.length-1))
 						healTxt += `*${allySide[i].name}: "${allySide[i].healedquote[possibleQuote]}"*\n`
 					}
 				}
@@ -23277,9 +22463,9 @@ client.on('messageCreate', async message => {
 				message.channel.send({embeds: [DiscordEmbed]});
 			} else {
 	            if (opposingSide[parseInt(arg[2])]) {
-					var enmDefs = opposingSide[parseInt(arg[2])]
+					let enmDefs = opposingSide[parseInt(arg[2])]
 					const enmName = enmDefs.name
-					var embedText = attackFuncs.attackFoe(charName, enmName, charDefs, enmDefs, skillDefs, false, message.guild.id, btl)
+					let embedText = attackFuncs.attackFoe(charName, enmName, charDefs, enmDefs, skillDefs, false, message.guild.id, btl)
 
 					const DiscordEmbed = new Discord.MessageEmbed()
 						.setColor('#fcba03')
@@ -23343,7 +22529,7 @@ client.on('messageCreate', async message => {
         if (!message.member.permissions.serialize().ADMINISTRATOR)
             return message.channel.send("You have insufficient permissions to use this command.");
 
-        var btl = readBattle(message.guild.id)
+        let btl = readBattle(message.guild.id)
         if (btl[message.guild.id].battling == false)
             return message.channel.send(`There's no battle in progress right now.`);
 		
@@ -23359,7 +22545,7 @@ client.on('messageCreate', async message => {
 	if (command === 'battlethemechannel' || command === 'themechannel' || command === 'joinvc' || command === 'setvc') {
 		const arg = message.content.slice(prefix.length).trim().split(/ +/);
 		
-		var channel;
+		let channel;
 		if (!arg[1]) {
 			if (message.member.voice.channel) {
 				await joinVc(message.member.voice.channel, message.channel)
@@ -23481,7 +22667,7 @@ client.on('messageCreate', async message => {
 			return false
 		}
 		
-		var queueText = ''
+		let queueText = ''
 		for (const i in voiceChannelShit[message.guild.id].queue) {
 			if (i <= 0)
 				queueText += `**NEXT SONG**: ${voiceChannelShit[message.guild.id].queue[i].name} - ${voiceChannelShit[message.guild.id].queue[i].url}\n\n`;
@@ -23514,9 +22700,9 @@ client.on('messageCreate', async message => {
 	}
 
 	if (command === 'setbattletheme' || command === 'settheme') {
-        var servPath = dataPath+'/Server Settings/server.json'
-        var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-        var servFile = JSON.parse(servRead);
+        let servPath = dataPath+'/Server Settings/server.json'
+        let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+        let servFile = JSON.parse(servRead);
 
         if (!servFile[message.guild.id]) {
             servFile[message.guild.id] = {
@@ -23584,9 +22770,9 @@ client.on('messageCreate', async message => {
 	}
 
 	if (command === 'getbattlethemes' || command === 'getthemes') {
-        var servPath = dataPath+'/Server Settings/server.json'
-        var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-        var servFile = JSON.parse(servRead);
+        let servPath = dataPath+'/Server Settings/server.json'
+        let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+        let servFile = JSON.parse(servRead);
 
         if (!servFile[message.guild.id]) {
             servFile[message.guild.id] = {
@@ -23649,8 +22835,8 @@ client.on('messageCreate', async message => {
 			.addFields()
 			
 		for (const i in servFile[message.guild.id].themes) {
-			var songTxt = '';
-			var themes = servFile[message.guild.id].themes[i];
+			let songTxt = '';
+			let themes = servFile[message.guild.id].themes[i];
 			for (const k in themes)
 				songTxt += `\n${themes[k]}`;
 			
@@ -23711,7 +22897,7 @@ client.on('messageCreate', async message => {
             rings: 0
         }
 
-        var i;
+        let i;
         for (i = 1; i < arg.length; i++) {
 			if (readChar(arg[i])) {
 				if (btl[message.guild.id].parties[arg[1]].members.length >= 4)
@@ -23762,7 +22948,7 @@ client.on('messageCreate', async message => {
         if (!btl[message.guild.id].parties[arg[1]])
 			return message.channel.send("This is an invalid party!");
 
-		var partyDefs = btl[message.guild.id].parties[arg[1]]
+		let partyDefs = btl[message.guild.id].parties[arg[1]]
         if (!message.member.permissions.serialize().ADMINISTRATOR && partyDefs.members[0].owner != message.author.id)
             return message.channel.send("You lack sufficient permissions, I'm so sorry!");
 
@@ -23814,7 +23000,7 @@ client.on('messageCreate', async message => {
         if (!btl[message.guild.id].parties[arg[1]])
 			return message.channel.send("This is an invalid party!");
 		
-		var partyDefs = btl[message.guild.id].parties[arg[1]]
+		let partyDefs = btl[message.guild.id].parties[arg[1]]
         if (!message.member.permissions.serialize().ADMINISTRATOR && partyDefs.members[0].owner != message.author.id)
             return message.channel.send("You lack sufficient permissions, I'm so sorry!");
 
@@ -23822,7 +23008,7 @@ client.on('messageCreate', async message => {
 			message.channel.send(`${arg[2]} is an invalid character.`);
 
 		for (const i in partyDefs.members) {
-			var charName = partyDefs.members[i]
+			let charName = partyDefs.members[i]
 		
 			if (charName === arg[2]) {
 				partyDefs.members.splice(i, 1)
@@ -23870,7 +23056,7 @@ client.on('messageCreate', async message => {
         if (!btl[message.guild.id].parties[arg[1]])
 			return message.channel.send("This is an invalid party!");
 
-		var partyDefs = btl[message.guild.id].parties[arg[1]]
+		let partyDefs = btl[message.guild.id].parties[arg[1]]
         if (!message.member.permissions.serialize().ADMINISTRATOR && partyDefs.members[0].owner != message.author.id)
             return message.channel.send("You lack sufficient permissions, I'm so sorry!");
 
@@ -23880,9 +23066,9 @@ client.on('messageCreate', async message => {
 		if (!partyDefs.backup)
 			partyDefs.backup = []
 
-		var removedMember = false
+		let removedMember = false
 		for (const i in partyDefs.members) {
-			var charName = partyDefs.members[i]
+			let charName = partyDefs.members[i]
 
 			if (charName === arg[2]) {
 				partyDefs.members.splice(i, 1)
@@ -23899,7 +23085,7 @@ client.on('messageCreate', async message => {
 			if (arg[3]) {
 				removedMember = false
 				for (const i in partyDefs.backup) {
-					var charName = partyDefs.backup[i]
+					let charName = partyDefs.backup[i]
 
 					if (charName === arg[3]) {
 						partyDefs.backup.splice(i, 1)
@@ -24009,9 +23195,9 @@ client.on('messageCreate', async message => {
             }
         }
 
-        var servPath = dataPath+'/Server Settings/server.json'
-        var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-        var servFile = JSON.parse(servRead);
+        let servPath = dataPath+'/Server Settings/server.json'
+        let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+        let servFile = JSON.parse(servRead);
 
         if (!servFile[message.guild.id]) {
             servFile[message.guild.id] = {
@@ -24049,11 +23235,11 @@ client.on('messageCreate', async message => {
 			}
         }
 
-		var parties = [];
+		let parties = [];
         for (const i in btl[message.guild.id].parties) {
-			var party = btl[message.guild.id].parties[i]
+			let party = btl[message.guild.id].parties[i]
 
-            var m = '';
+            let m = '';
             for (const k in party.members) {
                 m += `${party.members[k]}`;
 				
@@ -24106,9 +23292,9 @@ client.on('messageCreate', async message => {
             }
         }
 
-        var servPath = dataPath+'/Server Settings/server.json'
-        var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-        var servFile = JSON.parse(servRead);
+        let servPath = dataPath+'/Server Settings/server.json'
+        let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+        let servFile = JSON.parse(servRead);
 
         if (!servFile[message.guild.id]) {
             servFile[message.guild.id] = {
@@ -24147,25 +23333,25 @@ client.on('messageCreate', async message => {
         }
 
         if (btl[message.guild.id].parties[arg[1]]) {
-			var party = btl[message.guild.id].parties[arg[1]]
+			let party = btl[message.guild.id].parties[arg[1]]
 
-            var m = '';
+            let m = '';
             for (const i in btl[message.guild.id].parties[arg[1]].members)
                 m += `\n${btl[message.guild.id].parties[arg[1]].members[i]}`;
 
 			if (m === '')
 				m = 'Empty.';
 
-            var b = '';
+            let b = '';
             for (const i in btl[message.guild.id].parties[arg[1]].backup)
                 b += `\n${btl[message.guild.id].parties[arg[1]].backup[i]}`;
 
 			if (b === '')
 				b = 'No backup.';
 
-            var p = '';
+            let p = '';
             for (const i in btl[message.guild.id].parties[arg[1]].negotiateAllies) {
-				var petDefs = btl[message.guild.id].parties[arg[1]].negotiateAllies[i]
+				let petDefs = btl[message.guild.id].parties[arg[1]].negotiateAllies[i]
                 p += `\n${petDefs.name} - ${petDefs.skill}`;
 			}
 
@@ -24173,11 +23359,11 @@ client.on('messageCreate', async message => {
 				p = 'No backup.';
 
 			// Items
-			var itemPath = dataPath+'/items.json'
-			var itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
-			var itemFile = JSON.parse(itemRead);
+			let itemPath = dataPath+'/items.json'
+			let itemRead = fs.readFileSync(itemPath, {flag: 'as+'});
+			let itemFile = JSON.parse(itemRead);
 
-			var items = '';
+			let items = '';
 			if (party.items) {
 				for (const i in party.items)
 					items += `${itemFile[i] ? itemFile[i].name : i}: ${party.items[i]}\n`;
@@ -24187,19 +23373,19 @@ client.on('messageCreate', async message => {
 				items = 'No items.';
 
 			// Weapons and Armor
-			var weapons = '';
-			var armor = '';
+			let weapons = '';
+			let armor = '';
 
 			if (party.weapons) {
 				for (const i in party.weapons) {
-					var weaponDefs = party.weapons[i]
+					let weaponDefs = party.weapons[i]
 					weapons += `${i} - **${weaponDefs.atk ? weaponDefs.atk : '0'}ATK**, **${weaponDefs.mag ? weaponDefs.mag : '0'}MAG**\n`;
 				}
 			}
 
 			if (party.armors) {
 				for (const i in party.armors) {
-					var armorDefs = party.armors[i]
+					let armorDefs = party.armors[i]
 					armor += `${i} - **${armorDefs.def ? armorDefs.def : '0'}DEF**\n`;
 				}
 			}
@@ -24232,7 +23418,7 @@ client.on('messageCreate', async message => {
 		
 		const arg = message.content.slice(prefix.length).trim().split(/ +/);
 		
-		var btl = readBattle(message.guild.id);
+		let btl = readBattle(message.guild.id);
 		btl[message.guild.id].trials[arg[1]] = {
 			endless: false,
 			waves: [
@@ -24251,7 +23437,7 @@ client.on('messageCreate', async message => {
 		
 		const arg = message.content.slice(prefix.length).trim().split(/ +/);
 
-		var btl = readBattle(message.guild.id);
+		let btl = readBattle(message.guild.id);
 		btl[message.guild.id].trials[arg[1]].endless = (btl[message.guild.id].trials[arg[1]].endless == true) ? false : true
 		
         fs.writeFileSync(dataPath+'/Battles/battle-' + message.guild.id + '.json', JSON.stringify(btl, null, '    '));
@@ -24273,9 +23459,9 @@ client.on('messageCreate', async message => {
 			return message.channel.send({embeds: [DiscordEmbed]})
         }
 		
-		var btl = readBattle(message.guild.id);
+		let btl = readBattle(message.guild.id);
 		if (btl[message.guild.id].trials[arg[1]].waves) {
-			var trialDefs = []
+			let trialDefs = []
 			for (let i = 3; i < arg.length; i++) {
 				if (readEnm(arg[i], message.guild.id)) {
 					trialDefs.push(arg[i])
@@ -24300,9 +23486,9 @@ client.on('messageCreate', async message => {
 				.setTitle(`Trial of ${arg[1]}`)
 				.addFields()
 				
-			var trialDefinitions = btl[message.guild.id].trials[arg[1]].waves
+			let trialDefinitions = btl[message.guild.id].trials[arg[1]].waves
 			for (const i in trialDefinitions) {
-				var trialEnemies = ""
+				let trialEnemies = ""
 				for (const k in trialDefinitions[i]) {
 					trialEnemies += `${trialDefinitions[i][k]}\n`
 				}
@@ -24317,10 +23503,10 @@ client.on('messageCreate', async message => {
 	}
 
     if (command === 'gettrial') {
-		var btl = readBattle(message.guild.id);
+		let btl = readBattle(message.guild.id);
 		const arg = message.content.slice(prefix.length).trim().split(/ +/);
 		if (btl[message.guild.id].trials[arg[1]]) {
-			var descTxt = 'Here are the waves of the trial.';
+			let descTxt = 'Here are the waves of the trial.';
 			if (btl[message.guild.id].trials[arg[1]].endless)
 				descTxt += `\n**Endless:** *${btl[message.guild.id].trials[arg[1]].endless}*`;
 
@@ -24332,7 +23518,7 @@ client.on('messageCreate', async message => {
 
 			const trialDefs = btl[message.guild.id].trials[arg[1]].waves
 			for (const i in trialDefs) {
-				var trialEnemies = ""
+				let trialEnemies = ""
 				for (const k in trialDefs[i]) {
 					trialEnemies += `${trialDefs[i][k]}\n`
 				}
@@ -24350,9 +23536,9 @@ client.on('messageCreate', async message => {
         if (!message.member.permissions.serialize().ADMINISTRATOR)
             return message.channel.send("You lack sufficient permissions, I'm so sorry!");
 
-        var servPath = dataPath+'/Server Settings/server.json'
-        var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-        var servFile = JSON.parse(servRead);
+        let servPath = dataPath+'/Server Settings/server.json'
+        let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+        let servFile = JSON.parse(servRead);
 
         if (!servFile[message.guild.id]) {
             servFile[message.guild.id] = {
@@ -24406,9 +23592,9 @@ client.on('messageCreate', async message => {
         if (!message.member.permissions.serialize().ADMINISTRATOR)
             return message.channel.send("You lack sufficient permissions, I'm so sorry!");
 
-        var servPath = dataPath+'/Server Settings/server.json'
-        var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-        var servFile = JSON.parse(servRead);
+        let servPath = dataPath+'/Server Settings/server.json'
+        let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+        let servFile = JSON.parse(servRead);
 
         if (!servFile[message.guild.id]) {
             servFile[message.guild.id] = {
@@ -24456,9 +23642,9 @@ client.on('messageCreate', async message => {
         if (!message.member.permissions.serialize().ADMINISTRATOR)
             return message.channel.send("You lack sufficient permissions, I'm so sorry!");
 
-        var servPath = dataPath+'/Server Settings/server.json'
-        var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-        var servFile = JSON.parse(servRead);
+        let servPath = dataPath+'/Server Settings/server.json'
+        let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+        let servFile = JSON.parse(servRead);
 
         if (!servFile[message.guild.id]) {
             servFile[message.guild.id] = {
@@ -24506,9 +23692,9 @@ client.on('messageCreate', async message => {
         if (!message.member.permissions.serialize().ADMINISTRATOR)
             return message.channel.send("You lack sufficient permissions, I'm so sorry!");
 
-        var servPath = dataPath+'/Server Settings/server.json'
-        var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-        var servFile = JSON.parse(servRead);
+        let servPath = dataPath+'/Server Settings/server.json'
+        let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+        let servFile = JSON.parse(servRead);
 
         if (!servFile[message.guild.id]) {
             servFile[message.guild.id] = {
@@ -24556,9 +23742,9 @@ client.on('messageCreate', async message => {
         if (!message.member.permissions.serialize().ADMINISTRATOR)
             return message.channel.send("You lack sufficient permissions, I'm so sorry!");
 
-        var servPath = dataPath+'/Server Settings/server.json'
-        var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-        var servFile = JSON.parse(servRead);
+        let servPath = dataPath+'/Server Settings/server.json'
+        let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+        let servFile = JSON.parse(servRead);
 
         if (!servFile[message.guild.id]) {
             servFile[message.guild.id] = {
@@ -24613,7 +23799,7 @@ client.on('messageCreate', async message => {
         else if (arg[1].toLowerCase() == 'sex' || arg[1].toLowerCase() == 'ass' || arg[1].toLowerCase() == 'doggy-style' || arg[1].toLowerCase() == 'doggystyle')
             return message.channel.send("No you can't have sex with a robot, even if they had the capability to.");
         else {
-			var currencyText = arg[1].toLowerCase()
+			let currencyText = arg[1].toLowerCase()
 			const inapropriateWords = ['dick', 'balls', 'penis', 'vagina', 'pussy', 'fuck', 'shit', 'nigga', 'n-word', 'rape', 'porn', 'hentai', 'ass', 'tit', 'breast']
 
 			for (const i in inapropriateWords) {
@@ -24637,9 +23823,9 @@ client.on('messageCreate', async message => {
             return
         }
 
-        var servPath = dataPath+'/Server Settings/server.json'
-        var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-        var servFile = JSON.parse(servRead);
+        let servPath = dataPath+'/Server Settings/server.json'
+        let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+        let servFile = JSON.parse(servRead);
 
         if (!servFile[message.guild.id]) {
             servFile[message.guild.id] = {
@@ -24694,9 +23880,9 @@ client.on('messageCreate', async message => {
             return
         }
 
-        var servPath = dataPath+'/Server Settings/server.json'
-        var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-        var servFile = JSON.parse(servRead);
+        let servPath = dataPath+'/Server Settings/server.json'
+        let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+        let servFile = JSON.parse(servRead);
 
         if (!servFile[message.guild.id]) {
             servFile[message.guild.id] = {
@@ -24750,9 +23936,9 @@ client.on('messageCreate', async message => {
         if (!message.member.permissions.serialize().ADMINISTRATOR)
             return message.channel.send("You lack sufficient permissions, I'm so sorry!");
 
-        var servPath = dataPath+'/Server Settings/server.json'
-        var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-        var servFile = JSON.parse(servRead);
+        let servPath = dataPath+'/Server Settings/server.json'
+        let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+        let servFile = JSON.parse(servRead);
 
         if (!servFile[message.guild.id]) {
             servFile[message.guild.id] = {
@@ -24806,9 +23992,9 @@ client.on('messageCreate', async message => {
         if (!message.member.permissions.serialize().ADMINISTRATOR)
             return message.channel.send("You lack sufficient permissions, I'm so sorry!");
 
-        var servPath = dataPath+'/Server Settings/server.json'
-        var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-        var servFile = JSON.parse(servRead);
+        let servPath = dataPath+'/Server Settings/server.json'
+        let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+        let servFile = JSON.parse(servRead);
 
         if (!servFile[message.guild.id]) {
             servFile[message.guild.id] = {
@@ -24872,9 +24058,9 @@ client.on('messageCreate', async message => {
         if (!message.member.permissions.serialize().ADMINISTRATOR)
             return message.channel.send("You lack sufficient permissions, I'm so sorry!");
 
-        var servPath = dataPath+'/Server Settings/server.json'
-        var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-        var servFile = JSON.parse(servRead);
+        let servPath = dataPath+'/Server Settings/server.json'
+        let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+        let servFile = JSON.parse(servRead);
 
         if (!servFile[message.guild.id]) {
             servFile[message.guild.id] = {
@@ -24916,7 +24102,7 @@ client.on('messageCreate', async message => {
         if (!arg[1])
             return message.channel.send("Please specify the currency.");
 
-		var lvlFormulas = {
+		let lvlFormulas = {
 			percent: '`BaseStat * (1 + ((Level-1) * 0.091))`',
 			assist: '`(BaseStat+3) * (1 + ((Level-1) * 0.06751))`',
 			original: '`No Specific Formula`'
@@ -24944,14 +24130,14 @@ client.on('messageCreate', async message => {
 		if (!message.mentions.users.first())
             return message.channel.send('Specify the user to ban.');
 		
-		var bannedUser = message.mentions.users.first()
+		let bannedUser = message.mentions.users.first()
 		
 		if (bannedUser.id === message.author.id)
             return message.channel.send("I didn't know you hated me that much... Don't ban yourself.");
 		
-        var servPath = dataPath+'/Server Settings/server.json'
-        var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-        var servFile = JSON.parse(servRead);
+        let servPath = dataPath+'/Server Settings/server.json'
+        let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+        let servFile = JSON.parse(servRead);
 
         if (!servFile[message.guild.id]) {
             servFile[message.guild.id] = {
@@ -24992,7 +24178,7 @@ client.on('messageCreate', async message => {
 		if (!servFile[message.guild.id])
 			servFile[message.guild.id].banned = [];
 		
-		var reason = '';
+		let reason = '';
 		if (message.content.includes('"'))
 			reason = message.content.slice(prefix.length).trim().split('"');
 		
@@ -25008,11 +24194,11 @@ client.on('messageCreate', async message => {
 		if (!message.mentions.users.first())
             return message.channel.send('Specify the user to unban.');
 		
-		var bannedUser = message.mentions.users.first()
+		let bannedUser = message.mentions.users.first()
 		
-        var servPath = dataPath+'/Server Settings/server.json'
-        var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-        var servFile = JSON.parse(servRead);
+        let servPath = dataPath+'/Server Settings/server.json'
+        let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+        let servFile = JSON.parse(servRead);
 
         if (!servFile[message.guild.id]) {
             servFile[message.guild.id] = {
@@ -25053,9 +24239,9 @@ client.on('messageCreate', async message => {
 		if (!servFile[message.guild.id])
 			servFile[message.guild.id].banned = [];
 		
-		var unBanned = false
+		let unBanned = false
 		for (const i in servFile[message.guild.id].banned) {
-			var ID = servFile[message.guild.id].banned[i]
+			let ID = servFile[message.guild.id].banned[i]
 			if (bannedUser.id === ID) {
 				servFile[message.guild.id].banned.splice(i, 1)
 				unBanned = true
@@ -25076,9 +24262,9 @@ client.on('messageCreate', async message => {
         if (!message.member.permissions.serialize().ADMINISTRATOR)
             return message.channel.send('You lack sufficient permissions. Probably a good thing.');
 		
-        var servPath = dataPath+'/Server Settings/server.json'
-        var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-        var servFile = JSON.parse(servRead);
+        let servPath = dataPath+'/Server Settings/server.json'
+        let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+        let servFile = JSON.parse(servRead);
 
         if (!servFile[message.guild.id]) {
             servFile[message.guild.id] = {
@@ -25127,9 +24313,9 @@ client.on('messageCreate', async message => {
     }
 
     if (command === 'settings') {
-        var servPath = dataPath+'/Server Settings/server.json'
-        var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-        var servFile = JSON.parse(servRead);
+        let servPath = dataPath+'/Server Settings/server.json'
+        let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+        let servFile = JSON.parse(servRead);
 
         if (!servFile[message.guild.id]) {
             servFile[message.guild.id] = {
@@ -25175,8 +24361,8 @@ client.on('messageCreate', async message => {
 		
 		const servStuff = servFile[message.guild.id]
 
-		var mechanics = '**'
-		var mechanicDesc = ''
+		let mechanics = '**'
+		let mechanicDesc = ''
 
 		// Mechanics
 		if (servStuff.limitbreaks == false) {
@@ -25205,7 +24391,7 @@ client.on('messageCreate', async message => {
 		
 		mechanics += '**'
 		
-		var mechanicDescriptions = {
+		let mechanicDescriptions = {
 			nnn: "A fair, clean fight.",
 			ynn: "Just Limit Breaks. Interesting choice.",
 			nyn: "Just Show-Times. One-Mores would be chaotic.",
@@ -25228,14 +24414,14 @@ client.on('messageCreate', async message => {
 		DiscordEmbed.fields.push({name: 'XP Rate', value: `${servStuff.xprate}x`, inline: true})
 		
 		// Damage Formula
-		var damageFormulas = {
+		let damageFormulas = {
 			persona: '5*√(Attack/Endurance * Skill Power)',
 			pokemon: '(((2*level)/5+2)*Power*Attack/Endurance)/50+2'
 		}
 
-		var dmgArray = servStuff.damageFormula.split('');
+		let dmgArray = servStuff.damageFormula.split('');
 		dmgArray[0] = dmgArray[0].toUpperCase()
-		var dmgString = dmgArray.join('');
+		let dmgString = dmgArray.join('');
 		
 		DiscordEmbed.fields.push({name: 'Damage Formula', value: dmgString + '\n`' + damageFormulas[servStuff.damageFormula] + '`', inline: true})
 		
@@ -25245,15 +24431,15 @@ client.on('messageCreate', async message => {
 			fs.writeFileSync(servPath, JSON.stringify(servFile, null, '    '));
 		}
 
-		var lvlFormulas = {
+		let lvlFormulas = {
 			percent: 'BaseStat * (1 + ((Level-1) * 0.091))',
 			assist: '(BaseStat+3) * (1 + ((Level-1) * 0.06751))',
 			original: 'No Specific Formula'
 		}
 
-		var lvlArray = servStuff.levelUpFormula.split('');
+		let lvlArray = servStuff.levelUpFormula.split('');
 		lvlArray[0] = lvlArray[0].toUpperCase()
-		var lvlString = lvlArray.join('');
+		let lvlString = lvlArray.join('');
 		
 		DiscordEmbed.fields.push({name: 'Level Up Formula', value: lvlString + '\n`' + lvlFormulas[servStuff.levelUpFormula] + '`', inline: true})
 		
@@ -25293,12 +24479,12 @@ client.on('messageReactionAdd', async (reaction, user) => {
 		}
 	}
 
-    var message = reaction.message;
+    let message = reaction.message;
 
     if (user.bot) return false;
 	
 	// Blacksmiths
-	var isBlackSmith
+	let isBlackSmith
 	for (const i in blackSmith) {
 		if (message == blackSmith[i]) {
 			isBlackSmith = true;
@@ -25306,14 +24492,14 @@ client.on('messageReactionAdd', async (reaction, user) => {
 		}
 	}
 
-	var optionEmoji = {
+	let optionEmoji = {
 		enter: [['🚪', 'exit'], ['⚔', 'weapon'], ['🦾', 'armor'], ['🔥', 'decompose']],
 		weapon: [['🔨', 'createWeapon'], ['✨', 'enhanceWeapon'], ['↩️', 'enter']],
 		armor: [['🔨', 'createArmor'], ['✨', 'enhanceArmor'], ['↩️', 'enter']],
 		decompose: [['⚔', 'decomposeWeapon'], ['🦾', 'decomposeArmor'], ['↩️', 'enter']],
 	}
 
-	var options = {
+	let options = {
 		enter: ['exit', 'weapon', 'armor', 'decompose'],
 		weapon: ['createWeapon', 'enhanceWeapon', 'back'],
 		createWeapon: ['1', '2', '3', '4', 'nextPage', 'prevPage', 'back'],
@@ -25329,21 +24515,21 @@ client.on('messageReactionAdd', async (reaction, user) => {
 	if (!isBlackSmith)
 		return;
 
-	var blacksmithPath = `${dataPath}/BlackSmiths/blacksmith-${message.channel.id}.json`
-	var blacksmithRead = fs.readFileSync(blacksmithPath, {flag: 'as+'});
+	let blacksmithPath = `${dataPath}/BlackSmiths/blacksmith-${message.channel.id}.json`
+	let blacksmithRead = fs.readFileSync(blacksmithPath, {flag: 'as+'});
 	
 	if (blacksmithRead == '' || blacksmithRead == ' ')
 		blacksmithRead = '{}';
 
-	var blacksmithFile = JSON.parse(blacksmithRead);
+	let blacksmithFile = JSON.parse(blacksmithRead);
 	
 	if (blackSmith[message.channel.id]) {
-		var curState = blacksmithFile.state
+		let curState = blacksmithFile.state
 		switch (curState) {
 			default:
 				for (const i in optionEmoji[curState]) {
 					if (reaction.emoji.name == optionEmoji[curState][i]) {
-						var option = optionEmoji[curState][i][1]
+						let option = optionEmoji[curState][i][1]
 						
 						if (option === 'exit') {
 							var DiscordEmbed = new Discord.MessageEmbed()
@@ -25373,11 +24559,11 @@ client.on('messageReactionAdd', async (reaction, user) => {
 		}
 	}
 
-    var relicPath = dataPath+'/RelicSearch/relicData.json'
-    var relicRead = fs.readFileSync(relicPath, {flag: 'as+'});
-    var relicData = JSON.parse(relicRead);
+    let relicPath = dataPath+'/RelicSearch/relicData.json'
+    let relicRead = fs.readFileSync(relicPath, {flag: 'as+'});
+    let relicData = JSON.parse(relicRead);
 
-    var message = reaction.message;
+    let message = reaction.message;
 
     if (user.bot) return false;
 
@@ -25397,9 +24583,9 @@ client.on('messageReactionAdd', async (reaction, user) => {
         if (message.embeds[0].footer.text === 'Relic Search') {
             if ((Date.now() - message.createdTimestamp) < 12000000) {
                 if (relicData[user.id].canfind == true) {
-                    var relicPath2 = dataPath+'/RelicSearch/relicDefs.json'
-                    var relicRead2 = fs.readFileSync(relicPath2, {flag: 'as+'});
-                    var relicDefs = JSON.parse(relicRead2);
+                    let relicPath2 = dataPath+'/RelicSearch/relicDefs.json'
+                    let relicRead2 = fs.readFileSync(relicPath2, {flag: 'as+'});
+                    let relicDefs = JSON.parse(relicRead2);
 
                     message.channel.send(`${user.username} found ${message.embeds[0].title}, obtaining ${relicDefs[message.embeds[0].title].rarity * 2} stars!`)
                     relicData[user.id].relics.push(`${message.embeds[0].title}`)
@@ -25419,9 +24605,9 @@ client.on('messageReactionAdd', async (reaction, user) => {
                 }
             }
         } else if (message.embeds[0].footer.text === 'Relic Battle!') {
-            var relicPath2 = dataPath+'/RelicSearch/relicFight.json'
-            var relicRead2 = fs.readFileSync(relicPath2, {flag: 'as+'});
-            var relicFight = JSON.parse(relicRead2);
+            let relicPath2 = dataPath+'/RelicSearch/relicFight.json'
+            let relicRead2 = fs.readFileSync(relicPath2, {flag: 'as+'});
+            let relicFight = JSON.parse(relicRead2);
 
             for (const i in relicFight[message.channel.id].fighters) {
                 if (relicFight[message.channel.id].fighters[i].name === user.username && !relicFight[message.channel.id].fighters[i].bot) {
@@ -25471,7 +24657,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
 				})
             }
 			
-			var descText = "Players:\n"
+			let descText = "Players:\n"
 			for (const i in uno[message.guild.id].players) {
 				descText += `${uno[message.guild.id].players[i].name}\n`
 			}
@@ -25500,8 +24686,8 @@ client.on("guildCreate", guild => {
 	// Create specific files for this guildCreate
 	if (guild && guild.id) {
 		// Battle File
-		var btlPath = `${dataPath}/Battles/battle-${guild.id}.json`
-		var btlCheck = fs.readFileSync(btlPath, {flag: 'as+'});
+		let btlPath = `${dataPath}/Battles/battle-${guild.id}.json`
+		let btlCheck = fs.readFileSync(btlPath, {flag: 'as+'});
 		
 		if (btlCheck == '') {
 			btlCheck = '{}'
@@ -25509,8 +24695,8 @@ client.on("guildCreate", guild => {
 		}
 
 		// Enemy File
-		var enmPath = `${dataPath}/Enemies/enemies-${guild.id}.json`
-		var enmCheck = fs.readFileSync(enmPath, {flag: 'as+'});
+		let enmPath = `${dataPath}/Enemies/enemies-${guild.id}.json`
+		let enmCheck = fs.readFileSync(enmPath, {flag: 'as+'});
 
 		if (enmCheck == '') {
 			enmCheck = '{}'
