@@ -573,11 +573,11 @@ function hasPassive(userDefs, passivetype) {
 		if (skillDefs && skillDefs.type && skillDefs.type === "passive") {
 			if (skillDefs.passive && skillDefs.passive.toLowerCase() === passivetype.toLowerCase()) {
 				console.log(`${userDefs.name} has the ${passivetype} passive.`)
-				return true
+				return skillDefs
 			}
 		}
 	}
-	
+
 	return false
 }
 

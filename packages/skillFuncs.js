@@ -215,9 +215,9 @@ function atkDesc(skillDefs) {
 
 		if (skillDefs.debuff) {
 			if (skillDefs.buffchance) {
-				finalText += `**${skillDefs.buffchance}%** chance to debuff target's **${skillDefs.buff.toUpperCase()}**.\n`
+				finalText += `**${skillDefs.buffchance}%** chance to debuff target's **${skillDefs.debuff.toUpperCase()}**.\n`
 			} else {
-				finalText += `Debuffs target's **${skillDefs.buff.toUpperCase()}**.\n`
+				finalText += `Debuffs target's **${skillDefs.debuff.toUpperCase()}**.\n`
 			}
 		}
 
@@ -227,14 +227,28 @@ function atkDesc(skillDefs) {
 		if (skillDefs.dualbuff) {
 			var stats = '';
 			for (const i in skillDefs.dualbuff) {
+				stats += `**${skillDefs.dualbuff[i].toUpperCase()}**`;
 				if (i < skillDefs.dualbuff.length-1) stats += ', ';
-				stats += `**${skillDefs.dualbuff[i]}**`;
 			}
 
 			if (skillDefs.buffchance) {
-				finalText += `**${skillDefs.buffchance}%** chance to buff ${stats}.\n`
+				finalText += `**${skillDefs.buffchance}%** chance to buff caster's ${stats}.\n`
 			} else {
-				finalText += `Buffs ${stats}.\n`
+				finalText += `Will buff the caster's ${stats}.\n`
+			}
+		}
+
+		if (skillDefs.dualdebuff) {
+			var stats = '';
+			for (const i in skillDefs.dualdebuff) {
+				stats += `**${skillDefs.dualdebuff[i].toUpperCase()}**`;
+				if (i < skillDefs.dualdebuff.length-1) stats += ', ';
+			}
+
+			if (skillDefs.buffchance) {
+				finalText += `**${skillDefs.buffchance}%** chance to debuff foe's ${stats}.\n`
+			} else {
+				finalText += `WIll debuff the foe's ${stats}.\n`
 			}
 		}
 
