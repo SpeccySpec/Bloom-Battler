@@ -160,6 +160,7 @@ const terrains = [
 	"psychic", // Reverse turn order
 	"misty", // no status effects
 	"sky", // 1.2x to wind
+	"muddy", // 1.2x to earth, half agility
 	
 	// boss specific
 	"flooded",
@@ -267,12 +268,21 @@ function isTech(charDefs, element) {
 
 	for (const i in elementTechs[charDefs.status]) {
 		var techElement = elementTechs[charDefs.status][i]
-		if (element == techElement)
-			return true;
+		if (typeof element == 'string') {
+			if (element == techElement)
+				return true;
+		} else {
+			for (const i in element) {
+				if (element[i] == techElement) {
+					return true;
+				}
+			}
+		}
 	}
 
 	return false;
 }
+
 
 // Is the status effect physical?
 function isPhysicalStatus(status) {
@@ -329,6 +339,8 @@ function genDmg(userDefs, targDefs, skillDefs, server, forceDmgType, btl) {
 			dmgtype = 'normal'
 		if (dmgtype === 'superweak' && targDefs.guard)
 			dmgtype = 'weak'
+		if (dmgtype === 'deathly' && targDefs.guard)
+			dmgtype = 'superweak'
 	}
 
 	if ((dmgtype === 'repel' || dmgtype === 'barrier') && userDefs.petChar)
@@ -405,11 +417,32 @@ function genDmg(userDefs, targDefs, skillDefs, server, forceDmgType, btl) {
 	}
 
 	// Skills
-	if (skillDefs.hpcalc)
-		skillPow *= 0.5 + (userDefs.hp/userDefs.maxhp);
+	if (skillDefs.hpcalc) skillPow *= 0.5 + (userDefs.hp/userDefs.maxhp);
+	if (skillDefs.mpcalc) skillPow *= 0.5 + (userDefs.mp/userDefs.maxmp);
 
-	if (skillDefs.mpcalc)
-		skillPow *= 0.5 + (userDefs.mp/userDefs.maxmp);
+	// Berserk and Enraged
+	if ((skillDefs.atktype == 'magic' && charFuncs.hasPassive(userDefs, "enraged")) || (skillDefs.atktype == 'physical' && charFuncs.hasPassive(userDefs, "berserk"))) {
+		let passiveSkill = {}
+		if (skillDefs.atktype == 'magic')
+			passiveSkill = charFuncs.hasPassive(userDefs, "enraged");
+		else
+			passiveSkill = charFuncs.hasPassive(userDefs, "berserk");
+
+		let percent = (passiveSkill.pow-100)/100;
+		let hpcap = passiveSkill.acc;
+		let hppercent = (userDefs.hp/userDefs.maxhp)*100
+
+		if (hppercent <= hpcap) {
+			skillPow *= 1+((passiveSkill.pow-100)/100)
+		} else {
+			let realPercent = percent*(100-hppercent)
+			skillPow *= 1+realPercent
+		}
+	}
+	
+	// Perfect Keeper
+	if (skillDefs.atktype === "physical" && charFuncs.hasPassive(userDefs, "perfectkeeper"))
+		skillPow *= 1+(userDefs.hp/userDefs.maxhp)/1.42857142-0.2; // funny number
 
 	if (skillDefs.affinitypow && userDefs.affinitypoint && charFuncs.hasPassive(userDefs, "affinitypoint")) {
 		for (i = 0; i < userDefs.affinitypoint; i++)
@@ -420,8 +453,11 @@ function genDmg(userDefs, targDefs, skillDefs, server, forceDmgType, btl) {
 		for (i = 0; i < userDefs.buffs[skillDefs.powerbuff[0]]; i++)
 			skillPow += userDefs.buffs[skillDefs.powerbuff[0]]*skillDefs.powerbuff[1];
 	}
-	
+
 	if (skillDefs.lonewolf && allies <= 1)
+		skillPow *= 1.5;
+
+	if (skillDefs.heavenwrath && allies >= allySide.length && allySide.length > 1)
 		skillPow *= 1.5;
 	
 	if (skillDefs.rollout && userDefs.rollouts) {
@@ -511,6 +547,10 @@ function genDmg(userDefs, targDefs, skillDefs, server, forceDmgType, btl) {
 			values[2] = true;
 			values[1] = "superweak";
 			values[0] = Math.round(values[0]*2.5);
+		} else if (dmgtype === "deathly") {
+			values[2] = true;
+			values[1] = "deathly";
+			values[0] = Math.round(values[0]*5);
 		} else if (dmgtype === "resist" || dmgtype === "repel" || dmgtype === "block") {
 			values[1] = "resist";
 			values[0] = Math.round(values[0] / 2);
@@ -537,6 +577,10 @@ function genDmg(userDefs, targDefs, skillDefs, server, forceDmgType, btl) {
 			values[2] = true;
 			values[1] = "superweak";
 			values[0] = Math.round(values[0]*2.1);
+		} else if (dmgtype === "deathly") {
+			values[2] = true;
+			values[1] = "deathly";
+			values[0] = Math.round(values[0]*4.2);
 		} else if (dmgtype === "resist") {
 			values[1] = "resist";
 			values[0] = Math.round(values[0]/2);
@@ -587,7 +631,7 @@ function genDmg(userDefs, targDefs, skillDefs, server, forceDmgType, btl) {
 		if (typeof(status) === 'object')
 			status = status[Math.round(Math.random() * status.length-1)];
 
-		let targ3 = (skillStatus + (userDefs.chr - targDefs.luk));
+		let targ3 = (skillStatus + (userDefs.chr - targDefs.chr));
 		if (isPhysicalStatus(status))
 			targ3 = (skillStatus + (userDefs.luk - targDefs.luk));
 
@@ -649,6 +693,23 @@ function genDmg(userDefs, targDefs, skillDefs, server, forceDmgType, btl) {
 	return values
 }
 
+// do this later
+/*
+function dealDamage(charDefs, skillDefs, dmg, affinity) {
+	let txt = '';
+
+	if (dmg < 0) {
+		charDefs.hp += Math.min(charDefs.maxhp, charDefs.hp - dmg);
+		txt = `${charDefs.name}'s HP was restored by ${-dmg}!`;
+		return txt
+	} else if (dmg[0] == 0) {
+		txt = `${charDefs.name} blocked it.`;
+		return txt
+	} else {
+	}
+}
+*/
+
 // Inflict Status
 function inflictStatus(oppDefs, skillDefs) {
 	if (oppDefs.status != "none")
@@ -692,7 +753,7 @@ function inflictStatus(oppDefs, skillDefs) {
 	} else if (skillStatus === "brainwash") {
 		finaltext = `${oppDefs.name} was brainwashed!`
 		oppDefs.status = "brainwash"
-		oppDefs.statusturns = 2
+		oppDefs.statusturns = 1
 	} else if (skillStatus === "rage") {
 		finaltext = `${oppDefs.name} was enraged!`
 		oppDefs.status = "rage"
@@ -787,7 +848,7 @@ function inflictStatusFromText(oppDefs, statusEffect) {
 	} else if (statusEffect === "brainwash") {
 		finaltext = "They were brainwashed!"
 		oppDefs.status = "brainwash"
-		oppDefs.statusturns = 2
+		oppDefs.statusturns = 1
 	} else if (statusEffect === "rage") {
 		finaltext = "They were enraged!"
 		oppDefs.status = "rage"
@@ -847,14 +908,58 @@ function inflictStatusFromText(oppDefs, statusEffect) {
 }
 
 function getAffinity(charDefs, skillType) {
-	var affinity = 'normal'
+	let affinity = 'normal'
+
+	if (typeof skillType === 'object') {
+		skillType = skillType.filter((_, index) => _ != "almighty");
+		console.log(skillType)
+		
+		if (skillType.length < 2) skillType = skillType[0]
+	}
+
 	if (skillType && skillType != "almighty") {
 		const affinities = ["superweak", "weak", "resist", "block", "repel", "drain"]
-		for (const i in affinities) {
-			for (const k in charDefs[affinities[i]]) {
-				if (charDefs[affinities[i]][k] == skillType)
-					affinity = affinities[i];
+
+		if (typeof skillType === 'string') {
+			for (const i in affinities) {
+				for (const k in charDefs[affinities[i]]) {
+					if (charDefs[affinities[i]][k] == skillType)
+						affinity = affinities[i];
+				}
 			}
+		} else {
+			let results = [-2, -1, 1, 2, 2, 2] //results that would appear
+			let points = 0
+
+			let affinityToConsider = ''
+
+			for (let j = 0; j < skillType.length; j++) {
+				for (const i in affinities) {
+					for (const k in charDefs[affinities[i]]) {
+						if (charDefs[affinities[i]][k] == skillType[j]) {
+							points = results[affinities.indexOf(affinities[i])]
+
+							if (affinities[i] === "repel") affinityToConsider = "repel"
+							if (affinities[i] === "block") affinityToConsider = "block"
+							if (affinities[i] === "drain") affinityToConsider = "drain"
+						}
+					}
+				}
+			}
+
+			points = Math.min(points, 2)
+			points = Math.max(points, -4)
+
+			if (points == 0)
+				affinity = "normal"
+			else if (points < 2 && points != 0 && points > -3)
+				affinity = affinities[results.indexOf(points)]
+			else if (points == 2)
+				affinity = affinityToConsider != '' ? affinityToConsider : 'block'
+			else if (points == -4)
+				affinity = "deathly"
+			else if (points == -3)
+				affinity = "superweak"
 		}
 	}
 	
@@ -901,8 +1006,11 @@ function terrainMod(dmg, terrain, skillDefs) {
 	} else if (terrain === "misty") {
 		if (skillDefs.statuschance)
 			skillDefs.statuschance = 0;
-	} else if (terrain === "wind") {
-		if (skillDefs.type === "sky")
+	} else if (terrain === "sky") {
+		if (skillDefs.type === "wind")
+			dmg[0] = Math.round(dmg[0]*1.2);
+	} else if (terrain === "muddy") {
+		if (skillDefs.type === "earth")
 			dmg[0] = Math.round(dmg[0]*1.2);
 	}
 	
@@ -1065,7 +1173,7 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 		if (skillDefs.stealmp) {
 			oppDefs.mp = Math.max(0, oppDefs.mp-skillDefs.pow)
 			userDefs.mp = Math.min(userDefs.maxmp, userDefs.mp+skillDefs.pow)
-			
+
 			embedText.targetText = `${userDefs.name} => ${oppDefs.name}`
 			embedText.attackText = `${userDefs.name} used ${skillDefs.name}!`
 			embedText.resultText = `${userName} stole ${skillDefs.pow}MP from the target!`
@@ -1084,6 +1192,10 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 			
 			var dmgType = getAffinity(oppDefs, skillDefs.type)
 			switch(dmgType) {
+				case 'deathly':
+					skillDefs.acc *= 4
+					break
+
 				case 'superweak':
 					skillDefs.acc *= 3
 					break
@@ -1212,7 +1324,7 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 			}
 
 			for (let i = 0; i < skillDefs2.pow; i++) {
-				if (Math.round(Math.random()*100) > (skillDefs2.acc-(5*i))) {
+				if (Math.round(Math.random()*100) <= skillDefs2.acc) {
 					skillDefs.hits = skillDefs.hits ? skillDefs.hits++ : 2;
 					skillDefs.pow = Math.round(skillDefs.pow*0.9);
 					extraHit = skillDefs2.name;
@@ -1231,7 +1343,7 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 				const skillDefs2 = skillFile[oppDefs.skills[i]]
 			
 				if (skillDefs2 && skillDefs2.type && skillDefs2.type == 'passive') {
-					if (skillDefs2.passive === "wonderguard" && dmgtype != "weak" && dmgtype != "superweak") {
+					if (skillDefs2.passive === "wonderguard" && dmgtype != "weak" && dmgtype != "superweak" && dmgtype != "deathly") {
 						embedText.targetText = `${userName} => ${oppName}`
 						embedText.attackText = `${userName} used ${skillDefs.name}!`
 						embedText.resultText = `${oppName}'s ${skillDefs2.name} made them immune to the attack!`
@@ -1283,7 +1395,7 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 							counterSkill = skillDefs2.counter.skill;
 					}
 					
-					if (!counterSkill && skillDefs2.passive === "swordbreaker" && skillDefs.atktype === "physical" && (dmgtype === "normal" || dmgtype === "weak" || dmgtype === "superweak")) {
+					if (!counterSkill && skillDefs2.passive === "swordbreaker" && skillDefs.atktype === "physical" && (dmgtype === "normal" || dmgtype === "weak" || dmgtype === "superweak" || dmgtype === "deathly")) {
 						let resistChance = skillDefs2.pow;
 						let resistValue = Math.round(Math.random()*100);
 
@@ -1400,7 +1512,12 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 					
 					finaltext += dodgeQuote
 				}
-			} else if (!counterSkill.feint && (dmg[1] == "block" || dmg[1] == "repel" || repelSkill || (skillDefs.type != 'almighty' && (userDefs.makarakarn && counterSkill.atktype === "magic" || userDefs.tetrakarn && counterSkill.atktype === "physical")))) {
+			// WHAT THE FUCK IS THIS IF STATEMENT LOL
+			} else if (!counterSkill.feint && (dmg[1] == "block" || dmg[1] == "repel" || repelSkill ||
+			(((skillDefs.type != 'almighty' && typeof skillDefs.type == 'string') ||
+			(typeof skillDefs.type == 'object' && !skillDefs.type.includes('almighty'))) &&
+			(userDefs.makarakarn && counterSkill.atktype === "magic" ||
+			userDefs.tetrakarn && counterSkill.atktype === "physical")))) {
 				finaltext += `${userName} blocked it!`
 				dmg[1] = "block"
 					
@@ -1426,6 +1543,8 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 				if (dmg[2] == true) {
 					if (dmg[1] == "superweak")
 						finaltext += "<:supereffective:939053172528394252>";
+					else if (dmg[1] == "deathly")
+						finaltext += "☠️";
 					else
 						finaltext += "<:effective:876899270731628584>";
 				} else if (dmgtype === "resist")
@@ -1725,7 +1844,8 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 					skillDefs.acc = 0
 					dmg = repelDmg
 					ignoreDmgTxt = true
-				} else if (!skillDefs.feint && skillDefs.type != 'almighty' && (oppDefs.makarakarn && skillDefs.atktype === "magic" || oppDefs.tetrakarn && skillDefs.atktype === "physical")) {
+				// not AGAIN
+				} else if (!skillDefs.feint && ((skillDefs.type != 'almighty' && typeof skillDefs.type == 'string') || (typeof skillDefs.type == 'object' && !skillDefs.type.includes('almighty'))) && (oppDefs.makarakarn && skillDefs.atktype === "magic" || oppDefs.tetrakarn && skillDefs.atktype === "physical")) {
 					if (oppDefs.makarakarn && skillDefs.atktype === "magic") {
 						finaltext += `${oppName}'s ${oppDefs.makarakarn} repels the magical attack, but gets destroyed\n`;
 						delete oppDefs.makarakarn
@@ -1810,7 +1930,7 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 				}
 
 				let targDefs = oppDefs
-				if (dmgCheck === 'repel' || repelSkill || !skillDefs.feint && skillDefs.type != 'almighty' && (oppDefs.makarakarn && skillDefs.atktype === "magic" || oppDefs.tetrakarn && skillDefs.atktype === "physical"))
+				if (dmgCheck === 'repel' || repelSkill || !skillDefs.feint && ((skillDefs.type != 'almighty' && typeof skillDefs.type == 'string') || (typeof skillDefs.type == 'object' && !skillDefs.type.includes('almighty'))) && (oppDefs.makarakarn && skillDefs.atktype === "magic" || oppDefs.tetrakarn && skillDefs.atktype === "physical"))
 					targDefs = userDefs
 
 				// Display Weakness
@@ -1818,6 +1938,8 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 					if (dmg[2] == true) {
 						if (dmg[1] == "superweak")
 							finaltext += "<:supereffective:939053172528394252>";
+						else if (dmg[1] == "deathly")
+							finaltext += "☠️";
 						else
 							finaltext += "<:effective:876899270731628584>";
 
@@ -2121,7 +2243,7 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 						let possibleQuote = Math.round(Math.random() * (oppDefs.repelquote.length-1))
 						oppQuote = `\n*${oppDefs.name}: "${oppDefs.repelquote[possibleQuote]}"*`
 					}
-				} else if (!skillDefs.feint && skillDefs.type != 'almighty' && (oppDefs.makarakarn && skillDefs.atktype === "magic" || oppDefs.tetrakarn && skillDefs.atktype === "physical")) {
+				} else if (!skillDefs.feint && ((skillDefs.type != 'almighty' && typeof skillDefs.type == 'string') || (typeof skillDefs.type == 'object' && !skillDefs.type.includes('almighty'))) && (oppDefs.makarakarn && skillDefs.atktype === "magic" || oppDefs.tetrakarn && skillDefs.atktype === "physical")) {
 					if (oppDefs.makarakarn && skillDefs.atktype === "magic") {
 						finaltext += `${oppName}'s ${oppDefs.makarakarn} repels the magical attack, but gets destroyed!`;
 						delete oppDefs.makarakarn
@@ -2181,10 +2303,34 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 					let hasCrit = false;
 					let hasStatus = false;
 
+					if (skillDefs.revDmg) {
+						for (let i = 1; i <= hitCount; i++)
+							skillDefs.pow *= 0.8;
+					}
+
 					for (let i = 1; i <= hitCount; i++) {
 						skillDefs.acc = 999
+						
+						let wasPowHit = false;
+						if (skillDefs.powHits) {
+							for (let k in skillDefs.powHits) {
+								if (skillDefs.powHits[k] && skillDefs.powHits[k] === i) {
+									skillDefs.pow *= 1.5;
+									wasPowHit = true;
+								}
+							}
+						}
 
 						let dmg = genDmg(userDefs, oppDefs, skillDefs, server, forceDmgType, btl)
+
+						if (wasPowHit) skillDefs.pow /= 1.5
+
+						if (!skillDefs.susDmg) {
+							if (skillDefs.revDmg)
+								skillDefs.pow /= 0.8;
+							else 
+								skillDefs.pow *= 0.8;
+						}
 
 						let rand = -7 + Math.round(Math.random() * 14)
 						dmg[0] += Math.round(rand);
@@ -2197,7 +2343,7 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 						if (result < 1)
 							result = 1;
 
-						if (dmgCheck == "repel" || repelSkill || (skillDefs.type != 'almighty' && (oppDefs.makarakarn && skillDefs.atktype === "magic" || oppDefs.tetrakarn && skillDefs.atktype === "physical")) && !skillDefs.feint) {
+						if (dmgCheck == "repel" || repelSkill || (((skillDefs.type != 'almighty' && typeof skillDefs.type == 'string') || (typeof skillDefs.type == 'object' && !skillDefs.type.includes('almighty'))) && (oppDefs.makarakarn && skillDefs.atktype === "magic" || oppDefs.tetrakarn && skillDefs.atktype === "physical")) && !skillDefs.feint) {
 							let repelDmg = genDmg(userDefs, userDefs, skillDefs, server, null, btl)
 							let rand = -7 + Math.round(Math.random() * 14)
 							repelDmg[0] += rand;
@@ -2225,7 +2371,13 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 						}
 
 						let effective = ''
-						if (dmg[2]) effective = dmg[1] == "superweak" ? '<:supereffective:939053172528394252>' : '<:effective:876899270731628584>';
+						if (dmg[2]) {
+							if (dmg[1] === 'deathly')
+								effective = '☠️';
+							else
+								dmg[1] == "superweak" ? '<:supereffective:939053172528394252>' : '<:effective:876899270731628584>';
+						}
+
 						if (dmg[1] == 'resist') effective = '<:resist:877132670784647238>';
 
 						// Display Crits
@@ -2263,7 +2415,7 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 						finaltext = finaltext + " damage";
 
 						// Weakness Quotes & Critical Quotes
-						if (dmgCheck == 'weak' || dmgCheck == 'superweak') {
+						if (dmgCheck == 'weak' || dmgCheck == 'superweak' || dmgCheck == 'deathly') {
 							if (userDefs.strongquote && userDefs.strongquote.length > 0) {
 								let possibleQuote = Math.round(Math.random() * (userDefs.strongquote.length-1))
 		
@@ -2509,14 +2661,14 @@ function attackEnemy(userName, oppName, userDefs, oppDefs, skillDefs, useEnergy,
 					}
 				}
 			}
-			
+
 			if (resistSkill)
 				finaltext += `\n${oppName}'s ${resistSkill} halved the power of the skill.`;
-			
+
 			if (extraHit)
 				finaltext += `\n${userName}'s ${extraHit} managed to hit an extra time!`;
-			
-			if (trapped && !skillDefs.feint) {
+
+			if (trapped && !skillDefs.feint && oppDefs.trapType) {
 				finaltext += `\n${oppName}'s ${oppDefs.trapType.name} halved the power of the skill! `
 				
 				if (oppDefs.trapType.effect[0] == "damage") {
@@ -2669,7 +2821,7 @@ function meleeAttack(userDefs, enmDefs, server, rage, btl) {
 		const skillDefs = skillFile[enmDefs.skills[i]]
 	
 		if (skillDefs && skillDefs.type && skillDefs.type == 'passive') {
-			if (skillDefs.passive === "wonderguard" && dmgtype != "weak" && dmgtype != "superweak") {
+			if (skillDefs.passive === "wonderguard" && dmgtype != "weak" && dmgtype != "superweak" && dmgtype != "deathly") {
 				embedText.targetText = `${userName} => ${enmDefs.name}`
 				embedText.attackText = `${userName} used ${userDefs.melee.name}!`
 				embedText.resultText = `${enmDefs.name}'s ${skillDefs.name} made them immune to the attack!`
@@ -2822,6 +2974,8 @@ function meleeAttack(userDefs, enmDefs, server, rage, btl) {
 		if (dmg[2] == true) {
 			if (dmg[1] == "superweak")
 				finaltext += "<:supereffective:939053172528394252>";
+			else if (dmg[1] == "deathly")
+				finaltext += "☠️";
 			else
 				finaltext += "<:effective:876899270731628584>";
 
@@ -3005,6 +3159,8 @@ function allyHelp(charDefs, allySide, enmDefs, server, btl) {
 // Attack with skill
 function attackWithSkill(userDefs, targetNum, allySide, opposingSide, btl, skillDefs, server) {
 	var embedText = {}
+	
+	if (!skillDefs) return;
 
 	var preText = "";
 	if (skillDefs.melee) {
@@ -3089,13 +3245,26 @@ function attackWithSkill(userDefs, targetNum, allySide, opposingSide, btl, skill
 					userDefs.forceMove = [targetNum, skillDefs]
 				}
 			}
-			
-			delete userDefs.ignoreRollout
+			delete userDefs.ignoreRollout;
+
+			var extraTxt = '';
+			if (enmDefs.chaosStir && !enmDefs.doneChaosStir && enmDefs.status != "sleep" && enmDefs.hp > 0) {
+				extraTxt += `\n\n...but ${enmDefs.name}'s ${enmDefs.chaosStir} allowed them to use the skill against ${userDefs.name}!`;
+				enmDefs.doneChaosStir = true
+				delete enmDefs.chaosStir
+				
+				var newSkill = utilityFuncs.cloneObj(skillDefs)
+
+				newSkill.pow *= 2;
+				var newTxt = attackEnemy(enmDefs.name, userDefs.name, enmDefs, userDefs, newSkill, false, server, btl)
+
+				extraTxt += `\n${newTxt.resultText}`;
+			}
 
 			return new Discord.MessageEmbed()
 				.setColor('#e36b2b')
 				.setTitle(`${embedText.targetText}`)
-				.setDescription(`${preText}${embedText.attackText}!\n${embedText.resultText}`)
+				.setDescription(`${preText}${embedText.attackText}!\n${embedText.resultText}${extraTxt}`)
 				.setFooter(`${userDefs.name}'s turn`);
 		} else {
 			return new Discord.MessageEmbed()
@@ -3189,6 +3358,7 @@ function attackWithSkill(userDefs, targetNum, allySide, opposingSide, btl, skill
 		
 		var embedTexts = []
 
+		var extraTxt = '';
 		for (const i in opposingSide) {
 			var enmDefs = opposingSide[i];
 			var enmName = opposingSide[i].name;
@@ -3200,6 +3370,19 @@ function attackWithSkill(userDefs, targetNum, allySide, opposingSide, btl, skill
 				}
 
 				embedTexts.push(embedTxt)
+
+				if (enmDefs.chaosStir && !enmDefs.doneChaosStir && enmDefs.status != "sleep" && enmDefs.hp > 0) {
+					extraTxt += `\n\n...but ${enmDefs.name}'s ${enmDefs.chaosStir} allowed them to use the skill against ${userDefs.name}!`;
+					enmDefs.doneChaosStir = true;
+					delete enmDefs.chaosStir;
+					
+					var newSkill = utilityFuncs.cloneObj(skillDefs)
+
+					newSkill.pow *= 2;
+					var newTxt = attackEnemy(enmDefs.name, userDefs.name, enmDefs, userDefs, newSkill, false, server, btl)
+
+					extraTxt += `\n${newTxt.resultText}`;
+				}
 			}
 		}
 		
@@ -3232,7 +3415,7 @@ function attackWithSkill(userDefs, targetNum, allySide, opposingSide, btl, skill
 		return new Discord.MessageEmbed()
 			.setColor('#e36b2b')
 			.setTitle(`${embedText.targetText}`)
-			.setDescription(`${embedText.attackText}!\n${embedText.resultText}`)
+			.setDescription(`${embedText.attackText}!\n${embedText.resultText}${extraTxt}`)
 			.setFooter(`${userDefs.name}'s turn`);
 	} else if (skillDefs.target === "allallies") {
 		var damages = []
@@ -3315,6 +3498,19 @@ function attackWithSkill(userDefs, targetNum, allySide, opposingSide, btl, skill
 			var embedTxt = attackEnemy(userDefs.name, fighters[i].name, userDefs, fighters[i], skillDefs, false, server, btl)
 			if (embedTxt.oneMore == true && doOneMores(server)) {
 				btl[server].onemore = true
+			}
+
+			if (fighters[i].chaosStir && !fighters[i].doneChaosStir && fighters[i].status != "sleep" && fighters[i].hp > 0) {
+				extraTxt += `\n\n...but ${fighters[i].name}'s ${fighters[i].chaosStir} allowed them to use the skill against ${userDefs.name}!`;
+				fighters[i].doneChaosStir = true
+				delete fighters[i].chaosStir
+
+				var newSkill = utilityFuncs.cloneObj(skillDefs)
+
+				newSkill.pow *= 2;
+				var newTxt = attackEnemy(fighters[i].name, userDefs.name, fighters[i], userDefs, newSkill, false, server, btl)
+
+				extraTxt += `\n${newTxt.resultText}`;
 			}
 			
 			embedTexts.push(embedTxt)

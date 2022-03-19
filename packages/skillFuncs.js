@@ -196,6 +196,11 @@ function statusDesc(skillDefs) {
 	return finalText;
 }
 
+function passiveDesc(skillDefs) {
+	var finalText = `Passive Type: **${skillDefs.passive}**\n`
+	return finalText;
+}
+
 function atkDesc(skillDefs) {
 	var finalText = '';
 
@@ -369,6 +374,8 @@ function skillDesc(skillDefs, skillName, server) {
 
 	if (skillDefs.type === 'status') {
 		finalText += statusDesc(skillDefs)
+	} else if (skillDefs.type === 'passive') {
+		finalText += passiveDesc(skillDefs)
 	} else if (skillDefs.type != 'passive') {
 		finalText += atkDesc(skillDefs)
 	}

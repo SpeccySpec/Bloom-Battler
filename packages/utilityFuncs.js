@@ -154,20 +154,17 @@ const adminList = [
 
 function objClone(source) {
 	if (Object.prototype.toString.call(source) === '[object Array]') {
-		var clone = []
+		let clone = []
 
-		for (var i = 0; i < source.length; i++) {
-			clone[i] = objClone(source[i])
-		}
+		for (let i = 0; i < source.length; i++)
+			clone[i] = objClone(source[i]);
 
 		return clone
 	} else if (typeof(source)=="object") {
-		var clone = {}
+		let clone = {}
 
-		for (var prop in source) {
-			if (source.hasOwnProperty(prop)) {
-				clone[prop] = objClone(source[prop])
-			}
+		for (let prop in source) {
+			if (source.hasOwnProperty(prop)) clone[prop] = objClone(source[prop]);
 		}
 
 		return clone
@@ -233,7 +230,7 @@ module.exports = {
 	},
 	
 	orderSkills: function() {
-		var skillPath = dataPath+'/skills.json'
+		let skillPath = dataPath+'/skills.json'
 		
 		try {
 			var skillRead = fs.readFileSync(skillPath);
@@ -241,9 +238,9 @@ module.exports = {
 			console.error(err);
 		}
 
-		var skillFile = JSON.parse(skillRead);
+		let skillFile = JSON.parse(skillRead);
 		
-		var skillArray = []
+		let skillArray = []
 		for (const i in skillFile) {
 			if (!skillFile[i].name) skillFile[i].name = `${i}`;
 			
@@ -304,15 +301,14 @@ module.exports = {
 		skillArray.sort(function(a, b) {return elementOrder[a[1].type] - elementOrder[b[1].type]});
 		
 		skillFile = {}
-		for (const i in skillArray) {
-			skillFile[skillArray[i][0]] = objClone(skillArray[i][1])
-		}
+		for (const i in skillArray)
+			skillFile[skillArray[i][0]] = objClone(skillArray[i][1]);
 
 		console.log("Ordered skills.json.")
 		fs.writeFileSync(skillPath, JSON.stringify(skillFile, null, '    '));
 		
 		// Now order character skills
-		var charPath = dataPath+'/characters.json'
+		let charPath = dataPath+'/characters.json'
 		
 		try {
 			var charRead = fs.readFileSync(charPath);
@@ -320,16 +316,16 @@ module.exports = {
 			console.error(err);
 		}
 
- 		var charFile = JSON.parse(charRead);
+ 		let charFile = JSON.parse(charRead);
 		for (const i in charFile) {
 			if (charFile[i].skills && charFile[i].skills.length) {
 				charFile[i].skills.sort(function(a, b) {
-					var skillPows = [(skillFile[a] && skillFile[a].pow) ? skillFile[a].pow : 0, (skillFile[b] && skillFile[b].pow) ? skillFile[b].pow : 0]
+					let skillPows = [(skillFile[a] && skillFile[a].pow) ? skillFile[a].pow : 0, (skillFile[b] && skillFile[b].pow) ? skillFile[b].pow : 0]
 					return skillPows[1] - skillPows[0]
 				});
 
 				charFile[i].skills.sort(function(a, b) {
-					var skillTypes = [(skillFile[a] && skillFile[a].type) ? skillFile[a].type : 'invalid', (skillFile[b] && skillFile[b].type) ? skillFile[b].type : 'invalid']
+					let skillTypes = [(skillFile[a] && skillFile[a].type) ? skillFile[a].type : 'invalid', (skillFile[b] && skillFile[b].type) ? skillFile[b].type : 'invalid']
 					return elementOrder[skillTypes[0]] - elementOrder[skillTypes[1]]
 				});
 
@@ -342,13 +338,11 @@ module.exports = {
 	},
 	
 	isBanned: function(id, server) {
-		var servPath = dataPath+'/Server Settings/server.json'
-		var servRead = fs.readFileSync(servPath);
-		var servFile = JSON.parse(servRead);
+		let servPath = dataPath+'/Server Settings/server.json'
+		let servRead = fs.readFileSync(servPath);
+		let servFile = JSON.parse(servRead);
 		
-		if (!servFile[server] || !servFile[server].banned) {
-			return false
-		}
+		if (!servFile[server] || !servFile[server].banned) return false;
 
 		var servDefs = servFile[server]
 		for (const i in servFile[server].banned) {

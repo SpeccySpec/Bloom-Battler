@@ -644,38 +644,56 @@ function levelUp(charDefs, forceEvo, server) {
 		return false
 	}
 
+	// Level Up!
 	charDefs.level = Math.min(99, charDefs.level+1);
-	
-	if (charDefs.basehp > 1) {
-		charDefs.hp = Math.floor(charDefs.hp + (charDefs.basehp/10) + (charDefs.baseend/2))
-		charDefs.maxhp = Math.floor(charDefs.maxhp + (charDefs.basehp/10) + (charDefs.baseend/2))
+
+	// Higher HP
+	charDefs.hp = charDefs.basehp
+	charDefs.mp = charDefs.basemp
+	charDefs.maxhp = charDefs.basehp
+	charDefs.maxmp = charDefs.basemp
+
+	for (let k = 1; k < charDefs.level; k++) {
+		if (charDefs.basehp > 1) {
+			charDefs.hp = Math.floor(charDefs.hp + (charDefs.basehp/10) + (charDefs.baseend/2))
+			charDefs.maxhp = Math.floor(charDefs.maxhp + (charDefs.basehp/10) + (charDefs.baseend/2))
+		}
+		
+		if (charDefs.basemp > 1) {
+			charDefs.mp = Math.floor(charDefs.mp + (charDefs.basemp/10) + (charDefs.baseint/2))
+			charDefs.maxmp = Math.floor(charDefs.maxmp + (charDefs.basemp/10) + (charDefs.baseint/2))
+		}
 	}
-	
-	if (charDefs.basemp > 1) {
-		charDefs.mp = Math.floor(charDefs.mp + (charDefs.basemp/10) + (charDefs.baseint/2))
-		charDefs.maxmp = Math.floor(charDefs.maxmp + (charDefs.basemp/10) + (charDefs.baseint/2))
-	}
-	
+
 	console.log(`LevelUp: ${charDefs.name} levelled up to level ${charDefs.level}.`)
 
-	var servPath = dataPath+'/Server Settings/server.json'
-	var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-	var servFile = JSON.parse(servRead);
+	let servPath = dataPath+'/Server Settings/server.json'
+	let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+	let servFile = JSON.parse(servRead);
+	
+	var stats = ['atk', 'mag', 'prc', 'end', 'chr', 'int', 'agl', 'luk']
 
 	if (servFile[server].levelUpFormula && servFile[server].levelUpFormula === 'percent') {
-		var stats = ['atk', 'mag', 'prc', 'end', 'chr', 'int', 'agl', 'luk']
 		for (const i in stats) {
-			var baseStat = charDefs[`base${stats[i]}`]
+			let baseStat = charDefs[`base${stats[i]}`]
 			charDefs[stats[i]] = Math.min(99, Math.round(baseStat * (1 + ((charDefs.level-1) * 0.091))))
 		}
 	} else if (servFile[server].levelUpFormula && servFile[server].levelUpFormula === 'assist') {
-		var stats = ['atk', 'mag', 'prc', 'end', 'chr', 'int', 'agl', 'luk']
 		for (const i in stats) {
-			var baseStat = charDefs[`base${stats[i]}`]
+			let baseStat = charDefs[`base${stats[i]}`]
 			charDefs[stats[i]] = Math.min(99, Math.round((baseStat+3) * (1 + ((charDefs.level-1) * 0.06751))))
 		}
 	} else {
-		var highestStats = [
+		charDefs.atk = charDefs.baseatk
+		charDefs.mag = charDefs.basemag
+		charDefs.prc = charDefs.baseprc
+		charDefs.end = charDefs.baseend
+		charDefs.chr = charDefs.basechr
+		charDefs.int = charDefs.baseint
+		charDefs.agl = charDefs.baseagl
+		charDefs.luk = charDefs.baseluk
+
+		let highestStats = [
 			["atk", charDefs.baseatk],
 			["mag", charDefs.basemag],
 			["prc", charDefs.baseprc],
@@ -685,21 +703,23 @@ function levelUp(charDefs, forceEvo, server) {
 			["agl", charDefs.baseagl],
 			["luk", charDefs.baseluk]
 		];
-		
+
 		highestStats.sort(function(a, b) {return  a[1] - b[1]})
 
-		for (const i in highestStats) {
-			if (i > highestStats.length-4)
-				charDefs[highestStats[i][0]]++;
-			else if (i <= 1) {
-				if (charDefs.level%3 == 1)
+		for (let k = 1; k < charDefs.level; k++) {
+			for (let i in highestStats) {
+				if (i > highestStats.length-4)
 					charDefs[highestStats[i][0]]++;
-			} else {
-				if (charDefs.level%2 == 1)
-					charDefs[highestStats[i][0]]++;
-			}
+				else if (i <= 1) {
+					if (k%3 == 1)
+						charDefs[highestStats[i][0]]++;
+				} else {
+					if (k%2 == 1)
+						charDefs[highestStats[i][0]]++;
+				}
 
-			charDefs[highestStats[i][0]] = Math.min(99, charDefs[highestStats[i][0]])
+				charDefs[highestStats[i][0]] = Math.min(99, charDefs[highestStats[i][0]])
+			}
 		}
 	}
 
@@ -716,9 +736,9 @@ function levelUp(charDefs, forceEvo, server) {
 	}
 	
 	if (forceEvo == true) {
-		const skillPath = dataPath+'/skills.json'
-		const skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-		const skillFile = JSON.parse(skillRead);
+		let skillPath = dataPath+'/skills.json'
+		let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+		let skillFile = JSON.parse(skillRead);
 
 		for (const i in charDefs.skills) {
 			if (skillFile[charDefs.skills[i]] && skillFile[charDefs.skills[i]].evoSkill) {
@@ -738,16 +758,15 @@ function levelUp(charDefs, forceEvo, server) {
 			}
 		}
 
-		const skillPath = dataPath+'/skills.json'
-		const skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
-		const skillFile = JSON.parse(skillRead);
+		let skillPath = dataPath+'/skills.json'
+		let skillRead = fs.readFileSync(skillPath, {flag: 'as+'});
+		let skillFile = JSON.parse(skillRead);
 
 		for (const i in checkSkills) {
 			if (skillFile[checkSkills[i][0]] && skillFile[checkSkills[i][0]].evoSkill) {
 				var skillDefs = skillFile[checkSkills[i][0]]
 				
-				if (charDefs.level == skillDefs.evoSkill[1])
-					charDefs.skills[checkSkills[i][1]] = skillDefs.evoSkill[0];
+				if (charDefs.level == skillDefs.evoSkill[1]) charDefs.skills[checkSkills[i][1]] = skillDefs.evoSkill[0];
 			}
 		}
 	}
@@ -760,38 +779,56 @@ function levelDown(charDefs, server) {
 		return false
 	}
 
+	// Level Up!
 	charDefs.level = Math.max(1, charDefs.level-1);
 
-	if (charDefs.basehp > 1) {
-		charDefs.hp = Math.floor(charDefs.hp - (charDefs.basehp/10) - (charDefs.baseend/2))
-		charDefs.maxhp = Math.floor(charDefs.maxhp - (charDefs.basehp/10) - (charDefs.baseend/2))
-	}
-	
-	if (charDefs.basemp > 1) {
-		charDefs.mp = Math.floor(charDefs.mp - (charDefs.basemp/10) - (charDefs.baseint/2))
-		charDefs.maxmp = Math.floor(charDefs.maxmp - (charDefs.basemp/10) - (charDefs.baseint/2))
+	// Higher HP
+	charDefs.hp = charDefs.basehp
+	charDefs.mp = charDefs.basemp
+	charDefs.maxhp = charDefs.basehp
+	charDefs.maxmp = charDefs.basemp
+
+	for (let k = 1; k < charDefs.level; k++) {
+		if (charDefs.basehp > 1) {
+			charDefs.hp = Math.floor(charDefs.hp + (charDefs.basehp/10) + (charDefs.baseend/2))
+			charDefs.maxhp = Math.floor(charDefs.maxhp + (charDefs.basehp/10) + (charDefs.baseend/2))
+		}
+		
+		if (charDefs.basemp > 1) {
+			charDefs.mp = Math.floor(charDefs.mp + (charDefs.basemp/10) + (charDefs.baseint/2))
+			charDefs.maxmp = Math.floor(charDefs.maxmp + (charDefs.basemp/10) + (charDefs.baseint/2))
+		}
 	}
 	
 	console.log(`LevelUp: ${charDefs.name} levelled down to level ${charDefs.level}.`)
 	
-	var servPath = dataPath+'/Server Settings/server.json'
-	var servRead = fs.readFileSync(servPath, {flag: 'as+'});
-	var servFile = JSON.parse(servRead);
+	let servPath = dataPath+'/Server Settings/server.json'
+	let servRead = fs.readFileSync(servPath, {flag: 'as+'});
+	let servFile = JSON.parse(servRead);
+
+	var stats = ['atk', 'mag', 'prc', 'end', 'chr', 'int', 'agl', 'luk']
 
 	if (servFile[server].levelUpFormula && servFile[server].levelUpFormula === 'percent') {
-		var stats = ['atk', 'mag', 'prc', 'end', 'chr', 'int', 'agl', 'luk']
 		for (const i in stats) {
-			var baseStat = charDefs[`base${stats[i]}`]
+			let baseStat = charDefs[`base${stats[i]}`]
 			charDefs[stats[i]] = Math.min(99, Math.round(baseStat * (1 + ((charDefs.level-1) * 0.091))))
 		}
 	} else if (servFile[server].levelUpFormula && servFile[server].levelUpFormula === 'assist') {
-		var stats = ['atk', 'mag', 'prc', 'end', 'chr', 'int', 'agl', 'luk']
 		for (const i in stats) {
-			var baseStat = charDefs[`base${stats[i]}`]
+			let baseStat = charDefs[`base${stats[i]}`]
 			charDefs[stats[i]] = Math.min(99, Math.round((baseStat+3) * (1 + ((charDefs.level-1) * 0.06751))))
 		}
 	} else {
-		var highestStats = [
+		charDefs.atk = charDefs.baseatk
+		charDefs.mag = charDefs.basemag
+		charDefs.prc = charDefs.baseprc
+		charDefs.end = charDefs.baseend
+		charDefs.chr = charDefs.basechr
+		charDefs.int = charDefs.baseint
+		charDefs.agl = charDefs.baseagl
+		charDefs.luk = charDefs.baseluk
+
+		let highestStats = [
 			["atk", charDefs.baseatk],
 			["mag", charDefs.basemag],
 			["prc", charDefs.baseprc],
@@ -801,21 +838,23 @@ function levelDown(charDefs, server) {
 			["agl", charDefs.baseagl],
 			["luk", charDefs.baseluk]
 		];
-		
+
 		highestStats.sort(function(a, b) {return  a[1] - b[1]})
 
-		for (const i in highestStats) {
-			if (i > highestStats.length-4)
-				charDefs[highestStats[i][0]]--;
-			else if (i <= 1) {
-				if (charDefs.level%3 == 1) 
-					charDefs[highestStats[i][0]]--;
-			} else {
-				if (charDefs.level%2 == 1) 
-					charDefs[highestStats[i][0]]--;
-			}
+		for (let k = 1; k < charDefs.level; k++) {
+			for (let i in highestStats) {
+				if (i > highestStats.length-4)
+					charDefs[highestStats[i][0]]++;
+				else if (i <= 1) {
+					if (k%3 == 1)
+						charDefs[highestStats[i][0]]++;
+				} else {
+					if (k%2 == 1)
+						charDefs[highestStats[i][0]]++;
+				}
 
-			charDefs[highestStats[i][0]] = Math.max(1, charDefs[highestStats[i][0]])
+				charDefs[highestStats[i][0]] = Math.min(99, charDefs[highestStats[i][0]])
+			}
 		}
 	}
 
@@ -825,9 +864,7 @@ function levelDown(charDefs, server) {
 
 // Trust
 function initTrust(charDefs, targName) {
-	if (!charDefs.trust) {
-		charDefs.trust = {}
-	}
+	if (!charDefs.trust) charDefs.trust = {};
 
 	if (!charDefs.trust[targName]) {
 		charDefs.trust[targName] = {
@@ -1135,7 +1172,7 @@ module.exports = {
 				if (partyDefs.armors[i].skill)
 					battlerDefs.skills.push(partyDefs.armors[i].skill);
 
-				battlerDefs.armorData = copyObj(partyDefs.weapons[i]);
+				battlerDefs.armorData = copyObj(partyDefs.armors[i]);
 			}
 		}
 

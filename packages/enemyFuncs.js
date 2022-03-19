@@ -136,9 +136,15 @@ const enmHabitats = [
 
 // Write enemy
 function writeEnemy(author, server, name, lvl, hp, mp, xp, str, mag, prc, end, chr, int, agl, luk, boss, j) {
-    var enmPath = dataPath+'/Enemies/enemies-' + server + '.json'
-    var enmRead = fs.readFileSync(enmPath);
-    var enmFile = JSON.parse(enmRead);
+	let enmPath = `${dataPath}/Enemies/enemies-${server}.json`
+	let enmRead = fs.readFileSync(enmPath, {flag: 'as+'});
+
+	if (!enmRead || enmRead == '') {
+		enmRead = '{}'
+		fs.writeFileSync(enmPath, enmRead);
+	}
+
+    let enmFile = JSON.parse(enmRead);
 
 	var enemyDefs = {
 		name: name ? name : "???",
@@ -281,25 +287,29 @@ function canUseSkill(userDefs, allySide, oppSide, skillDefs) {
 	if (skillDefs.needlessthan) {
 		switch(skillDefs.costtype) {
 			case "mp":
-				if (charDefs.mp > skillDefs.needlessthan)
+				if (userDefs.mp > skillDefs.needlessthan)
 					return false;
 				break;
 
 			case "mppercent":
-				if (charDefs.mp > (charDefs.maxmp/100)*skillDefs.needlessthan)
+				if (userDefs.mp > (userDefs.maxmp/100)*skillDefs.needlessthan)
 					return false;
 				break;
 
 			case "hppercent":
-				if (charDefs.hp > (charDefs.maxhp/100)*skillDefs.needlessthan)
+				if (userDefs.hp > (userDefs.maxhp/100)*skillDefs.needlessthan)
 					return false;
 				break;
 
 			default:
-				if (charDefs.hp > skillDefs.needlessthan)
+				if (userDefs.hp > skillDefs.needlessthan)
 					return false;
 		}
 	}
+	
+	// Chaos Stir Skills
+	if (skillDefs.chaosStir && userDefs.doneChaosStir)
+		return false;
 	
 	return true;
 }
@@ -350,7 +360,7 @@ function enemyThinker(userDefs, allySide, oppSide) {
 	}
 	
 	// Shield at low health
-	if (userDefs.hp < userDefs.maxhp/2) {
+	if (userDefs.hp < userDefs.maxhp/2 && !userDefs.miniboss && !userDefs.bigboss && !userDefs.boss) {
 		var shieldSkills = [];
 		for (const i in possibleSkills) {
 			var skillDefs = skillFile[possibleSkills[i]]

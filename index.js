@@ -264,6 +264,7 @@ const terrains = [
 	"psychic",
 	"misty",
 	"sky",
+	"muddy",
 	
 	// boss specific
 	"flooded",
@@ -1131,18 +1132,18 @@ async function playThemeType(server, themeType) {
 function writeAffinity(charDefs, type, affinity) {
 	const affinities = ['superweak', 'weak', 'resist', 'block', 'repel', 'drain']
 
-	if (affinity === 'normal' || affinity === 'none') {
-		for (const i in affinities) {
-			if (affinities[i] && charDefs[affinities[i]]) {
-				for (const k in charDefs[affinities[i]]) {
-					if (charDefs[affinities[i]][k].toLowerCase() === type.toLowerCase()) {
-						charDefs[affinities[i]].splice(k, 1);
-						break
-					}
+	for (const i in affinities) {
+		if (affinities[i] && charDefs[affinities[i]]) {
+			for (const k in charDefs[affinities[i]]) {
+				if (charDefs[affinities[i]][k].toLowerCase() === type.toLowerCase()) {
+					charDefs[affinities[i]].splice(k, 1);
+					break
 				}
 			}
 		}
-	} else {
+	}
+
+	if (affinity != 'normal' && affinity != 'none') {
 		if (charDefs[affinity])
 			charDefs[affinity].push(type);
 		else
@@ -1250,7 +1251,7 @@ function applyExtra(skill, extra1, extra2, extra3) {
 	} else if (extra1 === 'statcalc') {
 		if (utilityFuncs.validStat(extra2.toLowerCase()))
 			skill.statCalc = extra2.toLowerCase();
-	} else if (extra1 === 'hpcalc' || extra1 === 'mpcalc' || extra1 === 'feint' || extra1 === 'rest' || extra1 === 'stealmp' || extra1 === 'lonewolf') {
+	} else if (extra1 === 'hpcalc' || extra1 === 'mpcalc' || extra1 === 'feint' || extra1 === 'rest' || extra1 === 'stealmp' || extra1 === 'lonewolf' || extra1 === 'heavenwrath') {
 		skill[extra1] = true;
 		
 		if (extra1 === 'feint' || extra1 === 'stealmp')
@@ -1272,9 +1273,20 @@ function applyExtra(skill, extra1, extra2, extra3) {
 				skill.forceTech = [extra2, extra3];
 			else
 				skill.forceTech = [extra2];
-		} else {
-			return false
-		}
+		} else
+			return false;
+	// Verwex's Dual-Element Extra
+	} else if (extra1 === 'dualelement' || extra1 === 'dualtype') {
+		if (utilityFuncs.validType(extra2.toLowerCase()) && extra2.toLowerCase() != skill.type && extra2.toLowerCase() != 'passive' && extra2.toLowerCase() != 'status' && extra2.toLowerCase() != 'heal') {
+			skill.type = [skill.type, extra2.toLowerCase()];
+		} else
+			return false;
+	} else if (extra1 === 'sustain' || extra1 === 'sustaindmg' || extra1 === 'susdmg') {
+		skill.susDmg = true; // AMONGUS
+	} else if (extra1 === 'reverse' || extra1 === 'reversedmg' || extra1 === 'revdmg') {
+		skill.revDmg = true; // AMONGUS
+	} else if (extra1 === 'powhit') {
+		skill.powHits = [parseInt(extra2), extra3 ? parseInt(extra3) : null]
 	} else
 		return false;
 
@@ -1282,7 +1294,7 @@ function applyExtra(skill, extra1, extra2, extra3) {
 }
 
 function applyHealExtra(skill, extra1, extra2, extra3) {
-	if (extra1 === 'sacrifice' || extra1 === 'healmp' || extra1 === 'regenerate' || extra1 === 'statusheal' || extra1 === 'recarmdra' || extra1 === 'fullheal')
+	if (extra1 === 'sacrifice' || extra1 === 'healmp' || extra1 === 'regenerate' || extra1 === 'invigorate' || extra1 === 'statusheal' || extra1 === 'recarmdra' || extra1 === 'fullheal' || extra1 === 'wish')
 		skill[extra1] = true;
 	else
 		return false;
@@ -1341,7 +1353,7 @@ function writeSkill(msg, name, nameWithSpaces, need, bartype, power, accuracy, c
 
 	// Level Lock
 	if (skillFile[name].pow <= 60)
-		delete skillFile[name].levelLock;
+		skillFile[name].levelLock = 1;
 	else if (skillFile[name].pow <= 120)
 		skillFile[name].levelLock = 10;
 	else if (skillFile[name].pow < 350)
@@ -1362,6 +1374,9 @@ function writeSkill(msg, name, nameWithSpaces, need, bartype, power, accuracy, c
 		skillFile[name].levelLock = 90;
 	else
 		skillFile[name].levelLock = 95;
+	
+	if (skillFile[name].hits && skillFile[name].hits > 0)
+		skillFile[name].levelLock = Math.min(99, skillFile[name].levelLock*skillFile[name].hits);
 	
 	// Extra Effects
 	if (extra1 && extra1 != 'none') {
@@ -1437,12 +1452,12 @@ function writeStatus(msg, name, name2, need, bartype, statustype, extra1, extra2
 		skillFile[name].statuschance = parseInt(extra2)
 		skillFile[name].levelLock = 10
 	} else if (statusType === 'multistatus') {
-		skill.status = []
-		if (utilityFuncs.validStatus(extra1)) skill.status.push(extra1);
-		if (utilityFuncs.validStatus(extra2)) skill.status.push(extra2);
-		if (utilityFuncs.validStatus(extra3)) skill.status.push(extra3);
+		skillFile[name].status = []
+		if (utilityFuncs.validStatus(extra1)) skillFile[name].status.push(extra1);
+		if (utilityFuncs.validStatus(extra2)) skillFile[name].status.push(extra2);
+		if (utilityFuncs.validStatus(extra3)) skillFile[name].status.push(extra3);
 		
-		if (skill.status.length <= 0)
+		if (skillFile[name].status.length <= 0)
 			return msg.channel.send('All 3 status effects were invalid.');
 		
 		skillFile[name].levelLock = 25
@@ -1484,14 +1499,11 @@ function writeStatus(msg, name, name2, need, bartype, statustype, extra1, extra2
 		skillFile[name].levelLock = 40
 	} else if (statusType === 'trap') {
 		skillFile[name].trap = true
-		skillFile[name].trapType = {
-			name: name,
-			effect: [extra1.toLowerCase(), extra2.toLowerCase()]
-		}
+		skillFile[name].effect = [extra1.toLowerCase(), extra2.toLowerCase()]
 		skillFile[name].levelLock = 30;
 
 		if (extra1.toLowerCase() == "damage") {
-			skillFile[name].trapType.effect[2] = parseInt(extra2);
+			skillFile[name].effect[2] = parseInt(extra2);
 			skillFile[name].levelLock = 40
 		}
 	} else if (statusType === 'weather')
@@ -1499,8 +1511,11 @@ function writeStatus(msg, name, name2, need, bartype, statustype, extra1, extra2
 	else if (statusType === 'terrain')
 		skillFile[name].terrain = extra1.toLowerCase();
 	else if (statusType === 'reincarnate') {
-		skillFile[name].reincarnate = true
-		skillFile[name].levelLock = 50
+		skillFile[name].reincarnate = true;
+		skillFile[name].levelLock = 50;
+	} else if (statusType === 'chaosstir' || statusType === 'chaos') {
+		skillFile[name].chaosStir = true;
+		skillFile[name].levelLock = 45;
 	} else if (statusType === 'futuresight' || statusType === 'delayed' || statusType === 'future') {
 		skillFile[name].futuresight = {
 			pow: parseInt(extra1),
@@ -1508,8 +1523,9 @@ function writeStatus(msg, name, name2, need, bartype, statustype, extra1, extra2
 			type: extra2.toLowerCase(),
 			atktype: "magic",
 			turns: parseInt(extra3)
-		}
-		skillFile[name].levelLock = 50
+		};
+
+		skillFile[name].levelLock = 50;
 	} else
 		return msg.channel.send('You inputted an invalid status type.');
 
@@ -1534,10 +1550,9 @@ function writePassive(msg, name, name2, passivetype, extra1, extra2, desc) {
 		originalAuthor: msg.author.id
     };
 
-	if (!desc || desc === "none" || desc === "null") {
-		delete skillFile[name].desc
-	}
-	
+	if (!desc || desc === "none" || desc === "null")
+		delete skillFile[name].desc;
+
 	let passiveType = passivetype.toLowerCase()
 	if (passiveType === 'damagephys' || passiveType === 'damagemag' || passiveType === 'dodgephys' || passiveType === 'dodgemag' ||
 		passiveType === 'healonturn' || passiveType === 'healmponturn' || passiveType === 'regen' || passiveType === 'invig') {
@@ -1576,29 +1591,35 @@ function writePassive(msg, name, name2, passivetype, extra1, extra2, desc) {
 		skillFile[name].affinitycutter = true
 
 		// Balancing
-		if (skillFile[name].pow > 50)
-			skillFile[name].pow = 50;
+		if (skillFile[name].pow > 50) skillFile[name].pow = 50;
 	} else if (passiveType === 'affinityslicer') {
 		skillFile[name].pow = parseInt(extra1)
 		skillFile[name].affinityslicer = true
 
 		// Balancing
-		if (skillFile[name].pow > 50)
-			skillFile[name].pow = 50;
+		if (skillFile[name].pow > 50) skillFile[name].pow = 50;
 	} else if (passiveType === 'alterpain') {
 		skillFile[name].pow = parseInt(extra1);
 		skillFile[name].alterpain = true;
 
 		// Balancing
-		if (skillFile[name].pow > 20)
-			skillFile[name].pow = 20;
+		if (skillFile[name].pow > 20) skillFile[name].pow = 20;
 	} else if (passiveType === 'guardboost' || passiveType === 'sacrificial') {
 		skillFile[name].pow = parseInt(extra1);
 		skillFile[name][passiveType] = true;
 
 		// Balancing
-		if (skillFile[name].pow > 60)
-			skillFile[name].pow = 60;
+		if (skillFile[name].pow > 60) skillFile[name].pow = 60;
+	} else if (passiveType === 'berserk' || passiveType === 'enraged') {
+		skillFile[name].pow = parseInt(extra1);
+		skillFile[name].acc = parseInt(extra2);
+		skillFile[name][passiveType] = true;
+
+		// Balancing and making useful
+		if (skillFile[name].pow > 150) skillFile[name].pow = 150;
+		if (skillFile[name].pow < 1) skillFile[name].pow = 1;
+		if (skillFile[name].acc > 30) skillFile[name].pow = 30;
+		if (skillFile[name].acc < 20) skillFile[name].pow = 20;
 	} else if (passiveType === 'attackall' || passiveType === 'magicmelee' || passiveType === 'sacrifice' || passiveType === 'guarddodge')
 		skillFile[name][passiveType] = true;
 	else
@@ -2386,9 +2407,9 @@ function doStatusEffect(fighterDef, btl, server) {
 				.setTitle(`${embedText.targetText}`)
 				.setDescription(`${embedText.attackText}!\n${embedText.resultText}`)
 
-			fighterDef.statusturns--;
-            if (fighterDef.statusturns == 0 || fighterDef.hp <= 0 || fighterDef.boss || fighterDef.miniboss)
-                fighterDef.status = "none";
+			// BRAINWASH NERFS - Only last one turn
+            fighterDef.status = "none";
+			fighterDef.statusturns = 0;
 
             client.channels.fetch(btl[server].battlechannel)
                 .then(channel => channel.send({embeds: [DiscordEmbed]}))
@@ -2490,7 +2511,7 @@ function genCharFromPet(charDefs) {
 }
 
 function petMove(message, client, btl, partyName, petDefs, allySide, oppSide) {
-    let servPath = dataPath+'/Server Settings/server.json'
+    let servPath = `${dataPath}/Server Settings/server.json`
     let servRead = fs.readFileSync(servPath, {flag: 'as+'});
     let servFile = JSON.parse(servRead);
 
@@ -3469,10 +3490,17 @@ function sendTurnBrief(btl, channel) {
 	let skills = ""
 	for (const i in charDefs.skills) {
 		const skillDefs = readSkill(charDefs.skills[i]);
-		
-		if (!skillDefs.passive && skillDefs.type != "passive") {
-			skills += `${elementEmoji[skillDefs.type.toLowerCase()]}${charDefs.skills[i]}\n`
+
+		let type = ''
+		if (typeof skillDefs.type === 'string')
+			type = `${elementEmoji[skillDefs.type]}`
+		else if (typeof skillDefs.type === 'object') {
+			for (const i in skillDefs.type)
+				type += `${elementEmoji[skillDefs.type[i]]}`;
 		}
+		
+		if (!skillDefs.passive && skillDefs.type != "passive")
+			skills += `${type}${charDefs.skills[i]}\n`;
 	}
 	
 	skills += "\n\n**Items**\n"
@@ -3499,7 +3527,7 @@ function sendTurnBrief(btl, channel) {
 		skills += "No Items.";
 
     let hpBrief = `__${charDefs.hp}/${charDefs.maxhp}HP__\n__${charDefs.mp}/${charDefs.maxmp}${charDefs.mpMeter[1]}__`
-	let otherBrief = `rpg!usemelee ${charNum} <Target Number>`
+	let otherBrief = `rpg!usemelee ${charNum} <Target Number>\nrpg!usemove ${charNum} <Target Number> <Skill Name>`
 	
 	if (!btl[channel.guild.id].testing) {
 		otherBrief += `\nrpg!useitem ${charNum} <Item Name> <Target Number>\nrpg!guard ${charNum}`
@@ -3683,7 +3711,7 @@ function advanceTurn(btl, server, ignorePet) {
         } else {
 			if (enemy.mimic = true)
 				charFuncs.resetMimic(enemy);
-			
+
 			if (charFuncs.equippedCharm(enemy, "PureVision"))
 				enemy.buffs.prc = 0;
 
@@ -3698,14 +3726,7 @@ function advanceTurn(btl, server, ignorePet) {
 			enemy.statusturns = 0;
 			enemy.lb = 0;
 			
-			if (enemy.healVerse)
-				delete enemy.healVerse
-
-			if (enemy.clone || enemy.undead) {
-				delete btl[server].enemies.members[enm];
-				return;
-			}
-			
+			// Testing Mode
 			if (btl[server].testing) {
 				client.channels.fetch(btl[server].battlechannel)
 					.then(channel => channel.send('Your testing is over.'))
@@ -3730,6 +3751,10 @@ function advanceTurn(btl, server, ignorePet) {
 				fs.writeFile(dataPath+'/Battles/battle-' + server + '.json', JSON.stringify(btl, null, '    '), function(err) { if (err) throw err });	
 				return
 			}
+
+			// Reincarnate and Clone
+			if (enemy.healVerse) delete enemy.healVerse;
+			if (enemy.clone || enemy.undead) delete btl[server].enemies.members[enm];
 		}
     }
 
@@ -3758,13 +3783,9 @@ function advanceTurn(btl, server, ignorePet) {
 			p.statusturns = 0;
 			p.lb = 0;
 
-			if (p.healVerse)
-				delete p.healVerse
-
-			if (p.clone || p.undead) {
-				delete btl[server].allies.members[player];
-				return;
-			}
+			// Reincarnate and Clone
+			if (p.healVerse) delete p.healVerse;
+			if (p.clone || p.undead) delete btl[server].allies.members[player];
 		}
     }
 
@@ -4040,14 +4061,25 @@ function advanceTurn(btl, server, ignorePet) {
 		*/
 
 		if (fighterDefs.regenHeal) {
-			fighterDefs.hp = Math.min(fighterDefs.maxhp, fighterDefs.regenHeal[0]);
-
+			let healHP = fighterDefs.regenHeal[0]
+			fighterDefs.hp = Math.min(fighterDefs.maxhp, fighterDefs.hp + healHP);
 			client.channels.fetch(btl[server].battlechannel)
-				.then(channel => channel.send(`${fighterDefs.name}'s regenerating aura restores their health by ${fighterDefs.regenHeal[0]}.`))
+				.then(channel => channel.send(`${fighterDefs.name}'s regenerating aura restores their health by ${healHP}.`))
 
 			fighterDefs.regenHeal[1] -= 1
-			if (fighterDefs.healVerse.turns <= 0)
+			if (fighterDefs.regenHeal[1] <= 0)
 				delete fighterDefs.regenHeal;
+		}
+
+		if (fighterDefs.invigHeal) {
+			let healMP = fighterDefs.invigHeal[0]
+			fighterDefs.mp = Math.min(fighterDefs.maxmp, fighterDefs.mp + healMP);
+			client.channels.fetch(btl[server].battlechannel)
+				.then(channel => channel.send(`${fighterDefs.name}'s regenerating aura restores their MP by ${healMP}.`))
+
+			fighterDefs.invigHeal[1] -= 1
+			if (fighterDefs.invigHeal[1] <= 0)
+				delete fighterDefs.invigHeal;
 		}
 
 		if (btl[server].changeweather) {
@@ -5978,6 +6010,14 @@ function enemyMove(enmID, btl, channel) {
 				.setTitle(`${enmName} => ${allySide[oppNum].name}`)
 				.setDescription(`${enmName} used ${skillName}!\n${allySide[oppNum].name} is protected from physical attacks with ${skillName}!`)
 			channel.send({embeds: [DiscordEmbed]})
+		} else if (skillDefs.chaosStir) {
+			userDefs.chaosStir = skillName;
+
+			const DiscordEmbed = new Discord.MessageEmbed()
+				.setColor('#e36b2b')
+				.setTitle(`${enmName} => ???`)
+				.setDescription(`${enmName} assumes a dangerous stance...`)
+			channel.send({embeds: [DiscordEmbed]})
 		} else if (skillDefs.trap) {
 			allySide[oppNum].trapType = {
 				name: skillName,
@@ -7458,7 +7498,7 @@ client.on('messageCreate', async message => {
 		"Drive",
 		"McDonalds",
 		"KFC",
-		"Hamburger",
+		"406",
 		"Cheeseburger",
 		"BigMac",
 		"Whopper"
@@ -7878,13 +7918,19 @@ client.on('messageCreate', async message => {
 			if (!charFile[i].hidden)
 				possibleChars.push(charFile[i].name);
 		}
-
-		let shipCount = arg[1] ? parseInt(arg[1]) : 2
 		
-		arg = []
-		for (i = 0; i <= Math.min(2, shipCount); i++) {
-			if (i <= 0) continue;
-			arg.push(possibleChars[utilityFuncs.randBetweenNums(0, possibleChars.length-1)]);
+		if (arg[1]) {
+			let theChar = arg[1]
+
+			arg = [];
+			arg[1] = theChar;
+			arg[2] = possibleChars[utilityFuncs.randBetweenNums(0, possibleChars.length-1)];
+		} else {
+			arg = []
+			for (i = 0; i <= 2; i++) {
+				if (i <= 0) continue;
+				arg.push(possibleChars[utilityFuncs.randBetweenNums(0, possibleChars.length-1)]);
+			}
 		}
 
 		let shipCandidates = []
@@ -12779,9 +12825,17 @@ client.on('messageCreate', async message => {
 
 				let finalText = skillFuncs.skillDesc(skillDefs, arg[1], message.guild.id)
 
+				let type = ''
+				if (typeof skillDefs.type === 'string')
+					type = `${elementEmoji[skillDefs.type]}`
+				else if (typeof skillDefs.type === 'object') {
+					for (const i in skillDefs.type)
+						type += `${elementEmoji[skillDefs.type[i]]}`;
+				}
+
 				const DiscordEmbed = new Discord.MessageEmbed()
 					.setColor('#4b02c9')
-					.setTitle(`${elementEmoji[skillDefs.type]} ${skillName}`)
+					.setTitle(`${type} ${skillName}`)
 					.setDescription(`${finalText}`)
 				message.channel.send({content: `${skillName} is good to go!`, embeds: [DiscordEmbed]});
 			} else {
@@ -13023,10 +13077,8 @@ client.on('messageCreate', async message => {
 			const skillDefs = readSkill(skillName)
 			message.channel.send(`${skillName} is good to go!`);
 
-			let finalText = ``;				
-			if (skillDefs.desc) {				
-				finalText += `\n*${skillDefs.desc}*`;
-			}
+			let finalText = ``;		
+			if (skillDefs.desc) finalText += `\n*${skillDefs.desc}*`;
 
 			const DiscordEmbed = new Discord.MessageEmbed()
 				.setColor('#4b02c9')
@@ -13429,39 +13481,65 @@ client.on('messageCreate', async message => {
 		message.channel.send({embeds: [DiscordEmbed]})
 	}
 
-    if (command === 'listatkeffects') {
-		const DiscordEmbed = new Discord.MessageEmbed()
-			.setColor('#0099ff')
-			.setTitle('List of attacking extras:')
-			.setDescription('Extra effects to buff your attacking skills')
-			.addFields()
+    if (command === 'listatkeffects' || command === 'listatkextras') {
+        const arg = message.content.slice(prefix.length).trim().split(/ +/);
+		
+		if (!arg[1] || !isFinite(arg[1])) {
+			const DiscordEmbed = new Discord.MessageEmbed()
+				.setColor('#ff004c')
+				.setTitle('List of attacking extras:')
+				.setDescription('Please enter a page number from 1-2.')
 
-		let atkDesc = {
-			ohko: '<Skill Accuracy>% Chance to instantly down the target.',
-			rest: 'Force the target to skip their next turn after using this skill.',
-			stealmp: 'Turns the attack into a skill that steals <Power> MP from the target.',
-			sacrifice: 'Downs the user after casting this skill.',
-			buff: '(Args <Stat> <Buff Chance>)\nBuffs <Stat> for the caster. Not all stats can be buffed & debuffed, only **ATK**, **MAG**, **END**, **AGL** & **PRC** can be buffed.',
-			debuffuser: '(Args <Stat> <Debuff Chance>)\nDebuffs <Stat> for the caster. Not all stats can be buffed & debuffed, only **ATK**, **MAG**, **END**, **AGL** & **PRC** can be debuffed.',
-			debuff: '(Args <Stat> <Debuff Chance>)\nDebuffs <Stat> for the target if it hits. Not all stats can be buffed & debuffed, only **ATK**, **MAG**, **END**, **AGL** & **PRC** can be debuffed.',
-			dualbuff: '(Args <Stat 1> <Stat 2>)\nBuffs <Stat 1> AND <Stat 2> for the caster once. Not all stats can be buffed & debuffed, only **ATK**, **MAG**, **END**, **AGL** & **PRC** can be debuffed.',
-			dualdebuff: '(Args <Stat 1> <Stat 2>)\nDebuffs <Stat 1> AND <Stat 2> for the target once. Not all stats can be buffed & debuffed, only **ATK**, **MAG**, **END**, **AGL** & **PRC** can be debuffed.',
-			takemp: '(Args <MP>)\nSteals <MP> MP from the target.',
-			healverse: '(Args <Percent>)\nLays a healing aura on the target. When your allies attack that foe, they will heal themselves for <Percent>% of damage dealt.',
-			powerverse: '(Args <Percent>)\nLays an orange aura on the target. When your allies attack that foe, LB% gained will be boosted by <Percent>. This skill has no effect when Limit Breaks are toggled off.',
-			healmp: '(Heal Skills Only)\nHeals MP instead of HP.',
-			steal: "(Args <Chance>)\n<Chance>% chance to steal an item from the foe's item table. Has no effect on player characters or enemies that can't drop anything.",
-			multistatus: '(Args <Status 2> <Status 3>)\nIn addition to the original status effect, this skill will have a chance of inflicting one or two more status effects.',
-			statcalc: '(Args <Stat>)\nUse <Stat> to calculate damage instead of ATK or MAG.',
-			hpcalc: 'Current HP can boost or decrease damage by up to 50%.',
-			mpcalc: 'Current MP can boost or decrease damage by up to 50%.',
-			feint: 'Bypass shielding skills like Makarakarn and Tetrakarn.',
-			rollout: "(Args <Power Boost per Use>%)\nBoost the skill's power by <Power Boost per Use>% every consecutive use. The caster is locked into using the skill repetedly until they miss, power reaches 2x it's original amount, or the skill is used 4 times in a row.",
-			forcetech: '(Args <Status 1> <Optional: Status 2>)\nForces a skill to tech off of different status effects instead of the preset ones.'
+			message.channel.send({embeds: [DiscordEmbed]})
+			return false;
 		}
 
-		for (const i in atkDesc)
-			DiscordEmbed.fields.push({name: i.toUpperCase(), value: atkDesc[i], inline: true})
+		const DiscordEmbed = new Discord.MessageEmbed()
+			.setColor('#ff004c')
+			.setTitle('List of attacking extras:')
+			.setDescription('Extra effects to buff your attacking skills!')
+			.addFields()
+
+		let atkDesc = [
+			{
+				ohko: '<Skill Accuracy>% Chance to instantly down the target.',
+				rest: 'Force the target to skip their next turn after using this skill.',
+				stealmp: 'Turns the attack into a skill that steals <Power> MP from the target.',
+				sacrifice: 'Downs the user after casting this skill.',
+				buff: '(Args <Stat> <Buff Chance>)\nBuffs <Stat> for the caster. Not all stats can be buffed & debuffed, only **ATK**, **MAG**, **END**, **AGL** & **PRC** can be buffed.',
+				debuffuser: '(Args <Stat> <Debuff Chance>)\nDebuffs <Stat> for the caster. Not all stats can be buffed & debuffed, only **ATK**, **MAG**, **END**, **AGL** & **PRC** can be debuffed.',
+				debuff: '(Args <Stat> <Debuff Chance>)\nDebuffs <Stat> for the target if it hits. Not all stats can be buffed & debuffed, only **ATK**, **MAG**, **END**, **AGL** & **PRC** can be debuffed.',
+				dualbuff: '(Args <Stat 1> <Stat 2>)\nBuffs <Stat 1> AND <Stat 2> for the caster once. Not all stats can be buffed & debuffed, only **ATK**, **MAG**, **END**, **AGL** & **PRC** can be debuffed.',
+				dualdebuff: '(Args <Stat 1> <Stat 2>)\nDebuffs <Stat 1> AND <Stat 2> for the target once. Not all stats can be buffed & debuffed, only **ATK**, **MAG**, **END**, **AGL** & **PRC** can be debuffed.',
+				takemp: '(Args <MP>)\nSteals <MP> MP from the target.',
+				healverse: '(Args <Percent>)\nLays a healing aura on the target. When your allies attack that foe, they will heal themselves for <Percent>% of damage dealt.',
+				powerverse: '(Args <Percent>)\nLays an orange aura on the target. When your allies attack that foe, LB% gained will be boosted by <Percent>. This skill has no effect when Limit Breaks are toggled off.',
+				healmp: '(Heal Skills Only)\nHeals MP instead of HP.',
+				steal: "(Args <Chance>)\n<Chance>% chance to steal an item from the foe's item table. Has no effect on player characters or enemies that can't drop anything.",
+				multistatus: '(Args <Status 2> <Status 3>)\nIn addition to the original status effect, this skill will have a chance of inflicting one or two more status effects.',
+				statcalc: '(Args <Stat>)\nUse <Stat> to calculate damage instead of ATK or MAG.',
+				hpcalc: 'Current HP can boost or decrease damage by up to 50%.',
+				mpcalc: 'Current MP can boost or decrease damage by up to 50%.',
+				feint: 'Bypass shielding skills like Makarakarn and Tetrakarn.',
+				rollout: "(Args <Power Boost per Use>%)\nBoost the skill's power by <Power Boost per Use>% every consecutive use. The caster is locked into using the skill repetedly until they miss, power reaches 2x it's original amount, or the skill is used 4 times in a row.",
+				forcetech: '(Args <Status 1> <Optional: Status 2>)\nForces a skill to tech off of different status effects instead of the preset ones.',
+				dualelement: '(Args <Element 2>)\nThe Skill may use a 2nd element in addition to the first.',
+				lonewolf: 'Skill power boosted by 1.5x when alone, or all allies are down.',
+				heavenwrath: 'Skill power boosted by 1.5x when all allies are not down. Does not activate when alone.'
+			},
+			{
+				sustain: 'Multi-Hits do not have power altered as hits go on.',
+				reverse: 'Multi-Hits gradually increase in power instead of decreasing.',
+				powhit: '(Args <Hit 1> <Hit 2>)\nOne or two specific hits can be boosted in power.'
+			}
+		]
+
+		if (!atkDesc[parseInt(arg[1])-1]) {
+			DiscordEmbed.fields.push({name: "Invalid Page!", value: "Please try again, with numbers from 1-2.", inline: true})
+		} else {
+			for (const i in atkDesc[parseInt(arg[1])-1])
+				DiscordEmbed.fields.push({name: i.toUpperCase(), value: atkDesc[parseInt(arg[1])-1][i], inline: true})
+		}
 
 		message.channel.send({embeds: [DiscordEmbed]})
 	}
@@ -13474,22 +13552,23 @@ client.on('messageCreate', async message => {
 			.addFields()
 
 		let statusDesc = {
-			status: '(Args <Status> <Chance>) <Chance>% chance to inflict <Status> on your target.',
-			buff: '(Args <Stat> <Target> <Amount of Buffs>) Buffs <Stat> for <Target> <Amount of Buffs> times. Not all stats can be buffed & debuffed, only **ATK**, **MAG**, **END**, **AGL** & **PRC** can be buffed. Enter **ALL** to buff all stats.',
-			debuff: '(Args <Stat> <Target>) Debuffs <Stat> for <Target> once. Not all stats can be buffed & debuffed, only **ATK**, **MAG**, **END**, **AGL** & **PRC** can be debuffed. Enter **ALL** to debuff all stats.',
+			status: '(Args <Status> <Chance>)\n<Chance>% chance to inflict <Status> on your target.',
+			buff: '(Args <Stat> <Target> <Amount of Buffs>)\nBuffs <Stat> for <Target> <Amount of Buffs> times. Not all stats can be buffed & debuffed, only **ATK**, **MAG**, **END**, **AGL** & **PRC** can be buffed. Enter **ALL** to buff all stats.',
+			debuff: '(Args <Stat> <Target>)\nDebuffs <Stat> for <Target> once. Not all stats can be buffed & debuffed, only **ATK**, **MAG**, **END**, **AGL** & **PRC** can be debuffed. Enter **ALL** to debuff all stats.',
 			mimic: 'The fighter morphs into a foe or ally of their choice.',
 			clone: 'The fighter clones themselves. The clone will have weaker stats.',
-			shield: '(Args <Name of Shield> <Target>) The user protects <Target> with a shield called <Name of Shield>.',
-			makarakarn: '(Args <Target>) The user protects <Target> with a shield that repels magic attacks.',
-			tetrakarn: '(Args <Target>) The user protects <Target> with a shield that repels physical attacks.',
-			trap: "(Args <Trap Type> <Extra Argument>) The user protects themselves with a trap that is set off once a physical attack strikes them. <Extra Arguement> differs based on <Trap Type>```diff\n+ Debuff: Debuffable Status.\n+ Status: Valid Status Effect\n+ Damage: Fixed Damage.```",
-			weather: "(Args <Weather>) The weather is changed, which might affect battles.```diff\n- Rain: Water Damage x1.2. Fire Damage x0.8.\n- Thunder: Paralysis Chance x1.25.\n- Sunlight: Fire Damage x1.2. Water Damage x0.8.\n- Windy: Wind Damage x1.1, Dizziness Chance x1.1.\n- Sandstorm or Hail: Everyone takes 1/10th of max HP.```",
-			terrain: "(Args <Terrain>) The terrain is changed, which might affect battles.```diff\n- Flaming: 10 damage each turn, with a chance to inflict burning.\n- Thunder: Electric Damage x1.2\n- Icy: Ice Damage x1.2\n- Light: Bless Damage x1.2\n- Psychic: Turn Order reversed.\n- Misty: Removes the possibility to become afflicted by a status effect.\n- Sky: Wind Damage x1.2```",
+			shield: '(Args <Name of Shield> <Target>)\nThe user protects <Target> with a shield called <Name of Shield>.',
+			makarakarn: '(Args <Target>)\nThe user protects <Target> with a shield that repels magic attacks.',
+			tetrakarn: '(Args <Target>)\nThe user protects <Target> with a shield that repels physical attacks.',
+			trap: "(Args <Trap Type> <Extra Argument>)\nThe user protects themselves with a trap that is set off once a physical attack strikes them. <Extra Arguement> differs based on <Trap Type>```diff\n+ Debuff: Debuffable Status.\n+ Status: Valid Status Effect\n+ Damage: Fixed Damage.```",
+			weather: "(Args <Weather>)\nThe weather is changed, which might affect battles.```diff\n- Rain: Water Damage x1.2. Fire Damage x0.8.\n- Thunder: Paralysis Chance x1.25.\n- Sunlight: Fire Damage x1.2. Water Damage x0.8.\n- Windy: Wind Damage x1.1, Dizziness Chance x1.1.\n- Sandstorm or Hail: Everyone takes 1/10th of max HP.```",
+			terrain: "(Args <Terrain>)\nThe terrain is changed, which might affect battles.```diff\n- Flaming: 10 damage each turn, with a chance to inflict burning.\n- Thunder: Electric Damage x1.2\n- Icy: Ice Damage x1.2\n- Light: Bless Damage x1.2\n- Psychic: Turn Order reversed.\n- Misty: Removes the possibility to become afflicted by a status effect.\n- Sky: Wind Damage x1.2```",
 			reincarnate: 'The fighter summons an undead animal. They will have weak stats and skills.',
-			futuresight: '(Args <Power> <Type> <Turns>) This skill becomes an attacking skill that strikes the foe in <Turns> turns.',
-			multistatus: '(Args <Status Effect> <Status Effect> <Status Effect>) This skill can inflict more than one status effect.',
-			dualbuff: '(Args <Stat 1> <Stat 2> <Target>) Buffs <Stat 1> AND <Stat 2> for <Target> once. Not all stats can be buffed & debuffed, only **ATK**, **MAG**, **END**, **AGL** & **PRC** can be debuffed.',
-			dualdebuff: '(Args <Stat 1> <Stat 2> <Target>) Debuffs <Stat 1> AND <Stat 2> for <Target> once. Not all stats can be buffed & debuffed, only **ATK**, **MAG**, **END**, **AGL** & **PRC** can be debuffed.'
+			futuresight: '(Args <Power> <Type> <Turns>)\nThis skill becomes an attacking skill that strikes the foe in <Turns> turns.',
+			multistatus: '(Args <Status Effect> <Status Effect> <Status Effect>)\nThis skill can inflict more than one status effect.',
+			dualbuff: '(Args <Stat 1> <Stat 2> <Target>)\nBuffs <Stat 1> AND <Stat 2> for <Target> once. Not all stats can be buffed & debuffed, only **ATK**, **MAG**, **END**, **AGL** & **PRC** can be debuffed.',
+			dualdebuff: '(Args <Stat 1> <Stat 2> <Target>)\nDebuffs <Stat 1> AND <Stat 2> for <Target> once. Not all stats can be buffed & debuffed, only **ATK**, **MAG**, **END**, **AGL** & **PRC** can be debuffed.',
+			chaosstir: "Upon getting hit by a skill, the fighter will attack back with a skill of double it's power."
 		}
 
 		for (const i in statusDesc)
@@ -13500,36 +13579,63 @@ client.on('messageCreate', async message => {
 
     if (command === 'listpassivetypes') {
 		const DiscordEmbed = new Discord.MessageEmbed()
-			.setColor('#0099ff')
+			.setColor('#ffcb1f')
 			.setTitle('List of passive types:')
 			.setDescription('Types of Passive Skills that fighters can learn.')
 			.addFields()
 
 		let passiveDesc = {
-			damagephys: '(Args <Damage>) Damages fighters using physical attacks against the user by <Damage>.',
-			damagemag: '(Args <Damage>) Damages fighters using magical attacks against the user by <Damage>.',
-			dodgephys: '(Args <Chance>) Increased chance of dodging a physical attack.',
-			dodgemag: '(Args <Chance>) Increased chance of dodging a magical attack.',
-			healonturn: '(Args <HP>) Heals <HP> amount of HP per turn.',
-			healmponturn: '(Args <MP>) Heals <MP> amount of MP per turn.',
-			regen: '(Args <Percent>) Heals <Percent>% of max HP per turn.',
-			invig: '(Args <Percent>) Heals <Percent>% of max MP per turn.',
-			status: '(Args <Status Effect> <Chance>) Has a <Chance>% chance of inflicting <Status Effect> on a fighter if they use a physical attack.',
-			boost: '(Args <Element> <Percent>) Boosts attack that are <Element> type by <Percent>%.',
-			extrahit: '(Args <Hits> <Chance>) Has a <Chance>% chance to make a move that is single-hit hit <Hits> extra times.',
-			counterphys: '(Args <Chance> <Power>) Has a <Chance>% chance to counter a physical skill with another of <Power> power.',
-			countermag: '(Args <Chance> <Power>) Has a <Chance>% chance to counter a magic skill with another of <Power> power.',
-			swordbreaker: '(Args <Chance>) <Chance>% chance to physical attacks that hit the user to a resist.',
-			affinitycutter: '(Args <Chance>) <Chance>% chance to bypass resist affinities.',
-			affinityslicer: "(Args <Chance>) <Chance>% chance to bypass all affinities, turning them into a resist or better.```diff\n+ Drain, Repel, Block ---> Resist\n+ Resist ---> Normal```",
-			magicmelee: 'Use MAG stat for melee attacks',
-			guardboost: '(Args <Percent>) Take this value away from the default 0.6x mult to reduce damage further.',
+			damagephys: '(Args <Damage>)\nDamages fighters using physical attacks against the user by <Damage>.',
+			damagemag: '(Args <Damage>)\nDamages fighters using magical attacks against the user by <Damage>.',
+			dodgephys: '(Args <Chance>)\nIncreased chance of dodging a physical attack.',
+			dodgemag: '(Args <Chance>)\nIncreased chance of dodging a magical attack.',
+			healonturn: '(Args <HP>)\nHeals <HP> amount of HP per turn.',
+			healmponturn: '(Args <MP>)\nHeals <MP> amount of MP per turn.',
+			regen: '(Args <Percent>)\nHeals <Percent>% of max HP per turn.',
+			invig: '(Args <Percent>)\nHeals <Percent>% of max MP per turn.',
+			status: '(Args <Status Effect> <Chance>)\nHas a <Chance>% chance of inflicting <Status Effect> on a fighter if they use a physical attack.',
+			boost: '(Args <Element> <Percent>)\nBoosts attack that are <Element> type by <Percent>%.',
+			extrahit: '(Args <Hits> <Chance>)\nHas a <Chance>% chance to make a move that is single-hit hit <Hits> extra times.',
+			counterphys: '(Args <Chance> <Power>)\nHas a <Chance>% chance to counter a physical skill with another of <Power> power.',
+			countermag: '(Args <Chance> <Power>)\nHas a <Chance>% chance to counter a magic skill with another of <Power> power.',
+			swordbreaker: '(Args <Chance>)\n<Chance>% chance to physical attacks that hit the user to a resist.',
+			affinitycutter: '(Args <Chance>)\n<Chance>% chance to bypass resist affinities.',
+			affinityslicer: "(Args <Chance>)\n<Chance>% chance to bypass all affinities, turning them into a resist or better.```diff\n+ Drain, Repel, Block ---> Resist\n+ Resist ---> Normal```",
+			magicmelee: 'Use MAG stat for melee attacks. Also treat them like Magic attacks.',
+			guardboost: '(Args <Percent>)\nTake this value away from the default 0.6x mult to reduce damage further.',
 			guarddodge: 'Boost agility when dodging attacks while guarding.',
-			sacrificial: '(Args <Percent>) Boost the power of sacrifice skills by <Percent>%.'
+			sacrificial: '(Args <Percent>)\nBoost the power of sacrifice skills by <Percent>%.',
+			berserk: '(Args <Percent> <HP% Cap, between 20 and 30>)\nPower of Physical Attacks gradually gravitates toward <Power>*<Percent>/100. <HP% Cap> is the maximum.',
+			enraged: '(Args <Percent> <HP% Cap, between 20 and 30>)\nPower of Magic Attacks gradually gravitates toward <Power>*<Percent>/100. <HP% Cap> is the maximum.',
+			perfectkeeper: 'Power of Physical Attacks is boosted at higher HP, and decreased at lower HP.'
 		}
 
 		for (const i in passiveDesc)
 			DiscordEmbed.fields.push({name: i.toUpperCase(), value: passiveDesc[i], inline: true})
+
+		message.channel.send({embeds: [DiscordEmbed]})
+	}
+
+    if (command === 'listhealextras' || command === 'listhealeffects') {
+		const DiscordEmbed = new Discord.MessageEmbed()
+			.setColor('#30ff9f')
+			.setTitle('List of Healing Skills:')
+			.setDescription('Types of Healing Skills that healers can learn.')
+			.addFields()
+
+		let healDesc = {
+			sacrifice: 'Downs the caster after casting this skill.',
+			healmp: 'Heals MP instead.',
+			regenerate: 'Gradually heals HP over time instead of in one go for three turns. You should adjust power accordingly.',
+			invigorate: 'Gradually heals MP over time instead of in one go for three turns. You should adjust power accordingly.',
+			statusheal: 'Heals all Status Effects instead.',
+			recarmdra: 'Fully restores party HP and MP, but downs the caster.',
+			fullheal: 'Full HP restore regardless of the amount the target has.',
+			wish: '(Args <Turns>) The restore will come after <Turns> turns.'
+		}
+
+		for (const i in healDesc)
+			DiscordEmbed.fields.push({name: i.toUpperCase(), value: healDesc[i], inline: true})
 
 		message.channel.send({embeds: [DiscordEmbed]})
 	}
@@ -13635,9 +13741,17 @@ client.on('messageCreate', async message => {
 			} else
 				userTxt = 'Default/Official';
 
+			let type = ''
+			if (typeof skillDefs.type === 'string')
+				type = `${elementEmoji[skillDefs.type]}`
+			else if (typeof skillDefs.type === 'object') {
+				for (const i in skillDefs.type)
+					type += `${elementEmoji[skillDefs.type[i]]}`;
+			}
+
             const DiscordEmbed = new Discord.MessageEmbed()
                 .setColor('#4b02c9')
-				.setTitle(`${elementEmoji[skillDefs.type]} ${skillDefs.name ? skillDefs.name : skillName} *(${userTxt})*`)
+				.setTitle(`${type} ${skillDefs.name ? skillDefs.name : skillName} *(${userTxt})*`)
 				.setDescription(`${finalText}`)
             message.channel.send({content: `Here's the info for ${skillName}:`, embeds: [DiscordEmbed]});
         } else {
@@ -13673,11 +13787,19 @@ client.on('messageCreate', async message => {
 		} else
 			userTxt = 'Default/Official';
 
+			let type = ''
+			if (typeof skillDefs.type === 'string')
+				type = `${elementEmoji[skillDefs.type]}`
+			else if (typeof skillDefs.type === 'object') {
+				for (const i in skillDefs.type)
+					type += `${elementEmoji[skillDefs.type[i]]}`;
+			}
+
 		const DiscordEmbed = new Discord.MessageEmbed()
 			.setColor('#4b02c9')
-			.setTitle(`${elementEmoji[skillDefs.type]} ${skillDefs.name ? skillDefs.name : skillName} *(${userTxt})*`)
+			.setTitle(`${type} ${skillDefs.name ? skillDefs.name : skillName} *(${userTxt})*`)
 			.setDescription(`${finalText}`)
-		message.channel.send({content: `${message.author}, you rolled ${elementEmoji[skillDefs.type]}${skillDefs.name ? skillDefs.name : skillName}!`, embeds: [DiscordEmbed]});
+		message.channel.send({content: `${message.author}, you rolled ${type}${skillDefs.name ? skillDefs.name : skillName}!`, embeds: [DiscordEmbed]});
     }
 
     if (command === 'dailyskill') {
@@ -13732,9 +13854,17 @@ client.on('messageCreate', async message => {
 				else if (mm === '10' && dd === '31')
 					today = 'Halloween';
 
+				let type = ''
+				if (typeof skillDefs.type === 'string')
+					type = `${elementEmoji[skillDefs.type]}`
+				else if (typeof skillDefs.type === 'object') {
+					for (const i in skillDefs.type)
+						type += `${elementEmoji[skillDefs.type[i]]}`;
+				}
+
 				const DiscordEmbed = new Discord.MessageEmbed()
 					.setColor('#4b02c9')
-					.setTitle(`${elementEmoji[skillDefs.type]} ${skillDefs.name ? skillDefs.name : skillName} - __${today}__`)
+					.setTitle(`${type} ${skillDefs.name ? skillDefs.name : skillName} - __${today}__`)
 					.setDescription(`${finalText}`)
 				message.channel.send({content: notice, embeds: [DiscordEmbed]});			
 
@@ -15047,6 +15177,131 @@ client.on('messageCreate', async message => {
 		fs.writeFileSync(charPath, JSON.stringify(charFile, null, '    '));
     }
 	
+	if (command === 'updatechar') {
+		if (utilityFuncs.isBanned(message.author.id, message.guild.id) && !utilityFuncs.RPGBotAdmin(message.author.id))
+			return message.channel.send("I've been told you were banned from using the RPG sections of the bot, sorry!");
+            
+		if (!utilityFuncs.RPGBotAdmin(message.author.id))
+			return message.channel.send('No.');
+
+        let arg = message.content.slice(prefix.length).trim().split(/ +/);
+
+        if (arg[1] == null) {
+            const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+				.setTitle(`${prefix}${command}`)
+				.setDescription("(Args <Character Name>)\nUpdates and fixes a character's stats.")
+                .setFooter(`${prefix}${command}`);
+            message.channel.send({embeds: [DiscordEmbed]})
+            return false
+        }
+
+		setTimeout(function() {
+			let charPath = dataPath+'/characters.json'
+			let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+			let charFile = JSON.parse(charRead);
+
+			// Stat Updates
+			let newCharDefs = utilityFuncs.cloneObj(charFile[arg[1]])
+
+			newCharDefs.level = 1
+			newCharDefs.xp = 0
+			newCharDefs.maxxp = 100
+
+			newCharDefs.hp = newCharDefs.basehp
+			newCharDefs.mp = newCharDefs.basemp
+			newCharDefs.maxhp = newCharDefs.basehp
+			newCharDefs.maxmp = newCharDefs.basemp
+
+			newCharDefs.atk = newCharDefs.baseatk
+			newCharDefs.mag = newCharDefs.basemag
+			newCharDefs.prc = newCharDefs.baseprc
+			newCharDefs.end = newCharDefs.baseend
+			newCharDefs.chr = newCharDefs.basechr
+			newCharDefs.int = newCharDefs.baseint
+			newCharDefs.agl = newCharDefs.baseagl
+			newCharDefs.luk = newCharDefs.baseluk
+
+			for (let k = 1; k < charFile[arg[1]].level; k++) {
+				charFuncs.lvlUp(newCharDefs, false, message.guild.id)
+				newCharDefs.xp = 0
+			}
+
+			newCharDefs.xp = charFile[arg[1]].xp
+			charFile[arg[1]] = utilityFuncs.cloneObj(newCharDefs)
+			
+			// Trust
+			if (!charFile[arg[1]].trust)
+				charFile[arg[1]].trust = {};
+			
+			// Bio
+			if (!charFile[arg[1]].bio) {
+				charFile[arg[1]].bio = {
+					species: "",
+					gender: "other",
+					age: "",
+					info: "",
+					
+					height: "",
+					weight: "",
+					
+					backstory: "",
+					likes: "",
+					dislikes: "",
+					fears: "",
+					
+					voice: "",
+					theme: ""
+				}
+			}
+			
+			let bioDef = [
+				'species',
+				'gender',
+				'age',
+				'info',
+				'backstory',
+				'height',
+				'weight',
+				'likes',
+				'dislikes',
+				'fears',
+				'voice',
+				'theme'
+			]
+			
+			for (const val in bioDef) {
+				if (!charFile[arg[1]].bio[bioDef[val]]) {
+					charFile[arg[1]].bio[bioDef[val]] = ""
+				}
+			}
+
+			// Charms
+			if (!charFile[arg[1]].charms)
+				charFile[arg[1]].charms = []
+			if (!charFile[arg[1]].curCharms)
+				charFile[arg[1]].curCharms = []
+
+			// Main Element
+			if (!charFile[arg[1]].mainElement)
+				charFile[arg[1]].mainElement = 'strike'
+
+			// MP Meter
+			if (!charFile[arg[1]].mpMeter)
+				charFile[arg[1]].mpMeter = ['Magic Points', 'MP'];
+
+			// AutoLearn
+			let newAutoLearn = utilityFuncs.cloneObj(charFile[arg[1]].autoLearn);
+
+			charFile[arg[1]].autoLearn = {}
+			for (const k in newAutoLearn)
+				charFile[arg[1]].autoLearn[newAutoLearn[k]] = true;
+
+			fs.writeFileSync(charPath, JSON.stringify(charFile, null, '    '));
+			message.react('👍')
+		}, 1000);
+	}
+	
 	if (command === 'updatechars') {
 		if (utilityFuncs.isBanned(message.author.id, message.guild.id) && !utilityFuncs.RPGBotAdmin(message.author.id))
 			return message.channel.send("I've been told you were banned from using the RPG sections of the bot, sorry!");
@@ -15055,13 +15310,15 @@ client.on('messageCreate', async message => {
 			return message.channel.send('No.');
 		
 		message.channel.send("This will take a while, so be patient! I will react with 👍 once I'm done.")
+		
+		let curTime = Math.round(Date.now() / 1000);
 
 		setTimeout(function() {
 			let charPath = dataPath+'/characters.json'
 			let charRead = fs.readFileSync(charPath, {flag: 'as+'});
 			let charFile = JSON.parse(charRead);
 			
-			for (const i in charFile) {
+			for (let i in charFile) {
 				// Stat Updates
 				let newCharDefs = utilityFuncs.cloneObj(charFile[i])
 
@@ -15083,7 +15340,7 @@ client.on('messageCreate', async message => {
 				newCharDefs.agl = newCharDefs.baseagl
 				newCharDefs.luk = newCharDefs.baseluk
 
-				for (k = 1; k < charFile[i].level; k++) {
+				for (let k = 1; k < charFile[i].level; k++) {
 					charFuncs.lvlUp(newCharDefs, false, message.guild.id)
 					newCharDefs.xp = 0
 				}
@@ -15132,35 +15389,33 @@ client.on('messageCreate', async message => {
 				]
 				
 				for (const val in bioDef) {
-					if (!charFile[i].bio[bioDef[val]]) {
-						charFile[i].bio[bioDef[val]] = ""
-					}
+					if (!charFile[i].bio[bioDef[val]]) charFile[i].bio[bioDef[val]] = "";
 				}
 
 				// Charms
-				if (!charFile[i].charms)
-					charFile[i].charms = []
-				if (!charFile[i].curCharms)
-					charFile[i].curCharms = []
+				if (!charFile[i].charms) charFile[i].charms = [];
+				if (!charFile[i].curCharms) charFile[i].curCharms = [];
 
 				// Main Element
-				if (!charFile[i].mainElement)
-					charFile[i].mainElement = 'strike'
+				if (!charFile[i].mainElement) charFile[i].mainElement = 'strike';
 
 				// MP Meter
-				if (!charFile[i].mpMeter)
-					charFile[i].mpMeter = ['Magic Points', 'MP'];
-				
+				if (!charFile[i].mpMeter) charFile[i].mpMeter = ['Magic Points', 'MP'];
+
 				// AutoLearn
 				let newAutoLearn = utilityFuncs.cloneObj(charFile[i].autoLearn);
-				
+
 				charFile[i].autoLearn = {}
 				for (const k in newAutoLearn)
 					charFile[i].autoLearn[newAutoLearn[k]] = true;
 			}
-			
+
 			fs.writeFileSync(charPath, JSON.stringify(charFile, null, '    '));
+
+			let endTime = Math.round(Date.now() / 1000);
+
 			message.react('👍')
+			message.channel.send(`👍 Taken ${endTime-curTime} seconds.\nAll characters have been updated.`)
 		}, 1000);
 	}
 
@@ -15414,6 +15669,40 @@ client.on('messageCreate', async message => {
 			charDefs.hidden = !charDefs.hidden
 
 			message.channel.send(`👍 ${arg[1]}'s invisibility has been toggled to ${charDefs.hidden}.`);
+			fs.writeFileSync(charPath, JSON.stringify(charFile, null, '    '));
+        } else
+            return message.channel.send(`${arg[1]} isn't a valid character.`);
+    }
+
+    if (command === 'toggledeath') {
+		if (utilityFuncs.isBanned(message.author.id, message.guild.id) && !utilityFuncs.RPGBotAdmin(message.author.id))
+			return message.channel.send("I've been told you were banned from using the RPG sections of the bot, sorry!");
+
+        const arg = message.content.slice(prefix.length).trim().split(/ +/);
+        if (arg[1] == null) {
+            const DiscordEmbed = new Discord.MessageEmbed()
+                .setColor('#4b02c9')
+				.setTitle(`${prefix}hidechar`)
+				.setDescription("(Args <Name>)\nIf this server does permadeaths in terms of roleplay, declares this character as dead.")
+            return message.channel.send({embeds: [DiscordEmbed]})
+        }
+
+		let charPath = dataPath+'/characters.json'
+		let charRead = fs.readFileSync(charPath, {flag: 'as+'});
+		let charFile = JSON.parse(charRead);
+
+        if (charFile[arg[1]]) {
+			const charDefs = charFile[arg[1]]
+            if (!utilityFuncs.RPGBotAdmin(message.author.id)) {
+                if (charDefs.owner && message.author.id != charDefs.owner) {
+                    message.channel.send("You can't edit someone else's character!")
+                    return false
+                }
+            }
+
+			charDefs.permadead = !charDefs.permadead
+
+			message.channel.send(`👍 ${arg[1]}'s death has been toggled to ${charDefs.permadead}.`);
 			fs.writeFileSync(charPath, JSON.stringify(charFile, null, '    '));
         } else
             return message.channel.send(`${arg[1]} isn't a valid character.`);
@@ -17399,7 +17688,13 @@ client.on('messageCreate', async message => {
             let charSkills = ``;
             for (const i in charDefs.skills) {
 				if (skillFile[charDefs.skills[i]]) {
-					charSkills += `${elementEmoji[skillFile[charDefs.skills[i]].type]}${skillFile[charDefs.skills[i]].name ? skillFile[charDefs.skills[i]].name : charDefs.skills[i]}`;
+					if (typeof skillFile[charDefs.skills[i]].type === 'object')
+						charSkills += elementEmoji[skillFile[charDefs.skills[i]].type[0]];
+					else
+						charSkills += elementEmoji[skillFile[charDefs.skills[i]].type];
+					
+					charSkills += `${skillFile[charDefs.skills[i]].name ? skillFile[charDefs.skills[i]].name : charDefs.skills[i]}`;
+					
 					if (charDefs.autoLearn && charDefs.autoLearn[i])
 						charSkills += '<:tick:918501752398020628>';
 					charSkills += '\n'
@@ -17520,6 +17815,7 @@ client.on('messageCreate', async message => {
 				transTxt = 'None';
 
 			let isNPC = charDefs.npcchar ? true : false;
+			let isDead = charDefs.permadead ? true : false;
 			
 			const DiscordEmbed = new Discord.MessageEmbed()
 				.setColor('#12de6a')
@@ -17546,6 +17842,7 @@ client.on('messageCreate', async message => {
 			}
 
 			let title = `${elementEmoji[charDefs.mainElement] ? elementEmoji[charDefs.mainElement] : '🛑'} ${charName} `
+			if (isDead) title = `__[DEAD]__ ${elementEmoji[charDefs.mainElement] ? elementEmoji[charDefs.mainElement] : '🛑'} ${charName} `
 			
 			if (charDefs.nickname && charDefs.nickname != '')
 				title += `[${charDefs.nickname}] `
@@ -17910,7 +18207,11 @@ client.on('messageCreate', async message => {
             let enmSkills = ``;
             for (i = 0; i < enmDefs.skills.length; i++) {
 				const skillDefs = readSkill(enmDefs.skills[i])
-                enmSkills += `${elementEmoji[skillDefs.type]}${skillDefs.name}\n`
+				
+				if (typeof skillDefs.type === 'object')
+					enmSkills += `${elementEmoji[skillDefs.type[0]]}${skillDefs.name}\n`;
+				else
+					enmSkills += `${elementEmoji[skillDefs.type]}${skillDefs.name}\n`;
             }
 
             if (enmSkills === ``)
@@ -20157,6 +20458,108 @@ client.on('messageCreate', async message => {
 							.setTitle(`${charName} => Party`)
 							.setDescription(`${healQuote}${charName} used ${skillName}!\n${txt}`)
                             .setFooter(`${charName}'s turn`);
+                    } else if (skillDefs.invigorate) {
+                        let txt = ``
+                        for (const i in allySide) {
+                            let partyDef = allySide[i]								
+
+							let heal = Math.round(skillDefs.pow-8 + Math.round(Math.random()*16))
+							
+							// Trust Level 10+ will have 10% increased healing.
+							if (!btl[message.guild.id].pvp) {
+								if (charDefs.id != partyDef.id && charDefs.trust[partyDef.truename] && charDefs.trust[partyDef.truename].level >= 10)
+									heal *= 1.1;
+							}
+
+							// Magic Buffs incease/decrease healing.
+							if (charDefs.buffs.mag) {
+								let aff = 1+parseFloat(charDefs.buffs.mag/10)
+								heal *= aff
+							}
+
+							// Main Element of Heal have increased healing
+							if (charDefs.mainElement === 'heal')
+								heal *= 1.1;
+
+							// Charms
+							if (charFuncs.equippedCharm(charDefs, "DeepFocus"))
+								heal *= 1.25;
+							if (charFuncs.equippedCharm(charDefs, "Reservationist"))
+								heal *= 0.8;
+
+                            partyDef.invigHeal = [Math.round(heal), skillDefs.crit];
+                            txt += `\nA revitalising aura surrounds ${partyDef.name}!`
+
+							txt += turnFuncs.healPassives(partyDef)
+							if (partyDef != charDefs && partyDef.helpedquote && partyDef.helpedquote.length > 0) {
+								let possibleQuote = Math.round(Math.random() * (partyDef.helpedquote.length-1))
+								let theQuote = `\n*${partyDef.name}: "${partyDef.helpedquote[possibleQuote]}"*`
+
+								while (theQuote.includes('%ALLY%'))
+									theQuote = theQuote.replace('%ALLY%', charName)
+								
+								txt += theQuote
+							}
+
+							charFuncs.trustUp(partyDef, charDefs, 10, message.guild.id, client)
+                        }
+	
+						if (skillDefs.debuffuser) {
+							charDefs.buffs[skillDefs.debuffuser] = Math.max(-3, charDefs.buffs[skillDefs.debuffuuser]-1)
+							txt += `\n\n${userName}'s ${skillDefs.debuffuser.toUpperCase()} was debuffed!`
+						}
+
+						DiscordEmbed = new Discord.MessageEmbed()
+                            .setColor('#e36b2b')
+							.setTitle(`${charName} => Party`)
+							.setDescription(`${healQuote}${charName} used ${skillName}!\n${txt}`)
+                            .setFooter(`${charName}'s turn`);
+                    } else if (skillDefs.wish) {
+                        let txt = ``
+                        for (const i in allySide) {
+                            let partyDef = allySide[i]
+
+							let heal = Math.round(skillDefs.pow-8 + Math.round(Math.random()*16))
+
+							// Trust Level 10+ will have 10% increased healing.
+							if (!btl[message.guild.id].pvp) {
+								if (charDefs.id != partyDef.id && charDefs.trust[partyDef.truename] && charDefs.trust[partyDef.truename].level >= 10)
+									heal *= 1.1;
+							}
+
+							// Magic Buffs incease/decrease healing.
+							if (charDefs.buffs.mag) {
+								let aff = 1+parseFloat(charDefs.buffs.mag/10)
+								heal *= aff
+							}
+
+							// Main Element of Heal have increased healing
+							if (charDefs.mainElement === 'heal')
+								heal *= 1.1;
+
+							// Charms
+							if (charFuncs.equippedCharm(charDefs, "DeepFocus"))
+								heal *= 1.25;
+							if (charFuncs.equippedCharm(charDefs, "Reservationist"))
+								heal *= 0.8;
+
+                            partyDef.wish = [Math.round(heal), skillDefs.acc];
+                            txt += `\n${charDefs.name} makes a wish for ${partyDef.name}!`;
+							charFuncs.trustUp(partyDef, charDefs, 5, message.guild.id, client)
+                        }
+						
+						txt += '\nA shooting star comes by...'
+
+						if (skillDefs.debuffuser) {
+							charDefs.buffs[skillDefs.debuffuser] = Math.max(-3, charDefs.buffs[skillDefs.debuffuuser]-1)
+							txt += `\n\n${charDefs.name}'s ${skillDefs.debuffuser.toUpperCase()} was debuffed!`
+						}
+
+						DiscordEmbed = new Discord.MessageEmbed()
+                            .setColor('#e36b2b')
+							.setTitle(`${charName} => Party`)
+							.setDescription(`${healQuote}${charName} used ${skillName}!\n${txt}`)
+                            .setFooter(`${charName}'s turn`);
                     } else {
                         let txt = ``;
                         for (const i in allySide) {
@@ -20447,6 +20850,46 @@ client.on('messageCreate', async message => {
 							.setTitle(`${charName} => ${charName2}`)
 							.setDescription(`${healQuote}${charName} used ${skillName}!\n${charName2}'s HP & MP was fully restored!\n${charName} sacrificed themselves!${passives}${healedQuote}`)
 							.setFooter(`${charName}'s turn`);
+                    } else if (skillDefs.wish) {
+						let txt = '';
+						let heal = Math.round(skillDefs.pow-8 + Math.round(Math.random()*16));
+
+						// Trust Level 10+ will have 10% increased healing.
+						if (!btl[message.guild.id].pvp) {
+							if (charDefs.id != charDefs2.id && charDefs.trust[charDefs2.truename] && charDefs.trust[charDefs2.truename].level >= 10)
+								heal *= 1.1;
+						}
+
+						// Magic Buffs incease/decrease healing.
+						if (charDefs.buffs.mag) {
+							let aff = 1+parseFloat(charDefs.buffs.mag/10)
+							heal *= aff
+						}
+
+						// Main Element of Heal have increased healing
+						if (charDefs.mainElement === 'heal')
+							heal *= 1.1;
+
+						// Charms
+						if (charFuncs.equippedCharm(charDefs, "DeepFocus"))
+							heal *= 1.25;
+						if (charFuncs.equippedCharm(charDefs, "Reservationist"))
+							heal *= 0.8;
+
+						charDefs2.wish = [Math.round(heal), skillDefs.acc];
+						txt += `\n${charDefs.name} makes a wish for ${charDefs2.name}!\nA shooting star comes by...`;
+						charFuncs.trustUp(charDefs2, charDefs, 5, message.guild.id, client);
+
+						if (skillDefs.debuffuser) {
+							charDefs.buffs[skillDefs.debuffuser] = Math.max(-3, charDefs.buffs[skillDefs.debuffuuser]-1)
+							txt += `\n\n${charDefs.name}'s ${skillDefs.debuffuser.toUpperCase()} was debuffed!`
+						}
+
+						DiscordEmbed = new Discord.MessageEmbed()
+                            .setColor('#e36b2b')
+							.setTitle(`${charName} => ${charDefs2.name}`)
+							.setDescription(`${healQuote}${charName} used ${skillName}!\n${txt}`)
+                            .setFooter(`${charName}'s turn`);
 					} else {
 						if (charDefs2.hp <= 0) {
 							message.channel.send(`You can't heal a dead character!`)
@@ -20520,6 +20963,15 @@ client.on('messageCreate', async message => {
 						.setColor('#e36b2b')
 						.setTitle(`${charName} => Self`)
 						.setDescription(`${charName} used ${skillName}!\n${charName} splashes!\n...If only this had an effect.`)
+                } else if (skillDefs.chaosStir) {
+					if (charDefs.doneChaosStir)
+						return message.channel.send("This skill will fail! Don't use it! (Already used a Chaos Stirring skill this battle.)");
+
+					charDefs.chaosStir = skillName
+					DiscordEmbed = new Discord.MessageEmbed()
+						.setColor('#e36b2b')
+						.setTitle(`${charName} => ???`)
+						.setDescription(`${charName} assumes a dangerous stance...`)
                 } else if (skillDefs.analyse) {
                     if (opposingSide[parseInt(arg[2])]) {
                         let enmStats = opposingSide[parseInt(arg[2])]
@@ -20573,8 +21025,8 @@ client.on('messageCreate', async message => {
 
                         DiscordEmbed = new Discord.MessageEmbed()
                             .setColor('#e36b2b')
-							.setTitle(`${charName} => Self`)
-							.setDescription(`${charName} used ${skillName}!\n${charName} was protected by ${skillName}.`)
+							.setTitle(`${charName} => ???`)
+							.setDescription(`${charName} was protected by something...`)
                             .setFooter(`${charName}'s turn`);
 					} else {
 						if (skillDefs.target == 'allallies') {
@@ -20611,7 +21063,7 @@ client.on('messageCreate', async message => {
 							DiscordEmbed = new Discord.MessageEmbed()
 								.setColor('#e36b2b')
 								.setTitle(`${charName} => Allies`)
-								.setDescription(`${charName} used ${skillName}!\nTheir allies were protected by ${skillName}.\n${shieldMsg}${healedQuote}`)
+								.setDescription(`${charName}'s allies were protected by something...\n${shieldMsg}${healedQuote}`)
 								.setFooter(`${charName}'s turn`);
 						} else if (allySide[arg[2]]) {
 							allySide[arg[2]][effect] = skillName
@@ -20644,7 +21096,7 @@ client.on('messageCreate', async message => {
 							DiscordEmbed = new Discord.MessageEmbed()
 								.setColor('#e36b2b')
 								.setTitle(`${charName} => ${charName2}`)
-								.setDescription(`${charName} used ${skillName}!\n${charName2} was protected by ${skillName}.${shieldMsg}${healedQuote}`)
+								.setDescription(`${charName2} was protected by something...\n${shieldMsg}${healedQuote}`)
 								.setFooter(`${charName}'s turn`);
 						} else {
 							message.channel.send("Invalid Ally Position")
@@ -20703,9 +21155,15 @@ client.on('messageCreate', async message => {
 					if (charDefs.mainElement === 'status')
 						statusChance *= 1.1;
 
+					let enmDefs = opposingSide[parseInt(arg[2])] ? opposingSide[parseInt(arg[2])] : opposingSide[0]
+					let enmName = enmDefs.name
+					
+					let finaltext = '';
+
 					if (skillDefs.target == "allopposing") {
 						let hitSomeone = false;
-						let finaltext = `${charName} used ${skillName} on the foes!\n\n`;
+						
+						finaltext = `${charName} used ${skillName} on the foes!\n\n`;
 						for (const i in opposingSide) {
 							let enmDefs = opposingSide[i]
 							if (enmDefs && enmDefs.status === "none") {
@@ -20753,20 +21211,16 @@ client.on('messageCreate', async message => {
 						
 						if (!hitSomeone)
 							return message.channel.send("This move will fail, don't use it! (All opponents have a status.)");
-					} else {
-						let enmDefs = opposingSide[parseInt(arg[2])]
+					} else {						
 						if (enmDefs && enmDefs.status === "none") {
-							let enmName = enmDefs.name
-
 							let targ = (statusChance + (charDefs.chr - enmDefs.luk));
 							if (attackFuncs.physStatus(skillDefs.status))
 								targ = (statusChance + (charDefs.luk - enmDefs.luk));
 
 							let chance = Math.round(Math.random()*100);
-
 							const movestatus = skillDefs.status
 
-							let finaltext = `${charName} used ${skillName} on ${enmDefs.name}!\n`;
+							finaltext = `${charName} used ${skillName} on ${enmDefs.name}!\n`;
 							if (chance <= targ || statusChance >= 100) {
 								finaltext += attackFuncs.inflictStatus(enmDefs, skillDefs);
 								if (charDefs.critquote && charDefs.critquote.length > 0) {
@@ -20781,7 +21235,7 @@ client.on('messageCreate', async message => {
 								}
 								if (enmDefs.hitquote && enmDefs.hitquote.length > 0) {
 									let possibleQuote = utilityFuncs.randNum(enmDefs.hitquote.length-1)
-									finaltext += `\n*${enmName}: "${enmDefs.hitquote[possibleQuote]}"*`
+									finaltext += `\n*${enmDefs.name}: "${enmDefs.hitquote[possibleQuote]}"*`
 								}
 							} else {
 								finaltext += " But they dodged it!"
@@ -20792,7 +21246,7 @@ client.on('messageCreate', async message => {
 								}
 								if (enmDefs.dodgequote && enmDefs.dodgequote.length > 0) {
 									let possibleQuote = Math.round(Math.random() * (enmDefs.dodgequote.length-1))
-									finaltext += `\n*${enmName}: "${enmDefs.dodgequote[possibleQuote]}"*`
+									finaltext += `\n*${enmDefs.name}: "${enmDefs.dodgequote[possibleQuote]}"*`
 								}
 							}
 						}
@@ -20800,7 +21254,7 @@ client.on('messageCreate', async message => {
 
 					DiscordEmbed = new Discord.MessageEmbed()
 						.setColor('#e36b2b')
-						.setTitle(`${charName} => ${enmName}`)
+						.setTitle(`${charName} => ${enmDefs.name}`)
 						.setDescription(`${finaltext}`)
 						.setFooter(`${charName}'s turn`);
 				} else if (skillDefs.buff) {
@@ -21938,9 +22392,11 @@ client.on('messageCreate', async message => {
 			
 			// Restore MP
 			let guardString = ''
-			if (charDefs.level >= 20) {
-				charDefs.mp = Math.min(charDefs.maxmp, charDefs.mp+1);
-				guardString = '\n_(MP was also very slightly restored)_'
+			if (charDefs.level >= 10) {
+				let maxMp = Math.round(charDefs.level/10);
+				let mpGain = utilityFuncs.randBetweenNums(1, maxMp);
+				charDefs.mp = Math.min(charDefs.maxmp, charDefs.mp+mpGain);
+				guardString = `\n_(MP was also very slightly restored, by ${mpGain})_`;
 			}
 
             const DiscordEmbed = new Discord.MessageEmbed()
@@ -24721,4 +25177,4 @@ client.on("guildCreate", guild => {
 	*/
 });
 
-client.login('bot-id');
+client.login('Bot-ID');
